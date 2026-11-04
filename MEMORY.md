@@ -1,0 +1,133 @@
+# Project Memory
+
+The durable record of what we know, what we decided and why, and where things stand.
+**Update it after every network action, decision or surprise.** Newest entries go first
+within each section.
+
+---
+
+## Live state
+
+| Item | Value | As of |
+|---|---|---|
+| Our contributor address | _not created_ | |
+| Our bond / fee address | _not created_ | |
+| Bounty claims | none yet (#96 SECURITY_REVIEW, #128 SMART_CONTRACT_AUDIT) | 11-04 |
+| Our pool rows (SECURITY_REVIEW_GENERAL) | 0 | 11-04 |
+| Our registrations | none | 11-04 |
+| Executor URL | _not deployed_ | |
+| Latest adapter keccak256 | — | |
+
+### Network snapshot (testnet `devnode.telegraphprotocol.com`, epoch ≈ 2011)
+
+| Intent | Canonical | Score | Pool rows / contributors | Miners |
+|---|---|---|---|---|
+| SECURITY_REVIEW | #42 (0x3035…1bc0) | 71.43% / 21 pairs | 55 / 6 | 26 |
+| SMART_CONTRACT_AUDIT | none | — | 0 / 0 | 15 |
+| VULNERABILITY_TRIAGE | #37 (0x3035…) | 83.33% / 30 | 316 / 7 | 36 |
+| SANCTIONS_SCREENING_MATCH | none | — | 485 / 8 | 16 |
+| CODE_REVIEW | #27 (0x3035…) | 91.30% / 23 | 70 / 10 | 14 |
+
+Refresh commands:
+```bash
+N=https://devnode.telegraphprotocol.com
+curl -s "$N/api/wasm?resolve=SECURITY_REVIEW"
+curl -s "$N/api/evalpool/status?intent_id=SECURITY_REVIEW_GENERAL"
+curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
+```
+
+---
+
+## Durable facts (verified 2026-11-04)
+
+### Protocol and format
+- Since **2026-10-30** an adapter is a **safetensors delta** (LoRA plus reward head), never a
+  full `.wasm`. The bounty issue text still says ".wasm", which is outdated.
+- The Foundation is `modernbert-base-lora16-v1`, foundation sha256 `0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6`,
+  engine `77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de`, tokenizer
+  `67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456`, foundation.json
+  `f7de64b999acd3f735118fbe5999abf251fdf188f9797e3a4e36c54ee9e4dbbe`.
+- The kit is `telegraphprotocol/telegraph-wasm-baseline` @ `1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd` (Nov 1).
+- Rendered input: `### Task:\n{prompt}\n\n### Answer:\n{answer}`, **max 512 tokens**.
+- LoRA: plain PEFT, r ≤ 16, targets ⊂ {Wqkv, Wo, Wi}, one alpha, no DoRA or rsLoRA. Defaults
+  r=8, α=32, lr 1e-4, 3 epochs, grad-accum 16. The loss is Bradley–Terry.
+- Intent pools live on the **`_GENERAL` child** (e.g. `SECURITY_REVIEW_GENERAL`). Register the
+  adapter on the **family prefix** (`SECURITY_REVIEW`).
+- `SECURITY_REVIEW` class = **judgment**. `SMART_CONTRACT_AUDIT_GENERAL` = judgment.
+
+### Gates
+- Kit dataset gate: ≥ 80% unique rejected; no single rejected answer > 2%; chosen == rejected ≤ 1%;
+  longer/shorter-wins ≤ 65%; question-blind BoW ≤ 65%; held-out leakage ≤ 10%.
+- Kit eval gate: held-out ≥ 65% and ≥ +10 points over longer-wins.
+- Node: a remote check on **15 public pairs (all contributors)** ≥ 70% → hash → Stage 1 →
+  bit-exact confirmation → hidden split ≥ 70% (≥ 60% per child) **and ≥ incumbent + 2 points**.
+- Remote check failures retry at most 3 times; the budget is 30 min. Replies ≤ 64 KiB; no redirects;
+  private IPs are refused.
+
+### Eval pool
+- The pool is used only after **≥ 5 distinct contributors**. Samples draw *evenly across
+  contributors*.
+- Provenance: an `http(s)` `source_url` → `attested`. `source_kind` ∈ {llm, synthetic,
+  generated, model} → always `unverified`.
+- Prompt 16–16k chars, answers 8–32k chars. A prompt ≥ 85% similar to an existing one is
+  rejected. 5,000 rows a day per contributor per Intent. Once the pool reaches 200 rows,
+  no contributor may hold more than 50%.
+- Rows go to a hidden **testing** half or a miner-visible **ranking** half. We don't choose
+  which. Frozen at each epoch rollover (testnet epoch ≈ 1 h).
+- Testnet chain id `11155111` (Sepolia). Upload with `curl --data-binary`, never `-d`.
+
+### Hackathon
+- Evaluators prizes: 4 × $300 delivery, $500 / $300 excellence. A team can win one of each.
+- Delivery tie-break: **proven measurement improvement or valuable new coverage**, then
+  validity score.
+- Judging out of 100 (70 to win; technical ≥ 24/35): Technical 35, Commercial 25,
+  Growth/education 20, Adoption 10, Integration 5, Reproducibility 5. Stars and likes score 0.
+- Submission: team, track, missions/Intents, a working link, a 2–5 min demo, run
+  instructions, evidence, a public summary, and showcase permissions.
+- Dates: Nov 14 milestone, Nov 20 showcase, **Dec 1 23:59 UTC deadline**, judging Dec 2–8,
+  results from Dec 9 (72 h to appeal).
+
+### Competition intel
+- 0x3035… seeded about 10 first-Canonical adapters on Nov 1. They're generic baselines.
+- 0x8b22… (zkasuran) challengers all failed the **remote check**: CODE_REVIEW 13.3%,
+  EMAIL_SECURITY 53.3%, THREAT_INTELLIGENCE 53.3%. Another was rejected for
+  `class_mismatch` (it exported `hybrid` for a judgment Intent).
+- Bounty #96 claimant Iniwura (FALSUM) submitted 20 pairs and **no adapter**. Their LoRA
+  failed "contextual reversal" tests (0/2).
+
+---
+
+## Decisions
+
+| Date | Decision | Why |
+|---|---|---|
+| 11-04 | Primary Intent `SECURITY_REVIEW`, stretch `SMART_CONTRACT_AUDIT` | The weakest security incumbent (71.43%), the most miners, a P1 bounty. SCA is greenfield coverage. |
+| 11-04 | Drop media forensics / deepfake | Text-only foundation; those answers are about images |
+| 11-04 | Public and pool datasets strictly disjoint | Don't leak hidden testing-half rows |
+| 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
+| 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
+| 11-04 | Contextual reversal (F4) is a core family | It's a documented failure of another contributor's LoRA, and likely the incumbent's too |
+
+---
+
+## Open questions (ask the organizers)
+
+1. May we publish rows we also uploaded to the pool, or must the public set be disjoint?
+   We assume disjoint.
+2. Does the remote check sample only the ranking half, or any public pairs?
+3. Does a testnet Canonical slot carry over to mainnet, or is it re-run there?
+4. The incumbents use `http://…sslip.io` URLs, but the docs require `https://`. Which is enforced?
+5. Is AI-assisted authoring fine if every row cites a real `source_url`, and what `source_kind`
+   should it carry?
+
+---
+
+## Gotchas
+
+- `curl -d` strips newlines → `signer_mismatch`. Always use `--data-binary @file`.
+- Export with `--class judgment` (a `hybrid` export on a judgment Intent → `class_mismatch`).
+- Re-registering the same hash reverts (`duplicate wasm hash`). Every change needs a new export.
+- A host that re-encodes files breaks the keccak256. Use GitHub raw at a commit SHA, or IPFS.
+- If training used `--max-length < 512`, export with the same `--max-tokens`.
+- Only the reference `adapterexec` gives bit-exact scores. Native ONNX Runtime doesn't.
+- Bounty claims lapse without a `/progress` comment every 72 h.

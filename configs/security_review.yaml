@@ -1,0 +1,9 @@
+# Starting hyperparameters for SECURITY_REVIEW (kit defaults unless noted).
+# Kit limits: lora_rank <= 16; targets among Wqkv, Wo, Wi; max_length <= 512.
+max_length: 512
+lora_rank: 8
+lora_alpha: 32
+lr: 0.0001
+epochs: 3
+grad_accum: 8      # lowered from 16: small dataset (~400 pairs)
+seed: 13

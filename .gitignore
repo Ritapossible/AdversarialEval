@@ -1,0 +1,22 @@
+# never publish the eval-pool upload set
+data/private/*
+!data/private/README.md
+
+# vendored kit + foundation (fetched by scripts/setup_kit.sh)
+third_party/
+
+# training outputs (publish finals under adapters/)
+runs/
+
+# secrets
+.env
+*.key
+*.pem
+keystore/
+
+# python / node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.ipynb_checkpoints/
