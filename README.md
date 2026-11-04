@@ -73,3 +73,7 @@ Phase 0, setup. See [`PLAN.md`](PLAN.md) for the current milestone.
   official adapter kit (MIT)
 - [telegraph-foundation](https://github.com/telegraphprotocol/telegraph-foundation), Foundation
   Model `modernbert-base-lora16-v1` (Apache-2.0, from `answerdotai/ModernBERT-base`)
+
+## Contributors
+
+- **Rita** ([@Ritapossible](https://github.com/Ritapossible)): project lead
