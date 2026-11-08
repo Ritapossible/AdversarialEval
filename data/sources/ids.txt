@@ -1,0 +1,28 @@
+# Advisory cases for SECURITY_REVIEW. Verified via OSV by tools/fetch_sources.py.
+# id                      split            case
+GHSA-8q59-q68h-6hv4       split=public     # PyYAML full_load RCE
+GHSA-9wx4-h78v-vm56       split=public     # requests Session verify=False persists
+GHSA-j8r2-6x86-q33q       split=public     # requests Proxy-Authorization leak
+GHSA-m2qf-hxjv-5gpq       split=public     # Flask session cookie behind caching proxy
+GHSA-35jh-r3h4-6jhm       split=public     # lodash template command injection
+GHSA-p6mc-m468-83gw       split=public     # lodash zipObjectDeep prototype pollution
+GHSA-xvch-5gv4-984h       split=public     # minimist prototype pollution
+GHSA-jfh8-c2jp-5v3q       split=public     # log4j Log4Shell
+GHSA-7rjr-3q55-vv33       split=public     # log4j incomplete fix
+GHSA-wf5p-g6vw-rhxx       split=public     # axios XSRF-TOKEN leak
+GHSA-v845-jxx5-vc9f       split=public     # urllib3 Cookie header on redirect
+GHSA-h5c8-rqwp-cp95       split=public     # Jinja2 xmlattr XSS
+GHSA-3f63-hfp8-52jq       split=public     # Pillow ImageMath.eval
+GHSA-rv95-896h-c2vc       split=public     # express open redirect
+GHSA-c2qf-rxjj-qqgw       split=public     # semver ReDoS
+GHSA-2g68-c3qc-8985       split=public     # Werkzeug debugger RCE
+GHSA-r683-j2x4-v87g       split=public     # node-fetch cookie leak
+GHSA-3h5v-q93c-6h6q       split=public     # ws DoS many headers
+GHSA-36p3-wjmg-h94x       split=public     # Spring4Shell
+GHSA-27h2-hvpr-p74q       split=public     # jsonwebtoken CVE-2022-23529 — WITHDRAWN: F1 trap only
+GHSA-qwph-4952-7xr6       split=validation # jsonwebtoken insecure key types
+GHSA-9c47-m6qq-7p4h       split=validation # json5 prototype pollution
+GHSA-jchw-25xp-jwwc       split=validation # follow-redirects
+GHSA-h75v-3vvj-5mfj       split=public     # Jinja2 xmlattr XSS, incomplete fix (twin of h5c8 — same split)
+GHSA-mq26-g339-26xf       split=validation # pip command injection via Mercurial VCS URL
+GHSA-cph5-m8f7-6c5x       split=public     # axios ReDoS (fixed 0.21.2)

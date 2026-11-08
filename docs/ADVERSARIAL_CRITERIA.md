@@ -29,7 +29,11 @@ misconfiguration, and injection-prone patterns.
 5. **Calibrated.** It's certain where the evidence is decisive. It states exactly what's
    missing (an unpinned version, unseen config) where it isn't, and doesn't refuse.
 6. **Internally consistent.** The verdict, the count, the issues list and the summary agree.
-7. **Actionable.** The fix actually closes the issue (upgrade target ≥ the first patched
+7. **Scoped.** Claims about advisories are limited to what the prompt asks: the alert,
+   advisory, package or code shown. A chosen answer never says "this version has no known
+   vulnerabilities". New advisories appear all the time, so that claim goes stale and makes
+   the label wrong. Say "not affected by X" or "for the code shown" instead.
+8. **Actionable.** The fix actually closes the issue (upgrade target ≥ the first patched
    version; a parameterised query, not escaping).
 
 ## What a *rejected* answer must be

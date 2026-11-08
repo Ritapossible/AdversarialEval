@@ -13,6 +13,8 @@ within each section.
 | Our contributor address | _not created_ | |
 | Our bond / fee address | _not created_ | |
 | Bounty claims | none yet (#96 SECURITY_REVIEW, #128 SMART_CONTRACT_AUDIT) | 11-04 |
+| Dataset | 59 public train + 14 validation pairs (Claude drafts, unreviewed); 26 OSV-verified sources | 11-08 |
+| Data check | kit dataset gate PASS on train; naive scorers ≤ 58% overall; per-family tells remain (report 11-08) | 11-08 |
 | Our pool rows (SECURITY_REVIEW_GENERAL) | 0 | 11-04 |
 | Our registrations | none | 11-04 |
 | Executor URL | _not deployed_ | |
@@ -106,6 +108,9 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-04 | Public and pool datasets strictly disjoint | Don't leak hidden testing-half rows |
 | 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
 | 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
+| 11-08 | Chosen answers make scoped claims only ("not affected by X"), never "no known vulnerabilities" | Absolute claims go stale as new advisories land, which silently flips labels |
+| 11-08 | Every advisory fact comes from OSV (`tools/fetch_sources.py`), and `build.py` rejects unverified ids | Two of our own id comments were wrong on the first fetch (GHSA-h75v… is Jinja2, not vm2) |
+| 11-08 | The kit gate governs train and pool sets; validation is reported only | The kit gate's repeat check is meaningless below about 50 rows |
 | 11-04 | Contextual reversal (F4) is a core family | It's a documented failure of another contributor's LoRA, and likely the incumbent's too |
 
 ---
@@ -123,6 +128,14 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 ---
 
 ## Gotchas
+
+- **`data/private/` is git-ignored, so it is lost when the cloud container is reclaimed.** Keep
+  the pool set somewhere durable outside git (a local machine or a private repo) before
+  authoring it here.
+- Seed pairs are `claude-draft`, `reviewed: false`. A human must review them before pool
+  upload, and they must never be labelled `source_kind: human` unreviewed.
+- First seed batch: chosen-longer was 100% until the rejected answers were rebalanced. Check
+  length per family, not just overall.
 
 - `curl -d` strips newlines → `signer_mismatch`. Always use `--data-binary @file`.
 - Export with `--class judgment` (a `hybrid` export on a judgment Intent → `class_mismatch`).

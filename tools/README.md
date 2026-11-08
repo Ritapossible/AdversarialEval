@@ -1,9 +1,12 @@
-# tools/ (to build in Phase 1–2)
+# tools/
 
 | Script | Purpose |
 |---|---|
-| `normalise.py` | NFC + whitespace collapse, the same as the node |
-| `dedup.py` | Drop prompts ≥ 85% similar, within and across public/validation/private |
-| `token_budget.py` | Render `### Task:\n…\n\n### Answer:\n…`; fail rows over 512 tokens |
-| `split.py` | Assign each source case to exactly one split |
-| `upload_pool.sh` | Sign (EIP-191 via `cast`) and POST a JSONL to `/api/evalpool/submissions` |
+| `fetch_sources.py` | Verify every advisory in `data/sources/ids.txt` against OSV; cache raw records; write `sources.jsonl` |
+| `build.py` | Validate `data/authoring/` pairs (ids, splits, enums, lengths) and write node rows + sidecar meta per split |
+| `token_budget.py` | Render with the pinned tokenizer; fail texts over 512 tokens |
+| `dedup.py` | Flag prompts ≥ 85% similar within a split, and ≥ 70% across splits |
+| `upload_pool.sh` | Sign (EIP-191 via `cast`) and POST a `data/private/` JSONL to the eval pool; `--dry-run` shows the message |
+| `common.py` | Node normalisation, row ids, render, paths |
+
+Run everything with `bash scripts/check_data.sh`. Tests: `python tests/test_tools.py`.

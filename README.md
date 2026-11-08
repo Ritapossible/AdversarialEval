@@ -57,15 +57,21 @@ The full reasoning is in [`docs/RESEARCH.md`](docs/RESEARCH.md).
 ## Quick start
 
 ```bash
-bash scripts/setup_kit.sh          # clones the pinned adapter kit and fetches foundation.json
-bash scripts/check_data.sh data/public/security_review.train.jsonl
+bash scripts/setup_kit.sh --tokenizer   # pinned kit, foundation.json and the node's tokenizer
+bash scripts/check_data.sh              # full data check
 ```
 
 The full pipeline is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
 
 ## Status
 
-Phase 0, setup. See [`PLAN.md`](PLAN.md) for the current milestone.
+Phase 1, criteria and seed data. There are 59 training pairs and 14 validation pairs. The kit dataset gate passes, and every naive scorer is ≤ 58%. See [`eval/reports/2026-11-08-seed-v0.md`](eval/reports/2026-11-08-seed-v0.md) and [`PLAN.md`](PLAN.md).
+
+```bash
+pip install numpy tokenizers
+bash scripts/check_data.sh      # build, token budget, near-duplicates, baselines, kit gate
+python tests/test_tools.py
+```
 
 ## Built on
 

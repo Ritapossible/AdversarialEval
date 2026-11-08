@@ -56,6 +56,46 @@ Joined on `row_id = sha256(normalised prompt + "\x00" + normalised chosen + "\x0
  "urls": ["https://nvd.nist.gov/vuln/detail/CVE-2020-14343"], "split": "public"}
 ```
 
+## Authoring format (`data/authoring/<intent>/*.jsonl`)
+
+Pairs are written in one rich format. `tools/build.py` validates them and writes the
+node/kit files and the sidecar meta above. Private pool pairs live in
+`data/private/authoring/<intent>/` (git-ignored).
+
+```json
+{"case": "GHSA-8q59-q68h-6hv4", "family": "F2", "split": "public", "format": "prose",
+ "prompt": "…", "chosen": "…", "rejected": "…", "source_url": "https://github.com/advisories/GHSA-8q59-q68h-6hv4",
+ "verdict_chosen": "Secure", "verdict_rejected": "Insecure",
+ "flaw_note": "claims the fix landed in 6.0; it landed in 5.4", "fabricated_ids": [],
+ "author": "claude-draft", "reviewed": false}
+```
+
+`case` is either an advisory id from `data/sources/ids.txt` or a `code-…` / `v-code-…` id for
+a code-pattern case. All rows of a case must share one split, and an advisory case's split is
+set in `ids.txt`.
+
+What `build.py` enforces, as hard errors:
+- **Required fields and enums:** families F1–F10, the three verdicts, and the formats.
+- **Length limits:** the node's limits, plus `https://` source URLs.
+- **One split per case:** a case can't straddle splits. Private rows must sit under
+  `data/private/`.
+- **Advisory ids are verified:** every CVE/GHSA id in a prompt or answer must exist in
+  `data/sources/sources.jsonl` (verified via OSV).
+- **Fabrications are declared:** a deliberately fabricated id must be listed in
+  `fabricated_ids`, may appear only in `rejected`, and must not be a real advisory.
+- **Withdrawn advisories:** one may appear in `chosen` only if the answer says it was
+  withdrawn.
+
+Warnings: the house length ranges, and a chosen/rejected length ratio over 1.25.
+
+## Provenance and review status
+
+The seed pairs (Nov 2026) are **drafted by Claude** (`author: claude-draft`) from verified
+OSV and CWE sources, with `reviewed: false`. They're fine for the public training set as
+they are. **Before any row goes into the pool set, a human checks it and sets
+`reviewed: true`.** Its `source_kind` is then chosen honestly (see open question 5 in
+`MEMORY.md`). Never label AI-drafted, unreviewed text as `human`.
+
 ## Authoring workflow
 
 1. Pick a source case and verify it on NVD or GHSA (affected range, patched version, CWE).
