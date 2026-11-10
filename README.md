@@ -45,6 +45,7 @@ The full reasoning is in [`docs/RESEARCH.md`](docs/RESEARCH.md).
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Components, data flow, the scoring contract, interfaces |
 | [`MEMORY.md`](MEMORY.md) | Durable project memory: facts, decisions, live state, gotchas |
 | [`CLAUDE.md`](CLAUDE.md) | Working rules for AI assistants on this repo |
+| [`docs/AUDIT_2026-11-10.md`](docs/AUDIT_2026-11-10.md) | Senior-engineer audit and the upgrade plan (U1–U11) |
 | [`docs/RESEARCH.md`](docs/RESEARCH.md) | Study of the kit, rules, live network and competition |
 | [`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md) | The failure-mode taxonomy (a deliverable) |
 | [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md) | Row schema, authoring rules, splits, provenance |

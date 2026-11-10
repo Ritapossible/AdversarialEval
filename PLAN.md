@@ -51,6 +51,19 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
       rejected answer to match length, truncation at 512 tokens
 - [ ] Upload the private pool set (signed) → confirm the rows are `eligible`
 
+### Phase U: Audit upgrades (Nov 10–20), see `docs/AUDIT_2026-11-10.md`
+- [ ] U1 Frozen test split `data/test/` by outside reviewers (Claude: structure + guide; you: recruit 2–3 reviewers)
+- [ ] U2 Human-reviewed pool upload (about 100 pairs) (blocked: review + wallet)
+- [ ] U3 Sample and label real miner responses (blocked: funded wallet)
+- [ ] U4 3-seed runs + registration rule: clean-test lower bound > about 72% (blocked for registration: wallets, VM, `/claim` #96)
+- [ ] U5 Programmatic OSV minimal pairs (F1/F2/F7/F8), labels verified from OSV ranges
+- [ ] U6 Error-mining loop on held-out errors
+- [ ] U7 Re-scope taxonomy: learnable-from-text vs knowledge families
+- [ ] U8 (optional) Seed-merged LoRA via SVD
+- [ ] U9 Impact demo: incumbent vs ours on real miner responses (after U3)
+- [ ] U10 Upstream patches for kit issues (filing is your call)
+- [x] U11 Drop SMART_CONTRACT_AUDIT as an adapter target (material only)
+
 ### Phase 3: Integration milestone (Nov 14)
 - [ ] An adapter passes the kit eval gate and our G3/G4 targets
 - [ ] Export the delta → `adapterbuild lora` PASS → record the keccak256
