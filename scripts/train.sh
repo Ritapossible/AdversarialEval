@@ -24,13 +24,17 @@ python3 -m float_runtime.train_adapter --intent "$INTENT" --data "$TRAIN" --val-
   | grep -E "epoch .* (done|validation)|gate|accuracy|baseline|FAIL|PASS|Error"
 KIT_RC=${PIPESTATUS[0]}
 cd "$ROOT"
+# The kit at 1ed063e crashes with NameError ('pkg') while printing its "Next" hint AFTER a
+# passing gate (exit 1). Trust the verdict in result.json, not the exit code.
+VERDICT=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1])).get('verdict','?'))" "$RUN/result.json" 2>/dev/null || echo "none")
+[ "$VERDICT" = "PASS" ] && KIT_RC=0
 
 {
   echo "# Run \`$NAME\`: $INTENT"
   echo
   echo "Date: $(date +%F) · kit \`$(git -C third_party/telegraph-wasm-baseline rev-parse --short HEAD)\` · data commit \`$(git rev-parse --short HEAD)\` · extra args: \`${*:-none}\`"
   echo
-  echo "Train: $(grep -c . "$TRAIN") pairs · Validation (second voice, held out by case): $(grep -c . "$VAL") pairs · kit exit code: $KIT_RC"
+  echo "Train: $(grep -c . "$TRAIN") pairs · Validation (second voice, held out by case): $(grep -c . "$VAL") pairs · kit gate verdict: **$VERDICT**"
   echo
   echo "## Kit log (epochs and gates)"
   echo

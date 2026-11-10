@@ -18,7 +18,7 @@ within each section.
 | Our pool rows (SECURITY_REVIEW_GENERAL) | 0 | 11-04 |
 | Our registrations | none | 11-04 |
 | Executor URL | _not deployed_ | |
-| Latest adapter keccak256 | — | |
+| Latest adapter keccak256 | cpu-v0 smoke package `0x1a4e6750…45dd` (passes node Stage 1 locally; NOT registered; 61.5% on validation, below the 70% floor) | 11-10 |
 
 ### Network snapshot (testnet `devnode.telegraphprotocol.com`, epoch ≈ 2011)
 
@@ -128,6 +128,12 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 ---
 
 ## Gotchas
+
+- **Kit bugs at `1ed063e`** (see `docs/UPSTREAM_ISSUES.md`):
+  - (1) `train_adapter` exits 1 after a PASS (NameError `pkg`). Read `result.json`'s verdict instead.
+  - (2) `export_adapter` refuses runs trained on today's HF tokenizer download (same ids, different bytes). Use `scripts/export.sh`.
+  - (3) Offline `adapterbuild` says SECURITY_REVIEW needs "hybrid". The node says **judgment**. Use `tools/stage1check`.
+  - (4) Export is non-deterministic (random metadata key order), so export once and archive the exact file.
 
 - **`data/private/` is git-ignored, so it is lost when the cloud container is reclaimed.** Keep
   the pool set somewhere durable outside git (a local machine or a private repo) before

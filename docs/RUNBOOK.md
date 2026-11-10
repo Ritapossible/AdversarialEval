@@ -44,6 +44,9 @@ Exit 0 means pass, 1 means a gate failed, 2 means an error. Read `runs/$INTENT/r
 
 ## 3. Export the delta
 
+**Use `bash scripts/export.sh <run-name>`.** It runs steps 3 and 4 with the workarounds for the kit issues in `docs/UPSTREAM_ISSUES.md`: a tokenizer equivalence proof, a staged `--adapter` export, and a Stage 1 check with the class read from the live node. Export **once** and register those exact bytes: re-exporting changes the hash (issue 4). The manual commands below are kept for reference.
+
+
 ```bash
 (cd $KIT && python -m float_runtime.export_adapter --run ../../runs/$INTENT --intent $INTENT \
   --class judgment --foundation ../../third_party/foundation/foundation.json)
@@ -60,7 +63,9 @@ Exit 0 means pass, 1 means a gate failed, 2 means an error. Read `runs/$INTENT/r
 #   --engine float_runtime/engine/foundation_engine.wasm
 ```
 
-Record the `keccak256` in `MEMORY.md` → Live state.
+Record the `keccak256` from the stage1check output (not from export_adapter's log line) in `MEMORY.md` → Live state.
+
+> Offline `adapterbuild lora` reports `class_mismatch ... needs "hybrid"` for SECURITY_REVIEW. Ignore it: the node classifies the intent as **judgment**. Use `tools/stage1check` instead.
 
 ## 5. Host the package
 
