@@ -26,3 +26,14 @@ GHSA-jchw-25xp-jwwc       split=validation # follow-redirects
 GHSA-h75v-3vvj-5mfj       split=public     # Jinja2 xmlattr XSS, incomplete fix (twin of h5c8 — same split)
 GHSA-mq26-g339-26xf       split=validation # pip command injection via Mercurial VCS URL
 GHSA-cph5-m8f7-6c5x       split=public     # axios ReDoS (fixed 0.21.2)
+# --- validation-only cases (second voice) ---
+GHSA-hrpp-h998-j3pp       split=validation
+GHSA-rc47-6667-2j5j       split=validation
+GHSA-72xf-g2v4-qvf3       split=validation
+GHSA-grv7-fg5c-xmjg       split=validation
+GHSA-952p-6rrq-rcjv       split=validation
+GHSA-xqr8-7jwr-rhp7       split=validation
+GHSA-cx63-2mw6-8hw5       split=validation
+GHSA-8hc4-vh64-cxmj       split=validation
+GHSA-7fh5-64p2-3v2j       split=validation
+GHSA-3xgq-45jj-v275       split=validation

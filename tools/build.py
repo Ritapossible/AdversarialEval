@@ -74,14 +74,15 @@ def check_row(r: dict, where: str, sources: dict, errors: list, warns: list) -> 
 
     # advisory-id discipline: real ids only, except declared F1 fabrications in `rejected`
     fab = {x.upper() for x in r.get("fabricated_ids", [])}
-    if fab and r["family"] != "F1":
-        warns.append(f"{where}: fabricated_ids on a non-F1 row")
+    mis = {x.upper() for x in r.get("misattributed_ids", [])}
+    if (fab or mis) and r["family"] != "F1":
+        warns.append(f"{where}: fabricated_ids/misattributed_ids on a non-F1 row")
     for side in ("prompt", "chosen", "rejected"):
         for m in ADVISORY_ID.findall(r[side]):
             mid = m.upper()
-            if mid in fab:
+            if mid in fab or mid in mis:
                 if side != "rejected":
-                    errors.append(f"{where}: fabricated id {m} appears in {side}")
+                    errors.append(f"{where}: trap id {m} appears in {side}")
                 continue
             src = sources.get(mid)
             if src is None:
@@ -89,6 +90,9 @@ def check_row(r: dict, where: str, sources: dict, errors: list, warns: list) -> 
                               f"(add it to ids.txt, or declare it in fabricated_ids if deliberate)")
             elif src.get("withdrawn") and side == "chosen" and "withdrawn" not in r["chosen"].lower():
                 errors.append(f"{where}: chosen cites withdrawn advisory {m} without saying it was withdrawn")
+    for m in mis:
+        if m not in r["rejected"].upper():
+            warns.append(f"{where}: misattributed id {m} not found in rejected")
     for m in fab:
         if m in sources:
             errors.append(f"{where}: {m} is declared fabricated but is a real advisory")

@@ -61,6 +61,13 @@ def test_declared_fabrication_allowed_only_in_rejected():
     assert any("appears in chosen" in e for e in bad)
 
 
+def test_misattributed_id_allowed_only_in_rejected():
+    ok, _ = run(family="F1", misattributed_ids=["CVE-2020-28471"], rejected=BASE["rejected"] + " CVE-2020-28471.")
+    assert ok == []
+    bad, _ = run(family="F1", misattributed_ids=["CVE-2020-28471"], chosen=BASE["chosen"] + " CVE-2020-28471.")
+    assert any("appears in chosen" in e for e in bad)
+
+
 def test_fabricated_id_must_not_be_real():
     errors, _ = run(family="F1", fabricated_ids=["CVE-2020-14343"])
     assert any("real advisory" in e for e in errors)

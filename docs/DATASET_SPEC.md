@@ -81,8 +81,11 @@ What `build.py` enforces, as hard errors:
   `data/private/`.
 - **Advisory ids are verified:** every CVE/GHSA id in a prompt or answer must exist in
   `data/sources/sources.jsonl` (verified via OSV).
-- **Fabrications are declared:** a deliberately fabricated id must be listed in
-  `fabricated_ids`, may appear only in `rejected`, and must not be a real advisory.
+- **Trap ids are declared:** an F1 trap id may appear only in `rejected`. If it doesn't
+  exist anywhere, list it in `fabricated_ids`. If it's a real advisory for a different
+  package or issue, list it in `misattributed_ids`. `tools/check_ids.py` checks both against
+  OSV. Random-looking ids are often real: `CVE-2020-28471` (properties-reader) and
+  `GHSA-7fh5-64p2-3v2j` (PostCSS) were both "invented" before the check caught them.
 - **Withdrawn advisories:** one may appear in `chosen` only if the answer says it was
   withdrawn.
 

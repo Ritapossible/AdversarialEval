@@ -34,7 +34,7 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [x] Source list of real advisories: GHSA, NVD, OSV, CWE pages, about 150 distinct
       package/version cases
 - [ ] Author 10 seed pairs per family (100 total) following `docs/DATASET_SPEC.md`
-      (in progress: 59 train + 14 validation as of Nov 8; see `eval/reports/2026-11-08-seed-v0.md`)
+      (in progress: 95 train + 39 validation as of Nov 10; see `eval/reports/`)
 - [ ] Human review pass on seed pairs (`reviewed: true`)
 - [x] `scripts/check_data.sh` passes the kit dataset gate
 - [x] Naive-baseline harness (`eval/baselines.py`): longer-wins, shorter-wins, keyword overlap

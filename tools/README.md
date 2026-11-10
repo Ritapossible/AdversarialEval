@@ -3,6 +3,7 @@
 | Script | Purpose |
 |---|---|
 | `fetch_sources.py` | Verify every advisory in `data/sources/ids.txt` against OSV; cache raw records; write `sources.jsonl` |
+| `check_ids.py` | Query OSV for every F1 trap id: `fabricated_ids` must not exist (404), `misattributed_ids` must exist (cached in `data/sources/id_checks.json`) |
 | `build.py` | Validate `data/authoring/` pairs (ids, splits, enums, lengths) and write node rows + sidecar meta per split |
 | `token_budget.py` | Render with the pinned tokenizer; fail texts over 512 tokens |
 | `dedup.py` | Flag prompts ≥ 85% similar within a split, and ≥ 70% across splits |

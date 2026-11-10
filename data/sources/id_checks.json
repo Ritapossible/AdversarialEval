@@ -1,0 +1,22 @@
+{
+ "CVE-2020-28471": {
+  "exists": true,
+  "summary": "This affects the package properties-reader before 2.2.0."
+ },
+ "CVE-2023-45803": {
+  "exists": true,
+  "summary": "Request body not stripped after redirect in urllib3"
+ },
+ "CVE-2023-50912": {
+  "exists": false
+ },
+ "GHSA-9H7C-RQ2V-XW4M": {
+  "exists": false
+ },
+ "GHSA-Q3F8-W2R9-5JCM": {
+  "exists": false
+ },
+ "GHSA-X4M2-7C9P-2FQW": {
+  "exists": false
+ }
+}

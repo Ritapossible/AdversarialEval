@@ -3,7 +3,7 @@
 | Script | Purpose |
 |---|---|
 | `baselines.py` | **Built.** Longer/shorter-wins, prompt overlap, TF-IDF-to-prompt, security-term density, hedge words, ids cited, per family, plus the kit's own dataset gate |
-| `score.py` (todo) | Score pairs with a trained PEFT adapter + head; per-family / per-voice / per-length accuracy |
+| `score.py` | **Built.** Score pairs with a trained PEFT adapter and head (PyTorch, node render, no padding, 512 cap); accuracy per family, length bucket, verdict and format; `--probe-pad` length-padding probe |
 | `probes.py` (todo) | Swap invariance, paraphrased chosen, length-padded rejected, late-flaw truncation |
 | `report.py` (todo) | Write `reports/YYYY-MM-DD-<run>.md` and apply the go/no-go rule |
 
