@@ -1,0 +1,78 @@
+From 48237b3abae270202513907d7330d8f427baa8d7 Mon Sep 17 00:00:00 2001
+From: Ritapossible <egwuaturita95@gmail.com>
+Date: Tue, 10 Nov 2026 16:06:24 +0000
+Subject: [PATCH 4/4] lora_format: write packages deterministically
+
+safetensors 0.8 serialises __metadata__ in a random key order on every
+save, so exporting the same adapter twice gave different bytes and the
+sha256 export_adapter logged (from a separate save()) never matched the
+file it wrote. Serialise the header ourselves with sorted metadata keys
+and contiguous tensors in the given order, write those exact bytes, and
+return them. Verified: two exports are byte-identical, the kit reader and
+adapterbuild's Stage 1 parser accept the package.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ float_runtime/lora_format.py | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/float_runtime/lora_format.py b/float_runtime/lora_format.py
+index 4d9d95d..77c0612 100644
+--- a/float_runtime/lora_format.py
++++ b/float_runtime/lora_format.py
+@@ -33,6 +33,7 @@ the guest. Keep the three in step. The file's identity is its keccak256 (wasm_ha
+ from __future__ import annotations
+ 
+ import json
++from pathlib import Path
+ 
+ FORMAT_VERSION = 1
+ ABI = "lora-v1"
+@@ -85,10 +86,28 @@ def metadata(*, cls: str, intent: str, foundation_hash: str, foundation_version:
+     return m
+ 
+ 
++def _serialize(meta: dict[str, str], tensors: dict) -> bytes:
++    """Deterministic safetensors bytes: `u64 LE header length | JSON header | data`. Tensors
++    are laid out contiguously in the given order and the metadata keys are sorted, so the same
++    package always has the same hash. (safetensors' own writer emits __metadata__ in a random
++    key order on every call, which makes the package hash unreproducible.)"""
++    import struct
++    header: dict = {"__metadata__": {k: meta[k] for k in sorted(meta)}}
++    blobs, offset = [], 0
++    for name, a in tensors.items():
++        b = a.astype("<f4", copy=False).tobytes()
++        header[name] = {"dtype": "F32", "shape": list(a.shape), "data_offsets": [offset, offset + len(b)]}
++        blobs.append(b)
++        offset += len(b)
++    h = json.dumps(header, separators=(",", ":")).encode("utf-8")
++    h += b" " * (-len(h) % 8)  # 8-byte alignment of the data section, as safetensors does
++    return struct.pack("<Q", len(h)) + h + b"".join(blobs)
++
++
+ def write_package(path, meta: dict[str, str], tensors: dict) -> bytes:
+-    """Write {name: float32 numpy array} with meta as a safetensors file; returns its bytes."""
++    """Write {name: float32 numpy array} with meta as a safetensors file; returns the exact
++    bytes written (so a logged hash is the file's hash)."""
+     import numpy as np
+-    from safetensors.numpy import save, save_file
+     clean = {}
+     for name, arr in tensors.items():
+         a = np.ascontiguousarray(arr, dtype=np.float32)
+@@ -98,11 +117,11 @@ def write_package(path, meta: dict[str, str], tensors: dict) -> bytes:
+     for k, v in meta.items():
+         if not isinstance(k, str) or not isinstance(v, str):
+             raise ValueError(f"metadata {k!r} must map a string to a string")
+-    data = save(clean, metadata=meta)
++    data = _serialize(meta, clean)
+     if len(data) > MAX_PACKAGE_BYTES:
+         raise ValueError(f"package is {len(data)} bytes, above the {MAX_PACKAGE_BYTES} cap")
+     if path is not None:
+-        save_file(clean, str(path), metadata=meta)
++        Path(path).write_bytes(data)
+     return data
+ 
+ 
+-- 
+2.43.0
+

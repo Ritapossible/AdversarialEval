@@ -1,0 +1,102 @@
+From e26886741bae74fcb2fe2ba570e13afa06967352 Mon Sep 17 00:00:00 2001
+From: Ritapossible <egwuaturita95@gmail.com>
+Date: Tue, 10 Nov 2026 16:06:24 +0000
+Subject: [PATCH 3/4] adapterbuild lora: add --node to read the intent class
+ from a node
+
+Offline, the class comes from the compiled-in catalog, which cannot tell
+judgment from hybrid and reports hybrid. A correct judgment package
+(e.g. SECURITY_REVIEW) was therefore refused locally with class_mismatch,
+and authors who followed the tool's advice were rejected on chain (the
+node enforces judgment). --node reads GET /engine/v1/intents/<INTENT>
+and installs that class before the check; without it nothing changes.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ cmd/adapterbuild/lora.go | 42 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/cmd/adapterbuild/lora.go b/cmd/adapterbuild/lora.go
+index 38a38c8..19ddd99 100644
+--- a/cmd/adapterbuild/lora.go
++++ b/cmd/adapterbuild/lora.go
+@@ -7,9 +7,12 @@ import (
+ 	"flag"
+ 	"fmt"
+ 	"io"
++	"net/http"
++	"strings"
+ 	"time"
+ 
+ 	"github.com/telegraphprotocol/telegraph-wasm-baseline/pkg/adapterbuild"
++	"github.com/telegraphprotocol/telegraph-wasm-baseline/pkg/scoring/catalog"
+ 	wasmrt "github.com/telegraphprotocol/telegraph-wasm-baseline/pkg/wasm/runtime"
+ )
+ 
+@@ -21,6 +24,11 @@ import (
+ //	  --foundation foundation/foundation.json [--out runs/CODE_REVIEW] [--class judgment] \
+ //	  [--training-record runs/CODE_REVIEW/training.json --require-training-record --families ...] \
+ //	  [--foundation-onnx foundation/foundation_lora_fp32.onnx --engine foundation_engine.wasm]
++//	  [--node https://devnode.telegraphprotocol.com]
++//
++// Offline, the class comes from the compiled-in catalog, which cannot tell judgment from
++// hybrid and reports hybrid for both. --node reads the class the node itself enforces
++// (GET /engine/v1/intents/<INTENT>) and installs it before the check.
+ //
+ // Nothing is rewritten: the package is the registrable artifact. With
+ // --foundation-onnx and --engine the package is also loaded on the foundation
+@@ -54,6 +62,7 @@ func runLoRA(args []string, stdout, stderr io.Writer) int {
+ 	enginePath := fs.String("engine", "", "the foundation engine wasm (with --foundation-onnx)")
+ 	engineHash := fs.String("engine-hash", "", "sha256 the engine must have (default: computed)")
+ 	input := fs.String("input", "", "input JSON {\"input_ids\": [...]} to score (default: a 10-token ModernBERT input)")
++	node := fs.String("node", "", "read the intent's class from this node (GET /engine/v1/intents/<INTENT>) instead of the compiled-in catalog")
+ 	if err := fs.Parse(args); err != nil {
+ 		return 2
+ 	}
+@@ -76,6 +85,14 @@ func runLoRA(args []string, stdout, stderr io.Writer) int {
+ 			return fail(err)
+ 		}
+ 	}
++	if *node != "" {
++		c, err := nodeClass(*node, *intent)
++		if err != nil {
++			return fail(err)
++		}
++		catalog.UseClasses(map[string]catalog.Class{*intent: c})
++		logf("class %s for %s (from %s)", c, *intent, *node)
++	}
+ 	start := time.Now()
+ 	art, man, err := adapterbuild.CheckLoRA(context.Background(), adapterbuild.LoRAReq{
+ 		Intent: *intent, PackagePath: *pkg, Class: *class, FoundationPath: *foundation, OutDir: *out,
+@@ -95,3 +112,28 @@ func runLoRA(args []string, stdout, stderr io.Writer) int {
+ 	fmt.Fprintln(stdout, string(b))
+ 	return 0
+ }
++
++// nodeClass reads the class a node enforces for an intent.
++func nodeClass(node, intent string) (catalog.Class, error) {
++	client := &http.Client{Timeout: 30 * time.Second}
++	resp, err := client.Get(strings.TrimRight(node, "/") + "/engine/v1/intents/" + intent)
++	if err != nil {
++		return "", fmt.Errorf("--node: %w", err)
++	}
++	defer resp.Body.Close()
++	if resp.StatusCode != http.StatusOK {
++		return "", fmt.Errorf("--node: %s for intent %s", resp.Status, intent)
++	}
++	var v struct {
++		Class string `json:"class"`
++	}
++	if err := json.NewDecoder(resp.Body).Decode(&v); err != nil {
++		return "", fmt.Errorf("--node: decoding intent %s: %w", intent, err)
++	}
++	switch c := catalog.Class(v.Class); c {
++	case catalog.ClassJudgment, catalog.ClassHybrid, catalog.ClassDeterministic:
++		return c, nil
++	default:
++		return "", fmt.Errorf("--node: intent %s has unknown class %q", intent, v.Class)
++	}
++}
+-- 
+2.43.0
+

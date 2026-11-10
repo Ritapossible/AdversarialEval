@@ -1,0 +1,68 @@
+From 77ad9c15a7eb18dc2346180046be7d428f564c61 Mon Sep 17 00:00:00 2001
+From: Ritapossible <egwuaturita95@gmail.com>
+Date: Tue, 10 Nov 2026 16:06:24 +0000
+Subject: [PATCH 2/4] export_adapter: accept a re-serialised tokenizer when its
+ ids match
+
+Hugging Face now serves ModernBERT-base's tokenizer.json at the pinned
+commit with different bytes (sha256 9fd55248...) from the node's pinned
+file (67bc76f8...), and transformers re-saves it in a third layout. The
+ids are identical, but the hash guards refused every run trained on the
+live download. When the hash differs, require the tokenizer to reproduce
+every conformance vector exactly (check_tokenizer) and warn; a genuinely
+different tokenizer is still refused.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ float_runtime/export_adapter.py | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/float_runtime/export_adapter.py b/float_runtime/export_adapter.py
+index 9858751..ed5e483 100644
+--- a/float_runtime/export_adapter.py
++++ b/float_runtime/export_adapter.py
+@@ -37,7 +37,20 @@ from pathlib import Path
+ from float_runtime.lora_format import (FILE_EXT, NODE_MAX_LEN, NODE_TOKENIZER_SHA256, R_MAX,
+                                        TARGET_MODULES, TARGETS, metadata, target_dims, tensor_names,
+                                        write_package)
+-from float_runtime.train_adapter import TrainError
++from float_runtime.train_adapter import TOKENIZER_VECTORS, TrainError, check_tokenizer
++
++
++def _ids_match_node(source: str, what: str) -> None:
++    """A tokenizer FILE can differ in bytes from the node's pinned tokenizer.json (Hugging Face
++    has re-serialised ModernBERT-base's file at the pinned commit; transformers re-saves it in
++    yet another layout) while producing identical ids. Ids are what the node scores, so accept a
++    differing hash only when the tokenizer reproduces every conformance vector exactly."""
++    if not TOKENIZER_VECTORS.exists():
++        raise TrainError(f"{what}, and the conformance vectors ({TOKENIZER_VECTORS}) needed to "
++                         f"compare ids instead are missing")
++    from transformers import AutoTokenizer
++    check_tokenizer(AutoTokenizer.from_pretrained(source))  # raises TrainError on any mismatch
++    log.warning("%s, but it reproduces the node's ids on every conformance vector: accepted", what)
+ 
+ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s",
+                     datefmt="%H:%M:%S")
+@@ -166,7 +179,9 @@ def main(argv=None) -> int:
+             if res.get("base_model") and res["base_model"] != spec["base_model"]:
+                 raise TrainError(f"the run trained on {res['base_model']}, the foundation is {spec['base_model']}")
+             if res.get("tokenizer_sha256") and res["tokenizer_sha256"] != NODE_TOKENIZER_SHA256:
+-                raise TrainError(f"the run's tokenizer {res['tokenizer_sha256']} is not the node's {NODE_TOKENIZER_SHA256}")
++                _ids_match_node(res.get("base_model") or spec["base_model"],
++                                f"the run's tokenizer file {res['tokenizer_sha256']} is not the node's "
++                                f"{NODE_TOKENIZER_SHA256}")
+         tensors, meta = read_peft(adapter_dir, cfg)
+         training = None
+         if a.training_record:
+@@ -175,7 +190,7 @@ def main(argv=None) -> int:
+         if tj.exists():
+             got = hashlib.sha256(tj.read_bytes()).hexdigest()
+             if got != NODE_TOKENIZER_SHA256:
+-                raise TrainError(f"{tj} has sha256 {got}, not the node's tokenizer {NODE_TOKENIZER_SHA256}")
++                _ids_match_node(str(adapter_dir), f"{tj} has sha256 {got}, not the node's tokenizer {NODE_TOKENIZER_SHA256}")
+         meta = metadata(cls=a.cls, intent=a.intent, foundation_hash=spec["foundation_hash"],
+                         foundation_version=spec["foundation_version"], rank=meta["rank"], alpha=meta["alpha"],
+                         target_modules=meta["target_modules"], max_tokens=a.max_tokens, training=training)
+-- 
+2.43.0
+

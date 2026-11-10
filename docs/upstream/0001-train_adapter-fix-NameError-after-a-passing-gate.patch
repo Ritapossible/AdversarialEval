@@ -1,0 +1,30 @@
+From 8842df979d6a4754b795a59ee7086bfe8bcb744f Mon Sep 17 00:00:00 2001
+From: Ritapossible <egwuaturita95@gmail.com>
+Date: Tue, 10 Nov 2026 16:06:24 +0000
+Subject: [PATCH 1/4] train_adapter: fix NameError after a passing gate
+
+The next-step hint referenced {pkg}; the variable in scope is deltapkg.
+The crash happened after result.json was written, so a passing run
+exited 1, which the README documents as a failed gate.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ float_runtime/train_adapter.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/float_runtime/train_adapter.py b/float_runtime/train_adapter.py
+index b21d66b..2a39813 100644
+--- a/float_runtime/train_adapter.py
++++ b/float_runtime/train_adapter.py
+@@ -835,7 +835,7 @@ def main(argv=None) -> int:
+     print("\nNext (shared Foundation Model, safetensors delta package):\n"
+           f"  python -m float_runtime.export_adapter --run {out.as_posix()} --intent {args.intent} "
+           f"--class <judgment|hybrid> --foundation <foundation.json>{max_tokens}\n"
+-          f"  go run ./cmd/adapterbuild lora --intent {args.intent} --package {pkg} "
++          f"  go run ./cmd/adapterbuild lora --intent {args.intent} --package {deltapkg} "
+           f"--foundation <foundation.json> --out {out.as_posix()}")
+     return 0
+ 
+-- 
+2.43.0
+

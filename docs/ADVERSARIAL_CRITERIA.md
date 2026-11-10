@@ -60,6 +60,25 @@ misconfiguration, and injection-prone patterns.
 | **F9** | Unwarranted hedging | Refuses to commit, or says "might be vulnerable, consult an expert", when the evidence is decisive | Commits; hedges only on genuinely missing information | known-vulnerable pinned version |
 | **F10** | Ineffective fix | Recommends a mitigation that fails a specific counterexample (blacklist filtering, upgrading to a still-affected version, client-side checks) | A fix that closes the issue | path traversal "fixed" by stripping `../` once |
 
+### What a text-only judge can and can't learn (re-scoped 2026-11-10, audit U7)
+
+The judge is ModernBERT-base: 150M parameters, text only, with no advisory database and no
+tool use. Being honest about what it can learn shapes both the training emphasis and the
+claims we make.
+
+| Family | Learnable from the text alone? | How we use it |
+|---|---|---|
+| F3 missed critical, F4 context reversal, F6 false alarm, F9 hedging, F10 ineffective fix | **Yes.** The evidence is in the prompt and the answer: code, context, the reasoning. | Training emphasis. Most hand-written pairs go here. |
+| F7 field inconsistency | **Yes.** It's internal to the answer. | Training: generated minimal pairs plus hand-written ones. |
+| F2 version range | **Only if the prompt carries the range.** Otherwise it's memorisation. | Half of the generated F2 prompts quote the advisory range ("evidence in prompt"), making it an in-context version comparison. The rest test memorised advisories and stay mainly as pool material. |
+| F1 wrong advisory id | **Mostly no.** Checking that an id matches a package needs the database. | Mainly evaluation material for the pool. We claim robustness here only where the answer is internally inconsistent (e.g. the id's package doesn't match the prompt). |
+| F8 severity | **Partly.** Impact language ("RCE", "unauthenticated") is visible; exact CVSS isn't. | Training with severity framed by impact, not by score. |
+
+**What we claim in the write-up:** robustness to *reasoning* failures (missed criticals,
+context, false alarms, hedging, broken fixes, inconsistency) and to *checkable* factual
+errors (version vs a quoted range). We don't claim the adapter can verify arbitrary CVE
+ids or version ranges from memory.
+
 ### Balancing rules
 
 - **Families:** about 10% each. F4 and F6 get about 15% each, because they're the

@@ -7,6 +7,16 @@ transformers 5.22.2, peft 0.21.2, safetensors 0.8.0, Go 1.25.7). None of them af
 the node accepts, but each one blocks or misleads an adapter author. **Not filed yet:**
 the project lead decides.
 
+**Ready-made patches** (audit U10) are in [`docs/upstream/`](upstream/). They apply with
+`git am` on `1ed063e`, are authored by the project lead, and were tested:
+
+| Patch | Fixes | Test |
+|---|---|---|
+| `0001` | Issue 1: NameError | one-line rename |
+| `0002` | Issue 2: tokenizer hash guard | a run trained on the live HF tokenizer now exports with a warning; a BERT tokenizer is still refused (exit 2) |
+| `0003` | Issue 3: `adapterbuild --node` | offline behaviour unchanged; `--node` passes the judgment package; kit Go tests pass |
+| `0004` | Issue 4: deterministic export | two exports byte-identical; logged sha256 = file sha256; kit reader and Stage 1 accept it |
+
 ---
 
 ## 1. `train_adapter`: NameError after a passing gate, so a PASS exits 1
