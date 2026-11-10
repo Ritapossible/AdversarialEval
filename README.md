@@ -65,7 +65,7 @@ The full pipeline is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
 
 ## Status
 
-Phase 1, criteria and seed data. There are 59 training pairs and 14 validation pairs. The kit dataset gate passes, and every naive scorer is ≤ 58%. See [`eval/reports/2026-11-08-seed-v0.md`](eval/reports/2026-11-08-seed-v0.md) and [`PLAN.md`](PLAN.md).
+Phase 2, training. The best adapter so far (cpu-v1) scores **76.9% on 39 held-out second-voice pairs** and passes the node's Stage 1 package checks locally. See [`eval/reports/2026-11-10-cpu-v1.md`](eval/reports/2026-11-10-cpu-v1.md). Earlier status: There are 59 training pairs and 14 validation pairs. The kit dataset gate passes, and every naive scorer is ≤ 58%. See [`eval/reports/2026-11-08-seed-v0.md`](eval/reports/2026-11-08-seed-v0.md) and [`PLAN.md`](PLAN.md).
 
 ```bash
 pip install numpy tokenizers

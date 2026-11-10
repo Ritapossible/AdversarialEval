@@ -18,6 +18,7 @@ within each section.
 | Our pool rows (SECURITY_REVIEW_GENERAL) | 0 | 11-04 |
 | Our registrations | none | 11-04 |
 | Executor URL | _not deployed_ | |
+| Best run | cpu-v1 (rank 8, lr 2e-4, epoch 3 of 6): **76.9% on 39 validation pairs**, 97.9% train; weakest on Secure verdicts (55%) and F5/F6 (60%). Validation picked the epoch, so it's optimistic; a clean test split is needed | 11-10 |
 | Latest adapter keccak256 | cpu-v0 smoke package `0x1a4e6750…45dd` (passes node Stage 1 locally; NOT registered; 61.5% on validation, below the 70% floor) | 11-10 |
 
 ### Network snapshot (testnet `devnode.telegraphprotocol.com`, epoch ≈ 2011)
@@ -108,6 +109,8 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-04 | Public and pool datasets strictly disjoint | Don't leak hidden testing-half rows |
 | 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
 | 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
+| 11-10 | Add a separate test split before any registration decision | Validation is used for early stopping and tuning, so it's no longer an unbiased estimate |
+| 11-10 | Training on CPU in this container is viable (about 7–13 min per run) | A GPU isn't needed at this data size |
 | 11-08 | Chosen answers make scoped claims only ("not affected by X"), never "no known vulnerabilities" | Absolute claims go stale as new advisories land, which silently flips labels |
 | 11-08 | Every advisory fact comes from OSV (`tools/fetch_sources.py`), and `build.py` rejects unverified ids | Two of our own id comments were wrong on the first fetch (GHSA-h75v… is Jinja2, not vm2) |
 | 11-08 | The kit gate governs train and pool sets; validation is reported only | The kit gate's repeat check is meaningless below about 50 rows |
