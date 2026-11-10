@@ -18,6 +18,7 @@ within each section.
 | Our pool rows (SECURITY_REVIEW_GENERAL) | 0 | 11-04 |
 | Our registrations | none | 11-04 |
 | Executor URL | _not deployed_ | |
+| Dataset (11-10) | train 252 pairs (95 hand + 146 OSV-generated + 11 targeted), validation 39, test 0 (awaiting reviewers); every naive scorer ≤ 54% | 11-10 |
 | Best run | cpu-v1 (rank 8, lr 2e-4, epoch 3 of 6): **76.9% on 39 validation pairs**, 97.9% train; weakest on Secure verdicts (55%) and F5/F6 (60%). Validation picked the epoch, so it's optimistic; a clean test split is needed | 11-10 |
 | Latest adapter keccak256 | cpu-v0 smoke package `0x1a4e6750…45dd` (passes node Stage 1 locally; NOT registered; 61.5% on validation, below the 70% floor) | 11-10 |
 
@@ -137,6 +138,11 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 ---
 
 ## Gotchas
+
+- OSV ids are **case-sensitive** (`GHSA-` + lowercase). Uppercased GHSA lookups always 404, which once made unverified "fabricated" ids look verified. Many CVEs exist only as aliases (e.g. CVE-2023-6014), so check aliases too.
+- OSV records can disagree with their own aliases on affected ranges (jinja2 GHSA-fqh9: fixed 2.7.2 vs PYSEC-2014-82: 2.7.3). Generated labels must pass `tools/verify_generated.py`; ambiguous advisories go in `data/sources/ambiguous_advisories.txt`.
+- Don't edit `scripts/train.sh` while a run is executing it: bash reads scripts incrementally.
+- `train.sh` rebuilds the train file at start, so pin `TRAIN=` for controlled comparisons (seed studies).
 
 - **Kit bugs at `1ed063e`** (see `docs/UPSTREAM_ISSUES.md`):
   - (1) `train_adapter` exits 1 after a PASS (NameError `pkg`). Read `result.json`'s verdict instead.
