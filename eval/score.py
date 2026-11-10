@@ -62,6 +62,17 @@ def meta_for(data: Path) -> dict:
     return {}
 
 
+def wilson(k: float, n: int, z: float = 1.96) -> tuple[float, float]:
+    """95% Wilson score interval for a proportion (ties count as half a success)."""
+    if n == 0:
+        return 0.0, 0.0
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return max(0.0, c - h), min(1.0, c + h)
+
+
 def table(title: str, groups: dict) -> list[str]:
     lines = [f"| {title} | n | accuracy |", "|---|---|---|"]
     for k in sorted(groups, key=lambda x: (len(str(x)), str(x))):
@@ -96,7 +107,8 @@ def main(argv=None) -> int:
                              ("format", m.get("format", "?")), ("length", longer),
                              ("chosen verdict", m.get("verdict_chosen", "?"))):
                 by[dim][key].append(ok)
-            rec = {"row_id": m.get("row_id"), "family": m.get("family"), "chosen": sc, "rejected": sr, "correct": ok}
+            rec = {"file": str(path), "row_id": m.get("row_id"), "family": m.get("family"), "chosen": sc,
+                   "rejected": sr, "correct": ok}
             if a.probe_pad:
                 pad = r["rejected"]
                 while len(pad) < 1.5 * len(r["chosen"]):
@@ -106,8 +118,10 @@ def main(argv=None) -> int:
                 if ok == 1.0:
                     pad_kept.append(1.0 if sc > sp else 0.0)
             dump.append(rec)
-        acc = sum(by["ALL"]["ALL"]) / len(by["ALL"]["ALL"])
-        out += [f"## {path}", "", f"**Pairwise accuracy: {acc:.1%}** ({len(by['ALL']['ALL'])} pairs)", ""]
+        n_all = len(by["ALL"]["ALL"])
+        acc = sum(by["ALL"]["ALL"]) / n_all
+        lo, hi = wilson(sum(by["ALL"]["ALL"]), n_all)
+        out += [f"## {path}", "", f"**Pairwise accuracy: {acc:.1%}** ({n_all} pairs; 95% CI {lo:.1%}–{hi:.1%})", ""]
         for dim in ("family", "length", "chosen verdict", "format"):
             out += table(dim, by[dim]) + [""]
         if a.probe_pad and pad_kept:

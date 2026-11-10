@@ -12,13 +12,14 @@ STEM=$(echo "$INTENT" | tr '[:upper:]' '[:lower:]')
 rc=0
 echo "== build";        python3 tools/build.py --intent "$INTENT" || exit 1
 echo "== trap ids";     python3 tools/check_ids.py || rc=1
-FILES=$(ls data/public/$STEM.train.jsonl data/validation/$STEM.val.jsonl data/private/${STEM}_general.pool.jsonl 2>/dev/null)
+echo "== generated labels vs OSV"; python3 tools/verify_generated.py || rc=1
+FILES=$(ls data/public/$STEM.train.jsonl data/validation/$STEM.val.jsonl data/test/$STEM.test.jsonl data/private/${STEM}_general.pool.jsonl 2>/dev/null)
 echo "== token budget"; python3 tools/token_budget.py $FILES || rc=1
 echo "== dedup";        python3 tools/dedup.py $FILES || rc=1
 for f in $FILES; do
   echo "== baselines: $f"
-  if [[ "$f" == data/validation/* ]]; then
-    # the kit gate governs training data; validation is reported, not gated
+  if [[ "$f" == data/validation/* || "$f" == data/test/* ]]; then
+    # the kit gate governs training data; validation and test are reported, not gated
     python3 eval/baselines.py "$f" || echo "(validation: reported only, not gated)"
   else
     python3 eval/baselines.py "$f" || rc=1

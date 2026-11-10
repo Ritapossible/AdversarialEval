@@ -29,6 +29,11 @@ def fetch(vid: str, offline: bool) -> dict:
     cache = SRC / "osv" / f"{vid}.json"
     if cache.exists():
         return json.loads(cache.read_text())
+    raw = SRC / "osv_raw" / f"{vid}.json"
+    if raw.exists():  # cached by the generator's package queries (git-ignored)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(raw.read_text())
+        return json.loads(raw.read_text())
     if offline:
         raise SystemExit(f"{vid}: not cached and --offline given")
     with urllib.request.urlopen(OSV + vid, timeout=30) as r:
@@ -84,13 +89,18 @@ def summarise(rec: dict, split: str, case: str | None) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ids", default=str(SRC / "ids.txt"))
+    ap.add_argument("--ids", nargs="+", default=[str(SRC / "ids.txt"), str(SRC / "ids_generated.txt")],
+                    help="id files (hand-picked ids.txt, then generator output); missing files are skipped")
     ap.add_argument("--out", default=str(SRC / "sources.jsonl"))
     ap.add_argument("--offline", action="store_true")
     a = ap.parse_args(argv)
 
     rows, seen = [], set()
-    for line in Path(a.ids).read_text().splitlines():
+    lines = []
+    for idf in a.ids:
+        if Path(idf).exists():
+            lines += Path(idf).read_text().splitlines()
+    for line in lines:
         line = line.split("#", 1)[0].strip()
         if not line:
             continue

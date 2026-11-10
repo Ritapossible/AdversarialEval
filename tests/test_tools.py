@@ -80,6 +80,12 @@ def test_withdrawn_in_chosen_needs_disclosure():
     assert ok == []
 
 
+def test_osv_id_canonicalisation():
+    from check_ids import canonical
+    assert canonical("GHSA-VX6W-VV9F-6GVG") == "GHSA-vx6w-vv9f-6gvg"
+    assert canonical("cve-2020-28471") == "CVE-2020-28471"
+
+
 def test_bad_enums_and_identical_answers():
     errors, _ = run(family="F11", verdict_chosen="Safe", rejected=BASE["chosen"])
     assert any("family" in e for e in errors)

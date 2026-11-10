@@ -45,9 +45,9 @@ def check_row(r: dict, where: str, sources: dict, errors: list, warns: list) -> 
             errors.append(f"{where}: missing {k}")
     if errors and errors[-1].startswith(where):
         return
-    if r["family"] not in FAMILIES:
-        errors.append(f"{where}: family {r['family']!r} not in F1..F10")
-    if r["split"] not in ("public", "validation", "private"):
+    if r["family"] not in FAMILIES and not (r["family"] == "F0" and r.get("split") == "test"):
+        errors.append(f"{where}: family {r['family']!r} not in F1..F10 (F0 = unclassified, test split only)")
+    if r["split"] not in ("public", "validation", "test", "private"):
         errors.append(f"{where}: bad split {r['split']!r}")
     for k in ("verdict_chosen", "verdict_rejected"):
         if r[k] not in VERDICTS:
@@ -109,6 +109,7 @@ def main(argv=None) -> int:
     sources = load_sources()
 
     files = sorted((ROOT / "data" / "authoring" / stem).glob("*.jsonl"))
+    files += sorted((ROOT / "data" / "authoring" / stem / "test").glob("*.jsonl"))
     files += sorted((ROOT / "data" / "private" / "authoring" / stem).glob("*.jsonl"))
     if not files:
         print(f"no authoring files for {a.intent}")

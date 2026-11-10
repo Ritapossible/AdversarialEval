@@ -1,22 +1,394 @@
 {
+ "CVE-2012-3444": {
+  "exists": true,
+  "summary": "The get_image_dimensions function in the image-handling functionality in Django before 1.3.2 and 1.4.x before 1.4.1 uses a constant chunk size in all attempts t"
+ },
+ "CVE-2014-3007": {
+  "exists": true,
+  "summary": "Python Image Library (PIL) 1.1.7 and earlier and Pillow 2.3 might allow remote attackers to execute arbitrary commands via shell metacharacters in unspecified v"
+ },
+ "CVE-2014-3589": {
+  "exists": true,
+  "summary": "PIL/IcnsImagePlugin.py in Python Imaging Library (PIL) and Pillow before 2.3.2 and 2.5.x before 2.5.2 allows remote attackers to cause a denial of service via a"
+ },
+ "CVE-2018-20060": {
+  "exists": true,
+  "summary": "urllib3 before version 1.23 does not remove the Authorization HTTP header when following a cross-origin redirect (i.e., a redirect that differs in host, port, o"
+ },
+ "CVE-2019-12387": {
+  "exists": true,
+  "summary": "In Twisted before 19.2.1, twisted.web did not validate or sanitize URIs or HTTP methods, allowing an attacker to inject invalid characters such as CRLF."
+ },
+ "CVE-2020-11538": {
+  "exists": true,
+  "summary": "In libImaging/SgiRleDecode.c in Pillow through 7.0.0, a number of out-of-bounds reads exist in the parsing of SGI image files, a different issue than CVE-2020-5"
+ },
  "CVE-2020-28471": {
   "exists": true,
   "summary": "This affects the package properties-reader before 2.2.0."
+ },
+ "CVE-2020-35654": {
+  "exists": true,
+  "summary": "In Pillow before 8.1.0, TiffDecode has a heap-based buffer overflow when decoding crafted YCbCr files because of certain interpretation conflicts with LibTIFF i"
+ },
+ "CVE-2022-21716": {
+  "exists": true,
+  "summary": "Buffer Overflow in Twisted"
  },
  "CVE-2023-45803": {
   "exists": true,
   "summary": "Request body not stripped after redirect in urllib3"
  },
+ "CVE-2023-47627": {
+  "exists": true,
+  "summary": "Request smuggling in aiohttp"
+ },
  "CVE-2023-50912": {
   "exists": false
  },
- "GHSA-9H7C-RQ2V-XW4M": {
+ "CVE-2023-6014": {
+  "exists": true,
+  "summary": "alias of PYSEC-2026-415"
+ },
+ "CVE-2024-0964": {
+  "exists": true,
+  "summary": "LFI in Gradio"
+ },
+ "CVE-2024-3573": {
+  "exists": true,
+  "summary": "Local File Inclusion (LFI) via Scheme Confusion in mlflow/mlflow"
+ },
+ "CVE-2024-39329": {
+  "exists": true,
+  "summary": "An issue was discovered in Django 5.0 before 5.0.7 and 4.2 before 4.2.14. The django.contrib.auth.backends.ModelBackend.authenticate() method allows remote atta"
+ },
+ "CVE-2024-47165": {
+  "exists": true,
+  "summary": "CORS origin validation accepts the null origin in Gradio"
+ },
+ "CVE-2024-56326": {
+  "exists": true,
+  "summary": "Jinja has a sandbox breakout through indirect reference to format method"
+ },
+ "CVE-2025-1474": {
+  "exists": true,
+  "summary": "Weak Password Requirements in mlflow/mlflow"
+ },
+ "CVE-2026-112901": {
+  "exists": true,
+  "summary": "Pillow: ReDoS in XbmImagePlugin: 512-byte file stalls Image.open() for minutes"
+ },
+ "CVE-2026-114135": {
+  "exists": true,
+  "summary": "Jupyter Server: Gateway WebSocket handler bypasses kernel execute authorization"
+ },
+ "CVE-2026-27205": {
+  "exists": true,
+  "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways"
+ },
+ "CVE-2026-34514": {
+  "exists": true,
+  "summary": "AIOHTTP: CRLF injection in multipart part content type header construction"
+ },
+ "CVE-2026-48818": {
+  "exists": true,
+  "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+ },
+ "CVE-2026-55379": {
+  "exists": true,
+  "summary": "Pillow BdfFontFile`: `Image.new()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via font loading"
+ },
+ "CVE-2026-96637": {
+  "exists": true,
+  "summary": "Pillow: Decompression bomb check bypass in SpiderImagePlugin.seek() leads to unbounded allocation DoS"
+ },
+ "CVE-2026-9856": {
+  "exists": true,
+  "summary": "Path Traversal in huggingface/transformers"
+ },
+ "GHSA-22hg-r758-rrw9": {
+  "exists": true,
+  "summary": "Pillow: Infinite loop in MIC n_frames when the embedded TIFF"
+ },
+ "GHSA-232r-66cg-79px": {
+  "exists": true,
+  "summary": "Paramiko not properly checking authentication before processing other requests"
+ },
+ "GHSA-24rc-8hj2-v98c": {
+  "exists": true,
+  "summary": "Pillow: BMP RLE decoder memory-amplification DoS via unbounded delta escape / absolute mode"
+ },
+ "GHSA-2gx3-rcp4-g85q": {
+  "exists": true,
+  "summary": "PyJWT: PyJWKClient still amplifies unauthenticated JWKS fetches on unknown kid values (incomplete fix of CVE-2026-48524)"
+ },
+ "GHSA-2vrm-gr82-f7m5": {
+  "exists": true,
+  "summary": "AIOHTTP has CRLF injection through multipart part content type header construction"
+ },
+ "GHSA-354v-3q48-cv69": {
+  "exists": true,
+  "summary": "Jupyter Server: Gateway WebSocket handler bypasses kernel execute authorization"
+ },
+ "GHSA-3c67-5hwx-f6wx": {
+  "exists": true,
+  "summary": "Gradios's CORS origin validation is not performed when the request has a cookie"
+ },
+ "GHSA-3qqg-pgqq-3695": {
+  "exists": true,
+  "summary": "Gradio vulnerable to arbitrary file read and proxying of arbitrary URLs"
+ },
+ "GHSA-43fq-w8qq-v88h": {
+  "exists": true,
+  "summary": "Out-of-bounds read in Pillow"
+ },
+ "GHSA-45hq-cxwh-f6vc": {
+  "exists": true,
+  "summary": "Pillow `BdfFontFile`: `Image.new()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via font loading"
+ },
+ "GHSA-4c42-4rxm-x6qf": {
+  "exists": true,
+  "summary": "Django Denial of Service Vulnerability in the authentication framework "
+ },
+ "GHSA-4qq5-mxxx-m6gg": {
+  "exists": true,
+  "summary": "MLflow authentication requirement bypass can allow a user to arbitrarily create an account"
+ },
+ "GHSA-4rj2-9gcx-5qhx": {
+  "exists": true,
+  "summary": "MLflow has Weak Password Requirements"
+ },
+ "GHSA-4w7r-h757-3r74": {
+  "exists": true,
+  "summary": "Hugging Face Transformers vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer"
+ },
+ "GHSA-576c-3j53-r9jj": {
+  "exists": true,
+  "summary": "Gradio vulnerable to SSRF in the path parameter of /queue/join"
+ },
+ "GHSA-57h3-9rgr-c24m": {
+  "exists": true,
+  "summary": "Out of bounds write in Pillow"
+ },
+ "GHSA-5h2q-4hrp-v9rr": {
+  "exists": true,
+  "summary": "Django vulnerable to Improper Restriction of Operations within the Bounds of a Memory Buffer"
+ },
+ "GHSA-6269-cqxg-mhhv": {
+  "exists": true,
+  "summary": "Mistune TOC Anchor Injection XSS"
+ },
+ "GHSA-63hw-fmq6-xxg2": {
+  "exists": true,
+  "summary": "aiohttp: C HTTP Parser Bypasses max_line_size for Fragmented Lines"
+ },
+ "GHSA-64x5-55rw-9974": {
+  "exists": true,
+  "summary": "cross-site inclusion (XSSI) of files in jupyter-server"
+ },
+ "GHSA-67c5-x5mf-rppq": {
+  "exists": true,
+  "summary": "MLflow: Improper Origin Validation in MLflow Assistant /ajax-api Endpoints Enables Browser-Mediated Local Command Execution"
+ },
+ "GHSA-68rp-wp8r-4726": {
+  "exists": true,
+  "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways"
+ },
+ "GHSA-6cc5-2vg4-cc7m": {
+  "exists": true,
+  "summary": "Twisted CRLF Injection"
+ },
+ "GHSA-7wph-fc4w-wqp2": {
+  "exists": true,
+  "summary": "Improper date handling in Django"
+ },
+ "GHSA-8498-2h75-472j": {
+  "exists": true,
+  "summary": "Django denial-of-service in django.utils.html.strip_tags()"
+ },
+ "GHSA-89hj-xfx5-7q66": {
+  "exists": true,
+  "summary": "Django Reuses Cached CSRF Token"
+ },
+ "GHSA-89v2-pqfv-c5r9": {
+  "exists": true,
+  "summary": "Gradio's CORS origin validation accepts the null origin"
+ },
+ "GHSA-8c5j-9r9f-c6w8": {
+  "exists": true,
+  "summary": "Information disclosure in Django"
+ },
+ "GHSA-8m9x-pxwq-j236": {
+  "exists": true,
+  "summary": "Pillow command injection"
+ },
+ "GHSA-8rfp-98v4-mmr6": {
+  "exists": true,
+  "summary": "Bleach: URI sanitization allows disallowed URI schemes with Unicode > U+00A0 in output"
+ },
+ "GHSA-8vpw-mgpf-mpvv": {
+  "exists": true,
+  "summary": "Tornado XSRF cookie allows side-channel attack against TLS (BREACH attack)"
+ },
+ "GHSA-9h7c-rq2v-xw4m": {
   "exists": false
  },
- "GHSA-Q3F8-W2R9-5JCM": {
+ "GHSA-9v7f-9g4p-ffgj": {
+  "exists": true,
+  "summary": "PyJWT: PyJWKClient follows redirects when fetching JWKS"
+ },
+ "GHSA-ccfx-mfmx-2fx9": {
+  "exists": true,
+  "summary": "Mistune Image Directive CSS Injection Vulnerability"
+ },
+ "GHSA-cfmr-38g9-f2h7": {
+  "exists": true,
+  "summary": "Pillow denial of service via Crafted Block Size"
+ },
+ "GHSA-cpwx-vrp4-4pq7": {
+  "exists": true,
+  "summary": "Jinja2 vulnerable to sandbox breakout through attr filter selecting format method"
+ },
+ "GHSA-f2g6-542v-9j58": {
+  "exists": true,
+  "summary": "Pillow: Infinite loop in PdfParser.rewrite_pages on page tree Parent cycle"
+ },
+ "GHSA-f3h9-8phc-6gvh": {
+  "exists": true,
+  "summary": "Gradio Path Traversal vulnerability"
+ },
+ "GHSA-f82r-jj5r-6g97": {
+  "exists": true,
+  "summary": "mlflow Path Traversal vulnerability"
+ },
+ "GHSA-ffc3-869f-jxw9": {
+  "exists": true,
+  "summary": "PyJWT: Asymmetric-PEM detection bypass: whitespace/line-ending-mutated public keys skip the HS/asymmetric confusion guard"
+ },
+ "GHSA-ffq3-xpv3-j92q": {
+  "exists": true,
+  "summary": "Mistune block_parser: quadratic-time parsing on long lists of repeated reference-link definitions"
+ },
+ "GHSA-g35p-px32-whv6": {
+  "exists": true,
+  "summary": "MLflow: Environment variable injection in AI Gateway secrets enables server-side credential exfiltration"
+ },
+ "GHSA-g842-9rc4-69pw": {
+  "exists": true,
+  "summary": "Pillow: Decompression bomb check bypass in SpiderImagePlugin.seek() leads to unbounded allocation DoS"
+ },
+ "GHSA-gfw2-4jvh-wgfg": {
+  "exists": true,
+  "summary": "AIOHTTP has problems in HTTP parser (the python one, not llhttp)"
+ },
+ "GHSA-gqvf-3hgp-5hxv": {
+  "exists": true,
+  "summary": "Gradio Exposure of Sensitive Information to an Unauthorized Actor vulnerability"
+ },
+ "GHSA-h7pc-vwp9-298g": {
+  "exists": true,
+  "summary": "Django: signed cookies are vulnerable to salt namespace collisions"
+ },
+ "GHSA-hj2j-77xm-mc5v": {
+  "exists": true,
+  "summary": "Jinja2 sandbox escape vulnerability"
+ },
+ "GHSA-hpr9-3m2g-3j9p": {
+  "exists": true,
+  "summary": "Django vulnerable to SQL injection in column aliases"
+ },
+ "GHSA-hq88-wg7q-gp4g": {
+  "exists": true,
+  "summary": "mlflow vulnerable to Path Traversal"
+ },
+ "GHSA-j544-7q9p-6xp8": {
+  "exists": true,
+  "summary": "Pallets Werkzeug vulnerable to Path Traversal"
+ },
+ "GHSA-m2h6-j472-rp4c": {
+  "exists": true,
+  "summary": "python-cryptography verifier accepts wildcard DNS names allowing escape from permittedSubtrees"
+ },
+ "GHSA-m65p-9j7q-6w33": {
+  "exists": true,
+  "summary": "MLflow vulnerable to arbitrary file read on unauthenticated servers via prompt model version source"
+ },
+ "GHSA-m842-4qm8-7gpq": {
+  "exists": true,
+  "summary": "Gradio allows users to access arbitrary files"
+ },
+ "GHSA-pp6c-gr5w-3c5g": {
+  "exists": true,
+  "summary": "python-multipart has Denial of Service via unbounded multipart part headers"
+ },
+ "GHSA-q2x7-8rv6-6q7h": {
+  "exists": true,
+  "summary": "Jinja has a sandbox breakout through indirect reference to format method"
+ },
+ "GHSA-q3f8-w2r9-5jcm": {
   "exists": false
  },
- "GHSA-X4M2-7C9P-2FQW": {
+ "GHSA-r6x4-923q-g947": {
+  "exists": true,
+  "summary": "PyJWT BOM Bypass"
+ },
+ "GHSA-r7rm-8j6h-r933": {
+  "exists": true,
+  "summary": "Buffer Copy without Checking Size of Input in Pillow"
+ },
+ "GHSA-r9jw-mwhq-wp62": {
+  "exists": true,
+  "summary": "PyJWT vulnerable to key confusion attacks"
+ },
+ "GHSA-rhq2-3vr9-6mcr": {
+  "exists": true,
+  "summary": "Files on the host computer can be accessed from the Gradio interface"
+ },
+ "GHSA-rv6r-3f5q-9rgx": {
+  "exists": true,
+  "summary": "Twisted SSH client and server deny of service during SSH handshake."
+ },
+ "GHSA-vqcj-wrf2-7v73": {
+  "exists": true,
+  "summary": "Pillow Out-of-bounds Write"
+ },
+ "GHSA-vx6w-vv9f-6gvg": {
+  "exists": true,
+  "summary": "Pillow: EPS load(scale) lets Ghostscript render past the decompression bomb limit"
+ },
+ "GHSA-w3h3-4rj7-4ph4": {
+  "exists": true,
+  "summary": "Request smuggling leading to endpoint restriction bypass in Gunicorn"
+ },
+ "GHSA-w4vg-rf63-f3j3": {
+  "exists": true,
+  "summary": "Arbitrary code using \"crafted image file\" approach affecting Pillow"
+ },
+ "GHSA-wqp7-x3pw-xc5r": {
+  "exists": true,
+  "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+ },
+ "GHSA-www2-v7xj-xrc6": {
+  "exists": true,
+  "summary": "Exposure of Sensitive Information to an Unauthorized Actor in urllib3"
+ },
+ "GHSA-x4m2-7c9p-2fqw": {
   "exists": false
+ },
+ "GHSA-x7q2-wr7g-xqmf": {
+  "exists": true,
+  "summary": "Django vulnerable to user enumeration attack"
+ },
+ "GHSA-xgh8-jp6q-p5x8": {
+  "exists": true,
+  "summary": "Pillow: ReDoS in XbmImagePlugin: 512-byte file stalls Image.open() for minutes"
+ },
+ "GHSA-xp26-p53h-6h2p": {
+  "exists": true,
+  "summary": "Improper Neutralization of Input During Web Page Generation in LXML"
+ },
+ "GHSA-xrqw-3rrv-vx5w": {
+  "exists": true,
+  "summary": "Transformers save_pretrained path traversal allows arbitrary file writes through chat template names"
  }
 }

@@ -25,7 +25,37 @@ from common import ROOT, read_jsonl  # noqa: E402
 CACHE = ROOT / "data" / "sources" / "id_checks.json"
 
 
+def canonical(vid: str) -> str:
+    """OSV ids are case-sensitive: GHSA ids are 'GHSA-' + lowercase, CVE ids are uppercase."""
+    v = vid.strip()
+    if v.upper().startswith("GHSA-"):
+        return "GHSA-" + v[5:].lower()
+    return v.upper()
+
+
+_ALIASES: dict[str, str] | None = None
+
+
+def alias_index() -> dict[str, str]:
+    """alias -> record id, over every OSV record we have cached. Many CVEs exist only as
+    aliases of a GHSA/PYSEC record and have no standalone OSV entry (e.g. CVE-2023-6014)."""
+    global _ALIASES
+    if _ALIASES is None:
+        _ALIASES = {}
+        for p in (ROOT / "data" / "sources" / "osv").glob("*.json"):
+            rec = json.loads(p.read_text())
+            for al in rec.get("aliases", []):
+                _ALIASES[canonical(al)] = rec["id"]
+    return _ALIASES
+
+
 def exists(vid: str, cache: dict, offline: bool) -> bool:
+    vid = canonical(vid)
+    if vid in cache and cache[vid]["exists"]:
+        return True
+    if vid in alias_index():
+        cache[vid] = {"exists": True, "summary": f"alias of {alias_index()[vid]}"}
+        return True
     if vid in cache:
         return cache[vid]["exists"]
     if offline:
@@ -54,13 +84,13 @@ def main(argv=None) -> int:
             where = f"{f.relative_to(ROOT)}:{n}"
             for vid in r.get("fabricated_ids", []):
                 checked += 1
-                if exists(vid.upper(), cache, a.offline):
+                if exists(vid, cache, a.offline):
                     errors += 1
                     print(f"ERROR {where}: 'fabricated' {vid} is a real advisory "
-                          f"({cache[vid.upper()].get('summary', '')[:80]!r}); move it to misattributed_ids")
+                          f"({cache[canonical(vid)].get('summary', '')[:80]!r}); move it to misattributed_ids")
             for vid in r.get("misattributed_ids", []):
                 checked += 1
-                if not exists(vid.upper(), cache, a.offline):
+                if not exists(vid, cache, a.offline):
                     errors += 1
                     print(f"ERROR {where}: 'misattributed' {vid} does not exist on OSV; it is a fabrication")
     CACHE.write_text(json.dumps(dict(sorted(cache.items())), indent=1) + "\n")

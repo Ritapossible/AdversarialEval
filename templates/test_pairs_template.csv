@@ -1,0 +1,2 @@
+prompt,better,worse,what_is_wrong,source_url
+Our Node API does res.redirect(req.query.next) after login. express 4.21.0. Severity?,"Needs changes, 1 issue: CWE-601 open redirect (medium). An attacker can send users to a phishing site after a real login. Allow only relative paths starting with a single /.","Insecure, 1 issue: critical remote code execution. res.redirect evaluates the URL, so a javascript: value runs code on the server. Take the route offline.",Inflates a client-side open redirect into server-side RCE.,https://cwe.mitre.org/data/definitions/601.html

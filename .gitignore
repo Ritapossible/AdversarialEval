@@ -21,3 +21,8 @@ __pycache__/
 node_modules/
 .ipynb_checkpoints/
 runs-*.log
+
+# generator caches (regenerable with tools/gen_osv_pairs.py online)
+data/sources/osv_raw/
+data/sources/osv_query/
+data/sources/registry/

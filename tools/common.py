@@ -18,8 +18,8 @@ INTENTS = {
     "SMART_CONTRACT_AUDIT": ("smart_contract_audit", "SMART_CONTRACT_AUDIT_GENERAL"),
 }
 
-SPLIT_DIRS = {"public": "public", "validation": "validation", "private": "private"}
-SPLIT_SUFFIX = {"public": "train", "validation": "val", "private": "pool"}
+SPLIT_DIRS = {"public": "public", "validation": "validation", "test": "test", "private": "private"}
+SPLIT_SUFFIX = {"public": "train", "validation": "val", "test": "test", "private": "pool"}
 
 ADVISORY_ID = re.compile(r"\b(?:CVE-\d{4}-\d{4,7}|GHSA(?:-[23456789cfghjmpqrvwx]{4}){3})\b", re.I)
 _WS = re.compile(r"\s+")
