@@ -98,3 +98,32 @@ if __name__ == "__main__":
     for f in fns:
         f()
     print(f"{len(fns)} tests passed")
+
+
+def test_merge_seeds_is_exact_at_rank_16(tmp_path):
+    import json
+
+    import torch
+    from safetensors.torch import load_file, save_file
+    from merge_seeds import merge
+
+    pref = "base_model.model.model.layers.0.attn.Wo.lora_"
+    dirs, dws = [], []
+    for s in (1, 2):
+        g = torch.Generator().manual_seed(s)
+        A, B = torch.randn(8, 12, generator=g), torch.randn(10, 8, generator=g)
+        d = tmp_path / f"s{s}"
+        d.mkdir()
+        save_file({pref + "A.weight": A, pref + "B.weight": B,
+                   "base_model.model.classifier.weight": torch.full((1, 12), float(s)),
+                   "base_model.model.classifier.bias": torch.zeros(1)}, str(d / "adapter_model.safetensors"))
+        (d / "adapter_config.json").write_text(json.dumps(
+            {"r": 8, "lora_alpha": 32, "target_modules": ["Wo"], "base_model_name_or_path": "x", "task_type": "SEQ_CLS"}))
+        dirs.append(d)
+        dws.append(4 * B @ A)
+    out = tmp_path / "m"
+    merge(dirs, out, "mean", 16)
+    m = load_file(str(out / "adapter_model.safetensors"))
+    assert torch.allclose(2 * m[pref + "B.weight"] @ m[pref + "A.weight"], (dws[0] + dws[1]) / 2, atol=1e-4)
+    assert torch.allclose(m["base_model.model.classifier.weight"], torch.full((1, 12), 1.5))
+    assert json.loads((out / "adapter_config.json").read_text())["r"] == 16

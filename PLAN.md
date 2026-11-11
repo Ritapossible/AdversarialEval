@@ -59,7 +59,7 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [x] U5 Programmatic OSV minimal pairs: 146 pairs from 163 advisories, every label re-checked by OSV's own version query (2 ambiguous advisories excluded)
 - [x] U6 Error-mining loop: `eval/errors.py` → worksheet → 11 targeted pairs (`e_targeted.jsonl`) + 12 coverage pairs (batch F). cpu-v3 showed diminishing returns (+1.7 points, noise), so single-pair mining is paused until independent data arrives
 - [x] U7 Taxonomy re-scoped (`docs/ADVERSARIAL_CRITERIA.md`), with evidence-in-prompt for half of the generated F2
-- [ ] U8 (optional) Seed-merged LoRA via SVD
+- [x] U8 Seed-merged LoRA via SVD: built and tested (`tools/merge_seeds.py`), negative result. The merge is worse than either seed (seeds don't share an init), so it isn't used for submission
 - [ ] U9 Impact demo: incumbent vs ours on real miner responses (after U3)
 - [x] U10 Four tested patches in `docs/upstream/` (filing is your call)
 - [x] U11 Drop SMART_CONTRACT_AUDIT as an adapter target (material only)
