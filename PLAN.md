@@ -57,7 +57,7 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [ ] U3 Sample and label real miner responses (blocked: funded wallet)
 - [ ] U4 3-seed runs + registration rule: clean-test lower bound > about 72% (blocked for registration: wallets, VM, `/claim` #96)
 - [x] U5 Programmatic OSV minimal pairs: 146 pairs from 163 advisories, every label re-checked by OSV's own version query (2 ambiguous advisories excluded)
-- [x] U6 Error-mining loop: `eval/errors.py` → worksheet → 11 targeted pairs (`e_targeted.jsonl`); repeat after each run
+- [x] U6 Error-mining loop: `eval/errors.py` → worksheet → 11 targeted pairs (`e_targeted.jsonl`) + 12 coverage pairs (batch F). cpu-v3 showed diminishing returns (+1.7 points, noise), so single-pair mining is paused until independent data arrives
 - [x] U7 Taxonomy re-scoped (`docs/ADVERSARIAL_CRITERIA.md`), with evidence-in-prompt for half of the generated F2
 - [ ] U8 (optional) Seed-merged LoRA via SVD
 - [ ] U9 Impact demo: incumbent vs ours on real miner responses (after U3)

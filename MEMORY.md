@@ -23,6 +23,7 @@ within each section.
 | Seed variance (11-11) | cpu-v1 config: seed 13 = 76.9%, seed 7 = 87.2% on the 39 hand-written pairs, about 10 points apart | 11-11 |
 | **Polarity shortcut** (11-11) | the 95-pair model scores F2-in 100% / F2-out 0% on minimal pairs (train and held-out alike). It prefers the "vulnerable" answer and hasn't learned version comparison. Hand-written validation hid it | 11-11 |
 | cpu-v2 two seeds (11-11) | 252 pairs: seed 7 = 74.7%, seed 13 = 69.0% on val 87 (mean about 72%). Shortcut break replicates (F2-out 64% both); version reasoning doesn't (F2 52% on seed 13; range-in-prompt 8/9 vs 4/9) | 11-11 |
+| cpu-v3 two seeds (11-11) | 264 pairs (+12 batch-F coverage): seed 7 = 72.4%, seed 13 = 74.7% on val 87 (mean 73.6%, +1.7 vs cpu-v2, inside seed noise). Lower CIs 62–65%. Batch F's own targets (Java deserialisation, defusedxml) still wrong on both seeds; no shortcut regression (F2-out 73% / F2-in 42%) | 11-11 |
 | Best run | cpu-v1 (rank 8, lr 2e-4, epoch 3 of 6): **76.9% on 39 validation pairs**, 97.9% train; weakest on Secure verdicts (55%) and F5/F6 (60%). Validation picked the epoch, so it's optimistic; a clean test split is needed | 11-10 |
 | Latest adapter keccak256 | cpu-v0 smoke package `0x1a4e6750…45dd` (passes node Stage 1 locally; NOT registered; 61.5% on validation, below the 70% floor) | 11-10 |
 
@@ -118,6 +119,7 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-04 | Public and pool datasets strictly disjoint | Don't leak hidden testing-half rows |
 | 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
 | 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
+| 11-11 | Stop hand-writing single targeted pairs; next gains come from independent data (U1–U3) and variance reduction (U8) | cpu-v3: 12 targeted pairs gave +1.7 points (noise) and didn't fix their own target concepts |
 | 11-11 | Don't claim version-range robustness. F2 is a shortcut breaker and pool material, not a capability claim | The range-in-prompt effect didn't replicate across seeds |
 | 11-11 | Report every training result as a mean over at least 2 seeds | Seeds differ by 6–10 points on the same data |
 | 11-11 | Every run is also scored on held-out generated minimal pairs, reported by source and pair kind | Hand-written validation hid a 0%/100% polarity shortcut |
