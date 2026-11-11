@@ -127,3 +127,31 @@ def test_merge_seeds_is_exact_at_rank_16(tmp_path):
     assert torch.allclose(2 * m[pref + "B.weight"] @ m[pref + "A.weight"], (dws[0] + dws[1]) / 2, atol=1e-4)
     assert torch.allclose(m["base_model.model.classifier.weight"], torch.full((1, 12), 1.5))
     assert json.loads((out / "adapter_config.json").read_text())["r"] == 16
+
+
+def test_review_pool_round_trip(tmp_path):
+    import csv
+    import json
+
+    import review_pool as rp
+
+    auth = tmp_path / "authoring" / "security_review"
+    auth.mkdir(parents=True)
+    rows = [{"prompt": f"Is pkg{i} 1.0 affected?", "chosen": "yes", "rejected": "no", "family": "F2",
+             "source_url": "https://github.com/advisories/GHSA-xxxx-xxxx-xxxx", "reviewed": False} for i in range(3)]
+    (auth / "g.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    rp.AUTHORING, rp.REVIEW = tmp_path / "authoring", tmp_path / "review"
+    rp.SHEET, rp.REJECTED = rp.REVIEW / "pool_review.csv", rp.REVIEW / "rejected.jsonl"
+    rp.ROOT = tmp_path
+    rp.main(["export"])
+    sheet = list(csv.DictReader(rp.SHEET.open()))
+    sheet[0]["decision"], sheet[1]["decision"] = "approve", "reject"
+    with rp.SHEET.open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=rp.COLUMNS)
+        w.writeheader()
+        w.writerows(sheet)
+    rp.main(["apply", "--reviewer", "Test Reviewer"])
+    kept = [json.loads(x) for x in (auth / "g.jsonl").read_text().splitlines()]
+    assert [r["reviewed"] for r in kept] == [True, False]
+    assert kept[0]["review"]["by"] == "Test Reviewer"
+    assert len(rp.REJECTED.read_text().splitlines()) == 1

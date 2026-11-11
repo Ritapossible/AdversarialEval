@@ -61,6 +61,11 @@ PACKAGES_HOLDOUT = {
     "npm": ["angular", "vue", "electron", "mongoose", "sequelize", "passport", "koa", "fastify",
             "multer", "formidable", "pug", "nunjucks", "highlight.js", "js-yaml", "fast-xml-parser"],
 }
+# Pool-candidate packages (audit item U2) are listed in data/private/pool_packages.json
+# ({"PyPI": [...], "npm": [...]}), git-ignored: naming them here would tell everyone which
+# packages our hidden pool rows are about. The generator still excludes every package used by
+# any published split. Output, id list and caches for this split live under data/private/.
+PRIVATE_DIR = ROOT / "data" / "private"
 CONTEXTS = [
     "in a public REST API", "in an internal reporting job", "in our CI build image",
     "on a customer-facing web app", "in a data pipeline worker", "in a mobile backend",
@@ -350,13 +355,23 @@ def main(argv=None) -> int:
     ap.add_argument("--per-package", type=int, default=6)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--offline", action="store_true")
-    ap.add_argument("--split", choices=["public", "validation"], default="public",
-                    help="validation = held-out minimal pairs from PACKAGES_HOLDOUT")
+    ap.add_argument("--split", choices=["public", "validation", "private"], default="public",
+                    help="validation = held-out minimal pairs from PACKAGES_HOLDOUT; "
+                         "private = eval-pool candidates from data/private/pool_packages.json, written under data/private/")
     a = ap.parse_args(argv)
-    holdout = a.split == "validation"
-    packages = PACKAGES_HOLDOUT if holdout else PACKAGES
-    out_path = OUT.with_name("g_osv_generated_val.jsonl") if holdout else OUT
-    ids_out = IDS_OUT.with_name("ids_generated_val.txt") if holdout else IDS_OUT
+    private = a.split == "private"
+    holdout = a.split in ("validation", "private")  # both must stay far from every other split
+    if private:
+        pool_file = PRIVATE_DIR / "pool_packages.json"
+        if not pool_file.exists():
+            raise SystemExit(f"{pool_file.relative_to(ROOT)} missing: list the pool packages there (git-ignored)")
+        packages = json.loads(pool_file.read_text())
+        out_path = PRIVATE_DIR / "authoring" / "security_review" / "g_osv_pool.jsonl"
+        ids_out = PRIVATE_DIR / "ids_pool.txt"
+    elif holdout:
+        packages, out_path, ids_out = PACKAGES_HOLDOUT, OUT.with_name("g_osv_generated_val.jsonl"), IDS_OUT.with_name("ids_generated_val.txt")
+    else:
+        packages, out_path, ids_out = PACKAGES, OUT, IDS_OUT
     # cross-split prompts must stay below dedup.py's 0.70 cross-split error threshold
     sim_threshold = 0.66 if holdout else 0.80
     rng = random.Random(a.seed)
@@ -364,12 +379,15 @@ def main(argv=None) -> int:
     # packages used by validation/test cases are off limits
     excluded = set()
     for _, s in read_jsonl(SRC / "sources.jsonl"):
-        if (s["split"] == "public") == holdout:  # holdout: avoid train packages; train: avoid held-out ones
+        # holdout: avoid train packages; train: avoid held-out ones; private: avoid everything published
+        if private or (s["split"] == "public") == holdout:
             excluded |= {p["name"].lower() for p in s["packages"] if p.get("name")}
     if holdout:
         excluded |= {n.lower() for names in PACKAGES.values() for n in names}
+    if private:
+        excluded |= {n.lower() for names in PACKAGES_HOLDOUT.values() for n in names}
     existing = []
-    for f in sorted((ROOT / "data" / "authoring").rglob("*.jsonl")):
+    for f in sorted((ROOT / "data" / "authoring").rglob("*.jsonl")) + sorted((PRIVATE_DIR / "authoring").rglob("*.jsonl")):
         if f == out_path:
             continue
         for _, r in read_jsonl(f):
@@ -474,6 +492,8 @@ def main(argv=None) -> int:
         pool.append((t, sh))
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    if private and not out_path.resolve().is_relative_to(PRIVATE_DIR.resolve()):
+        raise SystemExit("refusing to write pool rows outside data/private/")
     out_path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     hand = {line.split()[0] for line in (SRC / "ids.txt").read_text().splitlines()
             if line.strip() and not line.startswith("#")}
@@ -482,6 +502,9 @@ def main(argv=None) -> int:
     kinds = {}
     for r in rows:
         kinds[r["generator"]["kind"]] = kinds.get(r["generator"]["kind"], 0) + 1
+    if private:
+        print(f"next: python tools/fetch_sources.py --ids {ids_out.relative_to(ROOT)} "
+              f"--out data/private/sources.jsonl --cache-dir data/private/osv")
     print(f"wrote {len(rows)} pairs -> {out_path.relative_to(ROOT)}  kinds {kinds}  "
           f"packages {len(per_pkg)}  advisories {len(used_ids)}")
     return 0

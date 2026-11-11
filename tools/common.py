@@ -73,10 +73,12 @@ def meta_path(intent: str, split: str) -> Path:
 def load_sources() -> dict[str, dict]:
     """Every advisory id and alias -> its verified source record."""
     out: dict[str, dict] = {}
-    p = ROOT / "data" / "sources" / "sources.jsonl"
-    if not p.exists():
-        return out
-    for _, r in read_jsonl(p):
-        for k in [r["id"], *r.get("cves", [])]:
-            out[k.upper()] = r
+    # data/private/sources.jsonl holds the pool rows' advisories (git-ignored: which advisories
+    # the hidden pool rows use must not be published)
+    for p in (ROOT / "data" / "sources" / "sources.jsonl", ROOT / "data" / "private" / "sources.jsonl"):
+        if not p.exists():
+            continue
+        for _, r in read_jsonl(p):
+            for k in [r["id"], *r.get("cves", [])]:
+                out[k.upper()] = r
     return out

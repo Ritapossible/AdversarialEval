@@ -26,11 +26,13 @@ from common import ROOT, read_jsonl  # noqa: E402
 
 GEN_DIR = ROOT / "data" / "authoring" / "security_review"
 CACHE = ROOT / "data" / "sources" / "osv_version"
+PRIVATE_GEN_DIR = ROOT / "data" / "private" / "authoring" / "security_review"
+PRIVATE_CACHE = ROOT / "data" / "private" / "osv_version"  # pool packages/versions stay unpublished
 AMBIGUOUS = ROOT / "data" / "sources" / "ambiguous_advisories.txt"
 
 
-def affecting(eco: str, name: str, version: str, offline: bool) -> set[str]:
-    p = CACHE / f"{eco}-{name}-{version}.json"
+def affecting(eco: str, name: str, version: str, offline: bool, cache: Path = CACHE) -> set[str]:
+    p = cache / f"{eco}-{name}-{version}.json"
     if p.exists():
         return set(json.loads(p.read_text()))
     if offline:
@@ -49,7 +51,7 @@ def affecting(eco: str, name: str, version: str, offline: bool) -> set[str]:
         token = d.get("next_page_token")
         if not token:
             break
-    CACHE.mkdir(parents=True, exist_ok=True)
+    cache.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(sorted(ids)) + "\n")
     return ids
 
@@ -60,7 +62,7 @@ def main(argv=None) -> int:
     ap.add_argument("--record-ambiguous", action="store_true",
                     help=f"append mislabelled advisory ids to {AMBIGUOUS.name}; gen_osv_pairs.py then skips them")
     a = ap.parse_args(argv)
-    gens = sorted(GEN_DIR.glob("g_osv_generated*.jsonl"))
+    gens = sorted(GEN_DIR.glob("g_osv_generated*.jsonl")) + sorted(PRIVATE_GEN_DIR.glob("g_osv_*.jsonl"))
     if not gens:
         print("no generated pairs")
         return 0
@@ -68,7 +70,8 @@ def main(argv=None) -> int:
     ambiguous = set()
     for GEN, line, r in ((g, ln, row) for g in gens for ln, row in read_jsonl(g)):
         g = r["generator"]
-        ids = affecting(g["ecosystem"], g["package"], g["version"], a.offline)
+        cache = PRIVATE_CACHE if "private" in GEN.parts else CACHE
+        ids = affecting(g["ecosystem"], g["package"], g["version"], a.offline, cache)
         claims_affected = g["kind"] != "F2-out"
         is_affected = r["case"] in ids
         n += 1

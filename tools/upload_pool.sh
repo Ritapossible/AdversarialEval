@@ -44,6 +44,26 @@ for n, line in enumerate(raw.decode("utf-8").splitlines(), 1):
 if bad: sys.exit(f"{bad} rows would be rejected")
 PY
 
+# U2 rule: every uploaded row must have been reviewed by a person (tools/review_pool.py).
+# The pool file carries no review flag itself, so check the sidecar meta by row id.
+python3 - "$FILE" "$DRY" <<'PY' || exit 2
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(sys.argv[1]).resolve().parents[2] / "tools"))
+from common import read_jsonl, row_id
+path, dry = Path(sys.argv[1]), sys.argv[2] == "1"
+metas = {}
+for m in path.parent.glob("*.pool.meta.jsonl"):
+    metas.update({r["row_id"]: r for _, r in read_jsonl(m)})
+unrev = [n for n, r in read_jsonl(path) if not metas.get(row_id(r["prompt"], r["chosen"], r["rejected"]), {}).get("reviewed")]
+if unrev:
+    msg = f"{len(unrev)} rows are not human-reviewed (first: line {unrev[0]}); run tools/review_pool.py"
+    if dry:
+        print("dry-run warning: " + msg)
+    else:
+        sys.exit("refusing to upload: " + msg)
+PY
+
 BODY_SHA=$(sha256sum "$FILE" | cut -d' ' -f1)
 NONCE=$(openssl rand -hex 16)
 MSG=$(printf 'Telegraph eval-pool submission v1\nintent_id: %s\nbody_sha256: %s\nnonce: %s\nchain_id: %s' \

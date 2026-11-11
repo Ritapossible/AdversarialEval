@@ -25,8 +25,8 @@ SRC = ROOT / "data" / "sources"
 OSV = "https://api.osv.dev/v1/vulns/"
 
 
-def fetch(vid: str, offline: bool) -> dict:
-    cache = SRC / "osv" / f"{vid}.json"
+def fetch(vid: str, offline: bool, cache_dir: Path | None = None) -> dict:
+    cache = (cache_dir or SRC / "osv") / f"{vid}.json"
     if cache.exists():
         return json.loads(cache.read_text())
     raw = SRC / "osv_raw" / f"{vid}.json"
@@ -94,6 +94,8 @@ def main(argv=None) -> int:
                     help="id files (hand-picked ids.txt, then generator output); missing files are skipped")
     ap.add_argument("--out", default=str(SRC / "sources.jsonl"))
     ap.add_argument("--offline", action="store_true")
+    ap.add_argument("--cache-dir", default=str(SRC / "osv"),
+                    help="per-id OSV record cache; use data/private/osv for pool ids (git-ignored)")
     a = ap.parse_args(argv)
 
     rows, seen = [], set()
@@ -110,7 +112,7 @@ def main(argv=None) -> int:
         if vid in seen:
             raise SystemExit(f"duplicate id {vid}")
         seen.add(vid)
-        rec = fetch(vid, a.offline)
+        rec = fetch(vid, a.offline, Path(a.cache_dir))
         s = summarise(rec, opts.get("split", "public"), opts.get("case"))
         if s["withdrawn"]:
             print(f"! {vid} is WITHDRAWN ({s['withdrawn']}) — usable only as an F1 trap", file=sys.stderr)

@@ -23,6 +23,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, read_jsonl  # noqa: E402
 
 CACHE = ROOT / "data" / "sources" / "id_checks.json"
+# trap ids used only by pool rows are cached apart, so the committed cache never lists them
+PRIVATE_CACHE = ROOT / "data" / "private" / "id_checks.json"
 
 
 def canonical(vid: str) -> str:
@@ -42,7 +44,8 @@ def alias_index() -> dict[str, str]:
     global _ALIASES
     if _ALIASES is None:
         _ALIASES = {}
-        for p in (ROOT / "data" / "sources" / "osv").glob("*.json"):
+        paths = [*(ROOT / "data" / "sources" / "osv").glob("*.json"), *(ROOT / "data" / "private" / "osv").glob("*.json")]
+        for p in paths:
             rec = json.loads(p.read_text())
             for al in rec.get("aliases", []):
                 _ALIASES[canonical(al)] = rec["id"]
@@ -75,25 +78,34 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--offline", action="store_true")
     a = ap.parse_args(argv)
-    cache = json.loads(CACHE.read_text()) if CACHE.exists() else {}
-    files = sorted((ROOT / "data" / "authoring").rglob("*.jsonl"))
-    files += sorted((ROOT / "data" / "private" / "authoring").rglob("*.jsonl"))
+    groups = [(CACHE, sorted((ROOT / "data" / "authoring").rglob("*.jsonl"))),
+              (PRIVATE_CACHE, sorted((ROOT / "data" / "private" / "authoring").rglob("*.jsonl")))]
     errors = checked = 0
-    for f in files:
-        for n, r in read_jsonl(f):
-            where = f"{f.relative_to(ROOT)}:{n}"
-            for vid in r.get("fabricated_ids", []):
-                checked += 1
-                if exists(vid, cache, a.offline):
-                    errors += 1
-                    print(f"ERROR {where}: 'fabricated' {vid} is a real advisory "
-                          f"({cache[canonical(vid)].get('summary', '')[:80]!r}); move it to misattributed_ids")
-            for vid in r.get("misattributed_ids", []):
-                checked += 1
-                if not exists(vid, cache, a.offline):
-                    errors += 1
-                    print(f"ERROR {where}: 'misattributed' {vid} does not exist on OSV; it is a fabrication")
-    CACHE.write_text(json.dumps(dict(sorted(cache.items())), indent=1) + "\n")
+    for cache_path, files in groups:
+        if not files:
+            continue
+        cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
+        if cache_path == PRIVATE_CACHE and CACHE.exists():
+            # reuse public answers read-only; new lookups land only in the private cache
+            public = json.loads(CACHE.read_text())
+            cache = {**public, **cache}
+        for f in files:
+            for n, r in read_jsonl(f):
+                where = f"{f.relative_to(ROOT)}:{n}"
+                for vid in r.get("fabricated_ids", []):
+                    checked += 1
+                    if exists(vid, cache, a.offline):
+                        errors += 1
+                        print(f"ERROR {where}: 'fabricated' {vid} is a real advisory "
+                              f"({cache[canonical(vid)].get('summary', '')[:80]!r}); move it to misattributed_ids")
+                for vid in r.get("misattributed_ids", []):
+                    checked += 1
+                    if not exists(vid, cache, a.offline):
+                        errors += 1
+                        print(f"ERROR {where}: 'misattributed' {vid} does not exist on OSV; it is a fabrication")
+        if cache_path == PRIVATE_CACHE and CACHE.exists():
+            cache = {k: v for k, v in cache.items() if k not in public or public[k] != v}
+        cache_path.write_text(json.dumps(dict(sorted(cache.items())), indent=1) + "\n")
     print(f"id check: {'FAIL' if errors else 'PASS'} ({checked} trap ids)")
     return 1 if errors else 0
 

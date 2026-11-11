@@ -53,9 +53,10 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 
 ### Phase U: Audit upgrades (Nov 10–20), see `docs/AUDIT_2026-11-10.md`
 - [ ] U1 Frozen test split `data/test/` by outside reviewers. **Done (Claude):** split support, `docs/REVIEWER_GUIDE.md`, CSV template, importer, `docs/OUTREACH.md`. **Open (you):** recruit 2–3 reviewers
-- [ ] U2 Human-reviewed pool upload (about 100 pairs) (blocked: review + wallet)
+- [ ] U2 Human-reviewed pool upload. **Done (Claude):** 91 candidates (`gen_osv_pairs.py --split private`, 17 packages disjoint from every published split, every label verified by OSV, kit gate PASS), review sheet + `tools/review_pool.py`, upload refuses unreviewed rows. **Open (you):** review `data/private/review/pool_review.csv`, then a contributor wallet
 - [ ] U3 Sample and label real miner responses (blocked: funded wallet)
-- [ ] U4 3-seed runs + registration rule: clean-test lower bound > about 72% (blocked for registration: wallets, VM, `/claim` #96)
+- [ ] U4 Seed runs + registration rule: independent-test accuracy about 80% or more (the 15-pair remote check passes only 69% of the time at 75%) (blocked for registration: wallets, VM, `/claim` #96)
+- [x] Local remote-check rehearsal (`scripts/rehearse.sh`): node client, then `adapterexec`, then the real engine; identity echo and WASM-vs-PyTorch agreement verified
 - [x] U5 Programmatic OSV minimal pairs: 146 pairs from 163 advisories, every label re-checked by OSV's own version query (2 ambiguous advisories excluded)
 - [x] U6 Error-mining loop: `eval/errors.py` → worksheet → 11 targeted pairs (`e_targeted.jsonl`) + 12 coverage pairs (batch F). cpu-v3 showed diminishing returns (+1.7 points, noise), so single-pair mining is paused until independent data arrives
 - [x] U7 Taxonomy re-scoped (`docs/ADVERSARIAL_CRITERIA.md`), with evidence-in-prompt for half of the generated F2

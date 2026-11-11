@@ -93,6 +93,24 @@ npm run adapter:check-executor -- --url https://<host>/ \
   --package runs/$INTENT/$INTENT.safetensors --foundation third_party/foundation/foundation.json
 ```
 
+### 6b. Local dress rehearsal (no VM, no wallet)
+
+```bash
+bash scripts/setup_kit.sh --full           # once: foundation graph + engine, hash-checked
+bash scripts/export.sh <run>               # package + manifest (keccak256)
+bash scripts/rehearse.sh <run>             # validation pairs; or: rehearse.sh <run> <pairs.jsonl> --limit 15
+```
+
+`rehearse.sh` serves the package with the kit's `adapterexec` on the real foundation and
+engine. It sends pairs through the node's own client (`pkg/wasm/remote`, via
+`tools/remotecheck`) in requests of 15 pairs with the score identity, and checks the echo
+the way the node does. It also compares every WASM score with the PyTorch scores in
+`scores.json` (`tools/compare_scores.py`). Expect about 2.5 min per 15 pairs on CPU.
+
+It proves the package, the executor and the echo work, and that the PyTorch numbers in
+`eval/reports/` hold on the node's engine. It does **not** predict the node's result,
+because the node draws its 15 pairs from other contributors' public rows.
+
 ## 7. Fund the bond wallet (testnet)
 
 ```bash
@@ -121,6 +139,22 @@ Track it: `curl -s $NODE/api/wasm/<registrationId>`. This takes about 1.5 h. Pas
 `eval` object into `eval/reports/`.
 
 ## 9. Upload eval-pool rows (private set)
+
+Candidates are generated with `python tools/gen_osv_pairs.py --split private` from the packages in `data/private/pool_packages.json` (git-ignored, so the hidden rows' topics stay private). They come
+from packages disjoint from every published split, and the output, id list and caches all
+live under `data/private/`. A person must review them before upload:
+
+```bash
+python tools/fetch_sources.py --ids data/private/ids_pool.txt --out data/private/sources.jsonl --cache-dir data/private/osv
+bash scripts/check_data.sh                       # build, trap ids, OSV label check, dedup across all three sets, kit gate
+python tools/review_pool.py export               # -> data/private/review/pool_review.csv
+#   reviewer fills decision (approve / reject) + notes for each row
+python tools/review_pool.py apply --reviewer "<name>"
+bash scripts/check_data.sh                       # rebuild the pool file
+bash tools/upload_pool.sh --dry-run $POOL_INTENT data/private/security_review_general.pool.jsonl
+```
+
+`upload_pool.sh` refuses to upload while any row lacks `reviewed: true`.
 
 ```bash
 bash tools/upload_pool.sh $POOL_INTENT data/private/security_review_general.pool.jsonl
