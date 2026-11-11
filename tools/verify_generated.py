@@ -24,7 +24,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, read_jsonl  # noqa: E402
 
-GEN = ROOT / "data" / "authoring" / "security_review" / "g_osv_generated.jsonl"
+GEN_DIR = ROOT / "data" / "authoring" / "security_review"
 CACHE = ROOT / "data" / "sources" / "osv_version"
 AMBIGUOUS = ROOT / "data" / "sources" / "ambiguous_advisories.txt"
 
@@ -60,12 +60,13 @@ def main(argv=None) -> int:
     ap.add_argument("--record-ambiguous", action="store_true",
                     help=f"append mislabelled advisory ids to {AMBIGUOUS.name}; gen_osv_pairs.py then skips them")
     a = ap.parse_args(argv)
-    if not GEN.exists():
+    gens = sorted(GEN_DIR.glob("g_osv_generated*.jsonl"))
+    if not gens:
         print("no generated pairs")
         return 0
     bad = n = 0
     ambiguous = set()
-    for line, r in read_jsonl(GEN):
+    for GEN, line, r in ((g, ln, row) for g in gens for ln, row in read_jsonl(g)):
         g = r["generator"]
         ids = affecting(g["ecosystem"], g["package"], g["version"], a.offline)
         claims_affected = g["kind"] != "F2-out"

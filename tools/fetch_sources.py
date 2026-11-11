@@ -89,7 +89,8 @@ def summarise(rec: dict, split: str, case: str | None) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ids", nargs="+", default=[str(SRC / "ids.txt"), str(SRC / "ids_generated.txt")],
+    ap.add_argument("--ids", nargs="+", default=[str(SRC / "ids.txt"), str(SRC / "ids_generated.txt"),
+                             str(SRC / "ids_generated_val.txt")],
                     help="id files (hand-picked ids.txt, then generator output); missing files are skipped")
     ap.add_argument("--out", default=str(SRC / "sources.jsonl"))
     ap.add_argument("--offline", action="store_true")

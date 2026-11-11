@@ -12,12 +12,23 @@ INTENT=${INTENT:-SECURITY_REVIEW}
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 STEM=$(echo "$INTENT" | tr '[:upper:]' '[:lower:]')
 RUN=$ROOT/runs/$INTENT-$NAME
-TRAIN=$ROOT/data/public/$STEM.train.jsonl
-VAL=$ROOT/data/validation/$STEM.val.jsonl
+# TRAIN / VAL can be pinned for controlled comparisons (seed studies); by default the
+# current build is used. Either way the exact files are snapshotted into the run dir and
+# every score in the report refers to those snapshots.
+PIN_TRAIN=${TRAIN:-}
+VAL_SRC=${VAL:-$ROOT/data/validation/$STEM.val.jsonl}
 REPORT=$ROOT/eval/reports/$(date +%F)-$NAME.md
 mkdir -p "$RUN"
 
-python3 "$ROOT/tools/build.py" --intent "$INTENT" >/dev/null || { echo "build failed"; exit 1; }
+if [ -z "$PIN_TRAIN" ]; then
+  python3 "$ROOT/tools/build.py" --intent "$INTENT" >/dev/null || { echo "build failed"; exit 1; }
+  PIN_TRAIN=$ROOT/data/public/$STEM.train.jsonl
+fi
+TRAIN=$RUN/$STEM.train.jsonl; VAL=$RUN/$STEM.val.jsonl
+cp "$PIN_TRAIN" "$TRAIN"; cp "$VAL_SRC" "$VAL"
+# sidecar meta next to the snapshots (score.py looks beside the data file first)
+cp "$ROOT/data/meta/$STEM.train.meta.jsonl" "$RUN/$STEM.train.meta.jsonl" 2>/dev/null || true
+cp "$ROOT/data/meta/$STEM.val.meta.jsonl" "$RUN/$STEM.val.meta.jsonl" 2>/dev/null || true
 cd "$ROOT/third_party/telegraph-wasm-baseline"
 python3 -m float_runtime.train_adapter --intent "$INTENT" --data "$TRAIN" --val-data "$VAL" \
   --config "$ROOT/configs/$STEM.yaml" --out "$RUN" "$@" 2>&1 | tee "$RUN/train.log" \

@@ -36,7 +36,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ROOT, normalise, read_jsonl  # noqa: E402
+from common import ADVISORY_ID, ROOT, normalise, read_jsonl  # noqa: E402
 
 SRC = ROOT / "data" / "sources"
 OUT = ROOT / "data" / "authoring" / "security_review" / "g_osv_generated.jsonl"
@@ -52,6 +52,14 @@ PACKAGES = {
             "handlebars", "marked", "ejs", "undici", "socket.io", "body-parser", "path-to-regexp",
             "cookie", "send", "dompurify", "sanitize-html", "xml2js", "shell-quote", "glob-parent",
             "ansi-regex", "jquery", "underscore", "next", "vite", "webpack-dev-middleware"],
+}
+# Held-out packages for the generated validation set: disjoint from PACKAGES, so a model
+# can't pass by memorising training advisories (audit follow-up, 2026-11-11).
+PACKAGES_HOLDOUT = {
+    "PyPI": ["tensorflow", "keras", "babel", "waitress", "streamlit", "langchain", "llama-index",
+             "bentoml", "onnx", "sentry-sdk", "vyper", "nltk", "rsa", "ecdsa", "pycryptodome"],
+    "npm": ["angular", "vue", "electron", "mongoose", "sequelize", "passport", "koa", "fastify",
+            "multer", "formidable", "pug", "nunjucks", "highlight.js", "js-yaml", "fast-xml-parser"],
 }
 CONTEXTS = [
     "in a public REST API", "in an internal reporting job", "in our CI build image",
@@ -229,7 +237,15 @@ def prompt_for(kind, rng, pkg, v, gid, cve, summary, eco, r_ev, ctx):
     ref = f"{gid}" + (f" ({cve})" if cve and rng.random() < 0.5 else "")
     mgr = "requirements.txt" if eco == "PyPI" else "package-lock.json"
     pin = f"{pkg}=={v}" if eco == "PyPI" else f"{pkg}@{v}"
-    evidence = (f" The advisory text says versions {range_text(r_ev)} are affected." if r_ev else "")
+    evidence = ""
+    if r_ev:
+        evidence = " " + rng.choice([
+            f"The advisory text says versions {range_text(r_ev)} are affected.",
+            f"Per the GHSA page, affected versions: {range_text(r_ev)}.",
+            f"(Scanner detail: vulnerable range is {range_text(r_ev)}.)",
+            f"Advisory excerpt: \"affects {pkg} {range_text(r_ev)}\".",
+            f"The vendor lists {range_text(r_ev)} as vulnerable.",
+        ])
     if kind == "F1":
         opts = [f"For our audit ticket: which GitHub advisory covers \"{summary}\" in {pkg}? We run {pin} {ctx}.",
                 f"Need the advisory id for the {pkg} issue \"{summary}\" (we pin {pin} {ctx}). Which GHSA is it, and what's the fix version?",
@@ -315,12 +331,15 @@ def shingles(s, k=5):
     return {s[i:i + k] for i in range(max(1, len(s) - k + 1))}
 
 
-def too_similar(t, sh, pool):
+def too_similar(t, sh, pool, threshold=0.80, exhaustive=False):
+    """Jaccard of 5-gram shingles, then difflib's ratio (dedup.py uses the max of both).
+    Templated prompts can share structure with little word overlap, so `exhaustive` always
+    runs difflib (used for held-out generation, where cross-split similarity is an error)."""
     for t2, sh2 in pool:
         jac = len(sh & sh2) / max(1, len(sh | sh2))
-        if jac >= 0.80:
+        if jac >= threshold:
             return True
-        if jac > 0.45 and difflib.SequenceMatcher(None, t, t2, autojunk=False).ratio() >= 0.80:
+        if (exhaustive or jac > 0.40) and difflib.SequenceMatcher(None, t, t2, autojunk=False).ratio() >= threshold:
             return True
     return False
 
@@ -331,17 +350,27 @@ def main(argv=None) -> int:
     ap.add_argument("--per-package", type=int, default=6)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--offline", action="store_true")
+    ap.add_argument("--split", choices=["public", "validation"], default="public",
+                    help="validation = held-out minimal pairs from PACKAGES_HOLDOUT")
     a = ap.parse_args(argv)
+    holdout = a.split == "validation"
+    packages = PACKAGES_HOLDOUT if holdout else PACKAGES
+    out_path = OUT.with_name("g_osv_generated_val.jsonl") if holdout else OUT
+    ids_out = IDS_OUT.with_name("ids_generated_val.txt") if holdout else IDS_OUT
+    # cross-split prompts must stay below dedup.py's 0.70 cross-split error threshold
+    sim_threshold = 0.66 if holdout else 0.80
     rng = random.Random(a.seed)
 
     # packages used by validation/test cases are off limits
     excluded = set()
     for _, s in read_jsonl(SRC / "sources.jsonl"):
-        if s["split"] != "public":
+        if (s["split"] == "public") == holdout:  # holdout: avoid train packages; train: avoid held-out ones
             excluded |= {p["name"].lower() for p in s["packages"] if p.get("name")}
+    if holdout:
+        excluded |= {n.lower() for names in PACKAGES.values() for n in names}
     existing = []
     for f in sorted((ROOT / "data" / "authoring").rglob("*.jsonl")):
-        if f == OUT:
+        if f == out_path:
             continue
         for _, r in read_jsonl(f):
             t = normalise(r["prompt"])
@@ -350,7 +379,7 @@ def main(argv=None) -> int:
     amb_file = SRC / "ambiguous_advisories.txt"
     ambiguous = set(amb_file.read_text().split()) if amb_file.exists() else set()
     candidates, gid_pkg = [], {}
-    for eco, names in PACKAGES.items():
+    for eco, names in packages.items():
         for name in names:
             if name.lower() in excluded:
                 print(f"skip {name}: used in a validation/test case")
@@ -385,6 +414,9 @@ def main(argv=None) -> int:
                 summary = (rec.get("summary") or "").strip().rstrip(".")
                 if not summary or len(summary) > 140:
                     continue
+                if ADVISORY_ID.search(summary):
+                    continue  # the title cites another advisory (e.g. "bypass of CVE-…"): ambiguous ids
+
                 cve = next((x for x in rec.get("aliases", []) if x.startswith("CVE-")), None)
                 gid_pkg[gid] = name
                 candidates.append({"gid": gid, "cve": cve, "sev": sev, "summary": summary, "pkg": name, "eco": eco,
@@ -424,13 +456,13 @@ def main(argv=None) -> int:
                             c["gid"], c["cve"], c["summary"], c["eco"], evidence, rng.choice(CONTEXTS))
         t = normalise(prompt)
         sh = shingles(t)
-        if too_similar(t, sh, pool):
+        if too_similar(t, sh, pool, sim_threshold, exhaustive=holdout):
             continue
         fmt, _, chosen, rejected, vc, vr, note = build_pair(kind, rng, c)
-        row = {"case": c["gid"], "family": kind.split("-")[0], "split": "public", "format": "mixed" if fmt == "terse" else fmt,
+        row = {"case": c["gid"], "family": kind.split("-")[0], "split": a.split, "format": "mixed" if fmt == "terse" else fmt,
                "prompt": prompt, "chosen": chosen, "rejected": rejected, "source_url": c["url"],
                "verdict_chosen": vc, "verdict_rejected": vr, "flaw_note": note, "author": GENERATOR,
-               "reviewed": False, "source_kind": "advisory",
+               "reviewed": False, "source_kind": "advisory", "voice": "generated-minimal",
                "generator": {"kind": kind, "package": c["pkg"], "ecosystem": c["eco"], "version": v_prompt,
                              "evidence_in_prompt": bool(evidence)}}
         if kind == "F1":
@@ -441,16 +473,16 @@ def main(argv=None) -> int:
         per_pkg[c["pkg"]] = per_pkg.get(c["pkg"], 0) + 1
         pool.append((t, sh))
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     hand = {line.split()[0] for line in (SRC / "ids.txt").read_text().splitlines()
             if line.strip() and not line.startswith("#")}
-    IDS_OUT.write_text("# generated by tools/gen_osv_pairs.py; all split=public\n" +
-                       "".join(f"{i} split=public\n" for i in sorted(used_ids - hand)))
+    ids_out.write_text(f"# generated by tools/gen_osv_pairs.py; all split={a.split}\n" +
+                       "".join(f"{i} split={a.split}\n" for i in sorted(used_ids - hand)))
     kinds = {}
     for r in rows:
         kinds[r["generator"]["kind"]] = kinds.get(r["generator"]["kind"], 0) + 1
-    print(f"wrote {len(rows)} pairs -> {OUT.relative_to(ROOT)}  kinds {kinds}  "
+    print(f"wrote {len(rows)} pairs -> {out_path.relative_to(ROOT)}  kinds {kinds}  "
           f"packages {len(per_pkg)}  advisories {len(used_ids)}")
     return 0
 

@@ -55,7 +55,8 @@ def scorer(model, tok, max_len: int = 512):
 
 def meta_for(data: Path) -> dict:
     stem, split = data.name.split(".")[:2]
-    for c in (ROOT / "data" / "meta" / f"{stem}.{split}.meta.jsonl",
+    for c in (data.parent / f"{stem}.{split}.meta.jsonl",
+              ROOT / "data" / "meta" / f"{stem}.{split}.meta.jsonl",
               ROOT / "data" / "private" / f"{stem.replace('_general', '')}.{split}.meta.jsonl"):
         if c.exists():
             return {m["row_id"]: m for _, m in read_jsonl(c)}
@@ -103,10 +104,15 @@ def main(argv=None) -> int:
             sc, sr = score(r["prompt"], r["chosen"]), score(r["prompt"], r["rejected"])
             ok = 1.0 if sc > sr else 0.5 if sc == sr else 0.0
             longer = "chosen longer" if len(r["chosen"]) > len(r["rejected"]) else "rejected longer"
+            gen = m.get("generator") or {}
+            source = "generated minimal pairs" if str(m.get("author", "")).startswith("generator") else "hand-written"
             for dim, key in (("ALL", "ALL"), ("family", m.get("family", "?")),
-                             ("format", m.get("format", "?")), ("length", longer),
+                             ("source", source), ("format", m.get("format", "?")), ("length", longer),
                              ("chosen verdict", m.get("verdict_chosen", "?"))):
                 by[dim][key].append(ok)
+            if gen:
+                kind = gen.get("kind", "?") + (" +range in prompt" if gen.get("evidence_in_prompt") else "")
+                by["generated kind"][kind].append(ok)
             rec = {"file": str(path), "row_id": m.get("row_id"), "family": m.get("family"), "chosen": sc,
                    "rejected": sr, "correct": ok}
             if a.probe_pad:
@@ -122,8 +128,9 @@ def main(argv=None) -> int:
         acc = sum(by["ALL"]["ALL"]) / n_all
         lo, hi = wilson(sum(by["ALL"]["ALL"]), n_all)
         out += [f"## {path}", "", f"**Pairwise accuracy: {acc:.1%}** ({n_all} pairs; 95% CI {lo:.1%}–{hi:.1%})", ""]
-        for dim in ("family", "length", "chosen verdict", "format"):
-            out += table(dim, by[dim]) + [""]
+        for dim in ("source", "family", "generated kind", "length", "chosen verdict", "format"):
+            if by[dim]:
+                out += table(dim, by[dim]) + [""]
         if a.probe_pad and pad_kept:
             out += [f"Padding probe: of the pairs it got right, the adapter still prefers the chosen answer "
                     f"after the rejected one is padded to 1.5x length in {sum(pad_kept) / len(pad_kept):.0%} "
