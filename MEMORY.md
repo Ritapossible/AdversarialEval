@@ -19,6 +19,9 @@ within each section.
 | Our registrations | none | 11-04 |
 | Executor URL | _not deployed_ | |
 | Dataset (11-10) | train 252 pairs (95 hand + 146 OSV-generated + 11 targeted), validation 39, test 0 (awaiting reviewers); every naive scorer ≤ 54% | 11-10 |
+| Validation (11-11) | 87 pairs: 39 hand-written second voice + 48 held-out generated minimal pairs (13 packages disjoint from training) | 11-11 |
+| Seed variance (11-11) | cpu-v1 config: seed 13 = 76.9%, seed 7 = 87.2% on the 39 hand-written pairs, about 10 points apart | 11-11 |
+| **Polarity shortcut** (11-11) | the 95-pair model scores F2-in 100% / F2-out 0% on minimal pairs (train and held-out alike). It prefers the "vulnerable" answer and hasn't learned version comparison. Hand-written validation hid it | 11-11 |
 | Best run | cpu-v1 (rank 8, lr 2e-4, epoch 3 of 6): **76.9% on 39 validation pairs**, 97.9% train; weakest on Secure verdicts (55%) and F5/F6 (60%). Validation picked the epoch, so it's optimistic; a clean test split is needed | 11-10 |
 | Latest adapter keccak256 | cpu-v0 smoke package `0x1a4e6750…45dd` (passes node Stage 1 locally; NOT registered; 61.5% on validation, below the 70% floor) | 11-10 |
 
@@ -114,6 +117,7 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-04 | Public and pool datasets strictly disjoint | Don't leak hidden testing-half rows |
 | 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
 | 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
+| 11-11 | Every run is also scored on held-out generated minimal pairs, reported by source and pair kind | Hand-written validation hid a 0%/100% polarity shortcut |
 | 11-10 | Audit adopted (`docs/AUDIT_2026-11-10.md`): independent evidence first, programmatic OSV minimal pairs, error-mining loop, honest taxonomy scope | The best number so far is self-graded; competitors keep dying at the remote check from distribution shift |
 | 11-10 | SMART_CONTRACT_AUDIT dropped as an adapter target (material only) | Depth on one Intent beats breadth |
 | 11-10 | Add a separate test split before any registration decision | Validation is used for early stopping and tuning, so it's no longer an unbiased estimate |
