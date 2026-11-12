@@ -1,0 +1,35 @@
+# Publishes site/ (the "Spot the Flaw" demo) to GitHub Pages.
+# One-time setup by the repo owner: Settings → Pages → Build and deployment → Source: "GitHub Actions".
+# site/ is built from the PUBLIC training set only (tools/build_spot_flaw.py); never put
+# validation, test or data/private content in it.
+name: Deploy demo to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refuse anything but the public demo
+        run: |
+          ls site
+          for f in site/*; do case "$f" in site/index.html|site/spot-the-flaw.html) ;; *) echo "unexpected file $f"; exit 1 ;; esac; done
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
