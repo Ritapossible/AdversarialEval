@@ -125,6 +125,7 @@ kbd { font: 600 0.75rem/1 var(--mono); border: 1px solid var(--line); border-bot
 .track { position: relative; height: 0.9rem; background: var(--sunken); border-radius: 3px; }
 .track .fill { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: var(--muted); }
 .track .fill.ours { background: var(--accent); }
+.track .range { position: absolute; top: 0; bottom: 0; background: var(--accent); opacity: 0.4; border-radius: 0 3px 3px 0; }
 .track .coin { position: absolute; top: -0.25rem; bottom: -0.25rem; width: 2px; background: var(--ink); opacity: 0.55; }
 .axis { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) 5.5rem; gap: 0.75rem; font: 400 0.75rem/1 var(--mono); color: var(--muted); }
 .axis .ticks { display: flex; justify-content: space-between; }
@@ -132,7 +133,7 @@ kbd { font: 600 0.75rem/1 var(--mono); border: 1px solid var(--line); border-bot
 @media (max-width: 560px) {
   .metric, .axis { grid-template-columns: minmax(0, 1fr) 4.5rem; }
   .metric .name { grid-column: 1 / -1; }
-  .axis span:first-child { display: none; }
+  .axis > span:first-child { display: none; }
 }
 
 /* taxonomy */
@@ -205,7 +206,7 @@ footer p { margin: 0; max-width: 80ch; }
     <h2 id="numbers-title">Why judges get fooled</h2>
     <p class="note">On Telegraph, an evaluator model decides which miner's answer wins. If it rewards length or security vocabulary, the plausible-but-wrong answer wins. Pairwise accuracy on <span id="n-val"></span> held-out validation pairs:</p>
     <div class="chart" role="img" id="chart" aria-label="Pairwise accuracy of three judges"></div>
-    <p class="note">The vertical line is a coin flip (50%). AdversarialEval's range covers two training runs with different random seeds. These validation pairs were written by the same author as the training data, so they overstate real-world accuracy. The headline number will come from a test set written by independent security reviewers.</p>
+    <p class="note">The vertical line is a coin flip (50%). Each AdversarialEval bar runs from its weaker to its stronger training run (the lighter part is the spread). Each range covers two training runs with different random seeds; the adapter in the game was trained without its 17 cases (and 7 pairs about the same advisories), which costs it some accuracy. These validation pairs were written by the same author as the training data, so they overstate real-world accuracy. The headline number will come from a test set written by independent security reviewers.</p>
   </section>
 
   <section class="numbers" aria-labelledby="fam-title">
@@ -270,8 +271,9 @@ footer p { margin: 0; max-width: 80ch; }
       var okRuns = c.model.filter(function (p) { return p === "chosen"; }).length;
       state.model += okRuns / c.model.length;
       var mt = $("j-model");
-      if (okRuns === c.model.length) { mt.textContent = "right in " + (c.model.length > 1 ? "all " + c.model.length + " runs" : "its run") + "  ✓"; mt.className = "res ok"; }
-      else if (okRuns === 0) { mt.textContent = "fooled in " + (c.model.length > 1 ? "all " + c.model.length + " runs" : "its run") + "  ✗"; mt.className = "res no"; }
+      var all = c.model.length === 1 ? "its run" : c.model.length === 2 ? "both runs" : "all " + c.model.length + " runs";
+      if (okRuns === c.model.length) { mt.textContent = "right in " + all + "  ✓"; mt.className = "res ok"; }
+      else if (okRuns === 0) { mt.textContent = "fooled in " + all + "  ✗"; mt.className = "res no"; }
       else { mt.textContent = "right in " + okRuns + " of " + c.model.length + " runs"; mt.className = "res tie"; }
     }
     ["a", "b"].forEach(function (s) {
@@ -329,13 +331,14 @@ footer p { margin: 0; max-width: 80ch; }
     var rows = [
       { name: "Longer answer wins", v: stats.longer, label: stats.longer + "%" },
       { name: "More security keywords wins", v: stats.keywords, label: stats.keywords + "%" },
-      { name: "AdversarialEval adapter", v: stats.model_lo, hi: stats.model_hi, label: Math.round(stats.model_lo) + "–" + Math.round(stats.model_hi) + "%", ours: true }
+      { name: "AdversarialEval, all 264 training pairs", v: stats.full_lo, hi: stats.full_hi, label: Math.round(stats.full_lo) + "–" + Math.round(stats.full_hi) + "%", ours: true },
+      { name: "AdversarialEval, demo cases held out (the one in this game)", v: stats.held_lo, hi: stats.held_hi, label: Math.round(stats.held_lo) + "–" + Math.round(stats.held_hi) + "%", ours: true }
     ];
     var html = "";
     rows.forEach(function (r) {
-      var w = r.hi || r.v;
       html += '<div class="metric"><span class="name">' + r.name + '</span><div class="track">' +
-        '<div class="fill' + (r.ours ? " ours" : "") + '" style="width:' + w + '%"></div>' +
+        '<div class="fill' + (r.ours ? " ours" : "") + '" style="width:' + r.v + '%"></div>' +
+        (r.hi ? '<div class="range" style="left:' + r.v + '%;width:' + (r.hi - r.v) + '%"></div>' : '') +
         '<div class="coin" style="left:50%"></div></div><span class="val">' + r.label + '</span></div>';
     });
     html += '<div class="axis"><span></span><div class="ticks"><span>0%</span><span>50%</span><span>100%</span></div><span></span></div>';

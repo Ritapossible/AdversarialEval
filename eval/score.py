@@ -100,7 +100,8 @@ def main(argv=None) -> int:
         by = defaultdict(lambda: defaultdict(list))
         pad_kept = []
         for _, r in read_jsonl(path):
-            m = meta.get(row_id(r["prompt"], r["chosen"], r["rejected"]), {})
+            rid = row_id(r["prompt"], r["chosen"], r["rejected"])
+            m = meta.get(rid, {"row_id": rid})  # no sidecar meta: the id is still computable
             sc, sr = score(r["prompt"], r["chosen"]), score(r["prompt"], r["rejected"])
             ok = 1.0 if sc > sr else 0.5 if sc == sr else 0.0
             longer = "chosen longer" if len(r["chosen"]) > len(r["rejected"]) else "rejected longer"

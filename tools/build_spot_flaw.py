@@ -48,9 +48,12 @@ FAMILIES = {
 PER_FAMILY = {"F1": 2, "F2": 2, "F3": 2, "F4": 2, "F5": 2, "F6": 2, "F7": 1, "F8": 1, "F9": 1, "F10": 2}
 MAX_PROMPT, MAX_ANSWER = 700, 650
 
-# Measured on the 87-pair validation set (eval/reports/2026-11-11-cpu-v3-seed*.md and the
-# baselines in scripts/check_data.sh). Same-author data: not an independent test.
-STATS = {"longer": 57, "keywords": 58, "model_lo": 72.4, "model_hi": 74.7, "n": 87}
+# Measured on the 87-pair validation set. Same-author data: not an independent test.
+# held_*: the adapter shown in the game, trained WITHOUT the demo cases (cpu-v4-demoheld,
+#   240 pairs; eval/reports/2026-11-12-cpu-v4-demoheld-seed*.md)
+# full_*: the same recipe on all 264 public pairs (cpu-v3; eval/reports/2026-11-11-cpu-v3-seed*.md)
+# longer/keywords: the naive baselines from scripts/check_data.sh
+STATS = {"longer": 57, "keywords": 58, "held_lo": 64.4, "held_hi": 71.3, "full_lo": 72.4, "full_hi": 74.7, "n": 87}
 
 
 def model_pick(run: dict, rid: str, held: set) -> str:
