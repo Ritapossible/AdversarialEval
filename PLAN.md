@@ -70,7 +70,7 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [ ] Export the delta → `adapterbuild lora` PASS → record the keccak256
 - [ ] Executor VM up (public HTTPS, ≥ 5 GB RAM), `adapterexec` serving, passes
       `npm run adapter:check-executor`
-- [ ] Milestone update posted (bounty `/progress`, H2 update)
+- [ ] Milestone update posted (bounty `/progress`, H2 update). Draft ready: `docs/milestones/2026-11-14-progress.md`; needs `/claim` #96 first (you)
 
 ### Phase 4: Challenge (Nov 15–20)
 - [ ] Host the `.safetensors` at an immutable URL (GitHub raw at a commit SHA, or IPFS)
