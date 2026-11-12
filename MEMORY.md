@@ -12,7 +12,7 @@ within each section.
 |---|---|---|
 | Our contributor address | _not created_ | |
 | Our bond / fee address | _not created_ | |
-| Bounty claims | **#96 claimed 11-12** by Ritapossible (bot confirmed; unfunded issue, prizes per H2 rules). `/progress` due every ≤ 72 h. Also claimed by zkasuran (0x8b22…, discloses running a miner on this intent) | 11-12 |
+| Bounty claims | **#96 claimed 11-12** by Ritapossible (bot confirmed; unfunded issue, prizes per H2 rules). First `/progress` posted 11-12 ~13:57 local (bot: "Progress recorded"); **next due by 11-15 ~13:57**, then every ≤ 72 h. Also claimed by zkasuran (0x8b22…, discloses running a miner on this intent) | 11-12 |
 | #96 thread intel (11-12) | another contributor (0xDB6c…) reports 114 rows admitted to the pool (127 quarantined rate_limited, 7 near_duplicate) from 248 programmatic Composer/FriendsOfPHP questions, `source_kind` "api", per-row source URL | 11-12 |
 | Dataset | 59 public train + 14 validation pairs (Claude drafts, unreviewed); 26 OSV-verified sources | 11-08 |
 | Data check | kit dataset gate PASS on train; naive scorers ≤ 58% overall; per-family tells remain (report 11-08) | 11-08 |
