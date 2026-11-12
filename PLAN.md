@@ -92,6 +92,10 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [ ] Everything in `docs/SUBMISSION_CHECKLIST.md`
 - [ ] `/submit` on the bounty issues with the contributor address and registration id
 
+## Your next steps
+
+See [`docs/ACTION_PLAN.md`](docs/ACTION_PLAN.md) (detailed, ordered, with done-criteria).
+
 ## Risks
 
 | Risk | Likelihood | Mitigation |

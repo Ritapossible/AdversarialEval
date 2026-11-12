@@ -1,0 +1,20 @@
+# /etc/systemd/system/adapterexec.service
+[Unit]
+Description=AdversarialEval adapter executor (kit adapterexec)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=adapterexec
+WorkingDirectory=/opt/adversarialeval
+EnvironmentFile=/etc/adapterexec.env
+ExecStart=/opt/adversarialeval/runs/bin/adapterexec --package ${PACKAGE} --listen 127.0.0.1:8080
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/adversarialeval
+
+[Install]
+WantedBy=multi-user.target

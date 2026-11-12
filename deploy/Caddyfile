@@ -1,0 +1,10 @@
+# TLS front for the executor. EXEC_HOST is a public DNS name pointing at this VM, e.g.
+# 203-0-113-7.sslip.io (sslip.io resolves the dashed IP; no domain purchase needed).
+# Caddy gets a Let's Encrypt certificate automatically; ports 80 and 443 must be open.
+# Validators don't follow redirects, so register https://<EXEC_HOST>/ exactly.
+{$EXEC_HOST} {
+	reverse_proxy 127.0.0.1:8080
+	request_body {
+		max_size 2MB
+	}
+}
