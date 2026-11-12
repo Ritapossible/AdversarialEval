@@ -162,6 +162,19 @@ curl -s "$NODE/api/evalpool/submissions/mine?submitter=$CONTRIB_ADDR&intent_id=$
 curl -s "$NODE/api/evalpool/status?intent_id=$POOL_INTENT"
 ```
 
+## Getting the bond back (after a rejection, or when retiring an adapter)
+
+The bond is never slashed (docs: `scoring/build-a-scoring-module`). From the registering address:
+
+```bash
+cast send $DIAMOND "deregisterEntity(uint256,uint8)" <registrationId> 2 --rpc-url $RPC --private-key $AUTHOR_PRIVATE_KEY
+# two days later
+cast send $DIAMOND "withdrawMinerBond()" --rpc-url $RPC --private-key $AUTHOR_PRIVATE_KEY
+```
+
+Check the exact signatures with a `cast call` dry run first. The docs give the names and
+arguments, but the ABI types above are our reading.
+
 ## Rejection triage
 
 | Reason | Fix |

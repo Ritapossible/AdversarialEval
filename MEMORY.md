@@ -126,6 +126,7 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-04 | Don't fork the kit; train with it unmodified | Bit-exact node compatibility |
 | 11-04 | Validation set in a second "voice" | The remote check and hidden sample draw from other contributors; an in-style validation set overstates accuracy |
 | 11-12 | External review (Grok) triaged: polarity shortcut and U1 structure were already done (stale snapshot); length "bias" rejected after measurement (59% of train pairs exceed 1.25, but split 72 chosen-longer / 84 rejected-longer; longer-wins 55%; padding probe 100%), so per-pair ratio warnings became a per-split summary; accepted: OSV range unit tests, an exact 2x dedup speedup | Verify claims against the repo before acting on them |
+| 11-12 | Registration-risk update: a failed registration costs gas, about 1.5 h, a new package hash, and the $5 bond locked until deregister + 2 days. It is never slashed (docs). The ~80% independent-test bar stays because the remote check needs 11/15 and the competition needs incumbent + 2 points, but money is no longer the reason. After any rejection: `deregisterEntity(id, 2)`, then `withdrawMinerBond()` after 2 days | Verified in the official docs, not taken from a second AI's summary |
 | 11-11 | Registration bar raised: register only when independent-test accuracy is about **80% or more** (and the lower CI bound is above 70%), not "lower bound above 72%" | The remote check draws only 15 pairs and needs 11 right. P(pass) is 52% at a true 70%, 69% at 75%, 84% at 80% and 94% at 85% (binomial). The local rehearsal showed the same adapter passing and failing different 15-pair draws |
 | 11-11 | Pool candidates are generated from a third, disjoint package set; their output, ids and caches live only under `data/private/`; upload requires a human `approve` per row | Which advisories sit in the hidden pool must not leak through committed caches; the spec forbids uploading unreviewed rows |
 | 11-11 | No seed-merged submission (U8 closed, negative). Choose the submitted seed by a pre-fixed rule on the independent test split | Different kit seeds give different inits, so weight averaging lands between basins; a shared-init soup would need a kit change |
@@ -153,11 +154,20 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 4. The incumbents use `http://…sslip.io` URLs, but the docs require `https://`. Which is enforced?
 5. Is AI-assisted authoring fine if every row cites a real `source_url`, and what `source_kind`
    should it carry? (Our pool candidates are *programmatic*: OSV facts, labels checked by
-   OSV's version query, templated text. We currently send `advisory`.)
-6. Is there a documented way to read the miner-visible ranking half? We haven't probed
-   undocumented endpoints (hard rule 2).
-7. Is the $5 bond lost when a registration is rejected at the remote check? With 15 pairs,
-   even a true-75% adapter fails about 31% of the time (see Decisions 11-11).
+   OSV's version query, templated text. We currently send `advisory`.) **Docs (verified
+   11-12):** an `http(s)` `source_url` makes a row `attested` unless `source_kind` is `llm`,
+   `synthetic`, `generated` or `model`; no list of recommended values (the sample uses
+   `human`). So `advisory` + GHSA URL is attested. Another #96 contributor uses `api`.
+   Still asked on Discord whether the team prefers a value.
+6. ~~Ranking half readable?~~ **Answered (docs, verified 11-12): no.** "Rows are never shown
+   back. The endpoints on this page return counts, states and row identities, never row
+   content." Testing half: "Nobody outside the validators"; ranking half: "Miners, since they
+   have to answer it." (anjoman.ai/docs/scoring/contribute-evaluation-data; docs.telegraphprotocol.com redirects there)
+7. ~~Bond lost on rejection?~~ **Answered (docs, verified 11-12): never slashed.** "The bond is
+   returned in full when you deregister and is never slashed." Deregister with
+   `deregisterEntity(registrationId, 2)` from the registering address, then "withdraw it after
+   2 days with `withdrawMinerBond()`". The docs don't say whether a *rejected* registration
+   auto-releases it, so plan to call deregister after any rejection (anjoman.ai/docs/scoring/build-a-scoring-module).
 
 ---
 
