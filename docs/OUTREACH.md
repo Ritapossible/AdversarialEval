@@ -7,7 +7,8 @@ Credit: named in the dataset card and the write-up (or anonymous if they prefer)
 ## Paste-ready message
 
 > Hi! I'm building **AdversarialEval**, an open evaluator for the Telegraph protocol's
-> SECURITY_REVIEW Intent. It ranks security-review answers by whether they survive scrutiny
+> SECURITY_REVIEW Intent. It's my entry in the Telegraph Hackathon Season II (Evaluators
+> track), which has cash prizes. Reviewers get credit, not payment. It ranks security-review answers by whether they survive scrutiny
 > (fake CVE ids, wrong version ranges, false alarms, missed criticals), not by how fluent
 > they sound.
 >

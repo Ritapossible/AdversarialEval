@@ -19,7 +19,8 @@ verdict that flips once the context changes.
 The project ships two things the protocol needs:
 
 1. **An Evaluator adapter.** It's a LoRA delta and reward head on the shared ModernBERT-base
-   Foundation Model, registered on-chain to challenge the current Canonical Evaluator.
+   Foundation Model, to be registered on the Telegraph **testnet** (Sepolia) to challenge the
+   current Canonical Evaluator. **Not registered yet**: see Status.
 2. **Adversarial preference data.** It's a public dataset of `prompt / chosen / rejected`
    pairs, plus a separate, private set contributed to the Telegraph evaluation pool.
 
@@ -68,7 +69,18 @@ The full pipeline is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
 
 ## Status
 
-Phase 2, training. The best adapter so far (cpu-v1) scores **76.9% on 39 held-out second-voice pairs** and passes the node's Stage 1 package checks locally. See [`eval/reports/2026-11-10-cpu-v1.md`](eval/reports/2026-11-10-cpu-v1.md). Earlier status: There are 59 training pairs and 14 validation pairs. The kit dataset gate passes, and every naive scorer is ≤ 58%. See [`eval/reports/2026-11-08-seed-v0.md`](eval/reports/2026-11-08-seed-v0.md) and [`PLAN.md`](PLAN.md).
+Updated 2026-11-12. All numbers are on **our own validation set** (87 pairs, same author as
+the training data), reported over two training seeds, so they are not an independent test.
+
+- Best recipe (cpu-v3, 264 training pairs): **72.4% / 74.7%** pairwise accuracy (two seeds);
+  naive scorers ≤ 58%. The package passes the node's Stage 1 check locally, and a local
+  rehearsal of the node's remote check (kit executor + real WASM engine) agrees with our
+  PyTorch scoring on every pair. Reports: [`eval/reports/`](eval/reports/).
+- **Network actions so far:** none on chain. Nothing is registered and no pool rows are
+  uploaded yet (testnet; waiting on reviewed rows and a wallet). Bounty #96 is claimed with
+  progress posted.
+- Next: an independent test set from outside reviewers, the reviewed pool upload, then a
+  registration decision. See [`docs/ACTION_PLAN.md`](docs/ACTION_PLAN.md).
 
 ```bash
 pip install numpy tokenizers
@@ -77,6 +89,8 @@ python tests/test_tools.py
 ```
 
 ## Built on
+
+Full list with licenses, data attribution (GitHub Advisory Database, CC BY 4.0) and the AI-assistance disclosure: [`NOTICE.md`](NOTICE.md).
 
 - [telegraph-wasm-baseline](https://github.com/telegraphprotocol/telegraph-wasm-baseline), the
   official adapter kit (MIT)

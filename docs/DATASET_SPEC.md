@@ -5,7 +5,7 @@
 | Path | Split | Published? | Uploaded to pool? |
 |---|---|---|---|
 | `data/public/security_review.train.jsonl` | training | **yes** (GitHub + HF) | **never** |
-| `data/validation/security_review.val.jsonl` | held-out, pool-style, second voice | after the hackathon | never |
+| `data/validation/security_review.val.jsonl` | held-out, pool-style, second voice | **yes, already public** in this repo (it's our own, same-author data, so publishing it reveals nothing protected) | never |
 | `data/private/security_review_general.pool.jsonl` | eval-pool contribution | **never** (git-ignored) | yes |
 | `data/meta/*.jsonl` | sidecar labels for every row above | yes (public/validation only) | no |
 | `data/sources/sources.jsonl` | real advisory cases | yes | no |
