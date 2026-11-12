@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Build the "Spot the Flaw" demo page from the PUBLIC training set.
 
-    python tools/build_spot_flaw.py
+    python tools/build_spot_flaw.py [--model-scores runs/<run>/demo_scores.json ...]
+
+--model-scores takes eval/score.py --json outputs for adapters trained WITHOUT these demo
+pairs (see runs/frozen/demo_row_ids.txt). The page then shows what the adapter picked in
+each training run. Never pass scores from a run that trained on the demo pairs.
 
 Writes
   site/spot-the-flaw.html  page body (title, style, markup, script) for the claude.ai artifact
@@ -15,6 +19,7 @@ The two shortcut judges are the same scorers as eval/baselines.py.
 """
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -48,11 +53,29 @@ MAX_PROMPT, MAX_ANSWER = 700, 650
 STATS = {"longer": 57, "keywords": 58, "model_lo": 72.4, "model_hi": 74.7, "n": 87}
 
 
+def model_pick(run: dict, rid: str, held: set) -> str:
+    if rid not in held:
+        raise SystemExit(f"{rid[:12]} is not in runs/frozen/demo_row_ids.txt: refusing to show a training-set score")
+    r = run.get(rid)
+    if r is None:
+        raise SystemExit(f"{rid[:12]}: no score in the given --model-scores file")
+    return pick(r["chosen"], r["rejected"])
+
+
 def pick(a: float, b: float) -> str:
     return "chosen" if a > b else "rejected" if a < b else "tie"
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model-scores", nargs="*", default=[])
+    ap.add_argument("--model-note", default="")
+    a = ap.parse_args(argv)
+    held = set((ROOT / "runs" / "frozen" / "demo_row_ids.txt").read_text().split()) if a.model_scores else set()
+    runs = []
+    for f in a.model_scores:
+        recs = {r["row_id"]: r for r in json.loads(Path(f).read_text()) if r.get("row_id")}
+        runs.append(recs)
     rows = [r for _, r in read_jsonl(ROOT / "data" / "public" / "security_review.train.jsonl")]
     meta = {m["row_id"]: m for _, m in read_jsonl(ROOT / "data" / "meta" / "security_review.train.meta.jsonl")}
     by_family: dict[str, list] = {}
@@ -89,10 +112,12 @@ def main() -> int:
                 "generated": bool(m.get("generator")),
                 "longer": pick(len(r["chosen"]), len(r["rejected"])),
                 "keywords": pick(len(SEC.findall(r["chosen"])), len(SEC.findall(r["rejected"]))),
+                "model": [model_pick(run, m["row_id"], held) for run in runs] if runs else None,
             })
     # interleave families with a fixed order so similar cases don't cluster
     cases.sort(key=lambda c: hashlib.sha256(("order" + c["id"]).encode()).hexdigest())
-    payload = {"cases": cases, "stats": STATS, "families": FAMILIES}
+    payload = {"cases": cases, "stats": STATS, "families": FAMILIES,
+               "model_note": a.model_note if runs else ""}
     data = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     body = TEMPLATE.read_text().replace("__DATA__", data)
     OUT.mkdir(exist_ok=True)
@@ -104,7 +129,9 @@ def main() -> int:
     fams = sorted({c["family"] for c in cases}, key=lambda f: int(f[1:]))
     print(f"wrote {len(cases)} cases ({', '.join(fams)}) to site/; "
           f"longer-answer judge right on {sum(c['longer'] == 'chosen' for c in cases)}, "
-          f"keyword judge right on {sum(c['keywords'] == 'chosen' for c in cases)}")
+          f"keyword judge right on {sum(c['keywords'] == 'chosen' for c in cases)}"
+          + (f", adapter right on {[sum(c['model'][k] == 'chosen' for c in cases) for k in range(len(runs))]} per run"
+             if runs else ""))
     return 0
 
 
