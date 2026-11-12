@@ -6,7 +6,8 @@ The deadline is **Dec 1, 2026, 23:59 UTC**. We aim to submit on Nov 30.
 
 - [x] Star `telegraphprotocol/bounties` from the entrant account (rule for all tracks): done 2026-11-12
 - [ ] Team, track (**Evaluators**), project name, missions (Exchange, Model Economy,
-      Web3 Native & DeFi), Intents (`SECURITY_REVIEW`, `SMART_CONTRACT_AUDIT`)
+      Web3 Native & DeFi), Intent `SECURITY_REVIEW` only
+      (`SMART_CONTRACT_AUDIT` was dropped on 11-10, decision U11)
 - [ ] Working / reviewer link: this repo, the dataset release and the executor URL
 - [ ] **A 2–5 min demo video**: the problem → the naive scorers failing → our adapter ranking
       correctly → the on-chain registration → the node's decision
