@@ -155,3 +155,49 @@ def test_review_pool_round_trip(tmp_path):
     assert [r["reviewed"] for r in kept] == [True, False]
     assert kept[0]["review"]["by"] == "Test Reviewer"
     assert len(rp.REJECTED.read_text().splitlines()) == 1
+
+
+def _osv(name, eco, *ranges, other=None):
+    """A minimal OSV record: each range is a list of events."""
+    aff = [{"package": {"name": name, "ecosystem": eco},
+            "ranges": [{"type": "ECOSYSTEM", "events": ev} for ev in ranges]}]
+    if other:
+        aff.append({"package": {"name": other, "ecosystem": eco},
+                    "ranges": [{"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": "99.0"}]}]})
+    return {"affected": aff}
+
+
+def test_osv_range_logic_edge_cases():
+    from gen_osv_pairs import make_affected, ranges_for
+
+    # introduced "0": everything below the fix
+    rec = _osv("lodash", "npm", [{"introduced": "0"}, {"fixed": "4.17.21"}], other="underscore")
+    affected, range_of = make_affected("npm", ranges_for(rec, "npm", "lodash"))
+    assert affected("4.17.20") and not affected("4.17.21") and not affected("5.0.0")
+    assert range_of("4.17.20")["fixed"] == "4.17.21"
+    # backport: two ranges on two release lines; the gap between them is not affected
+    rec = _osv("django", "PyPI", [{"introduced": "3.2"}, {"fixed": "3.2.19"}],
+               [{"introduced": "4.0"}, {"fixed": "4.1.9"}])
+    affected, range_of = make_affected("PyPI", ranges_for(rec, "PyPI", "django"))
+    assert affected("3.2.18") and not affected("3.2.19") and not affected("3.3")
+    assert affected("4.1.8") and not affected("4.1.9") and not affected("3.1")
+    assert range_of("4.1.8")["introduced"] == "4.0"
+    # PEP 440 ordering between stable releases (2.2.10 > 2.2.9); pre-releases are out of
+    # contract: the registry list drops them, affected() refuses them, and an advisory whose
+    # fix is only a pre-release is skipped
+    rec = _osv("flask", "PyPI", [{"introduced": "0"}, {"fixed": "2.3.0"}])
+    affected, _ = make_affected("PyPI", ranges_for(rec, "PyPI", "flask"))
+    assert affected("2.2.10") and affected("2.2.9") and not affected("2.3.0")
+    try:
+        affected("2.3.0rc1")
+        raise AssertionError("a pre-release must be refused")
+    except ValueError:
+        pass
+    pre_fix = _osv("flask", "PyPI", [{"introduced": "0"}, {"fixed": "3.0.0rc1"}])
+    assert make_affected("PyPI", ranges_for(pre_fix, "PyPI", "flask")) is None
+    # names match case-insensitively; another package in the same record is ignored
+    assert ranges_for(_osv("PyYAML", "PyPI", [{"introduced": "0"}, {"fixed": "5.4"}]), "PyPI", "pyyaml")
+    assert ranges_for(rec, "PyPI", "werkzeug") is None
+    # skipped on purpose: last_affected, open-ended (unfixed) ranges
+    assert ranges_for(_osv("x", "npm", [{"introduced": "1.0.0"}, {"last_affected": "1.2.0"}]), "npm", "x") is None
+    assert ranges_for(_osv("x", "npm", [{"introduced": "1.0.0"}]), "npm", "x") is None

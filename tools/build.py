@@ -64,9 +64,9 @@ def check_row(r: dict, where: str, sources: dict, errors: list, warns: list) -> 
         n = len(normalise(r[k]))
         if not lo <= n <= hi:
             warns.append(f"{where}: {k} is {n} chars, house range {lo}..{hi}")
-    a, b = len(r["chosen"]), len(r["rejected"])
-    if max(a, b) / max(1, min(a, b)) > MAX_LEN_RATIO:
-        warns.append(f"{where}: chosen/rejected length ratio {max(a, b) / min(a, b):.2f} > {MAX_LEN_RATIO}")
+    # Per-pair length ratios are summarised per split in main(): what matters is whether
+    # length predicts the label (direction balance; the kit's length-shortcut gate), not
+    # whether individual answers differ in length, which real pool answers do.
     if normalise(r["chosen"]) == normalise(r["rejected"]):
         errors.append(f"{where}: chosen == rejected")
     if "\x00" in r["prompt"] + r["chosen"] + r["rejected"]:
@@ -168,6 +168,11 @@ def main(argv=None) -> int:
         print(f"{split:10} {n:4} pairs -> {output_path(a.intent, split).relative_to(ROOT)}")
         print(f"           families {dict(sorted(fam.items(), key=lambda x: int(x[0][1:])))}")
         print(f"           chosen verdicts {dict(ver)}  chosen-longer {longer:.0%}")
+        wide = [len(r["chosen"]) > len(r["rejected"]) for r in rows
+                if max(len(r["chosen"]), len(r["rejected"])) / max(1, min(len(r["chosen"]), len(r["rejected"]))) > MAX_LEN_RATIO]
+        if wide:
+            print(f"           length ratio > {MAX_LEN_RATIO}: {len(wide)} pairs ({len(wide) / len(rows):.0%}), "
+                  f"chosen longer in {sum(wide)} / rejected longer in {len(wide) - sum(wide)}")
     print(f"build: PASS ({len(warns)} warnings)")
     return 0
 

@@ -41,23 +41,34 @@ def main(argv=None) -> int:
             t = normalise(r["prompt"])
             items.append((f"{p.name}:{n}", p.parent.name, t, shingles(t)))
 
-    errors = warns = 0
-    for i in range(len(items)):
-        wi, si, ti, shi = items[i]
-        for j in range(i + 1, len(items)):
-            wj, sj, tj, shj = items[j]
+    # Exact speedups (same verdicts and numbers as comparing every pair in full):
+    # - SequenceMatcher caches its index of the SECOND sequence, so the outer loop fixes
+    #   seq2 = items[j] and the inner loop varies seq1 = items[i] (i < j): the same (a, b)
+    #   order as before, so ratio() is unchanged;
+    # - real_quick_ratio() and quick_ratio() are upper bounds of ratio(): when the larger of
+    #   them and the Jaccard score is below the warning level, the pair can't be flagged.
+    found = []
+    sm = difflib.SequenceMatcher(None, autojunk=False)
+    for j in range(len(items)):
+        wj, sj, tj, shj = items[j]
+        sm.set_seq2(tj)
+        for i in range(j):
+            wi, si, ti, shi = items[i]
             jac = len(shi & shj) / max(1, len(shi | shj))
-            if jac < a.warn * 0.6 and abs(len(ti) - len(tj)) > 0.5 * max(len(ti), len(tj)):
-                continue  # cheap skip: clearly different
-            seq = difflib.SequenceMatcher(None, ti, tj, autojunk=False).ratio()
-            sim = max(jac, seq)
+            sm.set_seq1(ti)
+            if jac < a.warn and (sm.real_quick_ratio() < a.warn or sm.quick_ratio() < a.warn):
+                continue
+            sim = max(jac, sm.ratio())
             cross = si != sj
             if sim >= a.threshold or (cross and sim >= a.warn):
-                errors += 1
-                print(f"ERROR {wi} ~ {wj}: similarity {sim:.2f}{' (cross-split)' if cross else ''}")
+                found.append((i, j, "ERROR", f"ERROR {wi} ~ {wj}: similarity {sim:.2f}{' (cross-split)' if cross else ''}"))
             elif sim >= a.warn:
-                warns += 1
-                print(f"warn  {wi} ~ {wj}: similarity {sim:.2f}")
+                found.append((i, j, "warn", f"warn  {wi} ~ {wj}: similarity {sim:.2f}"))
+    found.sort()
+    for *_, line in found:
+        print(line)
+    errors = sum(k == "ERROR" for _, _, k, _ in found)
+    warns = len(found) - errors
     print(f"dedup: {'FAIL' if errors else 'PASS'} ({len(items)} prompts, {warns} warnings)")
     return 1 if errors else 0
 

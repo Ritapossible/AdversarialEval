@@ -190,6 +190,8 @@ def make_affected(eco, ranges):
 
     def affected(v):
         k = parse(eco, v)
+        if k is None:  # callers pass registry versions, which are filtered to stable releases
+            raise ValueError(f"{v!r} is not a stable {eco} release; only stable versions are compared")
         return any((lo is None or lo <= k) and k < hi for lo, hi, _ in keyed)
 
     def range_of(v):

@@ -89,7 +89,11 @@ What `build.py` enforces, as hard errors:
 - **Withdrawn advisories:** one may appear in `chosen` only if the answer says it was
   withdrawn.
 
-Warnings: the house length ranges, and a chosen/rejected length ratio over 1.25.
+Warnings: the house length ranges. Pairs with a chosen/rejected length ratio over 1.25 are
+summarised per split with their direction (chosen longer vs rejected longer). The rule is
+**balance, not equal length**: length must not predict the label (longer-wins ≤ 60%, the kit's
+length-shortcut gate ≤ 65%, and `eval/score.py`'s padding probe). Real pool answers vary in
+length, so forcing every pair under 1.25 would train on an unrealistic distribution.
 
 ## Provenance and review status
 
