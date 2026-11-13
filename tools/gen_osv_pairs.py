@@ -66,6 +66,7 @@ PACKAGES_HOLDOUT = {
 # packages our hidden pool rows are about. The generator still excludes every package used by
 # any published split. Output, id list and caches for this split live under data/private/.
 PRIVATE_DIR = ROOT / "data" / "private"
+MAX_POOL_RATIO = 1.25  # longer/shorter answer length, pool split only
 CONTEXTS = [
     "in a public REST API", "in an internal reporting job", "in our CI build image",
     "on a customer-facing web app", "in a data pipeline worker", "in a mobile backend",
@@ -269,7 +270,10 @@ def prompt_for(kind, rng, pkg, v, gid, cve, summary, eco, r_ev, ctx):
     return rng.choice(opts)
 
 
-def build_pair(kind, rng, ctx_facts):
+def build_pair(kind, rng, ctx_facts, cite_in_secure=False):
+    """cite_in_secure (pool split): "not affected" answers also name the advisory they
+    checked, as a reviewer would, which keeps the two answers' lengths comparable. It
+    applies to correct and incorrect "not affected" answers alike, so it is not a tell."""
     f = ctx_facts
     fmt = rng.choice(["prose", "prose", "bullets", "json", "terse"])
     var = rng.randrange(3)
@@ -284,7 +288,9 @@ def build_pair(kind, rng, ctx_facts):
                  f"Move to {f['pkg']} {r['fixed']}+."]][var]
 
     def patched_sents(v, fixed_claim):
-        return [[f"{f['pkg']} {v} is not in the affected range; the fix shipped in {fixed_claim}.",
+        cite = ([f"Checked against {f['gid']}" + (f" / {f['cve']}" if f["cve"] else "")
+                 + f" ({f['sev'].lower()}) in {f['pkg']}."] if cite_in_secure and rng.random() < 0.7 else [])
+        return cite + [[f"{f['pkg']} {v} is not in the affected range; the fix shipped in {fixed_claim}.",
                  f"This alert does not apply to {v}."],
                 [f"The issue was fixed in {fixed_claim}, and {v} is at or after that release.",
                  "Dismiss this alert as not applicable."],
@@ -315,8 +321,16 @@ def build_pair(kind, rng, ctx_facts):
         v, r = f["v_in"], f["r_in"]
         vc = verdict_for(f["sev"], True)
         sev_words = {"CRITICAL": "critical", "HIGH": "high"}[f["sev"]]
-        s_ok = [f"Severity: {sev_words} per the advisory; treat as a priority fix.", *affected_sents(v, r)]
-        s_bad = ["Severity: low; schedule it with routine maintenance.", *affected_sents(v, r)]
+        if cite_in_secure:  # pool split: wordings of different lengths so either side can be longer
+            ok_s = rng.choice([f"Severity: {sev_words}.", f"Severity: {sev_words} per the advisory; treat as a priority fix.",
+                               f"Severity: {sev_words}; patch this before the next release."])
+            bad_s = rng.choice(["Severity: low.", "Severity: low; schedule it with routine maintenance.",
+                                "Severity: low; it can wait for the next scheduled dependency update."])
+        else:
+            ok_s = f"Severity: {sev_words} per the advisory; treat as a priority fix."
+            bad_s = "Severity: low; schedule it with routine maintenance."
+        s_ok = [ok_s, *affected_sents(v, r)]
+        s_bad = [bad_s, *affected_sents(v, r)]
         issue_low = issue.replace(f"({f['sev'].lower()})", "(low)")
         chosen = render_answer(fmt, vc, 1, [issue], s_ok)
         rejected = render_answer(fmt, "Needs changes", 1, [issue_low], s_bad)
@@ -478,7 +492,20 @@ def main(argv=None) -> int:
         sh = shingles(t)
         if too_similar(t, sh, pool, sim_threshold, exhaustive=holdout):
             continue
-        fmt, _, chosen, rejected, vc, vr, note = build_pair(kind, rng, c)
+        if private:
+            # bounty #96: worse answers "about as long as the better one". Length must also not
+            # predict the label, so draw at random which side should be (slightly) longer and
+            # keep the first format/wording variant that is length-matched in that direction.
+            want_chosen_longer = rng.random() < 0.5
+            for _ in range(40):
+                fmt, _, chosen, rejected, vc, vr, note = build_pair(kind, rng, c, cite_in_secure=True)
+                lc, lr = len(chosen), len(rejected)
+                if max(lc, lr) <= MAX_POOL_RATIO * min(lc, lr) and (lc == lr or (lc > lr) == want_chosen_longer):
+                    break
+            else:
+                continue
+        else:
+            fmt, _, chosen, rejected, vc, vr, note = build_pair(kind, rng, c)
         row = {"case": c["gid"], "family": kind.split("-")[0], "split": a.split, "format": "mixed" if fmt == "terse" else fmt,
                "prompt": prompt, "chosen": chosen, "rejected": rejected, "source_url": c["url"],
                "verdict_chosen": vc, "verdict_rejected": vr, "flaw_note": note, "author": GENERATOR,

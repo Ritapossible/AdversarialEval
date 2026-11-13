@@ -10,7 +10,7 @@ in the repo. You handle anything needing your accounts, keys, people or money.
 | 1 | Claim bounty #96 + post the Nov 14 progress update | by Nov 14 | no (phone OK) | — |
 | 2 | Ask the organizers 3 questions | by Nov 14 | no | — |
 | 3 | Recruit 2–3 outside reviewers (test set) | start now | no | their time |
-| 4 | Review the 91 pool pairs | this week | easier on a computer | ~1–2 h |
+| 4 | Review the 86 pool pairs | this week | easier on a computer | ~1–2 h |
 | 5 | Create the contributor wallet | after step 4 | yes (terminal) | free |
 | 6 | Upload the reviewed pool rows | after 4 + 5 | yes | free (no gas) |
 | 7 | Bond wallet + testnet funds | before registering | yes | free (testnet) |
@@ -26,7 +26,7 @@ private key into a chat, an issue or a commit, and never claim a network result 
 ## 0. Keep the private backup safe (now, 2 minutes)
 
 Claude sent you `adversarialeval-private-2026-11-12.tgz`. It's the whole `data/private/`
-folder: the 91 pool candidates, the list of packages they come from, and the review sheet.
+folder: the 86 pool candidates, the list of packages they come from, and the review sheet.
 It is git-ignored on purpose, so **the cloud container holds the only other copy, and that
 copy disappears when the session ends.**
 
@@ -47,7 +47,7 @@ copy disappears when the session ends.**
 5. Paste the same text (without `/progress`) into the Telegraph Discord's hackathon or
    Evaluators channel, so it also counts toward the Nov 20 showcase.
 6. Put a reminder in your phone **every 3 days** until Dec 1: post `/progress <one line>` on
-   #96, e.g. `/progress reviewed 91 pool pairs; 2 outside reviewers writing test pairs`. The
+   #96, e.g. `/progress reviewed 86 pool pairs; 2 outside reviewers writing test pairs`. The
    claim is released after 72 h without one. Ask Claude for the line if you like.
 
 **Done when** both comments are on #96 and the bot (or a maintainer) acknowledges the claim.
@@ -87,7 +87,9 @@ self-graded.
 **Done when** at least 40 pairs from at least 2 people are in `data/test/`. Below about 40
 pairs the confidence interval is too wide to decide anything.
 
-## 4. Review the 91 pool pairs (this week, about 1–2 hours)
+## 4. Review the 86 pool pairs (this week, about 1–2 hours)
+
+(Regenerated 2026-11-13 so each worse answer is about as long as the better one, as bounty #96 asks. Use the new `pool_review.csv`, not the 91-row one.)
 
 The pool rules expect a human to check every uploaded row, and `tools/upload_pool.sh`
 refuses unreviewed rows.
@@ -125,6 +127,8 @@ This key only **signs** pool uploads. Signing is free and needs no funds.
 **Done when** you have the address and the key stored safely.
 
 ## 6. Upload the reviewed pool rows (computer, 10 minutes, free)
+
+Telegraph's preferred route is the web dashboard: **anjoman.ai/dashboard/eval** (sign in, connect your wallet). Use it if it accepts a JSONL upload; otherwise use the script below. Either way, upload only after step 4.
 
 On your computer (the private key must stay there):
 
