@@ -21,6 +21,23 @@ in the repo. You handle anything needing your accounts, keys, people or money.
 Hard rules that apply throughout (`CLAUDE.md`): never publish `data/private/`, never paste a
 private key into a chat, an issue or a commit, and never claim a network result that isn't verified.
 
+
+> **Update 2026-11-13: the Anjoman dashboard replaces most of steps 5–7.** Signing up on
+> anjoman.ai gives you a wallet on Sepolia (shown on the Evaluators page). No `cast`, no
+> private key handling.
+> - **Pool upload (step 6):** Dashboard → Evaluators → *Contribute evaluation material* →
+>   tick `SECURITY_REVIEW_GENERAL` → **Upload a file** (our JSONL, one
+>   `{prompt, chosen, rejected, …}` per line) → **Sign and upload**. Signing happens in the
+>   browser and costs no gas. Only after the step 4 review.
+> - **Bond money (step 7):** Dashboard → **Faucet** gives **1 test USDC per 24 h**. At
+>   registration, USDC buys the $5 MACHINA bond from the Uniswap pool, so we need about
+>   **6–7 USDC**: claim every day from now on. Gas: email accounts are sponsored; wallet
+>   accounts need a little Sepolia ETH. **No Solana is involved anywhere.**
+> - **Adapter (steps 8–9):** Dashboard → Evaluators → *Link & hash the binary* (hosted URL,
+>   "float adapter (judgment and hybrid)" accepted), then *Structural checks* and *Publish
+>   for evaluation*. The form still says ".wasm"; our package is the current safetensors
+>   delta format. *My registrations → Evaluation WASMs* tracks it and can deregister it.
+
 ---
 
 ## 0. Keep the private backup safe (now, 2 minutes)
