@@ -7,7 +7,7 @@ the official rules (anjoman.ai/dashboard/hackathon/season-2/rules) on 2026-11-12
 ## Hackathon (H2 website)
 
 - [x] Star `telegraphprotocol/bounties` from the entrant account (rule for all tracks): done 2026-11-12
-- [ ] **A real Telegraph integration with genuine evidence** (required for every entry). The
+- [x] **A real Telegraph integration with genuine evidence** (required for every entry): 81 pool rows admitted and attested on 2026-11-14 (`eval/reports/2026-11-14-pool-upload.md`). The
       minimum is reviewed pool rows uploaded to `SECURITY_REVIEW_GENERAL` and shown eligible by
       the node API; registration adds more. **Not done yet: this is the biggest gap.**
 - [ ] Project details incl. the GitHub username that starred the bounties repo (`Ritapossible`)
@@ -74,7 +74,7 @@ the official rules (anjoman.ai/dashboard/hackathon/season-2/rules) on 2026-11-12
 | Rule | Status |
 |---|---|
 | Something working (a valid Evaluator contribution) | Partly: dataset, demo and adapter work; nothing on the network yet |
-| Real Telegraph integration with genuine evidence | **Open**: needs the pool upload and/or registration on testnet |
+| Real Telegraph integration with genuine evidence | Done 11-14: 81 pool rows admitted + attested (node API verified); registration still to come |
 | Repeatable results with clear instructions | Mostly: RUNBOOK + scripts; write the submission run-instructions block |
 | Safe handling of keys, private data, confidential evaluation material | OK: no secrets or pool rows ever committed (history checked); signing stays local; never read hidden rows |
 | Accurate claims, network stated | Fixed 11-12: README said "registered on-chain" and quoted an old single-seed 76.9%; now says not registered, testnet, two-seed validation numbers |
