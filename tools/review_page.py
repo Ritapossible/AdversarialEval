@@ -31,13 +31,17 @@ KIND_HELP = {
                "Open the source link. Check that the advisory's patched version is the pinned version or lower."),
     "F7": ("Same facts, but the wrong answer's fields contradict each other.",
            "Check that the correct answer's verdict, count and issue list agree, and the wrong one's don't."),
+    "F8-any": ("Same answer, but the wrong one states the wrong severity (higher or lower).",
+               "Open the source link. Check the severity on the advisory (Low / Moderate / High / Critical) "
+               "matches the answer marked correct, and that the other answer's severity is different."),
     "F1": ("The wrong answer cites a real advisory for a different package.",
            "Open the source link and check it is the advisory the question describes."),
 }
 
 
 def main() -> int:
-    rows = list(csv.DictReader(SHEET.open(newline="")))
+    # only rows still waiting for a decision: earlier approvals carry over
+    rows = [r for r in csv.DictReader(SHEET.open(newline="")) if not r["decision"].strip()]
     data = [{"id": r["row_id"][:12], "kind": r["kind"], "src": r["source_url"], "prompt": r["prompt"],
              "good": r["chosen"], "bad": r["rejected"], "flaw": r["flaw_note"]} for r in rows]
     page = TEMPLATE.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/")) \
@@ -105,7 +109,7 @@ button { font: 600 1rem system-ui, sans-serif; padding: 14px; border-radius: 10p
 </div>
 </div>
 <script>
-var D = __DATA__, H = __HELP__, KEY = "pool-review-v1", dec = {}, i = 0;
+var D = __DATA__, H = __HELP__, KEY = "pool-review-" + (D.length ? D[0].id : "none"), dec = {}, i = 0;
 try { dec = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
 function $(x){ return document.getElementById(x); }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(dec)); } catch (e) {} code(); }

@@ -324,8 +324,9 @@ def build_pair(kind, rng, ctx_facts, cite_in_secure=False):
         sev_words = {"CRITICAL": "critical", "HIGH": "high"}[f["sev"]]
         if cite_in_secure:  # pool split: both sides draw from ONE phrase pool, so only the
             # severity word differs (no vocabulary tell) and either side can be longer
-            ok_s = f"Severity: {sev_words}{rng.choice(SEV_TAILS)}."
-            bad_s = f"Severity: low{rng.choice(SEV_TAILS)}."
+            tail = rng.choice(SEV_TAILS)  # one tail for both: only the severity claim differs
+            ok_s = f"Severity: {sev_words}{tail}."
+            bad_s = f"Severity: low{tail}."
         else:
             ok_s = f"Severity: {sev_words} per the advisory; treat as a priority fix."
             bad_s = "Severity: low; schedule it with routine maintenance."
@@ -341,12 +342,32 @@ def build_pair(kind, rng, ctx_facts, cite_in_secure=False):
         v, r = f["v_in"], f["r_in"]
         vc = verdict_for(f["sev"], True)
         sev_words = {"LOW": "low", "MODERATE": "moderate"}[f["sev"]]
-        ok_s = f"Severity: {sev_words}{rng.choice(SEV_TAILS)}."
-        bad_s = f"Severity: critical{rng.choice(SEV_TAILS)}."
+        tail = rng.choice(SEV_TAILS)  # one tail for both: only the severity claim differs
+        ok_s = f"Severity: {sev_words}{tail}."
+        bad_s = f"Severity: critical{tail}."
         issue_hi = issue.replace(f"({f['sev'].lower()})", "(critical)")
         chosen = render_answer(fmt, vc, 1, [issue], [ok_s, *affected_sents(v, r)])
         rejected = render_answer(fmt, "Insecure", 1, [issue_hi], [bad_s, *affected_sents(v, r)])
         return fmt, v, chosen, rejected, vc, "Insecure", f"inflates a {sev_words} advisory to critical"
+    if kind == "F8-any":
+        # pool split: the wrong severity is ANY other level, up or down, so every severity
+        # word is right as often as it is wrong. The two answers are identical except for the
+        # severity claim and the words that depend on it (issue tag, verdict).
+        v, r = f["v_in"], f["r_in"]
+        levels = ["low", "moderate", "high", "critical"]
+        true_w = f["sev"].lower()
+        # draw the wrong level from the same distribution the true levels follow, so no
+        # severity word is more typical of wrong answers than of right ones
+        others = [x for x in levels if x != true_w]
+        weights = [f.get("sev_counts", {}).get(x, 1) for x in others]
+        wrong_w = rng.choices(others, weights=weights)[0]
+        vc, vr = verdict_for(f["sev"], True), verdict_for(wrong_w.upper(), True)
+        tail = rng.choice(SEV_TAILS)
+        issue_wrong = issue.replace(f"({true_w})", f"({wrong_w})")
+        chosen = render_answer(fmt, vc, 1, [issue], [f"Severity: {true_w}{tail}.", *affected_sents(v, r)])
+        rejected = render_answer(fmt, vr, 1, [issue_wrong], [f"Severity: {wrong_w}{tail}.", *affected_sents(v, r)])
+        direction = "inflates" if levels.index(wrong_w) > levels.index(true_w) else "downgrades"
+        return fmt, v, chosen, rejected, vc, vr, f"{direction} a {true_w} advisory to {wrong_w}"
     if kind == "F1":
         v, r, other = f["v_in"], f["r_in"], f["distractor"]
         vc = verdict_for(f["sev"], True)
@@ -475,6 +496,11 @@ def main(argv=None) -> int:
                                    "wrong_fix_le": wrong_le, "wrong_fix_gt": wrong_gt, "url": f"https://github.com/advisories/{gid}"})
 
     rng.shuffle(candidates)
+    sev_counts = {}
+    for c in candidates:
+        sev_counts[c["sev"].lower()] = sev_counts.get(c["sev"].lower(), 0) + 1
+    for c in candidates:
+        c["sev_counts"] = sev_counts
     rows, per_pkg, used_ids = [], {}, set()
     pool = list(existing)
     kinds_cycle = ["F2-in", "F2-out", "F7", "F1", "F8", "F2-in", "F2-out"]
@@ -544,6 +570,16 @@ def main(argv=None) -> int:
         pool.append((t, sh))
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    if private and a.only_kinds:
+        # Dropping candidates that can't match the drawn direction can still skew which
+        # side is longer, so keep equal numbers of each direction (drop the excess at the end).
+        cl = [r for r in rows if len(r["chosen"]) > len(r["rejected"])]
+        rl = [r for r in rows if len(r["chosen"]) < len(r["rejected"])]
+        eq = [r for r in rows if len(r["chosen"]) == len(r["rejected"])]
+        k = min(len(cl), len(rl))
+        keep = {id(r) for r in cl[:k] + rl[:k] + eq}
+        rows = [r for r in rows if id(r) in keep]
+        used_ids = {r["case"] for r in rows} | {i for r in rows for i in r.get("misattributed_ids", [])}
     if private and not out_path.resolve().is_relative_to(PRIVATE_DIR.resolve()):
         raise SystemExit("refusing to write pool rows outside data/private/")
     out_path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
