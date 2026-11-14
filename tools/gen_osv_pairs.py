@@ -67,6 +67,7 @@ PACKAGES_HOLDOUT = {
 # any published split. Output, id list and caches for this split live under data/private/.
 PRIVATE_DIR = ROOT / "data" / "private"
 MAX_POOL_RATIO = 1.25  # longer/shorter answer length, pool split only
+SEV_TAILS = ["", " per the advisory", "; plan the upgrade accordingly"]  # shared by both sides
 CONTEXTS = [
     "in a public REST API", "in an internal reporting job", "in our CI build image",
     "on a customer-facing web app", "in a data pipeline worker", "in a mobile backend",
@@ -321,11 +322,10 @@ def build_pair(kind, rng, ctx_facts, cite_in_secure=False):
         v, r = f["v_in"], f["r_in"]
         vc = verdict_for(f["sev"], True)
         sev_words = {"CRITICAL": "critical", "HIGH": "high"}[f["sev"]]
-        if cite_in_secure:  # pool split: wordings of different lengths so either side can be longer
-            ok_s = rng.choice([f"Severity: {sev_words}.", f"Severity: {sev_words} per the advisory; treat as a priority fix.",
-                               f"Severity: {sev_words}; patch this before the next release."])
-            bad_s = rng.choice(["Severity: low.", "Severity: low; schedule it with routine maintenance.",
-                                "Severity: low; it can wait for the next scheduled dependency update."])
+        if cite_in_secure:  # pool split: both sides draw from ONE phrase pool, so only the
+            # severity word differs (no vocabulary tell) and either side can be longer
+            ok_s = f"Severity: {sev_words}{rng.choice(SEV_TAILS)}."
+            bad_s = f"Severity: low{rng.choice(SEV_TAILS)}."
         else:
             ok_s = f"Severity: {sev_words} per the advisory; treat as a priority fix."
             bad_s = "Severity: low; schedule it with routine maintenance."
@@ -335,6 +335,18 @@ def build_pair(kind, rng, ctx_facts, cite_in_secure=False):
         chosen = render_answer(fmt, vc, 1, [issue], s_ok)
         rejected = render_answer(fmt, "Needs changes", 1, [issue_low], s_bad)
         return fmt, v, chosen, rejected, vc, "Needs changes", f"downgrades a {sev_words} advisory to low"
+    if kind == "F8-up":
+        # the mirror of F8: a low/moderate advisory inflated to critical, so the severity
+        # word alone never tells which answer is right (F8 alone always downgrades)
+        v, r = f["v_in"], f["r_in"]
+        vc = verdict_for(f["sev"], True)
+        sev_words = {"LOW": "low", "MODERATE": "moderate"}[f["sev"]]
+        ok_s = f"Severity: {sev_words}{rng.choice(SEV_TAILS)}."
+        bad_s = f"Severity: critical{rng.choice(SEV_TAILS)}."
+        issue_hi = issue.replace(f"({f['sev'].lower()})", "(critical)")
+        chosen = render_answer(fmt, vc, 1, [issue], [ok_s, *affected_sents(v, r)])
+        rejected = render_answer(fmt, "Insecure", 1, [issue_hi], [bad_s, *affected_sents(v, r)])
+        return fmt, v, chosen, rejected, vc, "Insecure", f"inflates a {sev_words} advisory to critical"
     if kind == "F1":
         v, r, other = f["v_in"], f["r_in"], f["distractor"]
         vc = verdict_for(f["sev"], True)
@@ -370,6 +382,11 @@ def main(argv=None) -> int:
     ap.add_argument("--max-pairs", type=int, default=240)
     ap.add_argument("--per-package", type=int, default=6)
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--only-kinds", nargs="+", default=None,
+                    help="restrict to these pair kinds (e.g. F8-up); private split only")
+    ap.add_argument("--suffix", default="",
+                    help="private split: write g_osv_pool<suffix>.jsonl and ids_pool<suffix>.txt, "
+                         "so an addition never disturbs rows already under review")
     ap.add_argument("--offline", action="store_true")
     ap.add_argument("--split", choices=["public", "validation", "private"], default="public",
                     help="validation = held-out minimal pairs from PACKAGES_HOLDOUT; "
@@ -382,8 +399,8 @@ def main(argv=None) -> int:
         if not pool_file.exists():
             raise SystemExit(f"{pool_file.relative_to(ROOT)} missing: list the pool packages there (git-ignored)")
         packages = json.loads(pool_file.read_text())
-        out_path = PRIVATE_DIR / "authoring" / "security_review" / "g_osv_pool.jsonl"
-        ids_out = PRIVATE_DIR / "ids_pool.txt"
+        out_path = PRIVATE_DIR / "authoring" / "security_review" / f"g_osv_pool{a.suffix}.jsonl"
+        ids_out = PRIVATE_DIR / f"ids_pool{a.suffix}.txt"
     elif holdout:
         packages, out_path, ids_out = PACKAGES_HOLDOUT, OUT.with_name("g_osv_generated_val.jsonl"), IDS_OUT.with_name("ids_generated_val.txt")
     else:
@@ -461,6 +478,10 @@ def main(argv=None) -> int:
     rows, per_pkg, used_ids = [], {}, set()
     pool = list(existing)
     kinds_cycle = ["F2-in", "F2-out", "F7", "F1", "F8", "F2-in", "F2-out"]
+    if a.only_kinds:
+        if not private:
+            raise SystemExit("--only-kinds is for the private split")
+        kinds_cycle = list(a.only_kinds)
     k_i = 0
     for c in candidates:
         if len(rows) >= a.max_pairs:
@@ -475,6 +496,8 @@ def main(argv=None) -> int:
             if kind == "F2-out" and not (c["v_out"] and c["wrong_fix_gt"]):
                 continue
             if kind == "F8" and c["sev"] not in ("HIGH", "CRITICAL"):
+                continue
+            if kind == "F8-up" and c["sev"] not in ("LOW", "MODERATE"):
                 continue
             if kind == "F1":
                 others = [o for o in candidates if o["pkg"] != c["pkg"] and o["eco"] == c["eco"]]
@@ -526,6 +549,10 @@ def main(argv=None) -> int:
     out_path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     hand = {line.split()[0] for line in (SRC / "ids.txt").read_text().splitlines()
             if line.strip() and not line.startswith("#")}
+    if private:  # ids already listed by another pool file are fetched from there
+        for other in PRIVATE_DIR.glob("ids_pool*.txt"):
+            if other != ids_out:
+                hand |= {ln.split()[0] for ln in other.read_text().splitlines() if ln.strip() and not ln.startswith("#")}
     ids_out.write_text(f"# generated by tools/gen_osv_pairs.py; all split={a.split}\n" +
                        "".join(f"{i} split={a.split}\n" for i in sorted(used_ids - hand)))
     kinds = {}
