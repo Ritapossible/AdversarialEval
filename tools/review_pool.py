@@ -100,6 +100,37 @@ def apply(a) -> int:
     return 0
 
 
+def apply_code(a) -> int:
+    """Apply the decision code from tools/review_page.py: 'id:a' or 'id:r[:note]' joined by ';',
+    where id is the first 12 hex characters of the row id."""
+    if not a.reviewer.strip():
+        raise SystemExit("--reviewer NAME is required: only a person may mark rows reviewed")
+    entries = [e.strip() for e in a.code.strip().split(";") if e.strip()]
+    by_prefix = {}
+    for e in entries:
+        parts = e.split(":", 2)
+        if len(parts) < 2 or parts[1] not in ("a", "r") or len(parts[0]) != 12:
+            raise SystemExit(f"bad entry {e!r}: expected <12-char id>:a or <12-char id>:r[:note]")
+        by_prefix[parts[0]] = ("approve" if parts[1] == "a" else "reject", parts[2] if len(parts) == 3 else "")
+    with SHEET.open(newline="") as fh:
+        sheet = list(csv.DictReader(fh))
+    known = {r["row_id"][:12] for r in sheet}
+    unknown = set(by_prefix) - known
+    if unknown:
+        raise SystemExit(f"{len(unknown)} ids are not in the current sheet (first: {sorted(unknown)[0]}); "
+                         "was the page built from an older sheet?")
+    for r in sheet:
+        d = by_prefix.get(r["row_id"][:12])
+        if d:
+            r["decision"], r["notes"] = d
+    with SHEET.open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=COLUMNS)
+        w.writeheader()
+        w.writerows(sheet)
+    print(f"recorded {len(by_prefix)} decisions from the code into {SHEET.name}")
+    return apply(a)
+
+
 def status(_a) -> int:
     total = reviewed = 0
     for _, _, r in rows():
@@ -117,6 +148,10 @@ def main(argv=None) -> int:
     p.add_argument("--reviewer", required=True)
     p.set_defaults(fn=apply)
     sub.add_parser("status").set_defaults(fn=status)
+    p = sub.add_parser("apply-code")
+    p.add_argument("--reviewer", required=True)
+    p.add_argument("--code", required=True)
+    p.set_defaults(fn=apply_code)
     a = ap.parse_args(argv)
     return a.fn(a)
 
