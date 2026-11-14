@@ -3,8 +3,11 @@
 **A competitive Evaluator adapter for Telegraph that prefers answers which survive
 adversarial pressure over answers that are plausible but flawed.**
 
-Telegraph Hackathon Season II · Evaluators track · Primary Intent: `SECURITY_REVIEW` ·
-Stretch: `SMART_CONTRACT_AUDIT`
+Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW`
+
+**Disclosure:** this is a hackathon entry. Season II has prizes. The same contributor
+wallet uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The registration decision
+follows a rule frozen before any test data existed: [`eval/RULE-registration.md`](eval/RULE-registration.md).
 
 ---
 
