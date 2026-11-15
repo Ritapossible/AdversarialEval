@@ -8,3 +8,225 @@ jinja2-2.10      telegraph-verity-intelligence  http=500 upstream error 422: {"e
 jinja2-2.10      zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
 jinja2-2.10      zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
 jinja2-2.10      evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+jinja2-2.10      zk-secaudit                    http=200 
+jinja2-2.10      codewire-security-review       http=500 upstream call failed: status 502: {
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "status": "unavailable",
+ "error": "package_review_unavailable",
+ "reason": "unsupported_advisory_identity",
+ "vulnerability_count": null,
+ "issues": [],
+ "summary": "The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.",
+ "model": null,
+ "confidence": null,
+ "as_of": "2026-11-15T18:12:43.143Z",
+ "review_input": {
+  "sha256": "3093c5566f50feabc605817f36371b51be20b1e9c7c4938df05b431c216b5248",
+  "encoding": "UTF-8",
+  "unicode_characters": 20,
+  "line_segments": 1,
+  "source_preserved": true
+ },
+ "package": {
+  "system": "PYPI",
+  "name": "jinja2",
+  "version": "2.10"
+ },
+ "source_evidence": [
+  {
+   "url": "https://api.deps.dev/v3/systems/pypi/packages/jinja2/versions/2.10",
+   "sha256": "9ace77987059f1d8ba2cde5f9005ca1204aa1dc0cb92381e6f0a35fa73eb4e3c",
+   "canonical_sha256": "c5595e6931820c04578af4f64fa0699ec7deca9da48576ca7c8652f9c5918bc5",
+   "fetched_at": "2026-11-15T18:12:38.969Z"
+  },
+  {
+   "url": "https://pypi.org/pypi/jinja2/2.10/json",
+   "sha256": "d071b94a2d428118af3e32cc059aa5990f7579c20ebf95843bc2c1443be5889d",
+   "canonical_sha256": "de9622bc598cffe840a5f83eb103abe31e12a70252f7dd4b9d84903633352c6e",
+   "fetched_at": "2026-11-15T18:12:38.992Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-462w-v97r-4m45",
+   "sha256": "7d62b76b823e58f84adff4f5867788bae7106be8ed89bc033c97fd5a8c81e559",
+   "canonical_sha256": "a17da642dfa9aa1ec7be558ff2e20b9310bc08cf88681891885bf478fe30db71",
+   "fetched_at": "2026-11-15T18:12:39.439Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-cpwx-vrp4-4pq7",
+   "sha256": "5052cf914bc4bf8ef0593602d4dc8b575c88db8ce4f62ad60e57ebd4c2b56347",
+   "canonical_sha256": "af58632dec440b467c02ed2ae730e6bc5f651be26df24d8f28a511011efa2068",
+   "fetched_at": "2026-11-15T18:12:39.773Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-g3rq-g295-4j3m",
+   "sha256": "ddaff305a684f42e5ff6e99e9731dd80f58788d51a5857b2b39fe0b40cb38fa9",
+   "canonical_sha256": "261cd9b67343b848726b326cf4514da4ab7986dd0962ff2b020f6f1ae1ee35ad",
+   "fetched_at": "2026-11-15T18:12:40.115Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-h5c8-rqwp-cp95",
+   "sha256": "c1a77c4866210938b6afb00944ed65d1fd6e162f10c9367f95a60ffe67de50cf",
+   "canonical_sha256": "b9e045d59b80a7a2e7e28d4f9d90d8fcdf7f480cd266f061819030bfffae2a25",
+   "fetched_at": "2026-11-15T18:12:40.464Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-h75v-3vvj-5mfj",
+   "sha256": "c5f29436093ae133109e37522efb6fb55466e5917507f9cb59fd02fa08289bb3",
+   "canonical_sha256": "6422655f73620ade03068f13f79ec39e8254279f9b5658373f4f1dd116c90ea6",
+   "fetched_at": "2026-11-15T18:12:40.798Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/GHSA-q2x7-8rv6-6q7h",
+   "sha256": "f6c01905e9817e42e56336e32b216076692517d49fa983f80934611d1953816f",
+   "canonical_sha256": "2ad3dda3aa9db6113c5bb4157355203506d965dd83099f1637563fddeea625b1",
+   "fetched_at": "2026-11-15T18:12:41.133Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2019-217",
+   "sha256": "c94f5d2a91f0597bd5aedf26e6e078dd28ef0336a7ed3f8051c9b2511de31454",
+   "canonical_sha256": "c6a378fcb91a93e18ab46affca87403f835ba5d6ed78bb236710c9d9e385ad68",
+   "fetched_at": "2026-11-15T18:12:41.471Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2021-66",
+   "sha256": "10f36f823ca7a251ccad5311cfbc30a22dcdb2e17c8c63f29963b97cfb7ecdb6",
+   "canonical_sha256": "7ffbdf6281ac1535090ddd0c7d63d5f1bf2a0889de6011f168f6bfdc7231a8ca",
+   "fetched_at": "2026-11-15T18:12:41.802Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2026-1471",
+   "sha256": "07442bd6243e4593b68d5dc3a8aa62ea1c9e64bee758beca1f8049e240aabb12",
+   "canonical_sha256": "1ff73297c92f29ef964adc9c381c3e628ce3d0e4fe4cb7ddd4cda39d62dc3f03",
+   "fetched_at": "2026-11-15T18:12:42.137Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2026-1473",
+   "sha256": "89ce3f170f5ca29ff92b6c8fd4a47427d190bb40d7d5817b80dd0eb24cf5be8c",
+   "canonical_sha256": "2ad58f56f53893bc56e51531aff7aa9bed4a135552f7fb034a61ec396f94b9a7",
+   "fetched_at": "2026-11-15T18:12:42.475Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2026-1474",
+   "sha256": "01057001c8b0670a0b348e9828d2ca21585fe2a20b03c4c998928b16bef48288",
+   "canonical_sha256": "f0c656353d5eb5a316a9af954a39010948fb5ec0698632af40cba5ac3f7e8a0b",
+   "fetched_at": "2026-11-15T18:12:42.809Z"
+  },
+  {
+   "url": "https://api.osv.dev/v1/vulns/PYSEC-2026-1475",
+   "sha256": "a8eff87ae0fa4cc85881a9c05b06f596f0a6906953bae39da3e4b23211b24925",
+   "canonical_sha256": "5d44acdd5ba333888d6dcfde1093fd34b4e1e52244e1e6c5f655fdf54ade2921",
+   "fetched_at": "2026-11-15T18:12:43.143Z"
+  }
+ ],
+ "headline": "jinja2==2.10: source checks unavailable"
+}
+jinja2-2.10      zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+jinja2-2.10      zk-secpub                      http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+jinja2-2.10      zk-pysec                       http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+jinja2-2.10      zk-ghsapub                     http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+jinja2-2.10      a1-preflight                   http=200 Insecure
+lodash-4.17.15   auto-routed                    http=200 
+lodash-4.17.15   pr-guard-sentinel              http=200 
+lodash-4.17.15   telegraph-verity-intelligence  http=500 upstream error 422: {"error":"request_rejected","message":"Provide source code or configuration using code, source_code, configuration, or config."}
+lodash-4.17.15   zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+lodash-4.17.15   zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
+lodash-4.17.15   evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+lodash-4.17.15   zk-secaudit                    http=200 
+lodash-4.17.15   codewire-security-review       http=200 Needs changes
+lodash-4.17.15   zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+lodash-4.17.15   zk-secpub                      http=200 
+lodash-4.17.15   zk-pysec                       http=200 
+lodash-4.17.15   zk-ghsapub                     http=200 
+lodash-4.17.15   a1-preflight                   http=200 Insecure
+jinja2-3.1.6     auto-routed                    http=200 Secure
+jinja2-3.1.6     pr-guard-sentinel              http=503 could not route this question now, try again later
+jinja2-3.1.6     telegraph-verity-intelligence  http=500 upstream error 422: {"error":"request_rejected","message":"Provide source code or configuration using code, source_code, configuration, or config."}
+jinja2-3.1.6     zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+jinja2-3.1.6     zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
+jinja2-3.1.6     evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+jinja2-3.1.6     zk-secaudit                    http=200 Needs changes
+jinja2-3.1.6     codewire-security-review       http=200 
+jinja2-3.1.6     zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+jinja2-3.1.6     zk-secpub                      http=200 
+jinja2-3.1.6     zk-pysec                       http=200 
+jinja2-3.1.6     zk-ghsapub                     http=200 
+jinja2-3.1.6     a1-preflight                   http=200 Secure
+express-4.21.2   auto-routed                    http=200 Secure
+express-4.21.2   pr-guard-sentinel              http=503 could not route this question now, try again later
+express-4.21.2   telegraph-verity-intelligence  http=500 upstream error 422: {"error":"request_rejected","message":"Provide source code or configuration using code, source_code, configuration, or config."}
+express-4.21.2   zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+express-4.21.2   zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
+express-4.21.2   evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+express-4.21.2   zk-secaudit                    http=200 Needs changes
+express-4.21.2   codewire-security-review       http=200 
+express-4.21.2   zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+express-4.21.2   zk-secpub                      http=200 
+express-4.21.2   zk-pysec                       http=200 
+express-4.21.2   zk-ghsapub                     http=200 
+express-4.21.2   a1-preflight                   http=200 Secure
+unknown-package  auto-routed                    http=200 Secure
+unknown-package  pr-guard-sentinel              http=200 
+unknown-package  telegraph-verity-intelligence  http=500 upstream error 422: {"error":"request_rejected","message":"Provide source code or configuration using code, source_code, configuration, or config."}
+unknown-package  zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+unknown-package  zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
+unknown-package  evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+unknown-package  zk-secaudit                    http=500 miner error partial [incomplete_review]: PyPI:adversarialeval-no-such-package-7f3c@1.0.0: Public source returned HTTP 404
+unknown-package  codewire-security-review       http=500 upstream call failed: status 502: {
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "status": "unavailable",
+ "error": "package_review_unavailable",
+ "reason": "package_source_http_404",
+ "vulnerability_count": null,
+ "issues": [],
+ "summary": "The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.",
+ "model": null,
+ "confidence": null,
+ "as_of": "2026-11-15T18:26:03.610Z",
+ "review_input": {
+  "sha256": "d173212fb89baca7fde69732ff322b73a0edbb0755551a993a6319427449adcc",
+  "encoding": "UTF-8",
+  "unicode_characters": 51,
+  "line_segments": 1,
+  "source_preserved": true
+ },
+ "package": {
+  "system": "PYPI",
+  "name": "adversarialeval-no-such-package-7f3c",
+  "version": "1.0.0"
+ },
+ "source_evidence": [],
+ "headline": "adversarialeval-no-such-package-7f3c==1.0.0: source checks unavailable"
+}
+unknown-package  zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+unknown-package  zk-secpub                      http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+unknown-package  zk-pysec                       http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+unknown-package  zk-ghsapub                     http=500 miner error 502 [package_review_unavailable]: The exact-release source checks could not complete consistently; no vulnerability total or safety verdict was inferred.
+unknown-package  a1-preflight                   http=200 Secure
+code-sqli        auto-routed                    http=200 
+code-sqli        pr-guard-sentinel              http=503 could not route this question now, try again later
+code-sqli        telegraph-verity-intelligence  http=200 Insecure
+code-sqli        zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+code-sqli        zk-astsec                      http=500 miner error 422 [parse_error]: The complete JavaScript source could not be parsed; no vulnerability count is returned.
+code-sqli        evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+code-sqli        zk-secaudit                    http=200 Insecure
+code-sqli        codewire-security-review       http=503 could not route this question now, try again later
+code-sqli        zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+code-sqli        zk-secpub                      http=504 
+code-sqli        zk-pysec                       http=504 
+code-sqli        zk-ghsapub                     http=504 
+code-sqli        a1-preflight                   http=200 Needs changes
+code-param       auto-routed                    http=200 Secure
+code-param       pr-guard-sentinel              http=503 could not route this question now, try again later
+code-param       telegraph-verity-intelligence  http=200 Needs changes
+code-param       zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+code-param       zk-astsec                      http=500 miner error 422 [parse_error]: The complete JavaScript source could not be parsed; no vulnerability count is returned.
+code-param       evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
+code-param       zk-secaudit                    http=500 miner error unavailable [unsupported_target]: Supply pinned package versions with a registry, a versioned PyPI/npm release URL or a supported code pattern; whole repositories are not fetched
+code-param       codewire-security-review       http=503 could not route this question now, try again later
+code-param       zk-friendsec                   http=500 miner error 422 [unsupported_target]: Use one exact Composer release: composer:vendor/package@1.2.3 or pkg:composer/vendor/package@1.2.3; source, sites, ranges, prereleases and prose are unsupported.
+code-param       zk-secpub                      http=504 
+code-param       zk-pysec                       http=200 
+code-param       zk-ghsapub                     http=200 
+code-param       a1-preflight                   http=200 Secure
+call cap reached
+EXIT 0
