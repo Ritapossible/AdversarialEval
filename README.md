@@ -72,16 +72,19 @@ uses an independent test set, under the frozen rule.
 ## How it works
 
 ```mermaid
-flowchart LR
-  OSV[OSV / GitHub Advisory Database] --> GEN[Minimal-pair generator<br/>one decisive fact differs]
-  HAND[Hand-written pairs<br/>10 failure families] --> BUILD
-  GEN --> VERIFY[Label check:<br/>OSV version query]
-  VERIFY --> BUILD[Build + gates:<br/>ids, token budget, dedup,<br/>shortcut judges, kit gate]
-  BUILD --> TRAIN[Official kit:<br/>LoRA + reward head]
-  BUILD --> REVIEW[Human review] --> POOL[Telegraph eval pool]
-  TRAIN --> EVAL[Per-family scoring,<br/>held-out types, 2 seeds]
-  EVAL --> RULE{Frozen<br/>registration rule}
-  RULE -->|pass| REG[Export → executor → registerWasm]
+flowchart TB
+  OSV[OSV / GitHub advisories] --> GEN[Generated minimal pairs]
+  HAND[Hand-written pairs]
+  GEN --> CHECK
+  HAND --> CHECK
+  CHECK[Verify: OSV facts and labels,<br/>dedup, token budget,<br/>shortcut judges near 50%]
+  CHECK --> REVIEW[Human review]
+  REVIEW --> POOL[(Telegraph evaluation pool)]
+  CHECK --> TRAIN[Train adapter<br/>with the official kit]
+  TRAIN --> SCORE[Score per family,<br/>unseen types, two seeds]
+  SCORE --> RULE{Frozen rule:<br/>independent test passes?}
+  RULE -->|yes| REG[Register on testnet]
+  RULE -->|no| LIMIT[Publish as a measured limit]
 ```
 
 **Integrity measures**
