@@ -38,15 +38,14 @@ the official rules (anjoman.ai/dashboard/hackathon/season-2/rules) on 2026-11-12
 
 - [ ] #96 SECURITY_REVIEW: `/claim`, then `/progress` at least every 72 h, then `/submit`
       with the contributor address and registration id
-- [x] #96 claimed 2026-11-12, first `/progress` posted (next due by Nov 15 ~13:57)
+- [x] #96 claimed 2026-11-12; `/progress` 11-12 and 11-15; **`/submit` for the evaluation-material part posted 2026-11-15, moved to review**
 - ~~#128 SMART_CONTRACT_AUDIT~~ dropped (U11)
 
 ## Deliverables in this repo
 
 - [ ] `adapters/SECURITY_REVIEW.safetensors` (+ manifest)
 - [ ] `data/public/*.jsonl` + `data/validation/*.jsonl` (already public) + datasheet
-- [ ] A LICENSE for our own code and data (owner's choice; the data must keep the CC BY 4.0
-      attribution in `NOTICE.md`)
+- [x] LICENSE: MIT (owner's choice, 2026-11-15); third-party data keeps its attribution in `NOTICE.md`
 - [ ] `docs/ADVERSARIAL_CRITERIA.md` frozen
 - [ ] `eval/reports/FINAL.md`
 - [ ] A reproducibility check: a fresh clone → `setup_kit.sh` → `check_data.sh` → eval

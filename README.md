@@ -104,3 +104,10 @@ Full list with licenses, data attribution (GitHub Advisory Database, CC BY 4.0) 
 ## Contributors
 
 - **Rita** ([@Ritapossible](https://github.com/Ritapossible)): project lead
+
+## Licence
+
+MIT ([`LICENSE`](LICENSE)) for our code, docs and preference pairs. Third-party data keeps
+its own licence and attribution: GitHub Advisory Database records are CC BY 4.0, and NVD
+data is a US government work. See [`NOTICE.md`](NOTICE.md).
+

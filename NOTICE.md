@@ -1,5 +1,10 @@
 # Notices and attributions
 
+**Licence:** our code, documentation and our own preference pairs are released under the
+MIT licence ([`LICENSE`](LICENSE)). Third-party material keeps its own licence, as listed
+below. In particular, the advisory facts from the GitHub Advisory Database stay CC BY 4.0
+and need the attribution below wherever they're reused.
+
 ## Advisory data (CC BY 4.0)
 
 `data/sources/osv/` holds copies of advisory records fetched from the
