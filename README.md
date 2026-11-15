@@ -10,7 +10,7 @@ Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW` �
 > ([`eval/RULE-registration.md`](eval/RULE-registration.md)). Built with substantial AI
 > assistance; see [`NOTICE.md`](NOTICE.md).
 
-![AdversarialEval anatomy: sources, build and verify, deliverables, and the ten failure families](docs/assets/adversarialeval-anatomy.png)
+![AdversarialEval anatomy: a dimple-key test bench. Two keys identical but for one dimple; the lock checks every pin, and pin 4 refuses the wrong key](docs/assets/adversarialeval-anatomy.png)
 
 ---
 

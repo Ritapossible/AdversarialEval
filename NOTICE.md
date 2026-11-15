@@ -31,7 +31,8 @@ but is not endorsed or certified by the NVD." Saved test fixtures are trimmed NV
 | [answerdotai/ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base) | base model for training and PyTorch scoring | Apache-2.0 |
 | PyTorch, Hugging Face Transformers, PEFT, tokenizers, safetensors, packaging | training and scoring (pip dependencies) | BSD-3 / Apache-2.0 |
 | Foundry `cast` | local signing of pool uploads and registration (user's machine) | MIT / Apache-2.0 |
-| Google Fonts (Bricolage Grotesque, Instrument Sans, JetBrains Mono) | demo page typography (loaded from fonts.googleapis.com) | SIL OFL 1.1 |
+| Google Fonts (Bricolage Grotesque, Instrument Sans, JetBrains Mono) | demo page and figure typography (loaded from fonts.googleapis.com) | SIL OFL 1.1 |
+| [Anatomy skill](https://github.com/wheresryan22/anatomy) (wheresryan22) | isometric kit used to draw `docs/assets/adversarialeval-anatomy.png` (`docs/assets/anatomy-figure/`) | MIT |
 
 ## AI assistance
 
