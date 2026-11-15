@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>AdversarialEval anatomy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root {
+  --bg:#0d131c; --panel:#141c27; --panel2:#18222f; --line:#283547; --ink:#e8edf3; --muted:#93a0b0;
+  --accent:#f0a35e; --accent-soft:#3a2614; --good:#5cc79b; --good-soft:#12301f; --blue:#8fb2ff; --blue-soft:#1a2440;
+  --display:"Bricolage Grotesque", system-ui, sans-serif; --body:"Instrument Sans", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; margin: 0; }
+body { width: 1600px; height: 900px; background: var(--bg); color: var(--ink); font-family: var(--body); overflow: hidden; }
+.frame { position: relative; width: 1600px; height: 900px; padding: 34px 56px 26px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 16px;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(240,163,94,0.10), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(143,178,255,0.07), transparent 60%),
+    var(--bg); }
+.grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+header { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.eyebrow { font: 700 13px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 800 52px/1 var(--display); letter-spacing: -.02em; margin-top: 10px; }
+h1 span { color: var(--muted); font-weight: 600; }
+.tag { font-size: 19px; color: var(--muted); margin-top: 10px; max-width: 900px; }
+.badge { font: 600 14px/1.35 var(--mono); color: var(--muted); text-align: right; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: rgba(20,28,39,.7); }
+.badge b { color: var(--ink); }
+
+.main { position: relative; display: grid; grid-template-columns: 300px 56px 1fr 56px 470px; align-items: stretch; }
+.col { display: grid; gap: 10px; align-content: start; }
+.colhead { font: 700 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; display: flex; gap: 10px; align-items: center; }
+.colhead i { font-style: normal; width: 22px; height: 22px; border-radius: 6px; display: inline-grid; place-items: center; background: var(--panel2); color: var(--ink); border: 1px solid var(--line); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 11px 16px; }
+.card h3 { font: 600 17px/1.2 var(--body); }
+.card p { font-size: 14px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
+.card .k { font: 700 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.src { border-left: 4px solid var(--blue); }
+.step { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+.num { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font: 700 14px/30px var(--mono); text-align: center; }
+.verify { border-color: #3a4a2c; }
+.out { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: start; }
+.out .stat { font: 800 30px/1 var(--display); color: var(--good); text-align: right; }
+.out .stat small { display: block; font: 600 11px/1.3 var(--mono); color: var(--muted); letter-spacing: .04em; margin-top: 4px; text-transform: uppercase; }
+.out.hero { border-color: rgba(92,199,155,.55); background: linear-gradient(180deg, rgba(18,48,31,.55), var(--panel)); }
+.pill { display: inline-block; font: 700 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; margin-top: 6px; }
+.pill.live { background: var(--good-soft); color: var(--good); }
+.pill.gate { background: var(--accent-soft); color: var(--accent); }
+.pill.built { background: var(--blue-soft); color: var(--blue); }
+
+.arrow { position: relative; }
+.arrow svg { position: absolute; top: 50%; left: 0; width: 56px; height: 40px; transform: translateY(-50%); }
+
+.families { position: relative; display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; }
+.fam { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; min-height: 54px; }
+.fam b { font: 700 12px/1 var(--mono); color: var(--accent); }
+.fam span { display: block; font-size: 13px; line-height: 1.25; margin-top: 5px; }
+.famhead { font: 700 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+
+footer { position: relative; display: flex; justify-content: space-between; align-items: center; font: 500 14px/1 var(--mono); color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+footer b { color: var(--ink); }
+</style></head>
+<body><div class="frame"><div class="grid-bg"></div>
+
+<header>
+  <div>
+    <div class="eyebrow">Telegraph Hackathon Season II · Evaluators track</div>
+    <h1>AdversarialEval <span>anatomy</span></h1>
+    <p class="tag">Evaluation material and an evaluator for <b style="color:var(--ink)">SECURITY_REVIEW</b>: does a security answer survive scrutiny, or does it just sound right?</p>
+  </div>
+  <div class="badge">Status, testnet<br><b>81 pool pairs eligible</b><br>attested · node API verified</div>
+</header>
+
+<div class="main">
+  <!-- 1 sources -->
+  <div class="col">
+    <div class="colhead"><i>1</i> Sources</div>
+    <div class="card src"><h3>OSV / GitHub Advisory DB</h3><p>Real advisories: ids, affected and patched versions, severity</p></div>
+    <div class="card src"><h3>Hand-written cases</h3><p>Code, config and dependency reviews across 10 failure families</p></div>
+    <div class="card src"><h3>NVD records</h3><p>CVSS base scores for the CVE lookup truth source</p></div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 56 40"><path d="M6 20 H44" stroke="#f0a35e" stroke-width="2.5" fill="none"/><path d="M40 13 L49 20 L40 27" stroke="#f0a35e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+  <!-- 2 build & verify -->
+  <div class="col">
+    <div class="colhead"><i>2</i> Build and verify</div>
+    <div class="card step"><div class="num">01</div><div><h3>Minimal pairs</h3><p>Better and worse answer differ in one decisive claim; everything else identical</p></div></div>
+    <div class="card step verify"><div class="num">02</div><div><h3>Fact and label checks</h3><p>Every advisory id verified on OSV; every label confirmed by OSV's own version query</p></div></div>
+    <div class="card step"><div class="num">03</div><div><h3>Shortcut judges</h3><p>Longer answer, prompt overlap, TF-IDF, alarming keywords: per family, must sit near 50%</p></div></div>
+    <div class="card step"><div class="num">04</div><div><h3>Human review</h3><p>Each pool pair approved by a person before upload</p></div></div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 56 40"><path d="M6 20 H44" stroke="#f0a35e" stroke-width="2.5" fill="none"/><path d="M40 13 L49 20 L40 27" stroke="#f0a35e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+  <!-- 3 outputs -->
+  <div class="col">
+    <div class="colhead"><i>3</i> What it delivers</div>
+    <div class="card out hero"><div><h3>Evaluation-pool material</h3><p>SECURITY_REVIEW_GENERAL, used to test every evaluator on the intent</p><span class="pill live">live on testnet</span></div><div class="stat">81<small>pairs eligible</small></div></div>
+    <div class="card out"><div><h3>Evaluator adapter</h3><p>LoRA + reward head on Telegraph's ModernBERT; registration gated by a rule frozen before testing</p><span class="pill gate">independent test next</span></div><div class="stat" style="color:var(--accent)">72–75%<small>validation<br>2 seeds</small></div></div>
+    <div class="card out"><div><h3>CVE_LOOKUP_CVSS truth source</h3><p>NVD's CVSS score under one fixed rule, keyless API</p><span class="pill built">built and tested</span></div><div class="stat" style="color:var(--blue)">18/18<small>match NVD</small></div></div>
+    <div class="card out"><div><h3>Spot the Flaw demo</h3><p>Pick the sound review, see the flaw and the shortcut judges</p><span class="pill built">built</span></div><div class="stat" style="color:var(--blue)">10<small>flaw types</small></div></div>
+  </div>
+</div>
+
+<div class="families-wrap" style="position:relative">
+  <div class="famhead">The ten ways a security answer can be plausible but wrong</div>
+  <div class="families">
+    <div class="fam"><b>F1</b><span>Wrong or fake advisory id</span></div>
+    <div class="fam"><b>F2</b><span>Version-range error</span></div>
+    <div class="fam"><b>F3</b><span>Missed critical</span></div>
+    <div class="fam"><b>F4</b><span>Context reversal</span></div>
+    <div class="fam"><b>F5</b><span>Overconfident "Secure"</span></div>
+    <div class="fam"><b>F6</b><span>False alarm</span></div>
+    <div class="fam"><b>F7</b><span>Inconsistent fields</span></div>
+    <div class="fam"><b>F8</b><span>Wrong severity</span></div>
+    <div class="fam"><b>F9</b><span>Needless hedging</span></div>
+    <div class="fam"><b>F10</b><span>Ineffective fix</span></div>
+  </div>
+</div>
+
+<footer>
+  <span><b>github.com/Ritapossible/AdversarialEval</b> · MIT</span>
+  <span>Shortcut judges at chance · 2 seeds per result · held-out failure types · frozen decision rule</span>
+</footer>
+</div></body></html>

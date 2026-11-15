@@ -10,6 +10,8 @@ Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW` �
 > ([`eval/RULE-registration.md`](eval/RULE-registration.md)). Built with substantial AI
 > assistance; see [`NOTICE.md`](NOTICE.md).
 
+![AdversarialEval anatomy: sources, build and verify, deliverables, and the ten failure families](docs/assets/adversarialeval-anatomy.png)
+
 ---
 
 ## The problem
