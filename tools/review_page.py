@@ -109,7 +109,7 @@ button { font: 600 1rem system-ui, sans-serif; padding: 14px; border-radius: 10p
 </div>
 </div>
 <script>
-var D = __DATA__, H = __HELP__, KEY = "pool-review-" + (D.length ? D[0].id : "none"), dec = {}, i = 0;
+var D = __DATA__, H = __HELP__, KEY = "pool-review-" + D.length + "-" + D.reduce(function (h, r) { for (var c = 0; c < r.id.length; c++) h = (h * 31 + r.id.charCodeAt(c)) >>> 0; return h; }, 7), dec = {}, i = 0;
 try { dec = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
 function $(x){ return document.getElementById(x); }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(dec)); } catch (e) {} code(); }

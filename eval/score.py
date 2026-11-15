@@ -132,6 +132,15 @@ def main(argv=None) -> int:
         for dim in ("source", "family", "generated kind", "length", "chosen verdict", "format"):
             if by[dim]:
                 out += table(dim, by[dim]) + [""]
+        gk = by["generated kind"]
+        f2in = [v for k_, vs in gk.items() if k_.startswith("F2-in") for v in vs]
+        f2out = [v for k_, vs in gk.items() if k_.startswith("F2-out") for v in vs]
+        if len(f2in) >= 5 and len(f2out) >= 5:
+            ai, ao = sum(f2in) / len(f2in), sum(f2out) / len(f2out)
+            flag = "WARNING: polarity shortcut suspected" if abs(ai - ao) > 0.20 else "ok"
+            out += [f"Polarity check (version pairs): affected {ai:.0%} (n={len(f2in)}) vs patched {ao:.0%} "
+                    f"(n={len(f2out)}), gap {abs(ai - ao) * 100:.0f} points: {flag}. A gap over 20 points means the "
+                    "model prefers one verdict instead of comparing versions (see eval/reports/2026-11-10-cpu-v1-seed7.md).", ""]
         if a.probe_pad and pad_kept:
             out += [f"Padding probe: of the pairs it got right, the adapter still prefers the chosen answer "
                     f"after the rejected one is padded to 1.5x length in {sum(pad_kept) / len(pad_kept):.0%} "

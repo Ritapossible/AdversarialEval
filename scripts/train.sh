@@ -35,6 +35,7 @@ python3 -m float_runtime.train_adapter --intent "$INTENT" --data "$TRAIN" --val-
   | grep -E "epoch .* (done|validation)|gate|accuracy|baseline|FAIL|PASS|Error"
 KIT_RC=${PIPESTATUS[0]}
 cd "$ROOT"
+# Kit bug, documented in docs/UPSTREAM_ISSUES.md: keep this workaround until the pinned kit is fixed.
 # The kit at 1ed063e crashes with NameError ('pkg') while printing its "Next" hint AFTER a
 # passing gate (exit 1). Trust the verdict in result.json, not the exit code.
 VERDICT=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1])).get('verdict','?'))" "$RUN/result.json" 2>/dev/null || echo "none")
