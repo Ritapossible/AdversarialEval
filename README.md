@@ -4,6 +4,8 @@
 
 Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW` · Licence: MIT
 
+**Live demo: [adversarialeval.vercel.app](https://adversarialeval.vercel.app)**
+
 > **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor
 > wallet named below uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The adapter's
 > registration follows a decision rule fixed before any test data existed
@@ -69,7 +71,7 @@ uses an independent test set, under the frozen rule.
 | **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 81 eligible; 84 severity pairs in review |
 | **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; **not registered**, pending the independent test |
 | **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
-| **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Built; public hosting pending |
+| **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
 
 ## How it works
 
@@ -135,7 +137,7 @@ including hosting, registration and pool upload, is in [`docs/RUNBOOK.md`](docs/
 | `eval/` | `score.py` (per-family scoring), `baselines.py` (shortcut judges), `reports/`, the frozen registration rule |
 | `scripts/` | `setup_kit.sh`, `check_data.sh`, `train.sh`, `export.sh`, `rehearse.sh` |
 | `truth-sources/cve-cvss/` | `CVE_LOOKUP_CVSS` truth source (serverless function, tests, YAML) |
-| `site/` | "Spot the Flaw" demo page |
+| `site/` | "Spot the Flaw" demo page, served by Vercel (root directory `site`) |
 | `deploy/` | Executor host setup (systemd unit, Caddy TLS, health check) |
 | `docs/` | Research, taxonomy, dataset spec, runbook, reviewer guide, audit, submission checklist |
 
@@ -143,7 +145,7 @@ including hosting, registration and pool upload, is in [`docs/RUNBOOK.md`](docs/
 
 - **Done:** verified dataset and taxonomy; pool material eligible on testnet; bounty #96
   claimed, evaluation-material part submitted; local Stage 1 and remote-check rehearsal;
-  truth source and demo built.
+  truth source built; demo live.
 - **In progress:** an independent test set from outside reviewers; the second pool batch
   (severity pairs).
 - **Decision pending:** adapter registration, only if the independent test meets the frozen
