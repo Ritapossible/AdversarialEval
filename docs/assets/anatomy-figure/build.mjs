@@ -29,7 +29,7 @@ const decisive = MODEL.correct.findIndex((d, i) => d !== MODEL.wrong[i]);
 const proud = +(MODEL.correct[decisive] - MODEL.wrong[decisive]).toFixed(1);
 
 // ---------------------------------------------------------------- world plan
-const W = 760, H = 470;
+const W = 1000, H = 400;
 const PLATE = { x: -150, y: -66, w: 300, d: 132, r: 9 };
 const PLATE_H = 12, FOOT_H = 5;
 const BLADE_T = 4;                                  // key thickness
@@ -42,7 +42,7 @@ const TRAY_H = 4;
 
 const P = k.fitProjection(
   [...k.boxCorners(PLATE, -PLATE_H - FOOT_H, 0), [10, CH_Y, RETAINER_Z + 6], [140, 18, 34]],
-  W, H, { pad: 14, azimuth: 36 },
+  W, H, { pad: 10, azimuth: 60 },
 );
 const at = (p) => k.iso(p, P);
 const S = (paths, style) => k.solidSvg(paths, style);
@@ -242,57 +242,52 @@ const PALETTE = `
   --anatomy-hi:#2b2146;--anatomy-mid:#9370db;--anatomy-lo:#b6a5e6;--anatomy-faint:#ddd5f6;--anatomy-lit:#5b2fc9;
   --anatomy-halo:#9370db;--anatomy-halo-opacity:.22;--anatomy-dot:#4b3a85;
 }`;
-const keysHtml = `
-  <div class="ae-keys">
-    <div class="ae-key"><svg viewBox="0 0 16 10"><path d="M1 9 L8 1 L15 9" style="stroke:#5b2fc9;stroke-width:1.6;fill:none"/></svg><span><b>Pin ${decisive + 1}, lit:</b> the one decisive fact. It rides ${proud} proud of the shear line, so the lock refuses the wrong key.</span></div>
-    <div class="ae-key"><svg viewBox="0 0 16 10"><path d="M1 9 L8 1 L15 9" style="stroke:#9370db;stroke-width:1.2;fill:none"/></svg><span><b>Two keys, one dimple apart:</b> a sound answer in the tray, a plausible but wrong one in the lock.</span></div>
-  </div>`;
-const plate = k.plateHtml({
-  fig: "Fig 1",
-  title: "AdversarialEval",
-  hint: "Identical keys · one dimple differs",
-  readout: `pin ${decisive + 1} proud ${proud} · lock refuses`,
-  keys: [],
-  caption: "",
-  body: `<div class="iso-stage">${svg}</div>`,
-});
+const swatch = (color, w = 1.4) => `<svg viewBox="0 0 18 10"><path d="M1 5 L9 1 L17 5 L9 9 Z" style="fill:none;stroke:${color};stroke-width:${w};stroke-linejoin:round"/></svg>`;
 const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>AdversarialEval anatomy</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>${k.ISO_CSS}${PALETTE}
 *{box-sizing:border-box;margin:0}
 body{width:1600px;height:900px;overflow:hidden;background:var(--anatomy-page);font-family:"Instrument Sans",system-ui,sans-serif;color:var(--anatomy-text)}
-.ae{display:grid;grid-template-columns:1030px 1fr;gap:44px;padding:56px 60px;height:900px;align-items:center}
-.ae .iso-plate{padding:46px 26px 44px;box-shadow:0 0 0 1.5px #9370db, 0 24px 60px -30px rgba(91,47,201,.35);border-radius:14px}
-.ae .iso-plate-corner{font-size:13px}
-.ae .iso-figure{margin:0}
-.side{display:grid;gap:22px;align-content:center}
-.eyebrow{font:700 13px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#9370db}
-h1{font:700 44px/1.05 "Instrument Sans",sans-serif;letter-spacing:-.02em;color:var(--anatomy-strong)}
-.lede{font-size:19px;line-height:1.45;color:var(--anatomy-text)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.stat{background:#fff;border:1.5px solid #ddd5f6;border-radius:12px;padding:14px 16px}
-.stat b{display:block;font:700 34px/1 "Instrument Sans",sans-serif;color:#5b2fc9}
-.stat span{display:block;margin-top:6px;font-size:14px;color:var(--anatomy-muted);line-height:1.3}
-.ae-keys{display:grid;gap:10px}
-.ae-key{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;font-size:15px;line-height:1.4}
-.ae-key svg{width:18px;height:12px;margin-top:4px}
-.ae-key b{color:var(--anatomy-strong)}
-.foot{font:500 13px/1.4 "JetBrains Mono",monospace;color:var(--anatomy-muted);border-top:1.5px solid #ddd5f6;padding-top:14px}
-.foot b{color:var(--anatomy-strong)}
+.wrap{height:900px;padding:22px 26px 20px;display:grid;grid-template-rows:auto 1fr auto auto;gap:14px}
+header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:46px;height:46px;border:2px solid #4b3a85;border-radius:12px;display:grid;place-items:center;background:#fff}
+.name{font:600 38px/1 "Instrument Sans",sans-serif;letter-spacing:-.02em;color:var(--anatomy-strong)}
+.name i{font:italic 400 42px/1 "Instrument Serif",serif;color:#5b2fc9;letter-spacing:0}
+.tagline{font-size:21px;color:var(--anatomy-muted)}
+.tagline b{color:var(--anatomy-strong);font-weight:600}
+.card .iso-plate{height:100%;padding:44px 26px;border-radius:18px;box-shadow:0 0 0 1.5px #ddd5f6, 0 20px 50px -34px rgba(91,47,201,.4);display:flex;align-items:center}
+.card{min-height:0}
+.card .iso-plate>.iso-stage,.card .iso-plate>div:not(.iso-plate-corners){width:100%}
+.card .iso-plate-corner{font-size:15px}
+.card .iso-plate-corner[data-corner="title"]{color:#4b3a85}
+.card .iso-figure{margin:0;height:100%}
+.legend{display:flex;gap:34px;font-size:18px;color:var(--anatomy-text);padding:0 6px}
+.legend span{display:inline-flex;align-items:center;gap:9px}
+.legend svg{width:20px;height:12px}
+.foot{display:flex;justify-content:space-between;font:500 16px/1 "JetBrains Mono",monospace;color:var(--anatomy-muted);padding:0 6px}
+.foot b{color:#4b3a85;font-weight:700}
 </style></head>
-<body class="iso" data-theme="light"><div class="ae">
-<div>${plate}</div>
-<div class="side">
-  <div class="eyebrow">Telegraph Hackathon S2 · Evaluators</div>
-  <h1>A judge that checks every pin.</h1>
-  <p class="lede">A wrong security answer is a key cut one dimple off: same length, same look. Judging by shape can't tell. AdversarialEval builds pairs that differ in one decisive fact, and an evaluator that checks it.</p>
-  <div class="stats">
-    <div class="stat"><b>${MODEL.poolEligible}</b><span>pairs eligible in the SECURITY_REVIEW pool (testnet)</span></div>
-    <div class="stat"><b>${MODEL.shortcut}</b><span>what shortcut judges score on them: a coin flip</span></div>
-  </div>
-  ${keysHtml}
-  <div class="foot"><b>github.com/Ritapossible/AdversarialEval</b> · MIT</div>
+<body class="iso" data-theme="light"><div class="wrap">
+<header>
+  <div class="brand"><div class="mark"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M4 8h10M4 13h7M4 18h10" stroke="#4b3a85" stroke-width="2.2" stroke-linecap="round"/><circle cx="19" cy="13" r="4" fill="#5b2fc9"/></svg></div>
+  <div class="name">Adversarial<i>Eval</i></div></div>
+  <div class="tagline">Rewards security answers that <b>survive scrutiny</b>, not ones that sound right</div>
+</header>
+<div class="card">${k.plateHtml({
+  fig: "Fig 1",
+  title: "Anatomy of an AdversarialEval check",
+  hint: "Two keys, one dimple apart",
+  readout: `pin ${decisive + 1} proud ${proud} · wrong key refused`,
+  keys: [], caption: "",
+  body: `<div class="iso-stage">${svg}</div>`,
+})}</div>
+<div class="legend">
+  <span>${swatch("#5b2fc9", 1.8)} Pin ${decisive + 1}: the one decisive fact, checked</span>
+  <span>${swatch("#9370db")} Tray key: the sound answer</span>
+  <span>${swatch("#b6a5e6")} Lock key: plausible, one fact wrong</span>
 </div>
+<div class="foot"><span>${MODEL.poolEligible} pairs live in the Telegraph testnet pool · shortcut judges ${MODEL.shortcut}</span><b>github.com/Ritapossible/AdversarialEval</b></div>
 </div></body></html>`;
 writeFileSync(join(HERE, "adversarialeval-anatomy.html"), page);
 console.log("wrote adversarialeval-anatomy.html; decisive pin", decisive + 1, "proud", proud);
