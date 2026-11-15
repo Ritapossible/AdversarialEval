@@ -1,105 +1,137 @@
 # AdversarialEval
 
-**A competitive Evaluator adapter for Telegraph that prefers answers which survive
-adversarial pressure over answers that are plausible but flawed.**
+**Adversarial evaluation material and an Evaluator adapter for Telegraph's `SECURITY_REVIEW` intent: measuring whether a security answer survives scrutiny, not whether it sounds convincing.**
 
-Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW`
+Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW` · Licence: MIT
 
-**Disclosure:** this is a hackathon entry. Season II has prizes. The same contributor
-wallet uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The registration decision
-follows a rule frozen before any test data existed: [`eval/RULE-registration.md`](eval/RULE-registration.md).
+> **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor
+> wallet named below uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The adapter's
+> registration follows a decision rule fixed before any test data existed
+> ([`eval/RULE-registration.md`](eval/RULE-registration.md)). Built with substantial AI
+> assistance; see [`NOTICE.md`](NOTICE.md).
 
 ---
 
-## What it is
+## Overview
 
-Most answer scorers reward fluency, surface completeness or keyword overlap. AdversarialEval
-is trained to do the opposite. It ranks an answer higher only when the answer stays
-correct under targeted pressure: fabricated CVE ids, wrong affected-version ranges, a
-missed critical finding, an overconfident "Secure", a false alarm on safe code, or a
-verdict that flips once the context changes.
+On Telegraph, Evaluator adapters decide which miner answers win. In security review, the
+most damaging answers are the *plausible* ones: a CVE id that doesn't exist, a wrong
+affected-version range, a confident "secure" on vulnerable code, a false alarm on safe code,
+or a fix that doesn't fix. A judge that rewards fluency, length or security vocabulary picks
+exactly those.
 
-The project ships two things the protocol needs:
+AdversarialEval builds evaluation material in which each worse answer is **plausible but
+wrong in one decisive, verifiable way**. It then trains and measures an adapter against
+that material, reporting results next to the shortcut judges that the material is designed
+to defeat.
 
-1. **An Evaluator adapter.** It's a LoRA delta and reward head on the shared ModernBERT-base
-   Foundation Model, to be registered on the Telegraph **testnet** (Sepolia) to challenge the
-   current Canonical Evaluator. **Not registered yet**: see Status.
-2. **Adversarial preference data.** It's a public dataset of `prompt / chosen / rejected`
-   pairs, plus a separate, private set contributed to the Telegraph evaluation pool.
+## Verified results
 
-## Why `SECURITY_REVIEW`
-
-Live testnet, 2026-11-04:
-
-- **Incumbent:** the Canonical Evaluator (registration #42) scored **71.43% on 21 hidden
-  pairs**, just above the 70% floor. To replace it, a challenger needs about **73.4%** on
-  the same sample, which is the 2-point margin.
-- **Pool and miners:** the pool holds 55 rows from 6 contributors, and 26 miners serve the
-  Intent.
-- **Demand:** P1 bounty [#96](https://github.com/telegraphprotocol/bounties/issues/96). It's
-  a mandatory Intent and sits under the Exchange, Model Economy and Web3/DeFi missions.
-
-The full reasoning is in [`docs/RESEARCH.md`](docs/RESEARCH.md).
-
-## Repository map
-
-| Path | What |
+| Result | Evidence |
 |---|---|
-| [`PLAN.md`](PLAN.md) | Milestones, task checklist, deadlines, risks |
-| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Components, data flow, the scoring contract, interfaces |
-| [`MEMORY.md`](MEMORY.md) | Durable project memory: facts, decisions, live state, gotchas |
-| [`CLAUDE.md`](CLAUDE.md) | Working rules for AI assistants on this repo |
-| [`truth-sources/cve-cvss/`](truth-sources/cve-cvss/) | Keyless truth source for the deterministic `CVE_LOOKUP_CVSS` intent: NVD's own CVSS score under one fixed rule (Vercel function + tests) |
-| [`site/`](site/) | "Spot the Flaw" demo page (built by `tools/build_spot_flaw.py` from public data; deployed to GitHub Pages) |
-| [`docs/ACTION_PLAN.md`](docs/ACTION_PLAN.md) | Step-by-step for the project lead: bounty, reviewers, pool review, wallets, VM, registration |
-| [`docs/AUDIT_2026-11-10.md`](docs/AUDIT_2026-11-10.md) | Senior-engineer audit and the upgrade plan (U1–U11) |
-| [`docs/RESEARCH.md`](docs/RESEARCH.md) | Study of the kit, rules, live network and competition |
-| [`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md) | The failure-mode taxonomy (a deliverable) |
-| [`docs/DATASET_SPEC.md`](docs/DATASET_SPEC.md) | Row schema, authoring rules, splits, provenance |
-| [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Exact commands for train, export, check, host, register, upload |
-| [`docs/SUBMISSION_CHECKLIST.md`](docs/SUBMISSION_CHECKLIST.md) | What the hackathon and the bounty need from us |
-| `data/` | `public/` (released), `validation/` (pool-like held-out), `private/` (pool set, git-ignored) |
-| `configs/` | Training configs |
-| `scripts/` | Setup and helper scripts |
+| **81 preference pairs eligible** in the live `SECURITY_REVIEW_GENERAL` pool (testnet), all *attested*, uploaded 2026-11-14, contributor `0x31Cf…3095`. Bounty #96 evaluation-material part submitted and moved to review. | Node API output in [`eval/reports/2026-11-14-pool-upload.md`](eval/reports/2026-11-14-pool-upload.md) |
+| Shortcut judges at chance on that material: longer-answer 54%, TF-IDF-to-prompt 54%, security-keyword 44%. | `scripts/check_data.sh` |
+| Adapter: **72.4% / 74.7%** pairwise accuracy on 87 validation pairs (two seeds), versus ≤ 58% for every shortcut judge. | [`2026-11-11-cpu-v3-seed7.md`](eval/reports/2026-11-11-cpu-v3-seed7.md) |
+| Held out from training, whole failure types are **not** learned: **37–39%** on unseen context-reversal and false-alarm pairs. Validation accuracy holds only for trained types. | [`2026-11-14-lofo.md`](eval/reports/2026-11-14-lofo.md) |
+| Local rehearsal of the node's remote check (kit executor, real WASM engine, the node's own client): identity echo verified, and WASM and PyTorch scoring agree on **87/87** pairs. | [`2026-11-11-rehearsal-cpu-v3-seed13.md`](eval/reports/2026-11-11-rehearsal-cpu-v3-seed13.md) |
+| A shortcut found and fixed: a model trained on hand-written pairs preferred any "vulnerable" answer (100% vs 0% on version pairs); balanced minimal pairs removed it. | [`2026-11-10-cpu-v1-seed7.md`](eval/reports/2026-11-10-cpu-v1-seed7.md) |
 
-## Quick start
+All accuracy figures above are on same-author validation data. The registration decision
+uses an independent test set, under the frozen rule.
 
-```bash
-bash scripts/setup_kit.sh --tokenizer   # pinned kit, foundation.json and the node's tokenizer
-bash scripts/check_data.sh              # full data check
+## Deliverables
+
+| | Status |
+|---|---|
+| **Adversarial preference dataset** (264 training + 87 validation pairs, public) with a ten-family failure taxonomy ([`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md)) | Released in `data/public/`, `data/validation/` |
+| **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 81 eligible; 84 severity pairs in review |
+| **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; **not registered**, pending the independent test |
+| **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
+| **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Built; public hosting pending |
+
+## How it works
+
+```mermaid
+flowchart LR
+  OSV[OSV / GitHub Advisory Database] --> GEN[Minimal-pair generator<br/>one decisive fact differs]
+  HAND[Hand-written pairs<br/>10 failure families] --> BUILD
+  GEN --> VERIFY[Label check:<br/>OSV version query]
+  VERIFY --> BUILD[Build + gates:<br/>ids, token budget, dedup,<br/>shortcut judges, kit gate]
+  BUILD --> TRAIN[Official kit:<br/>LoRA + reward head]
+  BUILD --> REVIEW[Human review] --> POOL[Telegraph eval pool]
+  TRAIN --> EVAL[Per-family scoring,<br/>held-out types, 2 seeds]
+  EVAL --> RULE{Frozen<br/>registration rule}
+  RULE -->|pass| REG[Export → executor → registerWasm]
 ```
 
-The full pipeline is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
+**Integrity measures**
+- **Verified facts.** Every advisory id comes from OSV, trap ids are checked to be real or
+  fabricated as declared, and every generated label is confirmed by OSV's own version query.
+- **Minimal pairs.** Generated pairs differ in a single decisive fact, so surface cues can't
+  separate them.
+- **Shortcut judges reported with every result:** longer/shorter answer, prompt overlap,
+  TF-IDF, security-keyword count. A set only enters the pool once they are near 50%.
+- **Honest measurement.** Two seeds per result, held-out failure types, and a decision rule
+  committed before the test data exists.
+- **Privacy.** The pool set and its generator inputs are never published (`data/private/`
+  is git-ignored), and nothing uses hidden evaluation rows.
 
-## Status
+## Getting started
 
-Updated 2026-11-12. All numbers are on **our own validation set** (87 pairs, same author as
-the training data), reported over two training seeds, so they are not an independent test.
-
-- Best recipe (cpu-v3, 264 training pairs): **72.4% / 74.7%** pairwise accuracy (two seeds);
-  naive scorers ≤ 58%. The package passes the node's Stage 1 check locally, and a local
-  rehearsal of the node's remote check (kit executor + real WASM engine) agrees with our
-  PyTorch scoring on every pair. Reports: [`eval/reports/`](eval/reports/).
-- **Network actions so far:** none on chain. Nothing is registered and no pool rows are
-  uploaded yet (testnet; waiting on reviewed rows and a wallet). Bounty #96 is claimed with
-  progress posted.
-- Next: an independent test set from outside reviewers, the reviewed pool upload, then a
-  registration decision. See [`docs/ACTION_PLAN.md`](docs/ACTION_PLAN.md).
+Requirements: Python 3.10+, Go 1.25+ (Stage 1 check and executor), Node 18+ (truth source),
+about 1 GB of disk (600 MB more for the foundation graph used by the rehearsal).
 
 ```bash
-pip install numpy tokenizers
-bash scripts/check_data.sh      # build, token budget, near-duplicates, baselines, kit gate
-python tests/test_tools.py
+bash scripts/setup_kit.sh --tokenizer       # pinned official kit, foundation.json, node tokenizer
+pip install -r third_party/telegraph-wasm-baseline/requirements.txt
+
+bash scripts/check_data.sh                  # build, id checks, OSV label check, token budget, dedup, shortcut judges, kit gate
+python tests/test_tools.py                  # 15 tests
+node --test truth-sources/cve-cvss/test/select.test.js   # 6 tests
+
+bash scripts/train.sh cpu-v3 --epochs 6 --lr 0.0002 --seed 7   # train with the kit, write a scored report
+bash scripts/export.sh cpu-v3                                   # export the delta, run the node's Stage 1 check
+bash scripts/setup_kit.sh --full && bash scripts/rehearse.sh cpu-v3   # local remote-check rehearsal
 ```
 
-## Built on
+Training runs on CPU (about 40 minutes per seed at this data size). The full pipeline,
+including hosting, registration and pool upload, is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
 
-Full list with licenses, data attribution (GitHub Advisory Database, CC BY 4.0) and the AI-assistance disclosure: [`NOTICE.md`](NOTICE.md).
+## Repository layout
 
-- [telegraph-wasm-baseline](https://github.com/telegraphprotocol/telegraph-wasm-baseline), the
-  official adapter kit (MIT)
-- [telegraph-foundation](https://github.com/telegraphprotocol/telegraph-foundation), Foundation
-  Model `modernbert-base-lora16-v1` (Apache-2.0, from `answerdotai/ModernBERT-base`)
+| Path | Contents |
+|---|---|
+| `data/public/`, `data/validation/` | Released training and validation pairs (node format), sidecar metadata in `data/meta/` |
+| `data/authoring/`, `data/sources/` | Authoring rows and verified OSV source records |
+| `tools/` | Builders and checks: `build.py`, `gen_osv_pairs.py`, `check_ids.py`, `verify_generated.py`, `dedup.py`, review and upload tools |
+| `eval/` | `score.py` (per-family scoring), `baselines.py` (shortcut judges), `reports/`, the frozen registration rule |
+| `scripts/` | `setup_kit.sh`, `check_data.sh`, `train.sh`, `export.sh`, `rehearse.sh` |
+| `truth-sources/cve-cvss/` | `CVE_LOOKUP_CVSS` truth source (serverless function, tests, YAML) |
+| `site/` | "Spot the Flaw" demo page |
+| `deploy/` | Executor host setup (systemd unit, Caddy TLS, health check) |
+| `docs/` | Research, taxonomy, dataset spec, runbook, reviewer guide, audit, submission checklist |
+
+## Status and next steps
+
+- **Done:** verified dataset and taxonomy; pool material eligible on testnet; bounty #96
+  claimed, evaluation-material part submitted; local Stage 1 and remote-check rehearsal;
+  truth source and demo built.
+- **In progress:** an independent test set from outside reviewers; the second pool batch
+  (severity pairs).
+- **Decision pending:** adapter registration, only if the independent test meets the frozen
+  bar (≥ 80% accuracy, Wilson lower bound ≥ 65%, every shortcut judge ≤ 60%).
+
+## Acknowledgements
+
+- Telegraph's official adapter kit
+  ([telegraph-wasm-baseline](https://github.com/telegraphprotocol/telegraph-wasm-baseline),
+  MIT) and foundation model
+  ([telegraph-foundation](https://github.com/telegraphprotocol/telegraph-foundation), from
+  `answerdotai/ModernBERT-base`, Apache-2.0).
+- Advisory data: the GitHub Advisory Database (CC BY 4.0) via [OSV](https://osv.dev), and
+  NVD data (US government; not endorsed or certified by the NVD).
+- Fexx ([@fexx301](https://github.com/fexx301)), for findings shared in the Evaluators
+  community that shaped our held-out testing and severity-pair design.
 
 ## Contributors
 
@@ -107,7 +139,5 @@ Full list with licenses, data attribution (GitHub Advisory Database, CC BY 4.0) 
 
 ## Licence
 
-MIT ([`LICENSE`](LICENSE)) for our code, docs and preference pairs. Third-party data keeps
-its own licence and attribution: GitHub Advisory Database records are CC BY 4.0, and NVD
-data is a US government work. See [`NOTICE.md`](NOTICE.md).
-
+MIT ([`LICENSE`](LICENSE)) for our code, documentation and preference pairs. Third-party
+data keeps its own licence and attribution; see [`NOTICE.md`](NOTICE.md).

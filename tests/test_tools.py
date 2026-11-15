@@ -93,11 +93,6 @@ def test_bad_enums_and_identical_answers():
     assert any("chosen == rejected" in e for e in errors)
 
 
-if __name__ == "__main__":
-    fns = [v for k, v in dict(globals()).items() if k.startswith("test_")]
-    for f in fns:
-        f()
-    print(f"{len(fns)} tests passed")
 
 
 def test_merge_seeds_is_exact_at_rank_16(tmp_path):
@@ -201,3 +196,14 @@ def test_osv_range_logic_edge_cases():
     # skipped on purpose: last_affected, open-ended (unfixed) ranges
     assert ranges_for(_osv("x", "npm", [{"introduced": "1.0.0"}, {"last_affected": "1.2.0"}]), "npm", "x") is None
     assert ranges_for(_osv("x", "npm", [{"introduced": "1.0.0"}]), "npm", "x") is None
+
+
+if __name__ == "__main__":
+    import inspect
+    import tempfile
+
+    fns = [v for k, v in dict(globals()).items() if k.startswith("test_")]
+    for f in fns:
+        # tests that take pytest's tmp_path get a fresh temporary directory
+        f(*([Path(tempfile.mkdtemp())] if inspect.signature(f).parameters else []))
+    print(f"{len(fns)} tests passed")
