@@ -10,7 +10,7 @@ can't tell them apart. The lock checks every pin. With the wrong key in the chan
 (the one lit part) rides 2.7 proud of the shear line, so the turn knob stays locked. The
 numbers come from `MODEL` in `build.mjs` and the project's verified reports.
 
-The palette is the lavender and purple of the README's pipeline diagram.
+The palette is ink on paper: black outlines, warm-grey shading, and one orange accent on the lit part (pin 4). The README's pipeline diagram uses the same colours.
 
 **Rebuild:** clone wheresryan22/anatomy, copy `build.mjs` to
 `examples/adversarialeval/build.mjs`, and run `node build.mjs`. It writes

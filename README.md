@@ -74,6 +74,7 @@ uses an independent test set, under the frozen rule.
 ## How it works
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#ffffff", "primaryColor": "#ffffff", "primaryBorderColor": "#111111", "primaryTextColor": "#111111", "lineColor": "#111111", "secondaryColor": "#ffffff", "tertiaryColor": "#ffffff", "edgeLabelBackground": "#ffffff"}}}%%
 flowchart TB
   OSV[OSV / GitHub advisories] --> GEN[Generated minimal pairs]
   HAND[Hand-written pairs]
@@ -87,6 +88,8 @@ flowchart TB
   SCORE --> RULE{Frozen rule:<br/>independent test passes?}
   RULE -->|yes| REG[Register on testnet]
   RULE -->|no| LIMIT[Publish as a measured limit]
+  classDef accent fill:#ffffff,stroke:#e8501c,stroke-width:2.5px,color:#111111
+  class RULE accent
 ```
 
 **Integrity measures**

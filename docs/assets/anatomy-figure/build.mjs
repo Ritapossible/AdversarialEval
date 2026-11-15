@@ -235,42 +235,42 @@ const svg = k.figureSvg({
 // ---------------------------------------------------------------- page sized for X (16:9)
 const PALETTE = `
 .iso[data-theme="light"]{
-  --anatomy-page:#f7f6ff;--anatomy-card:#ffffff;--anatomy-text:#4a4566;--anatomy-strong:#1f1b33;--anatomy-muted:#7d77a0;
-  --anatomy-paper:#ffffff;--anatomy-face:#f6f4ff;--anatomy-top:#f6f4ff;
-  --anatomy-shade-0:#c9c0ef;--anatomy-shade-1:#d6cff5;--anatomy-shade-2:#e2ddf9;--anatomy-shade-3:#eceafe;
-  --anatomy-lit-top:#c4b2ff;--anatomy-lit-shade:#a98ff5;
-  --anatomy-hi:#2b2146;--anatomy-mid:#9370db;--anatomy-lo:#b6a5e6;--anatomy-faint:#ddd5f6;--anatomy-lit:#5b2fc9;
-  --anatomy-halo:#9370db;--anatomy-halo-opacity:.22;--anatomy-dot:#4b3a85;
+  --anatomy-page:#fbfaf8;--anatomy-card:#ffffff;--anatomy-text:#3a3a3a;--anatomy-strong:#111111;--anatomy-muted:#7a7a7a;
+  --anatomy-paper:#ffffff;--anatomy-face:#ffffff;--anatomy-top:#ffffff;
+  --anatomy-shade-0:#d9d8d5;--anatomy-shade-1:#e4e3e0;--anatomy-shade-2:#eeedea;--anatomy-shade-3:#f6f5f3;
+  --anatomy-lit-top:#ffb08f;--anatomy-lit-shade:#f26a35;
+  --anatomy-hi:#111111;--anatomy-mid:#6f6f6f;--anatomy-lo:#b3b2af;--anatomy-faint:#dedcd8;--anatomy-lit:#e8501c;
+  --anatomy-halo:#6b6b6b;--anatomy-halo-opacity:.18;--anatomy-dot:#222222;
 }`;
 const swatch = (color, w = 1.4) => `<svg viewBox="0 0 18 10"><path d="M1 5 L9 1 L17 5 L9 9 Z" style="fill:none;stroke:${color};stroke-width:${w};stroke-linejoin:round"/></svg>`;
 const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>AdversarialEval anatomy</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>${k.ISO_CSS}${PALETTE}
 *{box-sizing:border-box;margin:0}
 body{width:1600px;height:900px;overflow:hidden;background:var(--anatomy-page);font-family:"Instrument Sans",system-ui,sans-serif;color:var(--anatomy-text)}
-.wrap{height:900px;padding:22px 26px 20px;display:grid;grid-template-rows:auto 1fr auto auto;gap:14px}
+.wrap{height:900px;padding:22px 30px 22px;display:grid;grid-template-rows:auto 1fr auto auto;gap:14px}
 header{display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;align-items:center;gap:14px}
-.mark{width:46px;height:46px;border:2px solid #4b3a85;border-radius:12px;display:grid;place-items:center;background:#fff}
-.name{font:600 38px/1 "Instrument Sans",sans-serif;letter-spacing:-.02em;color:var(--anatomy-strong)}
-.name i{font:italic 400 42px/1 "Instrument Serif",serif;color:#5b2fc9;letter-spacing:0}
-.tagline{font-size:21px;color:var(--anatomy-muted)}
-.tagline b{color:var(--anatomy-strong);font-weight:600}
-.card .iso-plate{height:100%;padding:44px 26px;border-radius:18px;box-shadow:0 0 0 1.5px #ddd5f6, 0 20px 50px -34px rgba(91,47,201,.4);display:flex;align-items:center}
+.mark{width:44px;height:44px;border:1.5px solid #111;border-radius:50%;display:grid;place-items:center;background:#fff}
+.name{font:400 44px/1 "Instrument Serif",serif;letter-spacing:-.01em;color:var(--anatomy-strong)}
+.name i{font:italic 400 44px/1 "Instrument Serif",serif;color:var(--anatomy-strong)}
+.tagline{font:400 17px/1.3 "JetBrains Mono",monospace;color:var(--anatomy-muted);letter-spacing:.02em}
+.tagline b{color:var(--anatomy-strong);font-weight:500}
+.card .iso-plate{height:100%;padding:44px 26px;border-radius:0;box-shadow:0 0 0 1px #111;display:flex;align-items:center}
 .card{min-height:0}
 .card .iso-plate>.iso-stage,.card .iso-plate>div:not(.iso-plate-corners){width:100%}
 .card .iso-plate-corner{font-size:15px}
-.card .iso-plate-corner[data-corner="title"]{color:#4b3a85}
+.card .iso-plate-corner[data-corner="title"]{color:#111}
 .card .iso-figure{margin:0;height:100%}
-.legend{display:flex;gap:34px;font-size:18px;color:var(--anatomy-text);padding:0 6px}
+.legend{display:flex;gap:34px;font:400 15px/1 "JetBrains Mono",monospace;color:var(--anatomy-text);padding:0 6px}
 .legend span{display:inline-flex;align-items:center;gap:9px}
 .legend svg{width:20px;height:12px}
-.foot{display:flex;justify-content:space-between;font:500 16px/1 "JetBrains Mono",monospace;color:var(--anatomy-muted);padding:0 6px}
-.foot b{color:#4b3a85;font-weight:700}
+.foot{display:flex;justify-content:space-between;font:400 15px/1 "JetBrains Mono",monospace;color:var(--anatomy-muted);padding:0 6px}
+.foot b{color:#111;font-weight:500}
 </style></head>
 <body class="iso" data-theme="light"><div class="wrap">
-<header>
-  <div class="brand"><div class="mark"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M4 8h10M4 13h7M4 18h10" stroke="#4b3a85" stroke-width="2.2" stroke-linecap="round"/><circle cx="19" cy="13" r="4" fill="#5b2fc9"/></svg></div>
+<header style="border-bottom:1px solid #111;padding-bottom:14px">
+  <div class="brand"><div class="mark"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="9" fill="none" stroke="#e8501c" stroke-width="2"/><circle cx="13" cy="13" r="3.4" fill="#111"/></svg></div>
   <div class="name">Adversarial<i>Eval</i></div></div>
   <div class="tagline">Rewards security answers that <b>survive scrutiny</b>, not ones that sound right</div>
 </header>
@@ -283,9 +283,9 @@ header{display:flex;justify-content:space-between;align-items:center}
   body: `<div class="iso-stage">${svg}</div>`,
 })}</div>
 <div class="legend">
-  <span>${swatch("#5b2fc9", 1.8)} Pin ${decisive + 1}: the one decisive fact, checked</span>
-  <span>${swatch("#9370db")} Tray key: the sound answer</span>
-  <span>${swatch("#b6a5e6")} Lock key: plausible, one fact wrong</span>
+  <span>${swatch("#e8501c", 1.8)} Pin ${decisive + 1}: the one decisive fact, checked</span>
+  <span>${swatch("#111111")} Tray key: the sound answer</span>
+  <span>${swatch("#9a9a9a")} Lock key: plausible, one fact wrong</span>
 </div>
 <div class="foot"><span>${MODEL.poolEligible} pairs live in the Telegraph testnet pool · shortcut judges ${MODEL.shortcut}</span><b>github.com/Ritapossible/AdversarialEval</b></div>
 </div></body></html>`;
