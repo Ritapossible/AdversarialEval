@@ -26,3 +26,6 @@ runs-*.log
 data/sources/osv_raw/
 data/sources/osv_query/
 data/sources/registry/
+
+# paid benchmark deps
+bench/node_modules/

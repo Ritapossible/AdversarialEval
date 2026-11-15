@@ -1,0 +1,99 @@
+{
+ "frozen_utc": "2026-11-15T17:51:20+00:00",
+ "cases": [
+  {
+   "id": "jinja2-2.10",
+   "kind": "package",
+   "target": "pkg:pypi/jinja2@2.10",
+   "truth": {
+    "affected": true,
+    "osv_count": 12,
+    "osv_ids": [
+     "GHSA-462w-v97r-4m45",
+     "GHSA-cpwx-vrp4-4pq7",
+     "GHSA-g3rq-g295-4j3m",
+     "GHSA-h5c8-rqwp-cp95",
+     "GHSA-h75v-3vvj-5mfj",
+     "GHSA-q2x7-8rv6-6q7h",
+     "PYSEC-2019-217",
+     "PYSEC-2021-66",
+     "PYSEC-2026-1471",
+     "PYSEC-2026-1473",
+     "PYSEC-2026-1474",
+     "PYSEC-2026-1475"
+    ],
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "lodash-4.17.15",
+   "kind": "package",
+   "target": "pkg:npm/lodash@4.17.15",
+   "truth": {
+    "affected": true,
+    "osv_count": 5,
+    "osv_ids": [
+     "GHSA-29mw-wpgm-hmr9",
+     "GHSA-35jh-r3h4-6jhm",
+     "GHSA-p6mc-m468-83gw",
+     "GHSA-r5fr-rjxr-66jc",
+     "GHSA-xxjr-mmjv-4gpg"
+    ],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=lodash"
+   }
+  },
+  {
+   "id": "jinja2-3.1.6",
+   "kind": "package",
+   "target": "pkg:pypi/jinja2@3.1.6",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "express-4.21.2",
+   "kind": "package",
+   "target": "pkg:npm/express@4.21.2",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=express"
+   }
+  },
+  {
+   "id": "unknown-package",
+   "kind": "unknown",
+   "target": "pkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0",
+   "truth": {
+    "affected": null,
+    "note": "package does not exist on PyPI; nothing to verify"
+   }
+  },
+  {
+   "id": "code-sqli",
+   "kind": "code",
+   "target": "Node/Express: app.get('/u', (req, res) => db.query(\"SELECT * FROM users WHERE id = \" + req.query.id))",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-89",
+    "source_url": "https://cwe.mitre.org/data/definitions/89.html",
+    "note": "user input concatenated into SQL"
+   }
+  },
+  {
+   "id": "code-param",
+   "kind": "code",
+   "target": "Node/Express: app.get('/u', (req, res) => db.query('SELECT * FROM users WHERE id = $1', [req.query.id]))",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-89",
+    "source_url": "https://cwe.mitre.org/data/definitions/89.html",
+    "note": "parameterised query; no injection"
+   }
+  }
+ ]
+}
