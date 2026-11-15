@@ -53,3 +53,21 @@ slashed (docs), so a miss costs gas, time and a two-day bond lock-up, not money.
 | REGISTER | export once → host the bytes at a commit URL → executor VM + `deploy/healthcheck.sh` → `registerWasm` → track `GET /api/wasm/<id>` → report |
 | DO NOT REGISTER | no registration; the write-up reports the test result, unseen-type accuracy and shortcut judges as a measured limit |
 | No test set by Nov 26 | no registration; same write-up, with "independent test pending" stated plainly |
+
+## Amendment 1 (2026-11-15, before any test pair exists)
+
+An independent reviewer (Fexx, another Evaluators-track entrant on different Intents) offered
+pairs **drafted with an AI agent** (not the model that drafted our training data), with every
+advisory id and affected version checked on GHSA/OSV and anything uncertain left out.
+
+Change: the test set may include **AI-assisted pairs from independent authors**, provided that:
+1. the author is outside this project and hasn't seen our training or validation data;
+2. the author names the drafting model and personally reviews every pair before sending;
+3. advisory facts are checked against GHSA/OSV (we re-run `tools/check_ids.py` and the token
+   budget on import).
+
+Each author's pairs, and AI-assisted vs human-written pairs, are **reported separately** as
+well as pooled. The bar is applied to the **pooled** test set, with the minimums unchanged
+(≥ 40 pairs, ≥ 2 independent authors). If the pooled set passes but the human-written part
+alone falls below 80% (with at least 15 such pairs), the write-up says so prominently.
+Nothing else in this rule changes.
