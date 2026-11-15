@@ -12,18 +12,38 @@ Telegraph Hackathon Season II · Evaluators track · Intent: `SECURITY_REVIEW` �
 
 ---
 
-## Overview
+## The problem
 
-On Telegraph, Evaluator adapters decide which miner answers win. In security review, the
-most damaging answers are the *plausible* ones: a CVE id that doesn't exist, a wrong
-affected-version range, a confident "secure" on vulnerable code, a false alarm on safe code,
-or a fix that doesn't fix. A judge that rewards fluency, length or security vocabulary picks
-exactly those.
+On Telegraph, buyers pay miners for intelligence, and an **Evaluator adapter decides which
+miner answers win** for each intent. For `SECURITY_REVIEW` (32 miners on testnet) that judge
+decides which security advice reaches users. A wrong ranking hurts twice: the buyer acts on
+bad advice, and the miners who checked their facts lose to the ones who didn't.
+
+Wrong security answers are rarely obviously wrong. They are **plausible**, for example:
+- citing a CVE id that doesn't exist, or one that belongs to a different package;
+- calling a patched version vulnerable, or a vulnerable version safe;
+- a confident "Secure" on vulnerable code, or a false alarm on safe code;
+- a fix that a simple counterexample defeats.
+
+A concrete case from our public data: for a .NET 6 API that parses request XML with
+`XmlDocument`, one review flags XXE as critical; the other says it's safe, because
+`XmlDocument`'s resolver is null by default on .NET Core and later. The second is correct,
+yet the first is more alarming and uses more security vocabulary.
+
+Judges that reward length, fluency or security keywords pick the wrong answer in cases like
+this. On our material, those shortcut judges score about **50%**, a coin flip. The current
+Canonical Evaluator for `SECURITY_REVIEW` scored **71.43%** on its hidden sample (15 of 21
+pairs, testnet, 2026-11-10); one fewer correct pair would have missed the 70% floor. Measurement on this intent is weak, and the
+material to test it properly is thin: the pool's active snapshot held 199 rows from 9
+contributors before our upload.
+
+## Our approach
 
 AdversarialEval builds evaluation material in which each worse answer is **plausible but
-wrong in one decisive, verifiable way**. It then trains and measures an adapter against
-that material, reporting results next to the shortcut judges that the material is designed
-to defeat.
+wrong in one decisive, verifiable way**, with every advisory fact checked against OSV. It
+contributes that material to the network's evaluation pool, so every adapter on the intent
+is tested against these failure modes. It also trains and measures an adapter on it,
+reporting results next to the shortcut judges the material is designed to defeat.
 
 ## Verified results
 
