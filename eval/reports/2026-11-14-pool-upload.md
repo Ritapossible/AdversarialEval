@@ -33,3 +33,12 @@ active snapshot: {"corpus_version": "6f993408a062a1d44f860ef26e370a19dab11502284
 - Admitted rows are re-checked and frozen at the next epoch rollover, and join the active
   corpus (now 199 rows from 9 submitters) from the epoch after. We are the 10th submitter.
   Re-query after the rollover to confirm `eligible` before claiming the rows are in use.
+
+## Update 2026-11-15: eligible
+
+Re-queried the same two endpoints at epoch 2095:
+- `submissions/mine`: **81 eligible** (all of ours).
+- `status`: `by_state` {"eligible": 332, "quarantine": 501, "rejected": 9}; active snapshot
+  **332 rows from 10 submitters**, published 2026-11-14T21:45Z.
+
+Our rows are in the active snapshot that the network uses for ranking.
