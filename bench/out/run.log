@@ -1,0 +1,10 @@
+(node:475) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+7 cases x 13 targets; 0 done, 91 to go; cap 91
+payer 0xA0C8e08b6911F034B1Bff4770668033097096C1C
+jinja2-2.10      auto-routed                    http=200 
+jinja2-2.10      pr-guard-sentinel              http=200 
+jinja2-2.10      telegraph-verity-intelligence  http=500 upstream error 422: {"error":"request_rejected","message":"Provide source code or configuration using code, source_code, configuration, or config."}
+jinja2-2.10      zk-code-deps                   http=500 miner error unavailable [invalid_input]: Pass one exact dependency as npm:name@version or pip:name@version.
+jinja2-2.10      zk-astsec                      http=500 miner error 422 [unsupported_target]: This miner reviews JavaScript source, not websites, advisory IDs or package versions.
+jinja2-2.10      evidence-security-review       http=500 miner error 422 [unsupported_target]: Supply an exact npm target or a supported structured JSON target.
