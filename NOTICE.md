@@ -11,6 +11,12 @@ and patched versions, severity) come from these records, and every pair cites it
 URL in `source_url`. Version lookups also query OSV, whose PyPI records come from the
 PyPA Advisory Database (CC BY 4.0, https://github.com/pypa/advisory-database).
 
+## NVD data (truth source)
+
+`truth-sources/cve-cvss/` reads NVD CVE records (a US government work) through the NVD CVE
+API 2.0 and CIRCL Vulnerability-Lookup's mirror of the NVD feed. "This product uses NVD data
+but is not endorsed or certified by the NVD." Saved test fixtures are trimmed NVD responses.
+
 ## Reused software and models
 
 | Component | Used for | License |

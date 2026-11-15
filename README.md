@@ -49,6 +49,7 @@ The full reasoning is in [`docs/RESEARCH.md`](docs/RESEARCH.md).
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Components, data flow, the scoring contract, interfaces |
 | [`MEMORY.md`](MEMORY.md) | Durable project memory: facts, decisions, live state, gotchas |
 | [`CLAUDE.md`](CLAUDE.md) | Working rules for AI assistants on this repo |
+| [`truth-sources/cve-cvss/`](truth-sources/cve-cvss/) | Keyless truth source for the deterministic `CVE_LOOKUP_CVSS` intent: NVD's own CVSS score under one fixed rule (Vercel function + tests) |
 | [`site/`](site/) | "Spot the Flaw" demo page (built by `tools/build_spot_flaw.py` from public data; deployed to GitHub Pages) |
 | [`docs/ACTION_PLAN.md`](docs/ACTION_PLAN.md) | Step-by-step for the project lead: bounty, reviewers, pool review, wallets, VM, registration |
 | [`docs/AUDIT_2026-11-10.md`](docs/AUDIT_2026-11-10.md) | Senior-engineer audit and the upgrade plan (U1–U11) |
