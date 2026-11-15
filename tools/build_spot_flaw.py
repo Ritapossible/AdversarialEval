@@ -125,10 +125,13 @@ def main(argv=None) -> int:
     body = TEMPLATE.read_text().replace("__DATA__", data)
     OUT.mkdir(exist_ok=True)
     (OUT / "spot-the-flaw.html").write_text(body)
+    # full document for static hosts: everything up to </style> belongs in <head>
+    cut = body.index("</style>") + len("</style>")
+    head, rest = body[:cut], body[cut:].lstrip("\n")
     (OUT / "index.html").write_text(
         "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n"
-        "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+        + head + "\n</head>\n<body>\n" + rest + "\n</body>\n</html>\n")
     fams = sorted({c["family"] for c in cases}, key=lambda f: int(f[1:]))
     print(f"wrote {len(cases)} cases ({', '.join(fams)}) to site/; "
           f"longer-answer judge right on {sum(c['longer'] == 'chosen' for c in cases)}, "
