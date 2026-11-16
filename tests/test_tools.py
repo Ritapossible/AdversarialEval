@@ -203,7 +203,14 @@ if __name__ == "__main__":
     import tempfile
 
     fns = [v for k, v in dict(globals()).items() if k.startswith("test_")]
+    skipped = []
     for f in fns:
         # tests that take pytest's tmp_path get a fresh temporary directory
-        f(*([Path(tempfile.mkdtemp())] if inspect.signature(f).parameters else []))
-    print(f"{len(fns)} tests passed")
+        try:
+            f(*([Path(tempfile.mkdtemp())] if inspect.signature(f).parameters else []))
+        except ModuleNotFoundError as e:
+            # only optional heavy dependencies may skip (torch, safetensors for the adapter tools)
+            if e.name not in ("torch", "safetensors"):
+                raise
+            skipped.append(f"{f.__name__} (needs {e.name})")
+    print(f"{len(fns) - len(skipped)} tests passed" + (f", {len(skipped)} skipped: {', '.join(skipped)}" if skipped else ""))
