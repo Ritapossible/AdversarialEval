@@ -24,6 +24,12 @@ def charged(rec: dict) -> bool:
     return isinstance(pr, dict) and bool(pr.get("success"))
 
 
+def charged_onchain(rec: dict) -> bool:
+    """Reconciled with the payer's on-chain USDC transfers (rule v2, amendment 1): every call was
+    paid except those the node refused before payment (HTTP 503, could not route)."""
+    return rec.get("http") != 503
+
+
 def _count(res: dict):
     c = res.get("vulnerability_count")
     return c if isinstance(c, (int, float)) and not isinstance(c, bool) else None
@@ -76,7 +82,7 @@ def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
     d = 1 + z * z / n
     c = p + z * z / (2 * n)
     h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
-    return ((c - h) / d, (c + h) / d)
+    return (max(0.0, (c - h) / d), min(1.0, (c + h) / d))
 
 
 def bootstrap_ratio(costs: Sequence[float], hits: Sequence[int], reps: int = 10_000, seed: int = 7) -> tuple[float, float] | None:

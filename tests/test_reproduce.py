@@ -34,6 +34,48 @@ class Round1(unittest.TestCase):
         self.assertEqual(sum((c.get("result") or {}).get("verdict") is None for c in delivered), 21)
 
 
+class Round2(unittest.TestCase):
+    """eval/reports/2026-11-16-round-2.md (rule bench/RULE-v2.md, amendment 1)."""
+
+    @classmethod
+    def setUpClass(cls):
+        from score_v2 import score_rounds
+        cls.res = score_rounds([ROOT / "bench" / "out" / "round-2"], ROOT / "bench" / "cases-v2.json")
+        cls.t = cls.res["rounds"]["round-2"]["targets"]
+        from benchlib import answer, charged_onchain, VERDICTS
+        cls.calls = [json.loads(l) for l in (ROOT / "bench" / "out" / "round-2" / "calls.ndjson").read_text().splitlines() if l.strip()]
+        cls.answer, cls.charged_onchain, cls.VERDICTS = staticmethod(answer), staticmethod(charged_onchain), VERDICTS
+
+    def test_headline(self):
+        self.assertEqual(len(self.calls), 598)
+        a1 = self.t["20260828"]
+        self.assertEqual((a1["correct"], a1["answerable_called"]), (27, 36))
+        self.assertEqual(self.t["osv-baseline"]["correct"], 24)
+        self.assertEqual(self.t["routed"]["correct"], 5)
+        self.assertEqual(self.t["731001"]["correct"], 0)  # rank 1
+        self.assertAlmostEqual(self.res["rounds"]["round-2"]["kendall_tau_rank_vs_accuracy"], 0.02, places=2)
+
+    def test_onchain_reconciliation(self):
+        onchain = json.loads((ROOT / "bench" / "out" / "round-2" / "onchain-payments.json").read_text())
+        self.assertEqual(onchain["transfers"], 560)
+        self.assertEqual(sum(self.charged_onchain(c) for c in self.calls), 560)
+        total = sum(v["charged_onchain_usdc"] for v in self.t.values())
+        self.assertAlmostEqual(total, 5.60, places=2)
+
+    def test_charged_breakdown(self):
+        ch = [c for c in self.calls if self.charged_onchain(c)]
+        valid = sum(c.get("http") == 200 and (self.answer(c) or {}).get("verdict") in self.VERDICTS for c in ch)
+        null = sum(c.get("http") == 200 and (self.answer(c) or {}).get("verdict") not in self.VERDICTS for c in ch)
+        err = sum(c.get("http") == 500 for c in ch)
+        timeout = sum(c.get("http") in (504, None) for c in ch)
+        self.assertEqual((valid, null, err, timeout), (119, 72, 246, 123))
+
+    def test_a1_code_says_secure(self):
+        a1 = [c for c in self.calls if c["miner"] == "a1-preflight" and c["case"].startswith("code-")]
+        self.assertEqual(sum((c.get("result") or {}).get("verdict") == "Secure" for c in a1), 10)
+        self.assertEqual(self.t["20260828"]["by_category"]["code"], "6/12")
+
+
 class Audit(unittest.TestCase):
     """eval/reports/2026-11-15-miner-audit.md."""
 

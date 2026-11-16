@@ -89,4 +89,17 @@ Secondary measures, reported but not counted as correct:
 
 ## Amendments
 
-None yet.
+**1 (2026-11-16, after round 2).** Two corrections, both decided before round 3.
+
+- **Charges that left no trace in the response.** The pre-registered charge measure (receipts plus
+  settlement headers) under-counts. On-chain, the payer made 560 transfers of $0.01 during round 2
+  for 598 calls. The 38 calls refused before payment (`503 could not route`) are the only unpaid ones;
+  timeouts (`504`, or no response within 90 s) were charged without any header saying so.
+  - From round 2 on, both measures are reported: the pre-registered one, and the
+    **on-chain-reconciled** one (every call except a 503 is charged).
+  - The reconciliation is checked by counting the payer's USDC `Transfer` events for each round.
+- **Bootstrap scope.** Implementing the interval exposed a bug: it resampled only the 36 answerable
+  cases, while the cost in the ratio covers all 46 called cases. That put some point estimates
+  outside their own intervals. The interval now resamples all called cases, matching the ratio
+  defined above, with a regression test in `tests/test_bench.py`.
+- **Wilson bounds** are clamped to [0, 1]. Floating-point rounding had printed `-0%`.

@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "bench"))
-from benchlib import bootstrap_ratio, charged, grade, id_match, kendall_tau_b, percentile, wilson  # noqa: E402
+from benchlib import bootstrap_ratio, charged, charged_onchain, grade, id_match, kendall_tau_b, percentile, wilson  # noqa: E402
 
 AFF = {"id": "a", "kind": "package", "truth": {"affected": True, "osv_ids": ["GHSA-aaaa-bbbb-cccc"]}}
 CLEAN = {"id": "c", "kind": "package", "truth": {"affected": False}}
@@ -55,12 +55,30 @@ class Grade(unittest.TestCase):
         self.assertEqual(grade(UNK, rec("Insecure", 3, ["CVE-2020-1"])), "invented")
 
 
+class ScoreV2(unittest.TestCase):
+    def test_point_estimate_inside_interval(self):
+        from score_v2 import summarise
+        cases = {f"p{i}": {"id": f"p{i}", "kind": "package", "ecosystem": "npm", "truth": {"affected": True}} for i in range(10)}
+        cases.update({f"f{i}": {"id": f"f{i}", "kind": "format", "of": "p0", "truth": {"affected": True}} for i in range(5)})
+        paid = {"receipt": {"amount_uusdc": "10000"}}
+        recs = [dict(rec("Insecure", 1), case=f"p{i}", **paid) if i < 6 else dict(rec(None, 1), case=f"p{i}", **paid) for i in range(10)]
+        recs += [dict(rec("Insecure", 1), case=f"f{i}", **paid) for i in range(5)]
+        s = summarise(cases, recs)
+        self.assertAlmostEqual(s["cost_per_correct"], 0.15 / 6, places=4)
+        lo, hi = s["cost_per_correct_ci95"]
+        self.assertLessEqual(lo, s["cost_per_correct"])
+        self.assertGreaterEqual(hi, s["cost_per_correct"])
+
+
 class Measures(unittest.TestCase):
     def test_charged(self):
         self.assertTrue(charged({"receipt": {"amount_uusdc": "10000"}}))
         self.assertTrue(charged({"payment_response": {"success": True}}))
         self.assertFalse(charged({"payment_response": {"success": False}}))
         self.assertFalse(charged({"http": 503}))
+        self.assertTrue(charged_onchain({"http": 504}))
+        self.assertTrue(charged_onchain({"http": None}))
+        self.assertFalse(charged_onchain({"http": 503}))
 
     def test_id_match(self):
         self.assertTrue(id_match(AFF, rec("Insecure", 1, ["ghsa-aaaa-bbbb-cccc"])))
@@ -74,6 +92,8 @@ class Measures(unittest.TestCase):
         self.assertAlmostEqual(hi, 0.6553, places=3)
         self.assertEqual(wilson(0, 0), (0.0, 1.0))
         self.assertGreater(wilson(0, 10)[1], 0)
+        self.assertEqual(wilson(0, 36)[0], 0.0)  # never prints as -0%
+        self.assertEqual(wilson(36, 36)[1], 1.0)
 
     def test_bootstrap(self):
         ci = bootstrap_ratio([0.01] * 20, [1] * 10 + [0] * 10)

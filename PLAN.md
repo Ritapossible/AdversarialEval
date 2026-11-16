@@ -88,15 +88,15 @@ from committed data, with uncertainty stated.
 
 - [x] M0 Reachability audit: 12/32 miners take a canonical request (`eval/reports/2026-11-15-miner-audit.md`)
 - [x] M1 Round 1 pilot: 7 cases, 91 paid calls, rule frozen first (`eval/reports/2026-11-15-paid-benchmark.md`)
-- [ ] M2 Pre-register rule v2 before any round-2 call: fixes the pilot's weaknesses (unknown
+- [x] M2 Pre-register rule v2 before any round-2 call: fixes the pilot's weaknesses (unknown
       cases scored separately; buyer cost includes charged failures; Wilson 95% intervals;
       rank agreement with the node)
-- [ ] M3 Case set v2, selected by a fixed rule from OSV and deps.dev, not by looking at answers:
+- [x] M3 Case set v2, selected by a fixed rule from OSV and deps.dev, not by looking at answers:
       6 ecosystems x (last affected version, latest clean release); 6 CWEs x (vulnerable, fixed)
       code twins; unknown package and unknown version; a small target-format probe
-- [ ] M4 Free baseline: a deterministic OSV lookup at $0, the bar a paid answer has to beat
-- [ ] M5 Rounds 2 to 4 on three different days, every reachable miner plus auto-routing
-- [ ] M6 Engineering: unit tests for grading and statistics, CI on every push, a check
+- [x] M4 Free baseline: a deterministic OSV lookup at $0, the bar a paid answer has to beat
+- [ ] M5 Rounds 2 to 4 on three different days, every reachable miner plus auto-routing (round 2 done 11-16: `eval/reports/2026-11-16-round-2.md`)
+- [x] M6 Engineering: unit tests for grading and statistics, CI on every push, a check
       that the committed data reproduces the published numbers
 - [ ] M7 Close the loop to evaluation: (a) our adapter vs the node ranking on real miner
       answers; (b) real failure answers turned into reviewed preference pairs for the pool

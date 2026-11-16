@@ -16,11 +16,17 @@ from pathlib import Path
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from benchlib import (answer, bootstrap_ratio, charged, grade, id_match, kendall_tau_b, percentile,  # noqa: E402
+from benchlib import (answer, bootstrap_ratio, charged, charged_onchain, grade, id_match, kendall_tau_b, percentile,  # noqa: E402
                       wilson, VERDICTS)
 
 HERE = Path(__file__).resolve().parent
 ANSWERABLE = ("package", "code")
+
+
+def is_free(rec: dict) -> bool:
+    """Baselines are computed or looked up, never bought."""
+    mid = str(rec.get("miner_id", ""))
+    return bool(rec.get("free")) or mid == "osv-baseline" or mid.startswith("always-")
 
 
 def load(round_dir: Path) -> list[dict]:
@@ -44,9 +50,13 @@ def summarise(cases: dict[str, dict], recs: list[dict]) -> dict:
     k = sum(grades[c["id"]] == "correct" for c in ans)
     n = sum(grades[c["id"]] != "not called" for c in ans)
     strict = sum(grade(c, by_case[c["id"]], strict=True) == "correct" for c in ans if c["id"] in by_case)
-    costs = [0.01 if c["id"] in by_case and charged(by_case[c["id"]]) else 0.0 for c in ans]
-    hits = [1 if grades[c["id"]] == "correct" else 0 for c in ans]
+    # bootstrap over every called case (format probes and unknowns cost money too), so the interval
+    # describes the same ratio as the point estimate: all USDC charged / correct answerable answers
+    called = [c for c in cases.values() if c["id"] in by_case]
+    costs = [0.01 if charged(by_case[c["id"]]) else 0.0 for c in called]
+    hits = [1 if c["kind"] in ANSWERABLE and grades[c["id"]] == "correct" else 0 for c in called]
     paid = sum(0.01 for r in recs if charged(r))
+    paid_onchain = sum(0.01 for r in recs if not is_free(r) and charged_onchain(r))
     receipt_paid = sum(int(r["receipt"]["amount_uusdc"]) / 1e6 for r in recs if isinstance(r.get("receipt"), dict))
     delivered = [r for r in recs if r.get("http") == 200]
     valid = [r for r in delivered if (answer(r) or {}).get("verdict") in VERDICTS]
@@ -57,7 +67,9 @@ def summarise(cases: dict[str, dict], recs: list[dict]) -> dict:
     fmt_agree = []
     for c in cases.values():
         if c["kind"] == "format" and c["id"] in by_case and c["of"] in by_case:
-            fmt_agree.append(grade(c, by_case[c["id"]]) == grades[c["of"]])
+            g_fmt, g_purl = grade(c, by_case[c["id"]]), grades[c["of"]]
+            if g_fmt != "no answer" or g_purl != "no answer":  # two failures are not agreement
+                fmt_agree.append(g_fmt == g_purl)
     cats = defaultdict(lambda: [0, 0])
     for c in ans:
         key = c["kind"] if c["kind"] == "code" else c["ecosystem"]
@@ -71,6 +83,8 @@ def summarise(cases: dict[str, dict], recs: list[dict]) -> dict:
         "delivered": len(delivered), "valid_verdict": len(valid),
         "charged_usdc": round(paid, 4), "receipt_usdc": round(receipt_paid, 4),
         "cost_per_correct": round(paid / k, 4) if k else None,
+        "charged_onchain_usdc": round(paid_onchain, 4),
+        "cost_per_correct_onchain": round(paid_onchain / k, 4) if k else None,
         "cost_per_correct_ci95": bootstrap_ratio(costs, hits),
         "median_ms": statistics.median(lat) if lat else None, "p90_ms": percentile(lat, 0.9),
         "id_match": f"{sum(bool(x) for x in idm)}/{len(idm)}" if idm else None,
@@ -81,8 +95,8 @@ def summarise(cases: dict[str, dict], recs: list[dict]) -> dict:
 
 
 def table(rows: list[tuple[str, dict, dict]]) -> str:
-    out = ["| Target | Node rank | Correct / answerable | Accuracy (95% CI) | Valid verdicts / delivered / calls | Charged | Cost per correct (95% CI) | Median ms |",
-           "|---|---:|---:|---|---:|---:|---|---:|"]
+    out = ["| Target | Node rank | Correct / answerable | Accuracy (95% CI) | Valid verdicts / delivered / calls | Charged: headers / on-chain | Cost per correct (95% CI) | Cost per correct, on-chain | Median ms |",
+           "|---|---:|---:|---|---:|---:|---|---:|---:|"]
     for name, meta, s in rows:
         acc = f"{s['accuracy']:.0%} ({s['wilson95'][0]:.0%} to {s['wilson95'][1]:.0%})" if s["accuracy"] is not None else "n/a"
         cpc = "n/a"
@@ -92,7 +106,9 @@ def table(rows: list[tuple[str, dict, dict]]) -> str:
         rank = meta.get("rank")
         out.append(f"| {name} | {rank if rank is not None else ('n/a' if meta.get('special') else 'unranked')} | "
                    f"{s['correct']}/{s['answerable_called']} | {acc} | {s['valid_verdict']}/{s['delivered']}/{s['calls']} | "
-                   f"${s['charged_usdc']:.2f} | {cpc} | {int(s['median_ms']) if s['median_ms'] is not None else 'n/a'} |")
+                   f"${s['charged_usdc']:.2f} / ${s['charged_onchain_usdc']:.2f} | {cpc} | "
+                   f"{'$' + format(s['cost_per_correct_onchain'], '.3f') if s['cost_per_correct_onchain'] is not None else 'n/a'} | "
+                   f"{int(s['median_ms']) if s['median_ms'] is not None else 'n/a'} |")
     return "\n".join(out)
 
 
