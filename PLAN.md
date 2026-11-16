@@ -80,6 +80,28 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
       Budget 3 attempts.
 - [ ] Showcase demo on Nov 20
 
+### Phase M: Mission 10 benchmark, SECURITY_REVIEW (Nov 15 to 30), claimed on #198
+
+Question: what does a verified correct `SECURITY_REVIEW` answer cost a buyer, and does the
+network's ranking point buyers to the miners that give one? Every result must be reproducible
+from committed data, with uncertainty stated.
+
+- [x] M0 Reachability audit: 12/32 miners take a canonical request (`eval/reports/2026-11-15-miner-audit.md`)
+- [x] M1 Round 1 pilot: 7 cases, 91 paid calls, rule frozen first (`eval/reports/2026-11-15-paid-benchmark.md`)
+- [ ] M2 Pre-register rule v2 before any round-2 call: fixes the pilot's weaknesses (unknown
+      cases scored separately; buyer cost includes charged failures; Wilson 95% intervals;
+      rank agreement with the node)
+- [ ] M3 Case set v2, selected by a fixed rule from OSV and deps.dev, not by looking at answers:
+      6 ecosystems x (last affected version, latest clean release); 6 CWEs x (vulnerable, fixed)
+      code twins; unknown package and unknown version; a small target-format probe
+- [ ] M4 Free baseline: a deterministic OSV lookup at $0, the bar a paid answer has to beat
+- [ ] M5 Rounds 2 to 4 on three different days, every reachable miner plus auto-routing
+- [ ] M6 Engineering: unit tests for grading and statistics, CI on every push, a check
+      that the committed data reproduces the published numbers
+- [ ] M7 Close the loop to evaluation: (a) our adapter vs the node ranking on real miner
+      answers; (b) real failure answers turned into reviewed preference pairs for the pool
+- [ ] M8 Report and `/progress` after each round; final `/submit` on #198 and the Anjoman form
+
 ### Phase 5: Stretch and polish (Nov 21–30)
 - [ ] `SMART_CONTRACT_AUDIT_GENERAL`: 60+ private pool pairs uploaded. Register an adapter if
       the pool reaches 5 contributors.

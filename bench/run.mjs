@@ -1,15 +1,18 @@
-// Paid SECURITY_REVIEW benchmark runner (rule: bench/RULE.md).
+// Paid SECURITY_REVIEW benchmark runner.
 //
-//   NODE_USE_ENV_PROXY=1 node bench/run.mjs --dry-run      # plan only, no payment
-//   NODE_USE_ENV_PROXY=1 node bench/run.mjs                # pay and record
+//   node bench/run.mjs --cases bench/cases-v2.json --audit <audit.json> --out bench/out/round-2 [--concurrency 4] [--dry-run]
 //
-// Key: read from $BENCH_KEY_FILE (default ~/.adversarialeval/burner.key), never from the repo.
-// Output: one JSON line per call in bench/out/calls.ndjson. Finished (case, target) pairs are
-// skipped on a re-run, so a restart never pays twice for the same pair.
+// Defaults reproduce round 1 (bench/RULE.md): cases.json, the 2026-11-15 audit, bench/out.
+// Each target (miner or auto-routed) runs its cases one at a time; up to --concurrency targets run
+// at once, so no miner gets parallel calls. One attempt per (case, target); a re-run skips every
+// recorded pair, so a restart never pays twice. The call cap is cases x targets.
+// Key: $BENCH_KEY_FILE (default ~/.adversarialeval/burner.key), never from the repo.
+// Set NODE_USE_ENV_PROXY=1 when behind an HTTPS proxy.
 import { readFileSync, appendFileSync, existsSync, mkdirSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 import { privateKeyToAccount } from "viem/accounts";
 import { wrapFetchWithPaymentFromConfig } from "@x402/fetch";
 import { ExactEvmScheme } from "@x402/evm";
@@ -19,32 +22,41 @@ const NODE = "https://devnode.telegraphprotocol.com";
 const INTENT = "SECURITY_REVIEW_GENERAL";
 const SEPOLIA = "eip155:11155111";
 const TEST_USDC = "0xcc194e1a843B658526D0D5C431f670028582Ae17";
-const MAX_CALLS = 91;
-const dry = process.argv.includes("--dry-run");
 
-const cases = JSON.parse(readFileSync(join(HERE, "cases.json"), "utf8")).cases;
-const audit = JSON.parse(readFileSync(join(HERE, "..", "eval", "reports", "raw", "2026-11-15-miner-audit.json"), "utf8"));
-const miners = audit.miners.filter((m) => m.callable.length).map((m) => ({ id: m.id, slug: m.slug, rank: m.rank }));
-const targets = [{ id: "routed", slug: "auto-routed", rank: null }, ...miners];
+const { values: opt } = parseArgs({
+  options: {
+    cases: { type: "string", default: join(HERE, "cases.json") },
+    audit: { type: "string", default: join(HERE, "..", "eval", "reports", "raw", "2026-11-15-miner-audit.json") },
+    out: { type: "string", default: join(HERE, "out") },
+    concurrency: { type: "string", default: "1" },
+    "dry-run": { type: "boolean", default: false },
+  },
+});
 
-const outDir = join(HERE, "out");
+const cases = JSON.parse(readFileSync(resolve(opt.cases), "utf8")).cases;
+const audit = JSON.parse(readFileSync(resolve(opt.audit), "utf8"));
+const miners = audit.miners.filter((m) => m.callable.length).map((m) => ({ id: m.id, slug: m.slug, rank: m.rank, score: m.score }));
+const targets = [{ id: "routed", slug: "auto-routed", rank: null, score: null }, ...miners];
+const cap = cases.length * targets.length;
+
+const outDir = resolve(opt.out);
 mkdirSync(outDir, { recursive: true });
 const outFile = join(outDir, "calls.ndjson");
 const done = new Set();
-let paidSoFar = 0;
 if (existsSync(outFile)) {
   for (const line of readFileSync(outFile, "utf8").split("\n").filter(Boolean)) {
     const r = JSON.parse(line);
     done.add(`${r.case}|${r.miner_id}`);
-    paidSoFar += 1; // every recorded attempt counts against the cap, paid or not
   }
 }
-
-const plan = [];
-for (const c of cases) for (const t of targets) if (!done.has(`${c.id}|${t.id}`)) plan.push({ c, t });
-console.log(`${cases.length} cases x ${targets.length} targets; ${done.size} done, ${plan.length} to go; cap ${MAX_CALLS}`);
-if (done.size + plan.length > MAX_CALLS) throw new Error("plan exceeds the call cap in RULE.md");
-if (dry) { for (const p of plan) console.log(`  ${p.c.id} -> ${p.t.slug}`); process.exit(0); }
+const queues = targets.map((t) => ({ t, todo: cases.filter((c) => !done.has(`${c.id}|${t.id}`)) }));
+const remaining = queues.reduce((n, q) => n + q.todo.length, 0);
+console.log(`${cases.length} cases x ${targets.length} targets = cap ${cap}; ${done.size} recorded, ${remaining} to go`);
+if (done.size + remaining > cap) throw new Error("plan exceeds the call cap");
+if (opt["dry-run"]) {
+  for (const q of queues) console.log(`  ${q.t.slug.padEnd(32)} rank=${q.t.rank ?? "-"} ${q.todo.length} calls`);
+  process.exit(0);
+}
 
 const keyFile = process.env.BENCH_KEY_FILE || join(homedir(), ".adversarialeval", "burner.key");
 const account = privateKeyToAccount(readFileSync(keyFile, "utf8").trim());
@@ -54,15 +66,15 @@ const payFetch = wrapFetchWithPaymentFromConfig(fetch, {
 });
 console.log(`payer ${account.address}`);
 
-function decodeB64Json(v) {
+const decode = (v) => {
   if (!v) return null;
   try { return JSON.parse(Buffer.from(v, "base64").toString("utf8")); } catch { return v.slice(0, 500); }
-}
+};
 
-for (const { c, t } of plan) {
+async function call(c, t) {
   const url = t.id === "routed" ? `${NODE}/engine/v1/ask` : `${NODE}/engine/v1/ask/${t.id}`;
   const started = Date.now();
-  let rec = { case: c.id, miner_id: t.id, miner: t.slug, rank: t.rank, target: c.target, at: new Date().toISOString() };
+  let rec = { case: c.id, miner_id: t.id, miner: t.slug, rank: t.rank, node_score: t.score, target: c.target, at: new Date().toISOString() };
   try {
     const res = await payFetch(url, {
       method: "POST",
@@ -73,8 +85,8 @@ for (const { c, t } of plan) {
     const text = await res.text();
     let body; try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 2000) }; }
     rec = { ...rec, http: res.status, wall_ms: Date.now() - started,
-      receipt: decodeB64Json(res.headers.get("x-telegraph-receipt")),
-      payment_response: decodeB64Json(res.headers.get("payment-response")),
+      receipt: decode(res.headers.get("x-telegraph-receipt")),
+      payment_response: decode(res.headers.get("payment-response")),
       routed_miner: body.miner_id ?? null, routed_name: body.miner_name ?? null,
       result: body.result ?? null, field_status: body.field_status ?? null, result_shape: body.result_shape ?? null,
       cost_usd: body.cost_usd ?? null, duration_ms: body.duration_ms ?? null, signal_hash: body.signal_hash ?? null,
@@ -83,8 +95,18 @@ for (const { c, t } of plan) {
     rec = { ...rec, http: null, wall_ms: Date.now() - started, error: String(e?.message || e).slice(0, 300) };
   }
   appendFileSync(outFile, JSON.stringify(rec) + "\n");
-  paidSoFar += 1;
-  console.log(`${c.id.padEnd(16)} ${t.slug.padEnd(30)} http=${rec.http} ${rec.result?.verdict ?? rec.error ?? ""}`);
-  if (paidSoFar >= MAX_CALLS) { console.log("call cap reached"); break; }
-  await new Promise((r) => setTimeout(r, 1000));
+  console.log(`${c.id.padEnd(38)} ${t.slug.padEnd(30)} http=${rec.http} ${rec.result?.verdict ?? rec.error ?? ""}`);
 }
+
+async function worker(pool) {
+  for (let q = pool.shift(); q; q = pool.shift()) {
+    for (const c of q.todo) {
+      await call(c, q.t);
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+  }
+}
+const pool = queues.filter((q) => q.todo.length);
+const n = Math.max(1, Math.min(Number(opt.concurrency) || 1, pool.length));
+await Promise.all(Array.from({ length: n }, () => worker(pool)));
+console.log("round complete");

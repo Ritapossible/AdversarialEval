@@ -1,0 +1,705 @@
+{
+ "frozen_utc": "2026-11-16T06:50:40+00:00",
+ "rule": "bench/RULE-v2.md",
+ "cases": [
+  {
+   "id": "pypi-jinja2-affected",
+   "kind": "package",
+   "ecosystem": "PyPI",
+   "target": "pkg:pypi/jinja2@3.1.5",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-cpwx-vrp4-4pq7",
+     "PYSEC-2026-1471"
+    ],
+    "selected_via": "PYSEC-2026-1471",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "pypi-jinja2-latest",
+   "kind": "package",
+   "ecosystem": "PyPI",
+   "target": "pkg:pypi/jinja2@3.1.6",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "pypi-pyyaml-affected",
+   "kind": "package",
+   "ecosystem": "PyPI",
+   "target": "pkg:pypi/pyyaml@5.1.2",
+   "truth": {
+    "affected": true,
+    "osv_count": 6,
+    "osv_ids": [
+     "GHSA-3pqx-4fqf-j49f",
+     "GHSA-6757-jp84-gxfx",
+     "GHSA-8q59-q68h-6hv4",
+     "PYSEC-2020-176",
+     "PYSEC-2020-96",
+     "PYSEC-2021-142"
+    ],
+    "selected_via": "GHSA-3pqx-4fqf-j49f",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=pyyaml"
+   }
+  },
+  {
+   "id": "pypi-pyyaml-latest",
+   "kind": "package",
+   "ecosystem": "PyPI",
+   "target": "pkg:pypi/pyyaml@6.0.3",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=pyyaml"
+   }
+  },
+  {
+   "id": "npm-lodash-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/lodash@4.17.23",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-f23m-r3pf-42rh",
+     "GHSA-r5fr-rjxr-66jc"
+    ],
+    "selected_via": "GHSA-r5fr-rjxr-66jc",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=lodash"
+   }
+  },
+  {
+   "id": "npm-lodash-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/lodash@4.18.1",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=lodash"
+   }
+  },
+  {
+   "id": "npm-minimist-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/minimist@1.2.5",
+   "truth": {
+    "affected": true,
+    "osv_count": 1,
+    "osv_ids": [
+     "GHSA-xvch-5gv4-984h"
+    ],
+    "selected_via": "GHSA-xvch-5gv4-984h",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=minimist"
+   }
+  },
+  {
+   "id": "npm-minimist-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/minimist@1.2.8",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=minimist"
+   }
+  },
+  {
+   "id": "maven-jackson-databind-affected",
+   "kind": "package",
+   "ecosystem": "Maven",
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-cxp5-3px4-pw24",
+     "GHSA-wv8q-qhhj-9h54"
+    ],
+    "selected_via": "GHSA-cxp5-3px4-pw24",
+    "source_url": "https://osv.dev/list?ecosystem=Maven&q=com.fasterxml.jackson.core%3Ajackson-databind"
+   }
+  },
+  {
+   "id": "maven-jackson-databind-latest",
+   "kind": "package",
+   "ecosystem": "Maven",
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=Maven&q=com.fasterxml.jackson.core%3Ajackson-databind"
+   }
+  },
+  {
+   "id": "maven-snakeyaml-affected",
+   "kind": "package",
+   "ecosystem": "Maven",
+   "target": "pkg:maven/org.yaml/snakeyaml@1.9",
+   "truth": {
+    "affected": true,
+    "osv_count": 8,
+    "osv_ids": [
+     "GHSA-3mc7-4q67-w48m",
+     "GHSA-98wm-3w3q-mw94",
+     "GHSA-9w3m-gqgf-c4p9",
+     "GHSA-c4r9-r8fh-9vj2",
+     "GHSA-hhhw-99gj-p3c3",
+     "GHSA-mjmj-j48q-9wg2",
+     "GHSA-rvwf-54qp-4r6v",
+     "GHSA-w37g-rhq8-7m4j"
+    ],
+    "selected_via": "GHSA-mjmj-j48q-9wg2",
+    "source_url": "https://osv.dev/list?ecosystem=Maven&q=org.yaml%3Asnakeyaml"
+   }
+  },
+  {
+   "id": "maven-snakeyaml-latest",
+   "kind": "package",
+   "ecosystem": "Maven",
+   "target": "pkg:maven/org.yaml/snakeyaml@2.7",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=Maven&q=org.yaml%3Asnakeyaml"
+   }
+  },
+  {
+   "id": "golang-gin-affected",
+   "kind": "package",
+   "ecosystem": "Go",
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.5.0",
+   "truth": {
+    "affected": true,
+    "osv_count": 8,
+    "osv_ids": [
+     "GHSA-2c4m-59x9-fr2g",
+     "GHSA-3vp4-m3rf-835h",
+     "GHSA-6vm3-jj99-7229",
+     "GHSA-869c-j7wc-8jqv",
+     "GHSA-h395-qcrw-5vmq",
+     "GO-2020-0001",
+     "GO-2021-0052",
+     "GO-2023-1737"
+    ],
+    "selected_via": "GHSA-869c-j7wc-8jqv",
+    "source_url": "https://osv.dev/list?ecosystem=Go&q=github.com/gin-gonic/gin"
+   }
+  },
+  {
+   "id": "golang-gin-latest",
+   "kind": "package",
+   "ecosystem": "Go",
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.12.0",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=Go&q=github.com/gin-gonic/gin"
+   }
+  },
+  {
+   "id": "golang-net-affected",
+   "kind": "package",
+   "ecosystem": "Go",
+   "target": "pkg:golang/golang.org/x/net@v0.61.0",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GO-2026-6860",
+     "GO-2026-6866"
+    ],
+    "selected_via": "GO-2026-6860",
+    "source_url": "https://osv.dev/list?ecosystem=Go&q=golang.org/x/net"
+   }
+  },
+  {
+   "id": "golang-net-latest",
+   "kind": "package",
+   "ecosystem": "Go",
+   "target": "pkg:golang/golang.org/x/net@v0.62.0",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=Go&q=golang.org/x/net"
+   }
+  },
+  {
+   "id": "cargo-hyper-affected",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/hyper@0.14.11",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-f67m-9j94-qv9j",
+     "RUSTSEC-2022-0022"
+    ],
+    "selected_via": "GHSA-f67m-9j94-qv9j",
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=hyper"
+   }
+  },
+  {
+   "id": "cargo-hyper-latest",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/hyper@1.12.0",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=hyper"
+   }
+  },
+  {
+   "id": "cargo-tokio-affected",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/tokio@1.54.0",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-5wjr-9356-4wc8",
+     "RUSTSEC-2026-0384"
+    ],
+    "selected_via": "GHSA-5wjr-9356-4wc8",
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=tokio"
+   }
+  },
+  {
+   "id": "cargo-tokio-latest",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/tokio@1.54.1",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=tokio"
+   }
+  },
+  {
+   "id": "gem-rack-affected",
+   "kind": "package",
+   "ecosystem": "RubyGems",
+   "target": "pkg:gem/rack@2.2.9",
+   "truth": {
+    "affected": true,
+    "osv_count": 25,
+    "osv_ids": [
+     "GHSA-5v64-555j-wjxm",
+     "GHSA-625h-95r8-8xpm",
+     "GHSA-6xw4-3v39-52mm",
+     "GHSA-7g2v-jj9q-g3rg",
+     "GHSA-7mqq-6cf9-v2qp",
+     "GHSA-7wqh-767x-r66v",
+     "GHSA-8cgq-6mh2-7j6v",
+     "GHSA-8vqr-qjwx-82mw",
+     "GHSA-gjh7-p2fx-99vx",
+     "GHSA-h2jq-g4cq-5ppq",
+     "GHSA-mxw3-3hh2-x2mh",
+     "GHSA-p543-xpfm-54cp",
+     "GHSA-p8x9-v4hv-2w4g",
+     "GHSA-q2ww-5357-x388",
+     "GHSA-q4qf-9j86-f5mh",
+     "GHSA-qv7j-4883-hwh7",
+     "GHSA-r657-rxjc-j557",
+     "GHSA-v569-hp3g-36wr",
+     "GHSA-vgpv-f759-9wx3",
+     "GHSA-vpfw-47h7-xj4g",
+     "GHSA-w9pc-fmgc-vxvw",
+     "GHSA-whrj-4476-wvmp",
+     "GHSA-wpv5-97wm-hp9c",
+     "GHSA-wvg4-6p58-3gh3",
+     "GHSA-x8cg-fq8g-mxfx"
+    ],
+    "selected_via": "GHSA-5v64-555j-wjxm",
+    "source_url": "https://osv.dev/list?ecosystem=RubyGems&q=rack"
+   }
+  },
+  {
+   "id": "gem-rack-latest",
+   "kind": "package",
+   "ecosystem": "RubyGems",
+   "target": "pkg:gem/rack@3.2.8",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=RubyGems&q=rack"
+   }
+  },
+  {
+   "id": "gem-nokogiri-affected",
+   "kind": "package",
+   "ecosystem": "RubyGems",
+   "target": "pkg:gem/nokogiri@1.9.1",
+   "truth": {
+    "affected": true,
+    "osv_count": 43,
+    "osv_ids": [
+     "GHSA-242x-7cm6-4w8j",
+     "GHSA-286v-pcf5-25rc",
+     "GHSA-2qc6-mcvw-92cw",
+     "GHSA-2rr5-8q37-2w7h",
+     "GHSA-353f-x4gh-cqq8",
+     "GHSA-3w22-6jfg-527w",
+     "GHSA-4hm9-844j-jmxp",
+     "GHSA-59gp-qqm7-cw4j",
+     "GHSA-5prr-v3j2-97mh",
+     "GHSA-5v8h-3h3q-446p",
+     "GHSA-5w6v-399v-w3cc",
+     "GHSA-7553-jr98-vx47",
+     "GHSA-7rrm-v45f-jp64",
+     "GHSA-8678-w3jw-xfc2",
+     "GHSA-9cv2-cfxc-v4v2",
+     "GHSA-c4rq-3m3g-8wgx",
+     "GHSA-cf46-6xxh-pc75",
+     "GHSA-cgx6-hpwq-fhv5",
+     "GHSA-cr5j-953j-xw5p",
+     "GHSA-crjr-9rc5-ghw8",
+     "GHSA-fq42-c5rg-92c2",
+     "GHSA-gx8x-g87m-h5q6",
+     "GHSA-jc36-42cf-vqwj",
+     "GHSA-jw9f-hh49-cvp9",
+     "GHSA-mrxw-mxhj-p664",
+     "GHSA-p67v-3w7g-wjg7",
+     "GHSA-phwj-rprq-35pp",
+     "GHSA-pxvg-2qj5-37jq",
+     "GHSA-qxcg-xjjg-66mj",
+     "GHSA-r95h-9x8f-r3f7",
+     "GHSA-v2fc-qm4h-8hqv",
+     "GHSA-v4f8-2847-rwm7",
+     "GHSA-v6gp-9mmm-c6p5",
+     "GHSA-v995-44v6-5fqm",
+     "GHSA-vmfx-gcfq-wvm2",
+     "GHSA-vr8q-g5c7-m54m",
+     "GHSA-vvfq-8hwr-qm4m",
+     "GHSA-wfpw-mmfh-qq69",
+     "GHSA-wjv4-x9w8-wm3h",
+     "GHSA-wx95-c6cv-8532",
+     "GHSA-xc9x-jj77-9p9j",
+     "GHSA-xh29-r2w5-wx8m",
+     "GHSA-xxx9-3xcr-gjj3"
+    ],
+    "selected_via": "GHSA-v995-44v6-5fqm",
+    "source_url": "https://osv.dev/list?ecosystem=RubyGems&q=nokogiri"
+   }
+  },
+  {
+   "id": "gem-nokogiri-latest",
+   "kind": "package",
+   "ecosystem": "RubyGems",
+   "target": "pkg:gem/nokogiri@1.19.7",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=RubyGems&q=nokogiri"
+   }
+  },
+  {
+   "id": "code-sqli-vulnerable",
+   "kind": "code",
+   "target": "Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = '\" + request.args['name'] + \"'\")",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-89",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/89.html"
+   }
+  },
+  {
+   "id": "code-sqli-fixed",
+   "kind": "code",
+   "target": "Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = %s\", (request.args['name'],))",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-89",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/89.html"
+   }
+  },
+  {
+   "id": "code-xss-vulnerable",
+   "kind": "code",
+   "target": "Browser JS: document.getElementById('out').innerHTML = new URLSearchParams(location.search).get('q')",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-79",
+    "language": "JavaScript",
+    "source_url": "https://cwe.mitre.org/data/definitions/79.html"
+   }
+  },
+  {
+   "id": "code-xss-fixed",
+   "kind": "code",
+   "target": "Browser JS: document.getElementById('out').textContent = new URLSearchParams(location.search).get('q')",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-79",
+    "language": "JavaScript",
+    "source_url": "https://cwe.mitre.org/data/definitions/79.html"
+   }
+  },
+  {
+   "id": "code-path-vulnerable",
+   "kind": "code",
+   "target": "Node/Express: app.get('/f', (q, r) => r.sendFile(path.join(__dirname, 'files', q.query.name)))",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-22",
+    "language": "JavaScript",
+    "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+   }
+  },
+  {
+   "id": "code-path-fixed",
+   "kind": "code",
+   "target": "Node/Express: app.get('/f', (q, r) => r.sendFile(path.basename(q.query.name), { root: path.join(__dirname, 'files') }))",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-22",
+    "language": "JavaScript",
+    "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+   }
+  },
+  {
+   "id": "code-cmd-vulnerable",
+   "kind": "code",
+   "target": "Python: subprocess.run('ping -c 1 ' + request.args['host'], shell=True)",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-78",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/78.html"
+   }
+  },
+  {
+   "id": "code-cmd-fixed",
+   "kind": "code",
+   "target": "Python: subprocess.run(['ping', '-c', '1', '--', request.args['host']], shell=False)",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-78",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/78.html"
+   }
+  },
+  {
+   "id": "code-deser-vulnerable",
+   "kind": "code",
+   "target": "Python/Flask: data = pickle.loads(base64.b64decode(request.cookies['session']))",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-502",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/502.html"
+   }
+  },
+  {
+   "id": "code-deser-fixed",
+   "kind": "code",
+   "target": "Python/Flask: data = json.loads(base64.b64decode(request.cookies['session']))",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-502",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/502.html"
+   }
+  },
+  {
+   "id": "code-hash-vulnerable",
+   "kind": "code",
+   "target": "Python: stored = hashlib.md5(password.encode()).hexdigest()  # user password storage",
+   "truth": {
+    "affected": true,
+    "cwe": "CWE-916",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/916.html"
+   }
+  },
+  {
+   "id": "code-hash-fixed",
+   "kind": "code",
+   "target": "Python: stored = bcrypt.hashpw(password.encode(), bcrypt.gensalt())  # user password storage",
+   "truth": {
+    "affected": false,
+    "cwe": "CWE-916",
+    "language": "Python",
+    "source_url": "https://cwe.mitre.org/data/definitions/916.html"
+   }
+  },
+  {
+   "id": "unknown-package",
+   "kind": "unknown",
+   "target": "pkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0",
+   "truth": {
+    "affected": null,
+    "note": "package does not exist on PyPI"
+   }
+  },
+  {
+   "id": "unknown-version",
+   "kind": "unknown",
+   "target": "pkg:pypi/jinja2@99.0.0",
+   "truth": {
+    "affected": null,
+    "note": "jinja2 has no release 99.0.0"
+   }
+  },
+  {
+   "id": "pypi-jinja2-affected-fmt-plain",
+   "kind": "format",
+   "of": "pypi-jinja2-affected",
+   "target": "jinja2 3.1.5 (PyPI)",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-cpwx-vrp4-4pq7",
+     "PYSEC-2026-1471"
+    ],
+    "selected_via": "PYSEC-2026-1471",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "pypi-jinja2-affected-fmt-question",
+   "kind": "format",
+   "of": "pypi-jinja2-affected",
+   "target": "Is jinja2 version 3.1.5 from PyPI affected by known vulnerabilities?",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-cpwx-vrp4-4pq7",
+     "PYSEC-2026-1471"
+    ],
+    "selected_via": "PYSEC-2026-1471",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=jinja2"
+   }
+  },
+  {
+   "id": "pypi-pyyaml-affected-fmt-plain",
+   "kind": "format",
+   "of": "pypi-pyyaml-affected",
+   "target": "pyyaml 5.1.2 (PyPI)",
+   "truth": {
+    "affected": true,
+    "osv_count": 6,
+    "osv_ids": [
+     "GHSA-3pqx-4fqf-j49f",
+     "GHSA-6757-jp84-gxfx",
+     "GHSA-8q59-q68h-6hv4",
+     "PYSEC-2020-176",
+     "PYSEC-2020-96",
+     "PYSEC-2021-142"
+    ],
+    "selected_via": "GHSA-3pqx-4fqf-j49f",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=pyyaml"
+   }
+  },
+  {
+   "id": "pypi-pyyaml-affected-fmt-question",
+   "kind": "format",
+   "of": "pypi-pyyaml-affected",
+   "target": "Is pyyaml version 5.1.2 from PyPI affected by known vulnerabilities?",
+   "truth": {
+    "affected": true,
+    "osv_count": 6,
+    "osv_ids": [
+     "GHSA-3pqx-4fqf-j49f",
+     "GHSA-6757-jp84-gxfx",
+     "GHSA-8q59-q68h-6hv4",
+     "PYSEC-2020-176",
+     "PYSEC-2020-96",
+     "PYSEC-2021-142"
+    ],
+    "selected_via": "GHSA-3pqx-4fqf-j49f",
+    "source_url": "https://osv.dev/list?ecosystem=PyPI&q=pyyaml"
+   }
+  },
+  {
+   "id": "npm-lodash-affected-fmt-plain",
+   "kind": "format",
+   "of": "npm-lodash-affected",
+   "target": "lodash 4.17.23 (npm)",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-f23m-r3pf-42rh",
+     "GHSA-r5fr-rjxr-66jc"
+    ],
+    "selected_via": "GHSA-r5fr-rjxr-66jc",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=lodash"
+   }
+  },
+  {
+   "id": "npm-lodash-affected-fmt-question",
+   "kind": "format",
+   "of": "npm-lodash-affected",
+   "target": "Is lodash version 4.17.23 from npm affected by known vulnerabilities?",
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-f23m-r3pf-42rh",
+     "GHSA-r5fr-rjxr-66jc"
+    ],
+    "selected_via": "GHSA-r5fr-rjxr-66jc",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=lodash"
+   }
+  },
+  {
+   "id": "npm-minimist-affected-fmt-plain",
+   "kind": "format",
+   "of": "npm-minimist-affected",
+   "target": "minimist 1.2.5 (npm)",
+   "truth": {
+    "affected": true,
+    "osv_count": 1,
+    "osv_ids": [
+     "GHSA-xvch-5gv4-984h"
+    ],
+    "selected_via": "GHSA-xvch-5gv4-984h",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=minimist"
+   }
+  },
+  {
+   "id": "npm-minimist-affected-fmt-question",
+   "kind": "format",
+   "of": "npm-minimist-affected",
+   "target": "Is minimist version 1.2.5 from npm affected by known vulnerabilities?",
+   "truth": {
+    "affected": true,
+    "osv_count": 1,
+    "osv_ids": [
+     "GHSA-xvch-5gv4-984h"
+    ],
+    "selected_via": "GHSA-xvch-5gv4-984h",
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=minimist"
+   }
+  }
+ ]
+}

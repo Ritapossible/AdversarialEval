@@ -1,0 +1,32 @@
+# Runs on every push and pull request: unit tests, the truth source's tests, a check that the
+# committed benchmark data reproduces every published number, and privacy guards.
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Privacy guard (data/private and keys are never committed)
+        run: |
+          if git ls-files | grep -E '^data/private/|\.key$|(^|/)\.env$'; then echo "private file tracked"; exit 1; fi
+          if git grep -nIE '0x[0-9a-fA-F]{64}\b' -- ':!*.ndjson' ':!*.json' ':!*.md' ':!*.lock' ':!package-lock.json' ; then
+            echo "possible private key in source"; exit 1; fi
+      - name: Tool tests
+        run: python tests/test_tools.py
+      - name: Benchmark grading and statistics
+        run: python tests/test_bench.py
+      - name: Published numbers reproduce from committed data
+        run: python tests/test_reproduce.py
+      - name: Truth source tests
+        run: node --test truth-sources/cve-cvss/test/select.test.js
