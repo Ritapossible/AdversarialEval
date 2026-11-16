@@ -20,7 +20,8 @@ jobs:
       - name: Privacy guard (data/private and keys are never committed)
         run: |
           if git ls-files | grep -E '^data/private/|\.key$|(^|/)\.env$' | grep -vx 'data/private/README.md'; then echo "private file tracked"; exit 1; fi
-          if git grep -nIE '0x[0-9a-fA-F]{64}\b' -- ':!*.ndjson' ':!*.json' ':!*.md' ':!*.lock' ':!package-lock.json' ; then
+          # a 64-hex value is a possible private key unless the line marks it as a known public constant
+          if git grep -nIE '0x[0-9a-fA-F]{64}\b' -- ':!*.ndjson' ':!*.json' ':!*.md' ':!*.lock' ':!package-lock.json' | grep -v 'public-constant' ; then
             echo "possible private key in source"; exit 1; fi
       - name: Tool tests
         run: python tests/test_tools.py

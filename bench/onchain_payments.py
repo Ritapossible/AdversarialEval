@@ -12,7 +12,7 @@ import sys
 
 RPC = "https://ethereum-sepolia-rpc.publicnode.com"
 TOKEN = "0xcc194e1a843B658526D0D5C431f670028582Ae17"
-TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"  # public-constant: keccak("Transfer(address,address,uint256)")
 
 
 def main(payer: str, start: int, end: int, out: str) -> None:
