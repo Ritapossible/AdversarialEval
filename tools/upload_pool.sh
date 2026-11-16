@@ -42,6 +42,15 @@ for n, line in enumerate(raw.decode("utf-8").splitlines(), 1):
     if (r.get("provenance") or {}).get("source_kind") in ("llm", "synthetic", "generated", "model"):
         print(f"row {n}: note: source_kind forces provenance 'unverified'")
 if bad: sys.exit(f"{bad} rows would be rejected")
+# length gate: length must not tell the better answer apart in pool material
+rows = [json.loads(l) for l in raw.decode("utf-8").splitlines() if l.strip()]
+ratio = [max(len(r["chosen"]), len(r["rejected"])) / max(1, min(len(r["chosen"]), len(r["rejected"]))) for r in rows]
+over = [n for n, x in enumerate(ratio, 1) if x > 1.25]
+longer = sum(len(r["chosen"]) > len(r["rejected"]) for r in rows) / len(rows)
+if over: sys.exit(f"length gate: {len(over)} rows have a length ratio over 1.25 (first: row {over[0]})")
+if len(rows) >= 20 and not 0.35 <= longer <= 0.65:
+    sys.exit(f"length gate: chosen is longer in {longer:.0%} of rows (allowed 35% to 65%)")
+print(f"length gate: max ratio {max(ratio):.2f}, chosen longer in {longer:.0%} of rows")
 PY
 
 # U2 rule: every uploaded row must have been reviewed by a person (tools/review_pool.py).
