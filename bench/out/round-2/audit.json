@@ -1,0 +1,1233 @@
+{
+ "node": "https://devnode.telegraphprotocol.com",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "started_utc": "2026-11-16T06:54:05+00:00",
+ "finished_utc": "2026-11-16T06:57:29+00:00",
+ "targets": {
+  "package": "pypi:jinja2@2.10",
+  "advisory": "CVE-2021-44228",
+  "code": "app.get('/u', (req, res) => db.query(\"SELECT * FROM users WHERE id = \" + req.query.id))"
+ },
+ "miners": [
+  {
+   "id": "731970",
+   "slug": "zk-ghsapub",
+   "rank": null,
+   "score": null,
+   "scored_epoch": null,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "20260828",
+   "slug": "a1-preflight",
+   "rank": 7,
+   "score": 0.535,
+   "scored_epoch": 2103,
+   "operator": "0x5c4b38cf",
+   "input_params": [
+    "address",
+    "asset",
+    "block",
+    "chain",
+    "cve_id",
+    "cve_query",
+    "domain",
+    "hash",
+    "ip",
+    "pair",
+    "protocol",
+    "query",
+    "symbol",
+    "token",
+    "topic",
+    "type",
+    "url"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "190046",
+   "slug": "secrev-depsdev-maven",
+   "rank": 15,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "system",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-maven cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-maven cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-maven cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190050",
+   "slug": "secrev-osv-ghsa",
+   "rank": 21,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "ghsa_id"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "302",
+   "slug": "chainsight-oracle",
+   "rank": 9,
+   "score": 0.0004,
+   "scored_epoch": 2103,
+   "operator": "0xd4c73e99",
+   "input_params": [
+    "address",
+    "base",
+    "chain",
+    "hash",
+    "intent",
+    "protocol",
+    "query",
+    "quote",
+    "symbol"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner chainsight-oracle cannot take this request's params: /secreview has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner chainsight-oracle cannot take this request's params: /secreview has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner chainsight-oracle cannot take this request's params: /secreview has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "731976",
+   "slug": "zk-friendsec",
+   "rank": 28,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77001",
+   "slug": "secrev-osv-id",
+   "rank": 22,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "id"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-id cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-id cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-id cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "731963",
+   "slug": "zk-secaudit",
+   "rank": 29,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77003",
+   "slug": "secrev-ghsa",
+   "rank": 4,
+   "score": 0.8313,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "5530",
+   "slug": "telegraph-verity-intelligence",
+   "rank": 26,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xa5600c2b",
+   "input_params": [
+    "address",
+    "block",
+    "change",
+    "claim",
+    "code",
+    "comparison_documents",
+    "content",
+    "cve_id",
+    "domain",
+    "fields",
+    "host",
+    "image_url",
+    "indicator",
+    "input",
+    "intent",
+    "ip_address",
+    "media_url",
+    "name",
+    "patch",
+    "period",
+    "query",
+    "question",
+    "record_type",
+    "service",
+    "target",
+    "text",
+    "topic",
+    "url",
+    "video_url"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77006",
+   "slug": "secrev-nvd",
+   "rank": 19,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "cveId"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "9002",
+   "slug": "txlens",
+   "rank": 6,
+   "score": 0.6805,
+   "scored_epoch": 2103,
+   "operator": "0xb3fb14fe",
+   "input_params": [
+    "address",
+    "amount",
+    "block",
+    "card_number",
+    "carrier",
+    "categories",
+    "chain",
+    "chains",
+    "claim",
+    "code",
+    "coin_id",
+    "company",
+    "content",
+    "contract",
+    "cve",
+    "cve_id",
+    "date",
+    "days",
+    "description",
+    "destination",
+    "domain",
+    "economic_indicator",
+    "facts",
+    "focus",
+    "from",
+    "from_year",
+    "height",
+    "hours",
+    "indicator",
+    "instruction",
+    "ip",
+    "jurisdiction",
+    "labels",
+    "language",
+    "length",
+    "limit",
+    "location",
+    "max_results",
+    "max_sources",
+    "message",
+    "messages",
+    "mode",
+    "name",
+    "origin",
+    "output",
+    "payment_method",
+    "price_chain",
+    "prompt",
+    "protocol",
+    "query",
+    "question",
+    "reference",
+    "result",
+    "retailer",
+    "review",
+    "route",
+    "service",
+    "target",
+    "target_language",
+    "task",
+    "team",
+    "text",
+    "text1",
+    "text2",
+    "ticker",
+    "ticket",
+    "to",
+    "to_year",
+    "token",
+    "topic",
+    "topic_mode",
+    "tracking_number",
+    "tvl_chain",
+    "tx_hash",
+    "url",
+    "venue",
+    "wallet",
+    "when",
+    "zip_code"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner txlens cannot take this request's params: /security-review has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner txlens cannot take this request's params: /security-review has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner txlens cannot take this request's params: /security-review has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190047",
+   "slug": "secrev-depsdev-pypi",
+   "rank": 16,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "system",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77009",
+   "slug": "secrev-circl-browse",
+   "rank": 11,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "vendor"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-browse cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-browse cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-browse cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77007",
+   "slug": "secrev-nvd-kw",
+   "rank": 8,
+   "score": 0.268,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "keywordSearch",
+    "resultsPerPage"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd-kw cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd-kw cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-nvd-kw cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "731001",
+   "slug": "pr-guard-sentinel",
+   "rank": 1,
+   "score": 0.9858,
+   "scored_epoch": 2103,
+   "operator": "0xfb49df5c",
+   "input_params": [
+    "code",
+    "diff",
+    "ecosystem",
+    "name",
+    "query",
+    "version"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "could not route this question now, try again later",
+     "message": "",
+     "price": null
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "503",
+     "error": "could not route this question now, try again later",
+     "message": "",
+     "price": null
+    }
+   },
+   "callable": [
+    "advisory"
+   ]
+  },
+  {
+   "id": "731969",
+   "slug": "zk-secpub",
+   "rank": 5,
+   "score": 0.9976,
+   "scored_epoch": 2019,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "719217",
+   "slug": "zk-astsec",
+   "rank": 27,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "905227",
+   "slug": "evidence-security-review",
+   "rank": 10,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0x9f05252a",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "190048",
+   "slug": "secrev-depsdev",
+   "rank": 13,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "system",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190045",
+   "slug": "secrev-depsdev-cargo",
+   "rank": 14,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "system",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-cargo cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-cargo cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-depsdev-cargo cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77008",
+   "slug": "secrev-circl-last",
+   "rank": 5,
+   "score": 0.7388,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "n"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-last cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-last cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-circl-last cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190052",
+   "slug": "secrev-pypi",
+   "rank": 24,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77004",
+   "slug": "secrev-ghsa-npm",
+   "rank": 17,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "ecosystem",
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-npm cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-npm cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-npm cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190049",
+   "slug": "secrev-osv-cve",
+   "rank": 20,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "cve_id"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-cve cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-cve cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-cve cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77005",
+   "slug": "secrev-ghsa-pip",
+   "rank": 18,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "ecosystem",
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-pip cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-pip cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-ghsa-pip cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "1900999006",
+   "slug": "codewire-security-review",
+   "rank": 2,
+   "score": 0.9258,
+   "scored_epoch": 2103,
+   "operator": "0x8b224783",
+   "input_params": [
+    "code",
+    "question",
+    "source"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "503",
+     "error": "could not route this question now, try again later",
+     "message": "",
+     "price": null
+    }
+   },
+   "callable": [
+    "package",
+    "advisory"
+   ]
+  },
+  {
+   "id": "719190",
+   "slug": "zk-pysec",
+   "rank": 3,
+   "score": 0.9258,
+   "scored_epoch": 2103,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77010",
+   "slug": "secrev-deps",
+   "rank": 12,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-deps cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-deps cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-deps cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "190051",
+   "slug": "secrev-pypi-django",
+   "rank": 25,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi-django cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi-django cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-pypi-django cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "71622",
+   "slug": "zk-code-deps",
+   "rank": 28,
+   "score": 0,
+   "scored_epoch": 2099,
+   "operator": "0x8b224783",
+   "input_params": [
+    "target"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77002",
+   "slug": "secrev-osv-log4j",
+   "rank": 23,
+   "score": 0,
+   "scored_epoch": 2103,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "id"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-log4j cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-log4j cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "miner secrev-osv-log4j cannot take this request's params: /query has no field for required param(s) target",
+     "price": null
+    }
+   },
+   "callable": []
+  }
+ ]
+}
