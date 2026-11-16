@@ -1,0 +1,2 @@
+# Minimal deps for CI and the data tools (no ML stack); training uses the kit's own requirements.
+packaging==24.2
