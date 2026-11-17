@@ -1,0 +1,15 @@
+{
+ "checked_utc": "2026-11-17T07:03:35+00:00",
+ "api_miners_total": 1118,
+ "api_miners_total_2026_11_15": 2171,
+ "security_review_general_listed": 8,
+ "round2_targets_found_in_registry": [],
+ "direct_ask_round2_miners": "404 miner_not_found for 20260828, 731001, 1900999006, 5530, 731963, 731969 (checked 07:0x UTC)",
+ "void_attempt": {
+  "run_utc": "2026-11-17T15:06 to 15:16",
+  "calls": 828,
+  "outcome": "794 refused by our own x402 client before payment (spendControls: node now asks for a different asset); 30 no_compatible_miner; 4 could not route. No call reached a miner; nothing was charged (burner balance unchanged at 9.55 old test USDC).",
+  "cause": "Node payment requirements changed: Sepolia asset 0xcc194e1a843B658526D0D5C431f670028582Ae17 (open-mint test USDC) -> 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 (Circle USDC); payTo 0x3624EB01... -> 0x72a70e949362670Bf8bceAd24eFC5b8f950aa08b (LedgerFacet escrow).",
+  "status": "void: round 3 is re-run once the payer holds the new asset; these records are kept as evidence only and are not scored."
+ }
+}

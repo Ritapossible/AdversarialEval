@@ -21,7 +21,9 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const NODE = "https://devnode.telegraphprotocol.com";
 const INTENT = "SECURITY_REVIEW_GENERAL";
 const SEPOLIA = "eip155:11155111";
-const TEST_USDC = "0xcc194e1a843B658526D0D5C431f670028582Ae17";
+// Sepolia USDC assets the node has offered: the open-mint test token (until 2026-11-16) and Circle's
+// USDC (from 2026-11-17, rule v2 amendment 2). Pay in whichever the node asks for, capped at $0.02.
+const SEPOLIA_USDC = ["0xcc194e1a843B658526D0D5C431f670028582Ae17", "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"];
 
 const { values: opt } = parseArgs({
   options: {
@@ -62,7 +64,7 @@ const keyFile = process.env.BENCH_KEY_FILE || join(homedir(), ".adversarialeval"
 const account = privateKeyToAccount(readFileSync(keyFile, "utf8").trim());
 const payFetch = wrapFetchWithPaymentFromConfig(fetch, {
   schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }],
-  spendControls: { maxAmountPerPayment: false, allowedAssets: [{ network: SEPOLIA, asset: TEST_USDC, maxAmountPerPayment: "20000" }] },
+  spendControls: { maxAmountPerPayment: false, allowedAssets: SEPOLIA_USDC.map((asset) => ({ network: SEPOLIA, asset, maxAmountPerPayment: "20000" })) },
 });
 console.log(`payer ${account.address}`);
 

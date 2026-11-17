@@ -103,3 +103,14 @@ Secondary measures, reported but not counted as correct:
   outside their own intervals. The interval now resamples all called cases, matching the ratio
   defined above, with a regression test in `tests/test_bench.py`.
 - **Wilson bounds** are clamped to [0, 1]. Floating-point rounding had printed `-0%`.
+
+**2 (2026-11-17, before any valid round-3 call).** Telegraph changed its payment layer between
+rounds. The Sepolia asset moved from the open-mint test USDC (`0xcc19…Ae17`) to Circle's USDC
+(`0x1c7D…7238`), paid to a new contract (`0x72a7…a08b`).
+- The first round-3 attempt (15:06 UTC) reached no miner. Our client, pinned to the old asset,
+  refused to pay on 794 calls, and nothing was charged.
+- That attempt is **void**, kept in `bench/out/round-3-void-payment-migration/`, and not scored.
+- The runner now pays in whichever of the two Sepolia USDC assets the node offers, with the same
+  $0.02 per-payment cap.
+- Round 3 is re-run once the payer holds the new asset. Rounds stay on different UTC days, so round 4
+  moves to the next free day if needed.
