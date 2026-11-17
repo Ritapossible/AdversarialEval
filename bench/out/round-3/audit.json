@@ -1,0 +1,286 @@
+{
+ "node": "https://devnode.telegraphprotocol.com",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "started_utc": "2026-11-17T07:01:09+00:00",
+ "finished_utc": "2026-11-17T07:02:32+00:00",
+ "targets": {
+  "package": "pypi:jinja2@2.10",
+  "advisory": "CVE-2021-44228",
+  "code": "app.get('/u', (req, res) => db.query(\"SELECT * FROM users WHERE id = \" + req.query.id))"
+ },
+ "miners": [
+  {
+   "id": "77010",
+   "slug": "secrev-deps",
+   "rank": 15,
+   "score": 0,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "pkg",
+    "ver"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77007",
+   "slug": "secrev-nvd-kw",
+   "rank": 1,
+   "score": 0.9942,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "keywordSearch",
+    "resultsPerPage"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77009",
+   "slug": "secrev-circl-browse",
+   "rank": 14,
+   "score": 0,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "vendor"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77005",
+   "slug": "secrev-ghsa-pip",
+   "rank": 2,
+   "score": 0.9941,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "ecosystem",
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "advisory",
+    "code"
+   ]
+  },
+  {
+   "id": "77003",
+   "slug": "secrev-ghsa",
+   "rank": 6,
+   "score": 0.9776,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77004",
+   "slug": "secrev-ghsa-npm",
+   "rank": 20,
+   "score": 0,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "ecosystem",
+    "per_page"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    }
+   },
+   "callable": [
+    "package"
+   ]
+  },
+  {
+   "id": "77008",
+   "slug": "secrev-circl-last",
+   "rank": 11,
+   "score": 0.963,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "n"
+   ],
+   "probes": {
+    "package": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "advisory": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    },
+    "code": {
+     "http": "503",
+     "error": "no_compatible_miner",
+     "message": "no request built for a miner serving SECURITY_REVIEW_GENERAL carries the resolved input",
+     "price": null
+    }
+   },
+   "callable": []
+  },
+  {
+   "id": "77006",
+   "slug": "secrev-nvd",
+   "rank": 21,
+   "score": 0,
+   "scored_epoch": 0,
+   "operator": "0xbd6f6960",
+   "input_params": [
+    "cveId"
+   ],
+   "probes": {
+    "package": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "advisory": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    },
+    "code": {
+     "http": "402",
+     "error": "payment required",
+     "message": "",
+     "price": "$0.01"
+    }
+   },
+   "callable": [
+    "package",
+    "advisory",
+    "code"
+   ]
+  }
+ ]
+}
