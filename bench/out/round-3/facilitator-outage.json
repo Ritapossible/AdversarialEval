@@ -3,5 +3,16 @@
  "what": "pre-round smoke test (not part of round 3): direct ask to a1-preflight, x402 exact on eip155:11155111",
  "node_offer": "asset 0xcc194e1a843B658526D0D5C431f670028582Ae17 (old open-mint test USDC) and 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 (Circle USDC) seen within 2 hours; payTo 0x72a70e949362670Bf8bceAd24eFC5b8f950aa08b",
  "result": "4 attempts over ~2 minutes: node verified the payment, settlement failed: 'settle request failed: Post https://facilitator.x402.rs/settle: context deadline exceeded'. Response 402 with hint 'usually the facilitator, not your signature. Retry'. Nothing charged (Circle USDC balance 20 before and after).",
- "decision": "round 3 held until settlement works; a smoke call is retried before any round call"
+ "decision": "round 3 held until settlement works; a smoke call is retried before any round call",
+ "retries": [
+  {
+   "utc": "2026-11-18T10:29Z",
+   "result": "402, settlement timeout at facilitator.x402.rs; node offered only the old test USDC on Sepolia (Circle USDC not offered)"
+  },
+  {
+   "utc": "2026-11-18T13:32Z",
+   "result": "402, same settlement timeout; nothing charged"
+  }
+ ],
+ "status": "paused until settlement works; no further automatic retries"
 }
