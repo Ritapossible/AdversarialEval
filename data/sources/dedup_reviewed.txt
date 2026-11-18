@@ -1,0 +1,2 @@
+# Cross-split prompt pairs a person checked and judged NOT duplicates. Format: <hash> <hash>  # reason
+bdd63e9d82401dfc faafc2acc94d0836  # 2026-11-18: shared F2 question template only; different package (paramiko vs octoprint), version and advisory (GHSA-r374-rxx8-8654 vs GHSA-39gf-864w-pxw4); score 0.70 at the warn line; node admitted the pool row

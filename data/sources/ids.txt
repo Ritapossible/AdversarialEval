@@ -37,3 +37,4 @@ GHSA-cx63-2mw6-8hw5       split=validation
 GHSA-8hc4-vh64-cxmj       split=validation
 GHSA-7fh5-64p2-3v2j       split=validation
 GHSA-3xgq-45jj-v275       split=validation
+GHSA-jr5f-v2jv-69x6       split=test       # axios SSRF and credential leakage via absolute URLs (Fexx test pair)

@@ -161,7 +161,8 @@ including hosting, registration and pool upload, is in [`docs/RUNBOOK.md`](docs/
 - Advisory data: the GitHub Advisory Database (CC BY 4.0) via [OSV](https://osv.dev), and
   NVD data (US government; not endorsed or certified by the NVD).
 - Fexx ([@fexx301](https://github.com/fexx301)), for findings shared in the Evaluators
-  community that shaped our held-out testing and severity-pair design.
+  community that shaped our held-out testing and severity-pair design, and for 20 independent,
+  AI-assisted test pairs he checked by hand ([intake report](eval/reports/2026-11-18-test-intake-fexx.md)).
 
 ## Contributors
 

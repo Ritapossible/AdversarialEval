@@ -34,6 +34,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("csv")
     ap.add_argument("--author", required=True)
+    ap.add_argument("--drafted-with", default="",
+                    help="the model an independent author drafted with (registration rule, Amendment 1); "
+                         "rows are then marked ai_assisted and reported separately")
     a = ap.parse_args(argv)
     author = re.sub(r"[^a-zA-Z0-9_-]", "", a.author) or "reviewer"
     out = ROOT / "data" / "authoring" / "security_review" / "test" / f"{author}.jsonl"
@@ -48,7 +51,9 @@ def main(argv=None) -> int:
                 "prompt": r["prompt"].strip(), "chosen": r["better"].strip(), "rejected": r["worse"].strip(),
                 "source_url": r["source_url"].strip(), "verdict_chosen": verdict_of(r["better"]),
                 "verdict_rejected": verdict_of(r["worse"]), "flaw_note": r["what_is_wrong"].strip(),
-                "author": f"reviewer:{author}", "reviewed": True, "source_kind": "human",
+                "author": f"reviewer:{author}", "reviewed": True,
+                "source_kind": "ai_assisted" if a.drafted_with else "human",
+                **({"drafting_model": a.drafted_with} if a.drafted_with else {}),
             })
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))

@@ -8,11 +8,17 @@ Jaccard similarity of character 5-gram shingles. Cross-split near-duplicates are
 errors (they would leak between train and validation, or between public and pool).
 
     python tools/dedup.py data/public/*.jsonl data/validation/*.jsonl data/private/*.pool.jsonl
+
+difflib's ratio is asymmetric (it depends on which text is seq1), so the score is the larger of
+the two orders: the verdict no longer depends on file or row order. A cross-split pair a person
+has checked and judged not a duplicate can be listed in data/sources/dedup_reviewed.txt
+(two prompt hashes and a reason); it is then reported as "reviewed", not as an error.
 """
 from __future__ import annotations
 
 import argparse
 import difflib
+import hashlib
 import sys
 from pathlib import Path
 
@@ -23,6 +29,23 @@ from common import normalise, read_jsonl  # noqa: E402
 def shingles(s: str, k: int = 5) -> set[str]:
     s = s.lower()
     return {s[i:i + k] for i in range(max(1, len(s) - k + 1))}
+
+
+REVIEWED = Path(__file__).resolve().parents[1] / "data" / "sources" / "dedup_reviewed.txt"
+
+
+def prompt_hash(normalised_prompt: str) -> str:
+    return hashlib.sha256(normalised_prompt.encode()).hexdigest()[:16]
+
+
+def load_reviewed() -> set[frozenset[str]]:
+    pairs = set()
+    if REVIEWED.exists():
+        for line in REVIEWED.read_text().splitlines():
+            parts = line.split("#")[0].split()
+            if len(parts) >= 2:
+                pairs.add(frozenset(parts[:2]))
+    return pairs
 
 
 def main(argv=None) -> int:
@@ -48,6 +71,7 @@ def main(argv=None) -> int:
     # - real_quick_ratio() and quick_ratio() are upper bounds of ratio(): when the larger of
     #   them and the Jaccard score is below the warning level, the pair can't be flagged.
     found = []
+    reviewed = load_reviewed()
     sm = difflib.SequenceMatcher(None, autojunk=False)
     for j in range(len(items)):
         wj, sj, tj, shj = items[j]
@@ -58,9 +82,11 @@ def main(argv=None) -> int:
             sm.set_seq1(ti)
             if jac < a.warn and (sm.real_quick_ratio() < a.warn or sm.quick_ratio() < a.warn):
                 continue
-            sim = max(jac, sm.ratio())
+            sim = max(jac, sm.ratio(), difflib.SequenceMatcher(None, tj, ti, autojunk=False).ratio())
             cross = si != sj
-            if sim >= a.threshold or (cross and sim >= a.warn):
+            if frozenset((prompt_hash(ti), prompt_hash(tj))) in reviewed and sim < a.threshold:
+                found.append((i, j, "warn", f"reviewed {wi} ~ {wj}: similarity {sim:.2f} (checked, not a duplicate)"))
+            elif sim >= a.threshold or (cross and sim >= a.warn):
                 found.append((i, j, "ERROR", f"ERROR {wi} ~ {wj}: similarity {sim:.2f}{' (cross-split)' if cross else ''}"))
             elif sim >= a.warn:
                 found.append((i, j, "warn", f"warn  {wi} ~ {wj}: similarity {sim:.2f}"))

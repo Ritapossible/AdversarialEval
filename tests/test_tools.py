@@ -198,6 +198,21 @@ def test_osv_range_logic_edge_cases():
     assert ranges_for(_osv("x", "npm", [{"introduced": "1.0.0"}]), "npm", "x") is None
 
 
+def test_dedup_is_order_independent(tmp_path):
+    import json
+    from dedup import main as dedup_main
+    a = {"prompt": "Security check before release: paramiko==4.0.0 on a customer-facing web app. Is it affected by GHSA-r374-rxx8-8654?", "chosen": "x", "rejected": "y"}
+    b = {"prompt": "Security check before release: octoprint==1.8.2 on a customer-facing web app. Is it affected by GHSA-39gf-864w-pxw4?", "chosen": "x", "rejected": "y"}
+    for name, first, second in (("ab", a, b), ("ba", b, a)):
+        (tmp_path / name).mkdir()
+        (tmp_path / name / "one.jsonl").write_text(json.dumps(first) + "\n")
+        (tmp_path / f"{name}2").mkdir()
+        (tmp_path / f"{name}2" / "two.jsonl").write_text(json.dumps(second) + "\n")
+    r1 = dedup_main([str(tmp_path / "ab" / "one.jsonl"), str(tmp_path / "ab2" / "two.jsonl"), "--warn", "0.6"])
+    r2 = dedup_main([str(tmp_path / "ba" / "one.jsonl"), str(tmp_path / "ba2" / "two.jsonl"), "--warn", "0.6"])
+    assert r1 == r2  # same verdict whichever text comes first
+
+
 if __name__ == "__main__":
     import inspect
     import tempfile
