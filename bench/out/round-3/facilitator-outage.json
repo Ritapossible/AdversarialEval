@@ -12,6 +12,10 @@
   {
    "utc": "2026-11-18T13:32Z",
    "result": "402, same settlement timeout; nothing charged"
+  },
+  {
+   "utc": "2026-11-20",
+   "result": "node no longer offers exact payment on Ethereum Sepolia: offers exact on Base Sepolia (Circle USDC 0x036CbD53842c5426634e7929541eC2318f3dCF7e) and Solana devnet, and escrow on Ethereum Sepolia (LedgerFacet 0x72a70e94...)"
   }
  ],
  "status": "paused until settlement works; no further automatic retries"
