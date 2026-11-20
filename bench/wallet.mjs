@@ -9,12 +9,13 @@ import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createPublicClient, createWalletClient, http, parseAbi, parseUnits, formatUnits } from "viem";
-import { sepolia } from "viem/chains";
+import { sepolia, baseSepolia } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 
 const RPC = "https://ethereum-sepolia-rpc.publicnode.com";
 const TEST_USDC = "0xcc194e1a843B658526D0D5C431f670028582Ae17";
-const CIRCLE_USDC = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"; // what the node asks for since 2026-11-17
+const CIRCLE_USDC = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"; // what the node asked for on 2026-11-17
+const BASE_SEPOLIA_USDC = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"; // the node's exact-payment asset from 2026-11-20
 const abi = parseAbi([
   "function balanceOf(address) view returns (uint256)",
   "function mint(address,uint256)",
@@ -35,7 +36,9 @@ if (cmd === "balance") {
   const eth = await pub.getBalance({ address: account.address });
   const usdc = await pub.readContract({ address: TEST_USDC, abi, functionName: "balanceOf", args: [account.address] });
   const circle = await pub.readContract({ address: CIRCLE_USDC, abi, functionName: "balanceOf", args: [account.address] });
-  console.log(`${account.address} ETH ${formatUnits(eth, 18)} testUSDC(old) ${formatUnits(usdc, 6)} CircleUSDC ${formatUnits(circle, 6)}`);
+  const base = createPublicClient({ chain: baseSepolia, transport: http("https://base-sepolia-rpc.publicnode.com") });
+  const baseUsdc = await base.readContract({ address: BASE_SEPOLIA_USDC, abi, functionName: "balanceOf", args: [account.address] });
+  console.log(`${account.address} Sepolia: ETH ${formatUnits(eth, 18)} testUSDC(old) ${formatUnits(usdc, 6)} CircleUSDC ${formatUnits(circle, 6)} | Base Sepolia: USDC ${formatUnits(baseUsdc, 6)}`);
 } else if (cmd === "mint-usdc") {
   await send(TEST_USDC, "mint", [account.address, parseUnits(a[0], 6)]);
 } else if (cmd === "send-erc20") {

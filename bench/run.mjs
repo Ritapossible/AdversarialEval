@@ -24,6 +24,9 @@ const SEPOLIA = "eip155:11155111";
 // Sepolia USDC assets the node has offered: the open-mint test token (until 2026-11-16) and Circle's
 // USDC (from 2026-11-17, rule v2 amendment 2). Pay in whichever the node asks for, capped at $0.02.
 const SEPOLIA_USDC = ["0xcc194e1a843B658526D0D5C431f670028582Ae17", "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"];
+// From 2026-11-20 the node offers exact payment only on Base Sepolia (Circle USDC) and Solana.
+const BASE_SEPOLIA = "eip155:84532";
+const BASE_SEPOLIA_USDC = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
 const { values: opt } = parseArgs({
   options: {
@@ -63,8 +66,11 @@ if (opt["dry-run"]) {
 const keyFile = process.env.BENCH_KEY_FILE || join(homedir(), ".adversarialeval", "burner.key");
 const account = privateKeyToAccount(readFileSync(keyFile, "utf8").trim());
 const payFetch = wrapFetchWithPaymentFromConfig(fetch, {
-  schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }],
-  spendControls: { maxAmountPerPayment: false, allowedAssets: SEPOLIA_USDC.map((asset) => ({ network: SEPOLIA, asset, maxAmountPerPayment: "20000" })) },
+  schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }, { network: BASE_SEPOLIA, client: new ExactEvmScheme(account) }],
+  spendControls: { maxAmountPerPayment: false, allowedAssets: [
+    ...SEPOLIA_USDC.map((asset) => ({ network: SEPOLIA, asset, maxAmountPerPayment: "20000" })),
+    { network: BASE_SEPOLIA, asset: BASE_SEPOLIA_USDC, maxAmountPerPayment: "20000" },
+  ] },
 });
 console.log(`payer ${account.address}`);
 

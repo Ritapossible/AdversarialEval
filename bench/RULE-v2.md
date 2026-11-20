@@ -114,3 +114,8 @@ rounds. The Sepolia asset moved from the open-mint test USDC (`0xcc19…Ae17`) t
   $0.02 per-payment cap.
 - Round 3 is re-run once the payer holds the new asset. Rounds stay on different UTC days, so round 4
   moves to the next free day if needed.
+
+**3 (2026-11-20, before any valid round-3 call).** The node now offers exact payment only on Base
+Sepolia (Circle USDC `0x036C…CF7e`) and Solana devnet, plus escrow on Ethereum Sepolia. The runner
+also registers Base Sepolia with the same $0.02 per-payment cap. Cost per call is unchanged
+($0.01). On-chain reconciliation counts the payer's USDC transfers on the chain actually used.

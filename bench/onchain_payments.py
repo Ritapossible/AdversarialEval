@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Count the payer's on-chain USDC payments for a block range (rule v2, amendment 1).
 
-    python bench/onchain_payments.py <payer> <from_block> <to_block> <out.json>
+    python bench/onchain_payments.py <payer> <from_block> <to_block> <out.json> [--base-sepolia]
 
 Lists every test-USDC Transfer from the payer on Ethereum Sepolia, so the cost a buyer actually
 paid can be reconciled with the calls made. Public data only; no key.
@@ -10,12 +10,15 @@ import json
 import subprocess
 import sys
 
-RPC = "https://ethereum-sepolia-rpc.publicnode.com"
-TOKEN = "0xcc194e1a843B658526D0D5C431f670028582Ae17"
+CHAINS = {  # chain id: (rpc, token the node charged in)
+    "eip155:11155111": ("https://ethereum-sepolia-rpc.publicnode.com", "0xcc194e1a843B658526D0D5C431f670028582Ae17"),
+    "eip155:84532": ("https://base-sepolia-rpc.publicnode.com", "0x036CbD53842c5426634e7929541eC2318f3dCF7e"),
+}
 TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"  # public-constant: keccak("Transfer(address,address,uint256)")
 
 
-def main(payer: str, start: int, end: int, out: str) -> None:
+def main(payer: str, start: int, end: int, out: str, chain: str = "eip155:11155111") -> None:
+    RPC, TOKEN = CHAINS[chain]
     topic = "0x" + payer.lower().removeprefix("0x").rjust(64, "0")
     logs = []
     for f in range(start, end + 1, 2000):
@@ -28,7 +31,7 @@ def main(payer: str, start: int, end: int, out: str) -> None:
         logs += d["result"]
     rows = [{"block": int(l["blockNumber"], 16), "tx": l["transactionHash"], "log_index": int(l["logIndex"], 16),
              "to": "0x" + l["topics"][2][-40:], "amount_uusdc": int(l["data"], 16)} for l in logs]
-    summary = {"payer": payer, "token": TOKEN, "chain": "eip155:11155111", "from_block": start, "to_block": end,
+    summary = {"payer": payer, "token": TOKEN, "chain": chain, "from_block": start, "to_block": end,
                "transfers": len(rows), "total_usdc": sum(r["amount_uusdc"] for r in rows) / 1e6,
                "distinct_tx": len({r["tx"] for r in rows}), "payments": rows}
     json.dump(summary, open(out, "w"), indent=1)
@@ -36,4 +39,5 @@ def main(payer: str, start: int, end: int, out: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4],
+         "eip155:84532" if "--base-sepolia" in sys.argv[5:] else "eip155:11155111")
