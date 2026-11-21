@@ -86,7 +86,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 28
     },
     "20260828": {
      "calls": 46,
@@ -175,7 +176,8 @@
       "npm-lodash-affected-fmt-question": "wrong",
       "npm-minimist-affected-fmt-plain": "correct",
       "npm-minimist-affected-fmt-question": "wrong"
-     }
+     },
+     "rank": 7
     },
     "routed": {
      "calls": 46,
@@ -264,7 +266,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": null
     },
     "731970": {
      "calls": 46,
@@ -353,7 +356,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": null
     },
     "731963": {
      "calls": 46,
@@ -442,7 +446,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 29
     },
     "5530": {
      "calls": 46,
@@ -531,7 +536,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "wrong",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 26
     },
     "731001": {
      "calls": 46,
@@ -617,7 +623,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 1
     },
     "731969": {
      "calls": 46,
@@ -706,7 +713,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 5
     },
     "719217": {
      "calls": 46,
@@ -795,7 +803,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 27
     },
     "905227": {
      "calls": 46,
@@ -881,7 +890,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 10
     },
     "1900999006": {
      "calls": 46,
@@ -970,7 +980,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 2
     },
     "719190": {
      "calls": 46,
@@ -1059,7 +1070,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 3
     },
     "71622": {
      "calls": 46,
@@ -1145,7 +1157,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": 28
     },
     "osv-baseline": {
      "calls": 46,
@@ -1234,7 +1247,8 @@
       "npm-lodash-affected-fmt-question": "no answer",
       "npm-minimist-affected-fmt-plain": "no answer",
       "npm-minimist-affected-fmt-question": "no answer"
-     }
+     },
+     "rank": null
     }
    },
    "kendall_tau_rank_vs_accuracy": 0.019849711139180454,

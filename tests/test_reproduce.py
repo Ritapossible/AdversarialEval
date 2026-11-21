@@ -76,6 +76,45 @@ class Round2(unittest.TestCase):
         self.assertEqual(self.t["20260828"]["by_category"]["code"], "6/12")
 
 
+class Round3(unittest.TestCase):
+    """eval/reports/2026-11-21-round-3.md (rule v2, amendment 4: escrow rail)."""
+
+    @classmethod
+    def setUpClass(cls):
+        from score_v2 import score_rounds
+        d = ROOT / "bench" / "out"
+        cls.res = score_rounds([d / "round-2", d / "round-3"], ROOT / "bench" / "cases-v2.json")
+        cls.t = cls.res["rounds"]["round-3"]["targets"]
+        cls.calls = [json.loads(l) for l in (d / "round-3" / "calls.ndjson").read_text().splitlines() if l.strip()]
+        cls.before = json.loads((d / "round-3" / "ledger-before.json").read_text())
+        cls.after = json.loads((d / "round-3" / "ledger-after.json").read_text())
+
+    def test_headline(self):
+        self.assertEqual(len(self.calls), 1564)
+        a1 = self.t["20260828"]
+        self.assertEqual((a1["correct"], a1["by_category"]["code"]), (31, "9/12"))
+        self.assertIsNone(a1["rank"])  # unranked at round 3's start
+        self.assertEqual(self.t["osv-baseline"]["correct"], 24)
+        self.assertEqual(self.t["routed"]["correct"], 1)
+        self.assertEqual(self.t["77007"]["rank"], 1)
+        self.assertEqual(self.t["77007"]["correct"], 0)
+
+    def test_rank_is_per_round(self):
+        # scored together with round 2, round 3 must still use its own ranks
+        self.assertEqual(self.res["rounds"]["round-2"]["targets"]["20260828"]["rank"], 7)
+        self.assertEqual(self.res["rounds"]["round-3"]["n_ranked"], 27)
+        self.assertAlmostEqual(self.res["rounds"]["round-3"]["kendall_tau_rank_vs_accuracy"], -0.18, places=2)
+
+    def test_escrow_reconciliation(self):
+        receipts = sum(int(c["escrow_receipt"]["amount_uusdc"]) for c in self.calls if isinstance(c.get("escrow_receipt"), dict))
+        delivered = sum(c.get("http") == 200 for c in self.calls)
+        billed = [c for c in self.calls if isinstance(c.get("escrow_receipt"), dict)]
+        self.assertEqual((len(billed), delivered, receipts), (591, 591, 5_910_000))
+        self.assertTrue(all(c.get("http") == 200 for c in billed))  # no failure was billed
+        delta = (int(self.after["charged"]) + int(self.after["unbilled"])) - (int(self.before["charged"]) + int(self.before["unbilled"]))
+        self.assertEqual(delta, receipts)
+
+
 class Audit(unittest.TestCase):
     """eval/reports/2026-11-15-miner-audit.md."""
 

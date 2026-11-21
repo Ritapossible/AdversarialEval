@@ -95,7 +95,7 @@ from committed data, with uncertainty stated.
       6 ecosystems x (last affected version, latest clean release); 6 CWEs x (vulnerable, fixed)
       code twins; unknown package and unknown version; a small target-format probe
 - [x] M4 Free baseline: a deterministic OSV lookup at $0, the bar a paid answer has to beat
-- [ ] M5 Rounds 2 to 4 on three different days, every reachable miner plus auto-routing (round 2 done 11-16: `eval/reports/2026-11-16-round-2.md`)
+- [ ] M5 Rounds 2 to 4 on three different days, every reachable miner plus auto-routing (round 2 done 11-16: `eval/reports/2026-11-16-round-2.md`; round 3 done 11-21 on escrow: `eval/reports/2026-11-21-round-3.md`)
 - [x] M6 Engineering: unit tests for grading and statistics, CI on every push, a check
       that the committed data reproduces the published numbers
 - [ ] M7 Close the loop to evaluation: (a) our adapter vs the node ranking on real miner

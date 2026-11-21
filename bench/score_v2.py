@@ -128,9 +128,10 @@ def score_rounds(round_dirs: list[Path], cases_path: Path) -> dict:
         round_res = {}
         for tid, rs in by_target.items():
             round_res[tid] = summarise(cases, rs)
+            round_res[tid]["rank"] = rs[0].get("rank")  # the node's rank at this round's start
             pooled[tid].append(round_res[tid])
-        ranked = [(meta[t]["rank"], s["accuracy"]) for t, s in round_res.items()
-                  if meta[t]["rank"] is not None and s["accuracy"] is not None]
+        ranked = [(s["rank"], s["accuracy"]) for s in round_res.values()
+                  if s["rank"] is not None and s["accuracy"] is not None]
         # lower rank number = better, so correlate -rank with accuracy
         tau = kendall_tau_b([-r for r, _ in ranked], [a for _, a in ranked])
         result["rounds"][rd.name] = {"targets": round_res, "kendall_tau_rank_vs_accuracy": tau, "n_ranked": len(ranked)}
@@ -151,7 +152,7 @@ def main() -> None:
     res = score_rounds(a.rounds, a.cases)
     meta = res["meta"]
     for rname, rr in res["rounds"].items():
-        rows = sorted(((meta[t]["name"], meta[t], s) for t, s in rr["targets"].items()),
+        rows = sorted(((meta[t]["name"], {**meta[t], "rank": s["rank"]}, s) for t, s in rr["targets"].items()),
                       key=lambda x: (-(x[2]["accuracy"] or 0), x[2]["cost_per_correct"] or 9e9))
         tau = rr["kendall_tau_rank_vs_accuracy"]
         print(f"\n### {rname}\n\n{table(rows)}\n\nKendall's tau-b, node rank vs accuracy over {rr['n_ranked']} ranked miners: "
