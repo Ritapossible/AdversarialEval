@@ -57,7 +57,8 @@ def summarise(cases: dict[str, dict], recs: list[dict]) -> dict:
     hits = [1 if c["kind"] in ANSWERABLE and grades[c["id"]] == "correct" else 0 for c in called]
     paid = sum(0.01 for r in recs if charged(r))
     paid_onchain = sum(0.01 for r in recs if not is_free(r) and charged_onchain(r))
-    receipt_paid = sum(int(r["receipt"]["amount_uusdc"]) / 1e6 for r in recs if isinstance(r.get("receipt"), dict))
+    receipt_paid = sum(int((r.get("receipt") or r.get("escrow_receipt"))["amount_uusdc"]) / 1e6 for r in recs
+                       if isinstance(r.get("receipt") or r.get("escrow_receipt"), dict))
     delivered = [r for r in recs if r.get("http") == 200]
     valid = [r for r in delivered if (answer(r) or {}).get("verdict") in VERDICTS]
     lat = [r["duration_ms"] for r in delivered if isinstance(r.get("duration_ms"), (int, float))]

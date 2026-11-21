@@ -119,3 +119,19 @@ rounds. The Sepolia asset moved from the open-mint test USDC (`0xcc19…Ae17`) t
 Sepolia (Circle USDC `0x036C…CF7e`) and Solana devnet, plus escrow on Ethereum Sepolia. The runner
 also registers Base Sepolia with the same $0.02 per-payment cap. Cost per call is unchanged
 ($0.01). On-chain reconciliation counts the payer's USDC transfers on the chain actually used.
+
+**4 (2026-11-21, before any valid round-3 call).** Exact payment on Ethereum Sepolia is no longer
+offered, and its settlement service had failed for days (amendments 2 and 3). From round 3 the
+payer uses the node's **escrow** rail on Ethereum Sepolia (`bench/run.mjs --rail escrow`).
+- The payer deposits test USDC once into the ledger contract, then signs each call with
+  personal_sign in an `X-PAYMENT` header, as documented at anjoman.ai/docs/using/escrow-inference.
+- The price is unchanged ($0.01). Only the payment path differs, and the miners and cases are the
+  same.
+- **Cost measure.** Escrow bills only delivered answers; each one returns a receipt in
+  `X-PAYMENT-RESPONSE`. So from round 3 the charged cost is the sum of escrow receipts, reconciled
+  against the change in the node's ledger account (`GET /v1/ledger/account/<payer>`: `charged` plus
+  `unbilled`) instead of on-chain transfers.
+- **Not comparable with round 2.** Round 2's "buyers pay for failures" finding belongs to the x402
+  exact rail and is not re-tested on escrow. Cost per correct answer is reported per rail.
+- **Smoke test.** A 2-call test outside the round (scratch output, not committed) returned two
+  delivered answers with receipts, and the ledger showed exactly 20000 uUSDC unbilled.

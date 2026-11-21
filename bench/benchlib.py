@@ -18,7 +18,7 @@ def answer(rec: dict) -> dict | None:
 
 def charged(rec: dict) -> bool:
     """True when the call cost the buyer: a delivery receipt, or a successful settlement without one."""
-    if isinstance(rec.get("receipt"), dict):
+    if isinstance(rec.get("receipt"), dict) or isinstance(rec.get("escrow_receipt"), dict):
         return True
     pr = rec.get("payment_response")
     return isinstance(pr, dict) and bool(pr.get("success"))
@@ -27,6 +27,8 @@ def charged(rec: dict) -> bool:
 def charged_onchain(rec: dict) -> bool:
     """Reconciled with the payer's on-chain USDC transfers (rule v2, amendment 1): every call was
     paid except those the node refused before payment (HTTP 503, could not route)."""
+    if rec.get("rail") == "escrow":  # escrow bills delivered answers only (amendment 4): its receipt is the charge
+        return isinstance(rec.get("escrow_receipt"), dict)
     return rec.get("http") != 503
 
 

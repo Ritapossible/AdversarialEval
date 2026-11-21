@@ -79,6 +79,10 @@ class Measures(unittest.TestCase):
         self.assertTrue(charged_onchain({"http": 504}))
         self.assertTrue(charged_onchain({"http": None}))
         self.assertFalse(charged_onchain({"http": 503}))
+        # escrow rail (amendment 4): only a delivered answer with a receipt is billed
+        self.assertTrue(charged({"escrow_receipt": {"amount_uusdc": "10000"}}))
+        self.assertTrue(charged_onchain({"rail": "escrow", "http": 200, "escrow_receipt": {"amount_uusdc": "10000"}}))
+        self.assertFalse(charged_onchain({"rail": "escrow", "http": 504}))
 
     def test_id_match(self):
         self.assertTrue(id_match(AFF, rec("Insecure", 1, ["ghsa-aaaa-bbbb-cccc"])))

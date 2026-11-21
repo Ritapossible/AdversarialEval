@@ -34,6 +34,7 @@ const { values: opt } = parseArgs({
     audit: { type: "string", default: join(HERE, "..", "eval", "reports", "raw", "2026-11-15-miner-audit.json") },
     out: { type: "string", default: join(HERE, "out") },
     concurrency: { type: "string", default: "1" },
+    rail: { type: "string", default: "x402" }, // x402 (exact, per-call settlement) or escrow (rule v2 amendment 4)
     "dry-run": { type: "boolean", default: false },
   },
 });
@@ -74,6 +75,31 @@ const payFetch = wrapFetchWithPaymentFromConfig(fetch, {
 });
 console.log(`payer ${account.address}`);
 
+// Escrow rail (anjoman.ai/docs/using/escrow-inference): sign the node's own template with
+// personal_sign and send it in X-PAYMENT. Failed requests are not billed; receipts come back in
+// X-PAYMENT-RESPONSE. The amount is read from the template and must match it exactly.
+async function escrowFetch(url, init) {
+  const first = await fetch(url, init);
+  if (first.status !== 402) return first;
+  const challenge = await first.clone().json().catch(() => null);
+  const offer = challenge?.accepts?.find((x) => x.scheme === "escrow");
+  if (!offer) return first;
+  const template = offer.extra.message;
+  const amount = template.match(/Amount:\s*(\d+)\s*uUSDC/)[1];
+  if (Number(amount) > 20000) throw new Error(`escrow price ${amount} uUSDC is over the $0.02 cap`);
+  const now = Math.floor(Date.now() / 1000);
+  const auth = { from: account.address.toLowerCase(), to: offer.payTo, value: amount,
+    validAfter: String(now - 5), validBefore: String(now + 100), nonce: crypto.randomUUID() };
+  const message = template.replace("{from}", auth.from).replace("{nonce}", auth.nonce)
+    .replace("{validAfter}", auth.validAfter).replace("{validBefore}", auth.validBefore);
+  const signature = await account.signMessage({ message });
+  const header = Buffer.from(JSON.stringify({ x402Version: 2, scheme: "escrow", network: offer.network,
+    payload: { signature, authorization: auth } })).toString("base64");
+  return fetch(url, { ...init, headers: { ...init.headers, "X-PAYMENT": header } });
+}
+const pay = opt.rail === "escrow" ? escrowFetch : payFetch;
+console.log(`rail ${opt.rail}`);
+
 const decode = (v) => {
   if (!v) return null;
   try { return JSON.parse(Buffer.from(v, "base64").toString("utf8")); } catch { return v.slice(0, 500); }
@@ -84,7 +110,7 @@ async function call(c, t) {
   const started = Date.now();
   let rec = { case: c.id, miner_id: t.id, miner: t.slug, rank: t.rank, node_score: t.score, target: c.target, at: new Date().toISOString() };
   try {
-    const res = await payFetch(url, {
+    const res = await pay(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ intent: INTENT, params: { target: c.target } }),
@@ -95,6 +121,7 @@ async function call(c, t) {
     rec = { ...rec, http: res.status, wall_ms: Date.now() - started,
       receipt: decode(res.headers.get("x-telegraph-receipt")),
       payment_response: decode(res.headers.get("payment-response")),
+      escrow_receipt: decode(res.headers.get("x-payment-response")), rail: opt.rail,
       routed_miner: body.miner_id ?? null, routed_name: body.miner_name ?? null,
       result: body.result ?? null, field_status: body.field_status ?? null, result_shape: body.result_shape ?? null,
       cost_usd: body.cost_usd ?? null, duration_ms: body.duration_ms ?? null, signal_hash: body.signal_hash ?? null,
