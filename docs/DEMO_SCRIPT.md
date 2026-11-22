@@ -74,12 +74,13 @@ Scene 4's evidence instead.)
 
 **Screen:** the comparison report's two result tables.
 
-> "Telegraph asked us to test with and without it. On 12 popular packages, trusting the ranked
-> answer got 4 of 7 right and shipped two vulnerable versions. With the free check, 12 of 12. The
-> Mind on its own, with web search, also got 12 of 12, but took twice as long and nothing was
-> machine-checked. On harder cases, Go, Rust, Ruby and packages that don't exist, trusting the
-> route got 7 of 14 and approved both fake packages; with the check, 12 of 14 and nothing unsafe
-> was approved. The two Go versions both providers got wrong went to a person."
+> "Telegraph asked us to test with and without it. On 26 packages, trusting the ranked answer
+> as-is got 11 of the 21 it answered right, missed three vulnerable versions and approved two
+> packages that don't exist. With the free check, nothing unsafe was approved. And the honest
+> part: the Mind on its own, looking up OSV directly, got all 26 right. For known package
+> vulnerabilities, a free lookup is the bar, and our benchmark shows only one paid miner beats
+> it. So the check matters: it stops wrong paid answers from becoming decisions. Code review,
+> where there's nothing free to look up, is where we test next."
 
 ## Scene 6. It keeps watching (2:30 to 2:45)
 
