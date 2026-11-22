@@ -1,19 +1,31 @@
 #!/usr/bin/env python3
 """Verified Ask HTTP API (standard library only).
 
-    python -m verify.server [--port 8402] [--cache verify-cache.json]
+    VERIFY_TOKEN=<secret> python -m verify.server [--host 127.0.0.1] [--port 8402] [--cache verify-cache.json]
 
-    POST /v1/verify  {"target": "pkg:npm/lodash@4.17.23", "result": {<the miner's SECURITY_REVIEW result>}}
+    POST /v1/verify  {"target": "pkg:npm/lodash@4.17.23", "result": {<the miner's SECURITY_REVIEW result>},
+                      "strict_count": false}
       -> {"label": "verified" | "contradicted" | "unconfirmed" | "invalid" | "unchecked", "checks": [...], ...}
     GET  /healthz
 
 A buyer (person or agent) calls a miner as usual, then posts the target and the miner's `result`
 here before acting on it. Only public data is consulted (OSV, deps.dev, rubygems.org).
+
+Exposure rules (it makes outbound calls for its callers, so it must not become an open proxy):
+- Bound to anything other than loopback, it refuses to start unless VERIFY_TOKEN is set; every
+  request must then send `Authorization: Bearer <token>`.
+- Each client address gets --rate requests per minute (default 60); beyond that, 429.
+- Upstream calls are capped at 8 at once, and answers are cached.
 """
 from __future__ import annotations
 
 import argparse
+import hmac
+import ipaddress
 import json
+import os
+import threading
+import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -31,10 +43,51 @@ def handle(path: str, body: bytes, src) -> tuple[int, dict]:
         req = json.loads(body)
     except (json.JSONDecodeError, UnicodeDecodeError):
         return 400, {"error": "body must be JSON"}
-    target, result = (req.get("target"), req.get("result")) if isinstance(req, dict) else (None, None)
+    if not isinstance(req, dict):
+        return 400, {"error": "body must be a JSON object"}
+    target, result = req.get("target"), req.get("result")
     if not isinstance(target, str) or not target or len(target.encode()) > MAX_TARGET:
         return 400, {"error": f"target must be a non-empty string of at most {MAX_TARGET} bytes"}
-    return 200, verify(target, result if isinstance(result, dict) else None, src).to_dict()
+    strict = req.get("strict_count", False)
+    if not isinstance(strict, bool):
+        return 400, {"error": "strict_count must be true or false"}
+    return 200, verify(target, result if isinstance(result, dict) else None, src, strict_count=strict).to_dict()
+
+
+def authorized(header: str | None, token: str | None) -> bool:
+    if not token:
+        return True
+    want = f"Bearer {token}"
+    return isinstance(header, str) and hmac.compare_digest(header.encode(), want.encode())
+
+
+class RateLimiter:
+    """Fixed one-minute window per client address."""
+
+    def __init__(self, per_minute: int):
+        self.per_minute, self.hits, self.lock = per_minute, {}, threading.Lock()
+
+    def allow(self, client: str, now: float | None = None) -> bool:
+        window = int((now if now is not None else time.time()) // 60)
+        with self.lock:
+            w, n = self.hits.get(client, (window, 0))
+            if w != window:
+                w, n = window, 0
+            if n >= self.per_minute:
+                return False
+            self.hits[client] = (w, n + 1)
+            if len(self.hits) > 10_000:  # forget old windows
+                self.hits = {k: v for k, v in self.hits.items() if v[0] == window}
+            return True
+
+
+def is_loopback(host: str) -> bool:
+    if host == "localhost":
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
 
 
 def main() -> None:
@@ -42,8 +95,14 @@ def main() -> None:
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8402)
     ap.add_argument("--cache", type=Path)
+    ap.add_argument("--rate", type=int, default=60, help="requests per minute per client address")
     a = ap.parse_args()
+    token = os.environ.get("VERIFY_TOKEN") or None
+    if not is_loopback(a.host) and not token:
+        raise SystemExit(f"refusing to listen on {a.host} without VERIFY_TOKEN: it would be an open proxy to OSV and deps.dev")
     src = LiveSources(a.cache)
+    limiter = RateLimiter(a.rate)
+    last_save = [time.time()]
 
     class H(BaseHTTPRequestHandler):
         def _send(self, status: int, obj: dict) -> None:
@@ -58,16 +117,28 @@ def main() -> None:
             self._send(200, {"ok": True}) if self.path == "/healthz" else self._send(404, {"error": "not found"})
 
         def do_POST(self):
-            n = int(self.headers.get("Content-Length") or 0)
-            if n > MAX_BODY:
+            if not authorized(self.headers.get("Authorization"), token):
+                return self._send(401, {"error": "missing or wrong bearer token"})
+            if not limiter.allow(self.client_address[0]):
+                return self._send(429, {"error": f"over {a.rate} requests per minute"})
+            try:
+                n = int(self.headers.get("Content-Length") or 0)
+            except ValueError:
+                return self._send(400, {"error": "bad Content-Length"})
+            if n > MAX_BODY or n < 0:
                 return self._send(413, {"error": "body too large"})
             status, obj = handle(self.path, self.rfile.read(n), src)
             self._send(status, obj)
-            if a.cache:
+            if a.cache and time.time() - last_save[0] > 30:  # the cache is MBs: save at most twice a minute
+                last_save[0] = time.time()
                 src.save()
 
-    print(f"Verified Ask on http://{a.host}:{a.port}/v1/verify")
-    ThreadingHTTPServer((a.host, a.port), H).serve_forever()
+    print(f"Verified Ask on http://{a.host}:{a.port}/v1/verify" + (" (token required)" if token else ""))
+    try:
+        ThreadingHTTPServer((a.host, a.port), H).serve_forever()
+    finally:
+        if a.cache:
+            src.save()
 
 
 if __name__ == "__main__":

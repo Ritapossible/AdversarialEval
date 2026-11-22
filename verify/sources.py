@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import os
 import ssl
+import tempfile
 import threading
 import urllib.error
 import urllib.parse
@@ -31,15 +32,27 @@ def _ssl_context() -> ssl.SSLContext:
 
 
 class LiveSources:
-    def __init__(self, cache_path: Path | None = None, offline: bool = False, timeout: float = 30):
+    def __init__(self, cache_path: Path | None = None, offline: bool = False, timeout: float = 30, max_upstream: int = 8):
         self.cache_path, self.offline, self.timeout = cache_path, offline, timeout
         self.cache: dict[str, dict] = json.loads(cache_path.read_text()) if cache_path and cache_path.exists() else {}
         self._lock = threading.Lock()
+        self._upstream = threading.BoundedSemaphore(max_upstream)  # never more than this many calls to OSV etc. at once
         self._ctx = _ssl_context()
 
     def save(self) -> None:
-        if self.cache_path:
-            self.cache_path.write_text(json.dumps(self.cache, indent=0, sort_keys=True) + "\n")
+        """Atomic: write a temp file next to the cache, then rename over it, so a crash can't corrupt it."""
+        if not self.cache_path:
+            return
+        with self._lock:
+            data = json.dumps(self.cache, indent=0, sort_keys=True) + "\n"
+        fd, tmp = tempfile.mkstemp(dir=self.cache_path.parent, prefix=self.cache_path.name + ".")
+        try:
+            with os.fdopen(fd, "w") as f:
+                f.write(data)
+            os.replace(tmp, self.cache_path)
+        except BaseException:
+            Path(tmp).unlink(missing_ok=True)
+            raise
 
     def _get(self, url: str, body: dict | None = None) -> tuple[int, object] | None:
         """(status, parsed JSON) or None when unavailable. 404 is an answer, not an error."""
@@ -53,7 +66,7 @@ class LiveSources:
         req = urllib.request.Request(url, data=json.dumps(body).encode() if body else None,
                                      headers={"Content-Type": "application/json", "User-Agent": "verified-ask/0.1"})
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout, context=self._ctx) as r:
+            with self._upstream, urllib.request.urlopen(req, timeout=self.timeout, context=self._ctx) as r:
                 out = (r.status, json.loads(r.read() or b"null"))
         except urllib.error.HTTPError as e:
             if e.code != 404:

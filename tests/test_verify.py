@@ -121,6 +121,53 @@ class Labels(unittest.TestCase):
         self.assertEqual(v.label, "unconfirmed")
 
 
+class StrictCount(unittest.TestCase):
+    def test_strict_count(self):
+        twins = [JINJA, {"id": "PYSEC-2026-1471", "aliases": ["CVE-2025-27516"],
+                         "affected": [{"package": {"ecosystem": "PyPI", "name": "jinja2"}}]}]
+        f = Fake()
+        f.osv_query = lambda pkg: twins
+        # two OSV records for one vulnerability: 1 and 2 are both right
+        self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1), f, strict_count=True).label, "verified")
+        self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 2), f, strict_count=True).label, "verified")
+        self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 5), f, strict_count=True).label, "unconfirmed")
+        self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 5), f).label, "verified")  # default: info only
+
+
+class Hardening(unittest.TestCase):
+    def test_token(self):
+        from verify.server import authorized
+        self.assertTrue(authorized(None, None))
+        self.assertTrue(authorized("Bearer s3cret", "s3cret"))
+        self.assertFalse(authorized("Bearer wrong", "s3cret"))
+        self.assertFalse(authorized(None, "s3cret"))
+
+    def test_rate_limit(self):
+        from verify.server import RateLimiter
+        r = RateLimiter(2)
+        self.assertEqual([r.allow("a", 0), r.allow("a", 1), r.allow("a", 2), r.allow("b", 2)], [True, True, False, True])
+        self.assertTrue(r.allow("a", 61))  # next minute
+
+    def test_public_bind_needs_token(self):
+        import os
+        import subprocess
+        env = {k: v for k, v in os.environ.items() if k != "VERIFY_TOKEN"}
+        p = subprocess.run([sys.executable, "-m", "verify.server", "--host", "0.0.0.0", "--port", "0"],
+                           cwd=ROOT, env=env, capture_output=True, text=True, timeout=30)
+        self.assertNotEqual(p.returncode, 0)
+        self.assertIn("refusing", p.stderr)
+
+    def test_atomic_cache(self):
+        import tempfile
+        from verify.sources import LiveSources
+        d = Path(tempfile.mkdtemp())
+        s = LiveSources(d / "c.json", offline=True)
+        s.cache["k"] = {"status": 200, "json": [1]}
+        s.save()
+        self.assertEqual(json.loads((d / "c.json").read_text())["k"]["json"], [1])
+        self.assertEqual([p.name for p in d.iterdir()], ["c.json"])  # no temp file left behind
+
+
 class Server(unittest.TestCase):
     def test_verify_endpoint(self):
         from verify.server import handle
@@ -129,6 +176,8 @@ class Server(unittest.TestCase):
         self.assertEqual(handle("/v1/verify", b"not json", Fake())[0], 400)
         self.assertEqual(handle("/v1/verify", json.dumps({"target": "x" * 300, "result": {}}).encode(), Fake())[0], 400)
         self.assertEqual(handle("/nope", b"{}", Fake())[0], 404)
+        self.assertEqual(handle("/v1/verify", b"[1]", Fake())[0], 400)
+        self.assertEqual(handle("/v1/verify", json.dumps({"target": "pkg:pypi/jinja2@3.1.6", "strict_count": "yes"}).encode(), Fake())[0], 400)
 
 
 class Replay(unittest.TestCase):

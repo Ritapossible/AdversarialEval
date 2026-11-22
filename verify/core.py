@@ -9,7 +9,8 @@ A package answer is checked on four points:
   3. verdict:   "vulnerable" or "clean" agrees with what OSV lists for that exact version
   4. citations: every advisory id the answer cites exists and applies to this package and version
 
-Each check returns pass, fail, warn, skip or info (info never changes the label). The label is:
+Each check returns pass, fail, warn, skip or info (info never changes the label). A count that
+differs from OSV's is info by default and a warning with strict_count=True. The label is:
   contradicted  any check failed: public data says the answer is wrong
   verified      every check that ran passed, and the verdict and existence checks both ran
   unconfirmed   nothing failed, but something could not be confirmed (a warning or a skipped check)
@@ -131,7 +132,22 @@ def _applies(record: dict, pkg: Package) -> bool:
     return False
 
 
-def verify(target: str, result: dict | None, src: Sources) -> Verdict:
+def _distinct(vulns: list[dict]) -> int:
+    """Number of distinct vulnerabilities: OSV records that share an id or alias count once."""
+    groups: list[set[str]] = []
+    for x in vulns:
+        ids = {x["id"].upper(), *(a.upper() for a in x.get("aliases", []))}
+        hit = [g for g in groups if g & ids]
+        for g in hit:
+            ids |= g
+            groups.remove(g)
+        groups.append(ids)
+    return len(groups)
+
+
+def verify(target: str, result: dict | None, src: Sources, strict_count: bool = False) -> Verdict:
+    """strict_count: the count must equal OSV's (records, or distinct vulnerabilities once aliases
+    are merged); otherwise a mismatch is only reported, because miners count aliases differently."""
     pkg = parse_target(target)
     v = Verdict(label="unchecked", target=target, package=asdict(pkg) if pkg else None)
     if not isinstance(result, dict) or result.get("verdict") not in VERDICTS:
@@ -183,8 +199,13 @@ def verify(target: str, result: dict | None, src: Sources) -> Verdict:
             v.checks.append(Check("verdict", "fail", f"says 'Secure', but OSV lists {_n(n)}: {', '.join(v.osv_ids[:5])}"))
         else:
             v.checks.append(Check("verdict", "pass", f"OSV lists {_n(n)} for this version"))
-        if count is not None and n and says_vulnerable and count != n:
-            v.checks.append(Check("count", "info", f"count {count}, OSV lists {n} records (aliases may be counted once)"))
+        if count is not None and n and says_vulnerable:
+            d = _distinct(vulns)
+            if count not in (n, d):
+                v.checks.append(Check("count", "warn" if strict_count else "info",
+                                      f"count {count}, OSV lists {_n(n)} ({d} distinct once aliases are merged)"))
+            elif strict_count:
+                v.checks.append(Check("count", "pass", f"count {count} matches OSV"))
 
     # 4. every cited advisory id is real and about this package and version
     ids, placeholders = cited_ids(result)
