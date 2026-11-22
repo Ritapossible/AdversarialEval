@@ -230,6 +230,9 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
             full = vid.split("-")[0] in _FULL_MIRRORS
             v.checks.append(Check("citation", "fail" if full else "warn",
                                   f"{vid} does not exist in OSV" + ("" if full else " (OSV doesn't carry every CVE)")))
+        elif not any(a.get("package", {}).get("name") for a in rec.get("affected", [])):
+            # bare CVE records (imported from NVD) name no package: OSV can't confirm or refute it
+            v.checks.append(Check("citation", "warn", f"{vid} exists, but OSV's record names no package to confirm it applies"))
         elif not _applies(rec, pkg):
             names = sorted({f"{a.get('package', {}).get('ecosystem')}/{a.get('package', {}).get('name')}"
                             for a in rec.get("affected", [])})[:3]

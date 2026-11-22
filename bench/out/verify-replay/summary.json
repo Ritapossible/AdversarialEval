@@ -9,23 +9,23 @@
  "labels_all_delivered": {
   "verified": 220,
   "invalid": 899,
-  "unconfirmed": 47,
-  "contradicted": 105,
+  "unconfirmed": 50,
+  "contradicted": 102,
   "unchecked": 145
  },
  "package_questions_delivered": 1049,
  "labels_package_delivered": {
   "verified": 220,
   "invalid": 677,
-  "unconfirmed": 47,
-  "contradicted": 105
+  "unconfirmed": 50,
+  "contradicted": 102
  },
  "graded_package_answers_with_verdict": 364,
  "wrong": 142,
- "wrong_contradicted": 95,
+ "wrong_contradicted": 92,
  "wrong_labels": {
-  "unconfirmed": 47,
-  "contradicted": 95
+  "unconfirmed": 50,
+  "contradicted": 92
  },
  "correct": 222,
  "correct_contradicted": 2,
@@ -37,12 +37,12 @@
   "verdict": 85,
   "exists": 8,
   "fields": 40,
-  "citation": 14
+  "citation": 7
  },
- "answers_with_bad_citation": 13,
+ "answers_with_bad_citation": 7,
  "bad_citation_by_miner": {
-  "txlens": 9,
-  "vulnrank-triage": 4
+  "vulnrank-triage": 4,
+  "txlens": 3
  },
  "unknown_cases": {
   "confident clean -> contradicted": 4,

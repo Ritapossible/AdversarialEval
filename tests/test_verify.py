@@ -100,6 +100,11 @@ class Labels(unittest.TestCase):
         # real advisory, right package, wrong version
         v = verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1, ["GHSA-h5c8-rqwp-cp95"]), f)
         self.assertIn("not version 3.1.5", [c.detail for c in v.checks if c.status == "fail"][0])
+        # a bare CVE record that names no package: only a warning
+        f2 = Fake()
+        f2.osv_vuln = lambda vid: {"id": vid, "affected": []} if vid == "CVE-2026-11111" else False
+        v = verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1, ["CVE-2026-11111"]), f2)
+        self.assertEqual((v.label, failed(v)), ("unconfirmed", []))
         # unknown CVE: OSV lacks some CVEs, so only a warning
         v = verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1, ["CVE-2026-99999"]), f)
         self.assertEqual(v.label, "unconfirmed")
@@ -248,7 +253,7 @@ class Replay(unittest.TestCase):
                         str(ROOT / "bench/out/round-4"), "--out", str(tmp), "--offline"], cwd=ROOT, check=True, capture_output=True)
         got = json.loads((tmp / "summary.json").read_text())
         self.assertEqual(got, json.loads((out / "summary.json").read_text()))
-        self.assertEqual((got["wrong"], got["wrong_contradicted"], got["correct"], got["correct_contradicted"]), (142, 95, 222, 2))
+        self.assertEqual((got["wrong"], got["wrong_contradicted"], got["correct"], got["correct_contradicted"]), (142, 92, 222, 2))
         self.assertEqual(got["wrong_labels"].get("verified", 0), 0)  # the headline claim
 
 

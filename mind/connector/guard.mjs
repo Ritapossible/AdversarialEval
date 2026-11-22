@@ -73,7 +73,8 @@ async function ask(target, minerId) {
     const r = body.result || {};
     return { http: res.status, ms: Date.now() - started, miner: r.miner_name ?? null, miner_id: r.miner_id ?? null,
       result: r.result ?? null, cost_usd: r.cost_usd_total ?? r.cost_usd ?? 0, receipt: body.receipt ?? null,
-      signal_hash: r.signal_hash ?? null, error: body.error ?? body.message ?? null };
+      signal_hash: r.signal_hash ?? null,
+      error: res.ok ? null : [body.error, Array.isArray(body.message) ? body.message.join("; ") : body.message].filter(Boolean).join(": ") || null };
   } catch (e) {
     return { http: null, ms: Date.now() - started, result: null, cost_usd: 0, receipt: null, error: String(e?.message || e) };
   }
@@ -93,6 +94,16 @@ function decide(label, result) {
   return null;  // contradicted, invalid or unavailable: re-ask once, then FLAG
 }
 
+// A routed ask reserves ROUTE_HOLD_USD up front (Anjoman refuses it below that balance, HTTP 400),
+// though it charges only the miner's price. Below the hold, ask the fallback miner directly.
+const ROUTE_HOLD_USD = 0.26;
+async function effectiveBalance() {
+  try {
+    const r = await fetch(`${ANJOMAN}/engine/escrow/balance`, { headers: anjomanHeaders, signal: AbortSignal.timeout(20_000) });
+    return Number((await r.json()).effectiveBalance);
+  } catch { return null; }
+}
+
 // ---------- run ----------
 const run = { at: new Date().toISOString(), intent: INTENT, policy: "one ranked ask; re-ask one other provider only if the free check proves it wrong",
   max_spend_usd: maxSpend, packages: [] };
@@ -101,12 +112,15 @@ for (const target of targets) {
   const pkg = { target, attempts: [] };
   run.packages.push(pkg);
   if (spent + 0.01 > maxSpend + 1e-9) { pkg.decision = "NOT CHECKED"; pkg.reason = `spending cap $${maxSpend} reached`; continue; }
-  let a = await ask(target);
+  const bal = await effectiveBalance();
+  const routed = bal === null || bal >= ROUTE_HOLD_USD;
+  if (!routed) pkg.note = `balance $${bal} is below the $${ROUTE_HOLD_USD} routed hold; asked ${FALLBACK_MINER.name} directly`;
+  let a = await ask(target, routed ? undefined : FALLBACK_MINER.id);
   spent += Number(a.cost_usd) || 0;
   let v = check(target, a.result);
   pkg.attempts.push({ ...a, label: v.label, checks: v.checks });
   let d = decide(v.label, a.result);
-  if (!d && spent + 0.01 <= maxSpend + 1e-9 && String(a.miner_id) !== FALLBACK_MINER.id) {
+  if (!d && routed && spent + 0.01 <= maxSpend + 1e-9 && String(a.miner_id) !== FALLBACK_MINER.id) {
     a = await ask(target, FALLBACK_MINER.id);
     spent += Number(a.cost_usd) || 0;
     v = check(target, a.result);

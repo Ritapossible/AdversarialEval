@@ -3,6 +3,86 @@
  "alias": "dependency-guard",
  "sent_at": "2026-11-22T13:01:55.631Z",
  "sent": "Baseline test (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse any earlier verdicts from our chats. Use only your own knowledge and your own web search.\n\nFor each package version below, decide: BLOCK if it has at least one known published vulnerability, PASS if it has none, FLAG if you can't tell. Reply with exactly one line per package in the form `<purl> | <PASS/BLOCK/FLAG> | <advisory ids or reason>`, then one line with your confidence. Keep it short.\n\npkg:pypi/jinja2@3.1.5\npkg:pypi/jinja2@3.1.6\npkg:pypi/pyyaml@5.1.2\npkg:pypi/pyyaml@6.0.3\npkg:npm/lodash@4.17.23\npkg:npm/lodash@4.18.1\npkg:npm/minimist@1.2.5\npkg:npm/minimist@1.2.8\npkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6\npkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0\npkg:maven/org.yaml/snakeyaml@1.9\npkg:maven/org.yaml/snakeyaml@2.7",
- "reply": null,
- "replied_at": "2026-11-22T13:06:57.200Z"
+ "reply": "pkg:pypi/jinja2@3.1.5 | BLOCK | CVE-2025-27516 (GHSA-cpwx-vrp4-4pq7) sandbox escape via the attr filter; fixed in 3.1.6<br>pkg:pypi/jinja2@3.1.6 | PASS | no advisory names 3.1.6; it is the fix release for CVE-2025-27516<br>pkg:pypi/pyyaml@5.1.2 | BLOCK | CVE-2020-1747 and CVE-2020-14343, arbitrary code execution through full_load; fixed in 5.3.1 and 5.4<br>pkg:pypi/pyyaml@6.0.3 | PASS | no known advisories against 6.0.3<br>pkg:npm/lodash@4.17.23 | BLOCK | CVE-2026-2950 (array-path bypass of the _.unset/_.omit fix) and CVE-2026-4800 (_.template code injection); fixed in 4.18.1<br>pkg:npm/lodash@4.18.1 | PASS | no advisory names 4.18.1; it clears CVE-2026-2950 (affects &lt;4.18.1) and CVE-2026-4800<br>pkg:npm/minimist@1.2.5 | BLOCK | CVE-2021-44906 (GHSA-xvch-5gv4-984h) prototype pollution; fixed in 1.2.6<br>pkg:npm/minimist@1.2.8 | PASS | above the 1.2.6 fix; no advisory names 1.2.8<br>pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6 | BLOCK | GHSA-cxp5-3px4-pw24 (patched 2.21.7), CVE-2026-91776 and CVE-2026-110879 (both patched 2.21.8)<br>pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0 | PASS | no advisory names 2.23.0 and it postdates every known 2.x fix, but it shipped 2026-11-08, so this is absence of evidence<br>pkg:maven/org.yaml/snakeyaml@1.9 | BLOCK | CVE-2022-1471 unsafe-constructor RCE (fixed 2.0) and CVE-2022-25857 DoS (fixed 1.31)<br>pkg:maven/org.yaml/snakeyaml@2.7 | PASS | no known CVE applies to 2.7; CVE-2022-1471 was cleared at 2.0<br>Confidence: high on the eight that pin to a named advisory or a named fix; medium on lodash 4.18.1, jackson-databind 2.23.0 and snakeyaml 2.7, where PASS means \"no advisory found for a recent release\" rather than a published clean bill. Method: registry checks for whether each version exists (lodash 4.17.23, lodash 4.18.1, jackson-databind 2.23.0 and snakeyaml 2.7 all really do - worth knowing before anyone calls them typos), then GHSA/NVD/vendor write-ups. No Anjoman, no Verified Ask, nothing reused from our earlier chats.",
+ "replied_at": "2026-11-22T13:11:51.408Z",
+ "note": "reply arrived after the 5-minute client wait; fetched from conversation history",
+ "verified_ask_on_mind_claims": [
+  {
+   "target": "pkg:pypi/jinja2@3.1.5",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:pypi/jinja2@3.1.6",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:pypi/pyyaml@5.1.2",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:pypi/pyyaml@6.0.3",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:npm/lodash@4.17.23",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:npm/lodash@4.18.1",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.5",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.8",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6",
+   "decision": "BLOCK",
+   "label": "unconfirmed",
+   "not_confirmed": [
+    "CVE-2026-110879 exists, but OSV's record names no package to confirm it applies"
+   ]
+  },
+  {
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:maven/org.yaml/snakeyaml@1.9",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:maven/org.yaml/snakeyaml@2.7",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  }
+ ],
+ "latency_s": 596,
+ "credits_used_approx": 9.07,
+ "credits_note": "Minds cognition usage in the 13:00 UTC hour (1 LLM turn, 5 web searches), from /cognition/usage-by-tool"
 }

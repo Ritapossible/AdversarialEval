@@ -40,15 +40,15 @@ step), not a lookup.
 | Benchmark grade | Answers | verified | unconfirmed | contradicted |
 |---|---:|---:|---:|---:|
 | correct | 222 | **220** | 0 | 2 |
-| wrong | 142 | **0** | 47 | 95 |
+| wrong | 142 | **0** | 50 | 92 |
 
 Per round (correct verified / wrong verified): round 2 43 / 0, round 3 69 / 0, round 4 108 / 0.
 
 - **No wrong answer was labelled verified, in any round, and every verified answer was correct
   (220 of 220).**
-- 95 of the 142 wrong answers were contradicted outright. The other 47 had the right direction but
-  no `vulnerability_count`, which the benchmark grades as wrong; the verifier says unconfirmed and
-  names the missing field.
+- 92 of the 142 wrong answers were contradicted outright. The other 50 had the right direction but
+  were missing a `vulnerability_count` or cited a CVE that OSV can't tie to a package; the verifier
+  says unconfirmed and names what it couldn't confirm.
 - The two correct answers that were contradicted are real catches, not false alarms. Both are
   vulnrank-triage on gin 1.5.0 (rounds 3 and 4): right verdict, but it cites `GO-2026-5932`, an
   advisory about `golang.org/x/crypto`. The benchmark's grade doesn't check citations.
@@ -60,9 +60,9 @@ Per round (correct verified / wrong verified): round 2 43 / 0, round 3 69 / 0, r
 | verdict disagrees with OSV | 85 |
 | fields contradict each other | 40 |
 | version was never published | 8 |
-| bad citation (placeholder, wrong package) | 13 answers, 14 citations |
+| bad citation (placeholder, wrong package) | 7 answers, 7 citations |
 
-- Bad citations came from two miners: txlens (9 answers, placeholder ids such as `CVE-2020-...`)
+- Bad citations came from two miners: txlens (3 answers, placeholder ids such as `CVE-2020-...`)
   and vulnrank-triage (4 answers, advisories about other packages).
 - The unpublished-version check catches 8 confident answers about a package or version that does
   not exist. Four were "Secure, 0 vulnerabilities" in round 2 (a1-preflight and the default route).
@@ -72,7 +72,16 @@ Per round (correct verified / wrong verified): round 2 43 / 0, round 3 69 / 0, r
 
 - Of 1,049 delivered answers to package questions, **677 (65%) had no usable verdict**. A buyer's
   code should reject those, and the label says so.
-- Of the rest, 220 come back verified, 105 contradicted with the reason, and 47 unconfirmed.
+- Of the rest, 220 come back verified, 102 contradicted with the reason, and 50 unconfirmed.
+
+## Correction (22 Nov, after round 4)
+
+The first count treated a cited CVE whose OSV record names no package (a bare record imported
+from NVD) as "about another package", a failure. OSV can't confirm or refute such a citation, so
+it is now a warning. Effect: 3 wrong answers move from contradicted to unconfirmed, and txlens's
+bad citations drop from 9 answers to 3 (the 6 were real CVEs, not wrong-package claims). The
+headline is unchanged: no wrong answer was labelled verified. Regression test in
+`tests/test_verify.py`.
 
 ## Limits
 
