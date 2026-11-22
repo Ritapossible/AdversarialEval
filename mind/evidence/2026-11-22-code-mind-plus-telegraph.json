@@ -1,0 +1,42 @@
+{
+ "mind": "38266542-f36b-1410-8467-00039ce7df11",
+ "alias": "dependency-guard",
+ "sent_at": "2026-11-22T14:18:17.909Z",
+ "sent": "Code review test D (\"Mind + Telegraph\"). Below are 12 snippets, each with the answer Telegraph's SECURITY_REVIEW miner (a1-preflight) gave when I paid for it. Treat that answer as evidence, not as truth: you may agree or overrule it. Don't use any tools or earlier verdicts.\n\nFor each snippet decide: BLOCK if it contains an exploitable security flaw as written, PASS if it does not. Reply with exactly one line per snippet: `<id> | <PASS/BLOCK> | <agree/overrule Telegraph> | <reason>`, then one line saying how many Telegraph answers you overruled. Keep it short.\n\nsnippet-01: Browser JS: document.getElementById('out').innerHTML = new URLSearchParams(location.search).get('q')\n  Telegraph: Insecure, vulnerability_count 1, issues [\"CWE-79 Cross-site Scripting (XSS)\"]\nsnippet-02: Node/Express: app.get('/f', (q, r) => r.sendFile(path.basename(q.query.name), { root: path.join(__dirname, 'files') }))\n  Telegraph: Insecure, vulnerability_count 2, issues [\"CWE-306 Missing Authentication\", \"CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\"]\nsnippet-03: Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = '\" + request.args['name'] + \"'\")\n  Telegraph: Insecure, vulnerability_count 1, issues [\"CWE-89\"]\nsnippet-04: Python: subprocess.run('ping -c 1 ' + request.args['host'], shell=True)\n  Telegraph: Insecure, vulnerability_count 1, issues [\"CWE-78\"]\nsnippet-05: Python: stored = hashlib.md5(password.encode()).hexdigest()  # user password storage\n  Telegraph: Insecure, vulnerability_count 2, issues [\"CWE-327 Use of a Broken or Risky Cryptographic Algorithm\", \"CWE-759 Use of a One-Way Hash without a Salt\"]\nsnippet-06: Node/Express: app.get('/f', (q, r) => r.sendFile(path.join(__dirname, 'files', q.query.name)))\n  Telegraph: Insecure, vulnerability_count 2, issues [\"CWE-22 Path Traversal\", \"CWE-73 External Control of File Name or Path\"]\nsnippet-07: Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = %s\", (request.args['name'],))\n  Telegraph: Needs changes, vulnerability_count 2, issues [\"CWE-200 Information Exposure\", \"CWE-20 Improper Input Validation\"]\nsnippet-08: Browser JS: document.getElementById('out').textContent = new URLSearchParams(location.search).get('q')\n  Telegraph: Secure, vulnerability_count 0, issues []\nsnippet-09: Python/Flask: data = json.loads(base64.b64decode(request.cookies['session']))\n  Telegraph: Insecure, vulnerability_count 2, issues [\"CWE-502 Deserialization of Untrusted Data\", \"CWE-345 Insufficient Verification of Data Authenticity\"]\nsnippet-10: Python: stored = bcrypt.hashpw(password.encode(), bcrypt.gensalt())  # user password storage\n  Telegraph: Secure, vulnerability_count 0, issues []\nsnippet-11: Python/Flask: data = pickle.loads(base64.b64decode(request.cookies['session']))\n  Telegraph: Insecure, vulnerability_count 1, issues [\"CWE-502\"]\nsnippet-12: Python: subprocess.run(['ping', '-c', '1', '--', request.args['host']], shell=False)\n  Telegraph: Secure, vulnerability_count 0, issues []",
+ "reply": "<p>All twelve read myself. No tools, nothing carried over from earlier answers.</p><p>snippet-01 | BLOCK | agree | innerHTML parses the query parameter as markup, so a script tag executes (CWE-79)<br>snippet-02 | PASS | overrule Telegraph | basename strips every separator before the file is resolved and root confines the resolve, so ../ can't climb out - CWE-22 doesn't hold. CWE-306 would apply to every route in the set; it isn't a flaw in this line<br>snippet-03 | BLOCK | agree | user input concatenated into SQL becomes SQL (CWE-89)<br>snippet-04 | BLOCK | agree | shell=True with concatenated input, so a semicolon or $( ) runs as a command (CWE-78)<br>snippet-05 | BLOCK | agree | unsalted MD5 for passwords: fast, precomputable, collision-prone - same defect family as CWE-327/759, I'd cite CWE-916/328<br>snippet-06 | BLOCK | agree | path.join with raw input resolves ../ straight out of the files directory (CWE-22; CWE-73 is the same defect named twice)<br>snippet-07 | PASS | overrule Telegraph | parameterised query with the value bound separately, so the parameter never becomes SQL. SELECT * is a design smell, not an exploitable flaw, and CWE-20 here is generic<br>snippet-08 | PASS | agree | textContent never parses markup (CWE-79 absent)<br>snippet-09 | PASS | overrule Telegraph | json.loads is data-only, there is no execution path on load, so CWE-502 is wrong. CWE-345 is a fair point but it's about the missing signature elsewhere, not this statement<br>snippet-10 | PASS | agree | bcrypt with a per-password salt - deliberately slow, correct shape for storage<br>snippet-11 | BLOCK | agree | pickle on a client-controlled cookie: arbitrary code execution on load (CWE-502)<br>snippet-12 | PASS | agree | argv list with shell=False, no shell parsing; the '--' is what stops a host like -f being read as a ping flag</p><p>Overruled Telegraph on 3 of 12 - 02, 07 and 09 - each because the miner counted a flaw that isn't in the line as written.</p>",
+ "replied_at": "2026-11-22T14:18:56.497Z",
+ "shuffle": {
+  "seed": 11,
+  "map": {
+   "snippet-01": "code-xss-vulnerable",
+   "snippet-02": "code-path-fixed",
+   "snippet-03": "code-sqli-vulnerable",
+   "snippet-04": "code-cmd-vulnerable",
+   "snippet-05": "code-hash-vulnerable",
+   "snippet-06": "code-path-vulnerable",
+   "snippet-07": "code-sqli-fixed",
+   "snippet-08": "code-xss-fixed",
+   "snippet-09": "code-deser-fixed",
+   "snippet-10": "code-hash-fixed",
+   "snippet-11": "code-deser-vulnerable",
+   "snippet-12": "code-cmd-fixed"
+  }
+ },
+ "decisions": {
+  "code-xss-vulnerable": "BLOCK",
+  "code-path-fixed": "PASS",
+  "code-sqli-vulnerable": "BLOCK",
+  "code-cmd-vulnerable": "BLOCK",
+  "code-hash-vulnerable": "BLOCK",
+  "code-path-vulnerable": "BLOCK",
+  "code-sqli-fixed": "PASS",
+  "code-xss-fixed": "PASS",
+  "code-deser-fixed": "PASS",
+  "code-hash-fixed": "PASS",
+  "code-deser-vulnerable": "BLOCK",
+  "code-cmd-fixed": "PASS"
+ },
+ "correct": 12,
+ "missed": 0,
+ "false_alarms": 0
+}

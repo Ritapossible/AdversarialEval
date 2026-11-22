@@ -1,0 +1,260 @@
+{
+ "at": "2026-11-22T14:15:26+00:00",
+ "arm": "miner 20260828",
+ "rule": "bench/RULE-v2.md grading (fixed code: not Insecure and count 0)",
+ "cases": [
+  {
+   "case": "code-sqli-vulnerable",
+   "cwe": "CWE-89",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 10010,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-89"
+    ],
+    "summary": "The code directly concatenates user input from request.args into an SQL query string, creating a severe SQL injection vulnerability. An attacker can manipulate the input to bypass authentication, access unauthorized data, or compromise the underlying database."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x82e74cdadd87265e1ecb50b6e147bf260744f24d8088c04881a78802c3d9be59",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-sqli-fixed",
+   "cwe": "CWE-89",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 12307,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-200 Information Exposure",
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The code safely parameterises the query, preventing SQL injection, but it still returns all columns from the users table, potentially leaking sensitive data such as password hashes. Additionally, the raw request argument is used without validation, which could lead to other attacks or resource exhaustion. Hardening the query and adding proper input checks and access controls will mitigate these risks."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x0026faded7353a3d7181dec0e706a82d7cb6200e2c5249ee6b8986ecbafe546d",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "code-xss-vulnerable",
+   "cwe": "CWE-79",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 12420,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-79 Cross-site Scripting (XSS)"
+    ],
+    "summary": "The code writes the raw 'q' query\u2011parameter value directly into innerHTML, allowing an attacker to inject malicious HTML or script via a crafted URL, resulting in reflected XSS. This can steal cookies, perform actions on behalf of the user, or load malicious content. Properly escaping or using textContent prevents the injection."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x9361001f60d3f80e2a1f253cea9ba9dc7c0a5da32d25e956ad1ea408637164a7",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-xss-fixed",
+   "cwe": "CWE-79",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 6789,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "The provided browser JavaScript uses `textContent` to output the query parameter value. Because `textContent` automatically escapes HTML entities, this pattern is not vulnerable to Cross-Site Scripting (XSS)."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xd3f73e56f7f27fa8d3d59856d43fcba41e1729e0f94b64b3e57af8406679fc68",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-path-vulnerable",
+   "cwe": "CWE-22",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 12624,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-22 Path Traversal",
+     "CWE-73 External Control of File Name or Path"
+    ],
+    "summary": "The endpoint builds a file path directly from a query parameter, enabling attackers to perform path\u2011traversal attacks and read arbitrary files on the server. This can expose sensitive configuration, source code, or other private data, constituting a critical security risk."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xba30a98270716fd5e57cd914ff63b0dfb06ac28f3ea0863bc1fe6f7609585e70",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-path-fixed",
+   "cwe": "CWE-22",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 8560,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-306 Missing Authentication",
+     "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    ],
+    "summary": "The endpoint allows anyone to request arbitrary files from the server's \"files\" directory, exposing data without any access control. Although path.basename strips directory components, it does not fully prevent path\u2011traversal or unintended file disclosure, and the lack of authentication makes the service openly exploitable. Proper authentication, whitelist validation, and safe path resolution are required to mitigate these risks."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xe7f313246d1ca9ac8bb0ef45dbe9e704377209e1a1e684c5a3c2c48143d0f247",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "code-cmd-vulnerable",
+   "cwe": "CWE-78",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 6744,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-78"
+    ],
+    "summary": "The code is vulnerable to OS Command Injection because it concatenates untrusted user input directly into a shell command string. An attacker can use shell metacharacters such as semicolons or pipes (e.g., '; rm -rf /') to execute arbitrary commands on the host system."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x0360ab32ea2e622a198fe3fc7a282ba128f1b8d30109f690e67bb95145f5d1a8",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-cmd-fixed",
+   "cwe": "CWE-78",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 5850,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "Using subprocess.run with shell=False and passing arguments as a list avoids command injection vulnerabilities. The use of the '--' delimiter further ensures that the user-supplied input is treated strictly as a positional argument rather than a flag, preventing option injection."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xaeb6b837519100a7c3c54dd725b91b4255233f1af3f4c461e90e9950cd71e2c7",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-deser-vulnerable",
+   "cwe": "CWE-502",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 8416,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-502"
+    ],
+    "summary": "Loading a cookie value with pickle enables an attacker to supply a crafted payload that triggers arbitrary code execution on the server, because pickle can execute __reduce__ or other magic methods. Replace pickle with a safe, signed serialization format (e.g., Flask's secure cookies or JSON with HMAC) to prevent remote code execution."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x0a5eaee0e992f23c2f315824292d5de3fde9bb09dccd3a94692d6b9f1f54ba42",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-deser-fixed",
+   "cwe": "CWE-502",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 5978,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-502 Deserialization of Untrusted Data",
+     "CWE-345 Insufficient Verification of Data Authenticity"
+    ],
+    "summary": "The code directly deserializes user-controlled data from a cookie without validation or integrity checks. This allows attackers to perform remote code execution if the deserialization library permits it, or at minimum, perform arbitrary privilege escalation by tampering with the session payload."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x3c26eee3bc4f834d03c5ccf85eebde3dff32eab3f94a0de58632e0c12520ae7c",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "code-hash-vulnerable",
+   "cwe": "CWE-916",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 5939,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-327 Use of a Broken or Risky Cryptographic Algorithm",
+     "CWE-759 Use of a One-Way Hash without a Salt"
+    ],
+    "summary": "MD5 is cryptographically broken and vulnerable to high-speed collision and preimage attacks, making it unsuitable for password storage. Furthermore, the lack of salting allows for precomputed rainbow table attacks, which can reveal user passwords almost instantaneously."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xd35e5a10f1a6649ff06efc218e5296a326d2ab0b6f3d33c256ccf82d01a0a6ca",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "code-hash-fixed",
+   "cwe": "CWE-916",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 6452,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "Using bcrypt.hashpw with bcrypt.gensalt() for password hashing is a secure and industry-standard practice in Python. It automatically incorporates a unique salt and uses a computationally intensive work factor to protect against brute-force and rainbow table attacks."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xf72d817118b6651e4e8d780c8aeb60fd937f067f8fc3de3847e9ca9a84cb925c",
+   "error": null,
+   "grade": "correct"
+  }
+ ],
+ "spent_usd": 0.12,
+ "correct": 9
+}

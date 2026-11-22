@@ -135,6 +135,45 @@ becoming decisions, and the benchmark shows a buyer which providers are worth pa
 not claim that buying Telegraph answers beats a free lookup on known package vulnerabilities; on
 22 Nov it didn't.
 
+## Third test: code review (no free oracle)
+
+The question where paid answers had the best case: is this code snippet exploitable? There is no
+free database to look it up, so Verified Ask doesn't apply. The 12 code cases from the benchmark
+(six CWEs: SQL injection, XSS, path traversal, command injection, unsafe deserialization, weak
+password hashing; each as a vulnerable line and its fix). The Mind saw the snippets in a shuffled
+order (fixed seeds 7 and 11, recorded in the evidence) so the vulnerable/fixed alternation gave
+nothing away.
+
+| Arm | Correct (of 12) | Missed flaws | False alarms | Time | Cost |
+|---|---:|---:|---:|---:|---:|
+| A: Mind alone | **12** | 0 | 0 | 29 s | about 5 Minds credits |
+| B: Telegraph's ranked route (benchmark rounds 2, 3, 4; earlier days) | 0, 1, 5 | | | | $0.01 to $0.02 each |
+| C: Telegraph's best miner by our benchmark (a1-preflight), asked directly | 9 | 0 | 3 | about 8 s per snippet | $0.12 |
+| D: Mind, shown C's answers as evidence | **12** | 0 | 0 | 39 s | $0.12 + about 5 credits |
+
+Evidence: [`code-a1preflight`](../../mind/evidence/2026-11-22-code-a1preflight.json),
+[`code-mind-alone`](../../mind/evidence/2026-11-22-code-mind-alone.json),
+[`code-mind-plus-telegraph`](../../mind/evidence/2026-11-22-code-mind-plus-telegraph.json).
+Runner: `python mind/code_review_test.py --miner 20260828 ...`. Arm B was not rerun live: a routed
+ask needs $0.26 free and the balance was $0.27 after the earlier tests.
+
+- **The best miner flagged every flaw but also three fixes** (the parameterised query, the
+  `basename`-confined file path, and `json.loads`). Same pattern as in the benchmark.
+- **Shown those answers, the Mind overruled exactly the three wrong ones**, with reasons
+  ("the miner counted a flaw that isn't in the line as written"), and agreed with the nine right
+  ones. Paid evidence didn't mislead it, and didn't improve on its own 12 of 12.
+- **Limit:** these are one-line textbook examples of each CWE. A capable model knows them well.
+  Real code review (whole functions, framework context, data flow across files) is harder, and
+  it is where a specialist would have to prove its price. This test doesn't reach that.
+
+## What the three tests say together (updated)
+
+On every question we could grade on 22 Nov (known package vulnerabilities in seven ecosystems,
+packages that don't exist, and textbook code flaws), **the Mind on its own matched or beat every
+way of buying Telegraph answers.** Trusting the ranked route was the worst option each time. What
+Telegraph plus Verified Ask did deliver: no wrong paid answer became a decision, a receipt for
+every call, and a second, independent source that a careful Mind can weigh and overrule.
+
 ## Running inside the Mind (same day)
 
 After Telegraph confirmed the route (Minds' own HTTP tool, the Anjoman key held as a private

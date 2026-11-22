@@ -1,0 +1,42 @@
+{
+ "mind": "38266542-f36b-1410-8467-00039ce7df11",
+ "alias": "dependency-guard",
+ "sent_at": "2026-11-22T14:17:31.522Z",
+ "sent": "Code review test (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse earlier verdicts. Review each snippet yourself.\n\nFor each snippet decide: BLOCK if it contains an exploitable security flaw as written, PASS if it does not. Reply with exactly one line per snippet in the form `<id> | <PASS/BLOCK> | <CWE or reason>`, then one line with your confidence. Keep it short.\n\nsnippet-01: Python: subprocess.run(['ping', '-c', '1', '--', request.args['host']], shell=False)\nsnippet-02: Python: stored = bcrypt.hashpw(password.encode(), bcrypt.gensalt())  # user password storage\nsnippet-03: Browser JS: document.getElementById('out').textContent = new URLSearchParams(location.search).get('q')\nsnippet-04: Python: stored = hashlib.md5(password.encode()).hexdigest()  # user password storage\nsnippet-05: Python/Flask: data = pickle.loads(base64.b64decode(request.cookies['session']))\nsnippet-06: Node/Express: app.get('/f', (q, r) => r.sendFile(path.join(__dirname, 'files', q.query.name)))\nsnippet-07: Python/Flask: data = json.loads(base64.b64decode(request.cookies['session']))\nsnippet-08: Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = %s\", (request.args['name'],))\nsnippet-09: Python/Flask: cur.execute(\"SELECT * FROM users WHERE name = '\" + request.args['name'] + \"'\")\nsnippet-10: Python: subprocess.run('ping -c 1 ' + request.args['host'], shell=True)\nsnippet-11: Browser JS: document.getElementById('out').innerHTML = new URLSearchParams(location.search).get('q')\nsnippet-12: Node/Express: app.get('/f', (q, r) => r.sendFile(path.basename(q.query.name), { root: path.join(__dirname, 'files') }))",
+ "reply": "<p>Read all twelve myself. No paid tools, nothing reused.</p><p>snippet-01 | PASS | argv list with shell=False, so no shell metacharacter parsing at all; the '--' terminator stops option parsing, which is what keeps a host like -f from being read as a ping flag (CWE-78 absent)<br>snippet-02 | PASS | bcrypt with a per-password salt - deliberately slow, the correct shape for password storage (CWE-916 absent)<br>snippet-03 | PASS | textContent never parses markup, so the parameter stays text (CWE-79 absent)<br>snippet-04 | BLOCK | unsalted MD5 for passwords - fast, collision-prone and precomputable (CWE-916, CWE-328)<br>snippet-05 | BLOCK | pickle on a client-controlled cookie: arbitrary code execution on load (CWE-502)<br>snippet-06 | BLOCK | path.join with raw user input resolves ../ straight out of the files directory (CWE-22)<br>snippet-07 | PASS | json.loads is data-only, there is no execution path on load (CWE-502 absent) - caveat below<br>snippet-08 | PASS | parameterised query with the value bound separately, not spliced in (CWE-89 absent)<br>snippet-09 | BLOCK | string concatenation into SQL, so the parameter becomes SQL (CWE-89)<br>snippet-10 | BLOCK | shell=True with concatenated input - a semicolon or $( ) runs as a command (CWE-78)<br>snippet-11 | BLOCK | innerHTML parses the parameter as markup, so a script tag executes (CWE-79)<br>snippet-12 | PASS | basename strips directory components and root confines the resolve, so ../ can't climb out - this is the correct fix for 06 (CWE-22 absent)</p><p>Confidence: high on all twelve as written.<br>Two things I'd rather say than bury: 07's parser is safe, but nothing in that snippet signs or verifies the cookie - my PASS means \"no code execution\", not \"trustworthy session\", and if that cookie isn't signed elsewhere it's an auth problem in the caller, not the parser. And 01 only holds because the '--' is there; take it out and the same line becomes argument injection.</p><p>Method: reading only. No Anjoman, no Verified Ask, no earlier verdicts. Cost: $0.</p><p>- Dependency.Guard</p>",
+ "replied_at": "2026-11-22T14:18:00.340Z",
+ "shuffle": {
+  "seed": 7,
+  "map": {
+   "snippet-01": "code-cmd-fixed",
+   "snippet-02": "code-hash-fixed",
+   "snippet-03": "code-xss-fixed",
+   "snippet-04": "code-hash-vulnerable",
+   "snippet-05": "code-deser-vulnerable",
+   "snippet-06": "code-path-vulnerable",
+   "snippet-07": "code-deser-fixed",
+   "snippet-08": "code-sqli-fixed",
+   "snippet-09": "code-sqli-vulnerable",
+   "snippet-10": "code-cmd-vulnerable",
+   "snippet-11": "code-xss-vulnerable",
+   "snippet-12": "code-path-fixed"
+  }
+ },
+ "decisions": {
+  "code-cmd-fixed": "PASS",
+  "code-hash-fixed": "PASS",
+  "code-xss-fixed": "PASS",
+  "code-hash-vulnerable": "BLOCK",
+  "code-deser-vulnerable": "BLOCK",
+  "code-path-vulnerable": "BLOCK",
+  "code-deser-fixed": "PASS",
+  "code-sqli-fixed": "PASS",
+  "code-sqli-vulnerable": "BLOCK",
+  "code-cmd-vulnerable": "BLOCK",
+  "code-xss-vulnerable": "BLOCK",
+  "code-path-fixed": "PASS"
+ },
+ "correct": 12,
+ "missed": 0,
+ "false_alarms": 0
+}
