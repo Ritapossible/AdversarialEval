@@ -101,6 +101,57 @@ from committed data, with uncertainty stated.
 - [ ] M7 Close the loop to evaluation: (a) our adapter vs the node ranking on real miner
       answers; (b) real failure answers turned into reviewed preference pairs for the pool
 - [ ] M8 Report and `/progress` after each round; final `/submit` on #198 and the Anjoman form
+- [x] M9 Verified Ask: buyer-side check of package answers against OSV, deps.dev and
+      rubygems.org; replay over rounds 2 and 3 (`eval/reports/2026-11-22-verified-ask.md`);
+      hardened for exposure (token off loopback, rate limit, atomic cache)
+
+### Phase N: A Mind that audits dependencies with verified Telegraph answers (optional, after round 4)
+
+Proposed by the Telegraph team in the builders channel (11-22): build a Mind (Minds by Animoca
+Brands, hellominds.ai) that uses Telegraph through Anjoman for a hard multi-step job, test it
+with and without Telegraph, and make a demo video. Not yet confirmed as a rewarded bounty.
+
+**Researched 11-22 (docs only; nothing signed up for or spent):**
+
+| Question | Finding | Source |
+|---|---|---|
+| What a Mind is | An agent with identity, memory and background jobs; made no-code, or from the `minds` CLI or `@animocabrands/minds-client-lib` (Node 22+) with a Builder API key | hellominds.ai/faq, build.hellominds.ai/docs |
+| Custom tools (our API, an MCP server, scripts) | **Not documented.** Tools, Skills and Apps come from the curated Marketplace; Skills are built by the Mind from a chat description; external services are connected as platform apps with a key | llms.txt, docs/guides/building-skills |
+| Telegraph or Anjoman inside Minds | **Not documented** on either site | both sites |
+| Driving a Mind from our code | **Documented:** `minds send <alias> "..." --wait`, `minds history`, `minds events`; library `sendMessage`, `waitForReply`, `subscribeEvents`. Replies are free text | docs/get-started/cli, client-library |
+| Builder access | "Unlock Builder Access" is shown with no stated requirements | docs/get-started/account-setup |
+| Cost | Credits ("Cognition"): US$10 per 1,000, burned per reasoning step or tool call, rate not published; 200 free per new Mind plus a daily top-up | hellominds.ai/pricing |
+| Wallet or x402 in Minds | Not a current feature (described as future) | hellominds.ai/about |
+| Anjoman MCP | Local stdio (`npx -y @telegraphprotocol/telegraph-protocol-mcp`), wallet or API key; tools `telegraph_ask`, `telegraph_ask_miner`, `telegraph_find_miners`, `telegraph_ranking` and more; default limits $0.50 per ask, $5 per day | anjoman.ai/docs/using/mcp-server |
+| Anjoman Skill and API | Agent Skill (SKILL.md + Node script) for command-running agents; REST at backend.telegraphprotocol.com with `anjoman_` keys, 30 requests per minute | anjoman.ai/docs/using/anjoman-skill, api-keys |
+
+**Design, given the above.** A Mind can't call our code or the Anjoman MCP directly (as far as
+the docs say), so our code orchestrates and the Mind reasons:
+
+1. Input: a dependency list (`package.json`, `requirements.txt`), 20 to 50 packages.
+2. Our orchestrator asks Telegraph miners per package (Anjoman API key or our escrow runner),
+   runs each answer through Verified Ask, and re-asks another miner (picked from benchmark data)
+   when an answer is contradicted or has no verdict.
+3. It sends the Mind the evidence (labels, cited advisories, OSV ids) with `minds send`; the Mind
+   writes the audit report and explains what is uncertain. Code questions stay "unchecked".
+4. The with/without test, scored on our benchmark cases with frozen truth:
+   (a) the Mind alone, (b) the Mind with Telegraph answers trusted as given, (c) the Mind with
+   Telegraph answers plus Verified Ask. Report accuracy, completeness, cost and time per arm.
+5. Demo video: a request, providers answering, one caught (for example an advisory about
+   another package), a re-ask, and the report with its evidence.
+
+- [ ] N0 Ask the Telegraph team: how did they connect Anjoman to a Mind (a Marketplace app, the
+      Skill?), is this rewarded, and what are the Builder access rules
+- [ ] N1 Builder account and API key; one Mind; check that `minds send --wait` works and what a
+      reply costs in Cognition
+- [ ] N2 Orchestrator (`mind/`): dependency list in, Telegraph asks plus Verified Ask, evidence
+      to the Mind, report out. Spend caps on both Telegraph and Cognition
+- [ ] N3 Three-arm test on the benchmark package cases; report in `eval/reports/`
+- [ ] N4 Demo video (2 to 4 min)
+
+**Gates:** don't start before round 4 and its pooled report are committed, and don't let it take
+time from the independent test set (deadline Nov 26). Stop at N1 if a Mind can't be reached from
+code, or if Cognition per task makes the test unaffordable.
 
 ### Phase 5: Stretch and polish (Nov 21–30)
 - [ ] `SMART_CONTRACT_AUDIT_GENERAL`: 60+ private pool pairs uploaded. Register an adapter if
