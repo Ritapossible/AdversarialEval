@@ -3,6 +3,98 @@
  "alias": "dependency-guard",
  "sent_at": "2026-11-22T14:08:16.097Z",
  "sent": "Baseline test 2 (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse any earlier verdicts from our chats or your watchlist. Use only your own knowledge and your own web search.\n\nFor each package version below, decide: BLOCK if it has at least one known published vulnerability, PASS if it has none, FLAG if you can't tell or the version doesn't exist. Reply with exactly one line per package in the form `<purl> | <PASS/BLOCK/FLAG> | <advisory ids or reason>`, then one line with your confidence. Keep it short.\n\npkg:golang/github.com/gin-gonic/gin@v1.5.0\npkg:golang/github.com/gin-gonic/gin@v1.12.0\npkg:golang/golang.org/x/net@v0.61.0\npkg:golang/golang.org/x/net@v0.62.0\npkg:cargo/hyper@0.14.11\npkg:cargo/hyper@1.12.0\npkg:cargo/tokio@1.54.0\npkg:cargo/tokio@1.54.1\npkg:gem/rack@2.2.9\npkg:gem/rack@3.2.8\npkg:gem/nokogiri@1.9.1\npkg:gem/nokogiri@1.19.7\npkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0\npkg:pypi/jinja2@99.0.0",
- "reply": "<p>On it. Fourteen purls, no paid tools, nothing reused from our chats or the watchlist.</p><p>Give me a few minutes - I'm confirming each version actually exists before I judge it, then pulling advisories. Answer comes back as one line per package, exactly as you asked.</p><p>- Dependency.Guard</p>",
- "replied_at": "2026-11-22T14:08:53.538Z"
+ "reply": "pkg:golang/github.com/gin-gonic/gin@v1.5.0 | BLOCK | CVE-2023-29401, CVE-2023-26125, CVE-2020-28483, CVE-2020-36567, CVE-2019-25211<br>pkg:golang/github.com/gin-gonic/gin@v1.12.0 | PASS | no published advisory names v1.12.0<br>pkg:golang/golang.org/x/net@v0.61.0 | BLOCK | CVE-2026-78661, CVE-2026-97045 - both fixed in v0.62.0<br>pkg:golang/golang.org/x/net@v0.62.0 | PASS | no advisory names v0.62.0; it is the fix release for both of the above<br>pkg:cargo/hyper@0.14.11 | BLOCK | RUSTSEC-2022-0022 / GHSA-f67m-9j94-qv9j (mem::uninitialized in the HTTP/1 parser) - fixed 0.14.12, no CVE assigned<br>pkg:cargo/hyper@1.12.0 | PASS | no advisory names 1.12.0<br>pkg:cargo/tokio@1.54.0 | BLOCK | CVE-2026-115567 / RUSTSEC-2026-0384 (Interval race, use-after-free) - fixed 1.54.1, and 1.54.0 was yanked<br>pkg:cargo/tokio@1.54.1 | PASS | no advisory names 1.54.1; it is the fix release<br>pkg:gem/rack@2.2.9 | BLOCK | 25 advisories apply, incl. CVE-2026-125111, CVE-2025-61919, CVE-2026-34829, CVE-2026-34785, CVE-2025-46727; 2.2-line fixes run to 2.2.25<br>pkg:gem/rack@3.2.8 | PASS | none of those 25 affect 3.2.8; it is the 3.2.x fix release for the latest three<br>pkg:gem/nokogiri@1.9.1 | BLOCK | CVE-2019-5477, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5815, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2022-29181, and more<br>pkg:gem/nokogiri@1.19.7 | PASS | no advisory names 1.19.7; every known fix lands by 1.19.5<br>pkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0 | FLAG | the project does not exist on PyPI (404) - nothing to assess<br>pkg:pypi/jinja2@99.0.0 | FLAG | that version does not exist on PyPI (404)<br><br>Confidence: high on the six BLOCKs and two FLAGs. Medium on the six PASSes - each means \"no published advisory names this exact version\", which is not the same as a certified clean bill, especially for releases only weeks old.<br><br>Method: version existence confirmed against proxy.golang.org, crates.io, rubygems.org and PyPI (the two 404s are why those are FLAG, not PASS); advisories from the OSV database, queried per exact version. No Anjoman, no Verified Ask, nothing reused from earlier chats or the watchlist. Cost: $0 - every source here is free.<br><br>- Dependency.Guard",
+ "replied_at": "2026-11-22T14:09:42.234Z",
+ "interim_reply": "<p>On it. Fourteen purls, no paid tools, nothing reused from our chats or the watchlist.</p><p>Give me a few minutes - I'm confirming each version actually exists before I judge it, then pulling advisories. Answer comes back as one line per package, exactly as you asked.</p><p>- Dependency.Guard</p>",
+ "verified_ask_on_mind_claims": [
+  {
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.5.0",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.12.0",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:golang/golang.org/x/net@v0.61.0",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:golang/golang.org/x/net@v0.62.0",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:cargo/hyper@0.14.11",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:cargo/hyper@1.12.0",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:cargo/tokio@1.54.0",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:cargo/tokio@1.54.1",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:gem/rack@2.2.9",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:gem/rack@3.2.8",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:gem/nokogiri@1.9.1",
+   "decision": "BLOCK",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:gem/nokogiri@1.19.7",
+   "decision": "PASS",
+   "label": "verified",
+   "not_confirmed": []
+  },
+  {
+   "target": "pkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0",
+   "decision": "FLAG",
+   "label": "invalid",
+   "not_confirmed": [
+    "no usable verdict (None)"
+   ]
+  },
+  {
+   "target": "pkg:pypi/jinja2@99.0.0",
+   "decision": "FLAG",
+   "label": "invalid",
+   "not_confirmed": [
+    "no usable verdict (None)"
+   ]
+  }
+ ],
+ "latency_s": 86
 }

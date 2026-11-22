@@ -82,18 +82,20 @@ exist, where search is weaker and a miner's live lookup should matter more.
 Run the same day, the set fixed before running: the six package pairs the first set didn't use
 (Go: gin, x/net; Rust: hyper, tokio; Ruby: rack, nokogiri) plus the benchmark's two "unknown"
 cases (a PyPI package that doesn't exist, and jinja2 99.0.0). For those two, FLAG is correct and
-a confident PASS or BLOCK is wrong. The Mind-alone arm waits for its credits to refill.
+a confident PASS or BLOCK is wrong. Mind-alone evidence:
+[`mind/evidence/2026-11-22-mind-alone-set2.json`](../../mind/evidence/2026-11-22-mind-alone-set2.json).
 Evidence: [`mind/evidence/2026-11-22T13-58-35-411Z.json`](../../mind/evidence/2026-11-22T13-58-35-411Z.json).
 
-| | B: Telegraph trusted | C: Telegraph + Verified Ask |
-|---|---:|---:|
-| Correct decisions (of 14) | 7 | **12** |
-| Missed vulnerabilities (wrong PASS) | 1 (x/net 0.61.0) | **0** |
-| False alarms (wrong BLOCK) | 1 (nokogiri 1.19.7) | 0 |
-| Confident answer on a package that doesn't exist | **2** ("Secure" on both) | **0** (both FLAGged) |
-| FLAG, sent to a person | 1 | 2 (the two Go vulnerable versions) |
-| Not answered | 2 (transient "payment rejected", 1 network error) | 0 |
-| Cost | $0.23 | $0.33 |
+| | A: Mind alone | B: Telegraph trusted | C: Telegraph + Verified Ask |
+|---|---:|---:|---:|
+| Correct decisions (of 14) | **14** | 7 | 12 |
+| Missed vulnerabilities (wrong PASS) | 0 | 1 (x/net 0.61.0) | **0** |
+| False alarms (wrong BLOCK) | 0 | 1 (nokogiri 1.19.7) | 0 |
+| Confident answer on a package that doesn't exist | 0 (both FLAGged) | **2** ("Secure" on both) | **0** (both FLAGged) |
+| FLAG, sent to a person | 0 | 1 | 2 (the two Go vulnerable versions) |
+| Not answered | 0 | 3 (2 transient "payment rejected", 1 network error) | 0 |
+| Time | 86 s | | about 4 min |
+| Cost | about 10 Minds credits, no Telegraph fees | $0.23 | $0.33 |
 
 - **Go is where both providers failed.** TxLens and a1-preflight both called gin 1.5.0 (8
   advisories in OSV) and x/net 0.61.0 (2) safe or gave a count of 0. Verified Ask contradicted
@@ -106,8 +108,32 @@ Evidence: [`mind/evidence/2026-11-22T13-58-35-411Z.json`](../../mind/evidence/20
 - **Non-existent packages:** the routed miner said "Secure" for a package and a version that were
   never published. Verified Ask's registry check caught both; a buyer trusting the route would
   have approved a typo-squatting-shaped name.
+- **The Mind alone got all 14 right, in 86 seconds**, including both Go versions that both
+  Telegraph providers got wrong. Its stated method explains it: it checked each version against
+  the registries (proxy.golang.org, crates.io, rubygems.org, PyPI) and queried OSV per exact
+  version. Those are the same free sources the benchmark's truth and Verified Ask use. Verified
+  Ask confirmed all 12 of its decisions on existing packages.
 - **An option, not taken:** when both answers are contradicted and OSV itself lists advisories,
   the free check alone could BLOCK. We kept FLAG, so a decision never rests on one source.
+
+## What the two sets say together
+
+For the question "does this exact package version have a known, published vulnerability?",
+**a free OSV lookup is the reference, and a Mind that can call it doesn't need to pay anyone.**
+That matches the benchmark: across rounds 2 to 4, only one Telegraph miner beat the free OSV
+lookup on packages. Telegraph's security miners, as they answered on 22 Nov, added cost and
+errors on this question; Verified Ask kept those errors from reaching a decision.
+
+Where paid specialist answers can still earn their price, and what we test next:
+- **code review**, where there is no free oracle to look up (the benchmark's code twins; a1-preflight
+  got 10 of 12 in round 4); here Verified Ask has nothing to check against, which is the job of
+  the evaluator model;
+- **advisories too new for OSV**, and private or less-indexed ecosystems.
+
+So the product claim we stand behind is narrow: Verified Ask stops wrong paid answers from
+becoming decisions, and the benchmark shows a buyer which providers are worth paying for. We do
+not claim that buying Telegraph answers beats a free lookup on known package vulnerabilities; on
+22 Nov it didn't.
 
 ## Running inside the Mind (same day)
 
