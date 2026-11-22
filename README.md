@@ -192,6 +192,9 @@ Setting up the Mind inside Minds (keys, HTTP tool, the skill's instructions) is 
 - Fexx ([@fexx301](https://github.com/fexx301)), for findings shared in the Evaluators
   community that shaped our held-out testing and severity-pair design, and for 20 independent,
   AI-assisted test pairs he checked by hand ([intake report](eval/reports/2026-11-18-test-intake-fexx.md)).
+- defiplusacademy ([@defiplusacademy24-art](https://github.com/defiplusacademy24-art)), for 21
+  AI-assisted test pairs, scored and reported separately as author-written pairs (not part of the
+  independent test set) ([details](data/authoring/security_review/author_test/README.md)).
 - Chrysolite494, for the guide to connecting a Mind to Anjoman
   ([SETUP.md](https://github.com/investor567768/telegraph-supplier-detective/blob/main/SETUP.md)).
 - [Minds by Animoca Brands](https://hellominds.ai), where Dependency.Guard runs; package data
