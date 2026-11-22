@@ -4,6 +4,8 @@
 
 Telegraph Hackathon Season II · Evaluators track and Apps & Agents track (Mission 10, Model Economy) · Intent: `SECURITY_REVIEW` · Licence: MIT
 
+**By track (judged separately): [Evaluators](tracks/evaluators.md) · [Apps & Agents](tracks/apps-and-agents.md) · [Miners](tracks/miners.md)**
+
 **Live site: [adversarialeval.vercel.app](https://adversarialeval.vercel.app)** · **Mind: [Dependency.Guard](https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11)** (id `38266542-f36b-1410-8467-00039ce7df11`)
 
 > **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor
@@ -164,6 +166,7 @@ Setting up the Mind inside Minds (keys, HTTP tool, the skill's instructions) is 
 | `mind/` | Dependency.Guard: setup guide, connector (`connector/guard.mjs`), with/without-Telegraph tests (`compare.py`, `code_review_test.py`, `code-test-v2/`), and every run's evidence with receipts (`evidence/`) |
 | `site/` | "Spot the Flaw" demo and benchmark summary, plus the hosted Verified Ask function (`site/api/verify.py`), served by Vercel (root directory `site`) |
 | `deploy/` | Executor host setup (systemd unit, Caddy TLS, health check) |
+| `tracks/` | One self-contained page per hackathon track: summary, results, evidence links, how to reproduce, limits |
 | `docs/` | Research, taxonomy, dataset spec, runbook, reviewer guide, audit, submission checklist and evidence, demo script, forum post |
 
 ## Status and next steps

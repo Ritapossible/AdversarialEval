@@ -7,6 +7,9 @@ for each track is kept apart here. Deadline: Dec 1, 2026, 23:59 UTC.
 
 Every number below links to raw node API output or a committed report (CLAUDE.md rule 7).
 
+Readable per-track summaries for judges: [`tracks/`](../tracks/README.md). This file is the
+raw evidence index behind them.
+
 ## Track: Evaluators
 
 **Intent:** `SECURITY_REVIEW_GENERAL` (testnet node `devnode.telegraphprotocol.com`)

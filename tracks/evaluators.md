@@ -1,0 +1,85 @@
+# Evaluators track: AdversarialEval for `SECURITY_REVIEW_GENERAL`
+
+## Summary
+
+Evaluation material in which every worse answer is **plausible but wrong in one decisive,
+verifiable way**, contributed to Telegraph's evaluation pool for `SECURITY_REVIEW_GENERAL`, plus
+an Evaluator adapter trained and measured on it. **164 attested pairs are eligible in the live
+pool.** The adapter is not registered: its registration waits on an independent test set under a
+rule fixed before any test data existed.
+
+## The problem
+
+On Telegraph, an Evaluator decides which miner answers win. For security reviews, the dangerous
+answers are the plausible ones: an advisory id for the wrong package, a patched version called
+vulnerable, a confident "Secure" on vulnerable code, a fix that doesn't fix. Judges that reward
+length, fluency or security keywords pick them. On our material those shortcut judges score about
+50%, and the canonical evaluator for this intent scored 71.43% on its hidden sample
+(15 of 21, 10 Nov 2026).
+
+## What was built
+
+| Part | Where |
+|---|---|
+| Ten-family failure taxonomy: F1 wrong advisory id, F2 version-range error, F3 missed critical, F4 context reversal, F5 overconfident "Secure", F6 false alarm, F7 inconsistent fields, F8 wrong severity or class, F9 needless hedging, F10 ineffective fix | [`docs/ADVERSARIAL_CRITERIA.md`](../docs/ADVERSARIAL_CRITERIA.md) |
+| Public training and validation pairs: 264 + 87, with sidecar metadata | `data/public/`, `data/validation/`, `data/meta/` |
+| Generators and checks: OSV-verified minimal pairs, id checks, label checks, token budget, near-duplicate detection, shortcut judges, the kit's dataset gate | `tools/`, `eval/baselines.py`, `scripts/check_data.sh` |
+| Pool material (private; never published) | `data/private/` (git-ignored) |
+| Adapter: LoRA and reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | `scripts/train.sh`, `scripts/export.sh` |
+| Frozen registration rule | [`eval/RULE-registration.md`](../eval/RULE-registration.md) |
+
+Quality gates applied to every pool pair: every advisory fact checked against OSV, human review,
+length ratio at most 1.25 with the chosen answer longer in 35 to 65% of rows, and
+deduplication across public, validation, test and pool sets.
+
+## Results
+
+**Pool contribution (testnet, contributor wallet `0x31Cf659edcDd1A6bF98302cbA5E7CEA8dc143095`)**
+
+| Batch | Uploaded | Rows | Status | Report |
+|---|---|---:|---|---|
+| Flaw families F1 to F10 | 14 Nov 2026 | 81 | eligible, attested | [`2026-11-14-pool-upload.md`](../eval/reports/2026-11-14-pool-upload.md) |
+| Severity pairs (F8) | 18 Nov 2026 | 83 | eligible, attested | [`2026-11-18-pool-batch2.md`](../eval/reports/2026-11-18-pool-batch2.md) |
+| **Total** | | **164** | **all eligible** | raw node API output, 22 Nov: [`2026-11-22-evalpool-mine.json`](../eval/reports/raw/2026-11-22-evalpool-mine.json) |
+
+**Adapter (same-author validation data; the registration decision uses the independent test)**
+
+| Measure | Result | Report |
+|---|---|---|
+| Pairwise accuracy, 87 validation pairs, two seeds | 72.4% and 74.7% | [`2026-11-11-cpu-v3-seed7.md`](../eval/reports/2026-11-11-cpu-v3-seed7.md) |
+| Strongest shortcut judge on the same pairs | at most 58% | `scripts/check_data.sh` |
+| Whole failure types held out from training | 37 to 39%: not learned without examples | [`2026-11-14-lofo.md`](../eval/reports/2026-11-14-lofo.md) |
+| Local rehearsal of the node's remote check (kit executor, WASM engine, the node's client) | WASM and PyTorch agree on 87 of 87 pairs | [`2026-11-11-rehearsal-cpu-v3-seed13.md`](../eval/reports/2026-11-11-rehearsal-cpu-v3-seed13.md) |
+| A shortcut found and removed | an early model preferred any "vulnerable" answer (100% vs 0% on version pairs); balanced minimal pairs fixed it | [`2026-11-10-cpu-v1-seed7.md`](../eval/reports/2026-11-10-cpu-v1-seed7.md) |
+
+## Independent test and registration
+
+- **Rule** ([`eval/RULE-registration.md`](../eval/RULE-registration.md)): at least 40 pairs from
+  at least 2 independent outside authors, frozen by hash before scoring and scored once. Register
+  only if accuracy is at least 80%, the Wilson lower bound at least 65%, and every shortcut judge
+  at most 60%. Amendment 1 allows AI-assisted pairs from independent authors, reported
+  separately.
+- **Collected:** 20 pairs from Fexx
+  ([intake report](../eval/reports/2026-11-18-test-intake-fexx.md)). A second independent author
+  is being sought; cutoff 26 Nov 2026.
+- **Separate, not independent:** 21 author-written, AI-assisted pairs from defiplusacademy, kept
+  out of the test set and to be reported under their own heading
+  ([intake notes](../data/authoring/security_review/author_test/README.md)).
+- If the test set is incomplete by the cutoff, the adapter is not registered and the write-up
+  says "independent test pending".
+
+## Reproduce
+
+```bash
+bash scripts/setup_kit.sh --tokenizer
+pip install -r third_party/telegraph-wasm-baseline/requirements.txt
+bash scripts/check_data.sh                                     # every data check and shortcut judge
+python tests/test_tools.py
+bash scripts/train.sh cpu-v3 --epochs 6 --lr 0.0002 --seed 7   # about 40 minutes on CPU
+```
+
+## Limits
+
+- Validation pairs share an author with the training pairs, so they overstate real accuracy.
+- Failure types absent from training are not learned (37 to 39% held out).
+- The adapter is not registered; no on-chain evaluation result exists yet.
