@@ -1,0 +1,171 @@
+{
+ "at": "2026-11-22T11:06:04.731Z",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "policy": "one ranked ask; re-ask one other provider only if the free check proves it wrong",
+ "max_spend_usd": 0.1,
+ "packages": [
+  {
+   "target": "pkg:npm/minimist@1.2.5",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 9573,
+     "miner": "Salence",
+     "miner_id": "905227",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2021-44906"
+      ],
+      "summary": "minimist 1.2.5 (npm) is affected by 1 known advisory; the most severe is CVE-2021-44906 (critical). Upgrade to 1.2.6 or later; OSV lists no advisories for it."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xf5c9797c5991801bf2b36dd868808c591967bd83969a08a859c40417ae44b4ae",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6157",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795345574
+     },
+     "signal_hash": "0x55c8cf1b05b914bc4e986ad51f7ce7ca504398ace111d3a0cfa88e8c34e71ab8",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2021-44906 affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.8",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 29864,
+     "miner": "Salence",
+     "miner_id": "905227",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV lists no known advisories affecting minimist 1.2.8 (npm)."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x1c7b699e77005c7750b3665a3ec450097b5bf9578efdd46d5fffc9aca96ed1e8",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6157",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795345604
+     },
+     "signal_hash": "0xf38f4c16166623ea6c0078bef227cc0246331313167ca6627c1f727d941336ac",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Needs changes' but vulnerability_count is 0"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Needs changes', but OSV lists no advisory for this version"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5105,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting minimist 1.2.8 on npm."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xaf0d48147330f0cca18467754d2d2c553910be8ce6f6165953b7bdb7a1ec8080",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795345610
+     },
+     "signal_hash": "0x2a7e4470ec78b52f1e7c641a60279b22bbb2eb2aee5a5f2c1994897f16e8ade7",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  }
+ ],
+ "spent_usd": 0.04,
+ "receipts": [
+  "0xf5c9797c5991801bf2b36dd868808c591967bd83969a08a859c40417ae44b4ae",
+  "0x1c7b699e77005c7750b3665a3ec450097b5bf9578efdd46d5fffc9aca96ed1e8",
+  "0xaf0d48147330f0cca18467754d2d2c553910be8ce6f6165953b7bdb7a1ec8080"
+ ]
+}
