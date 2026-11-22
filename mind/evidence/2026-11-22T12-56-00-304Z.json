@@ -1,0 +1,1044 @@
+{
+ "at": "2026-11-22T12:56:00.304Z",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "policy": "one ranked ask; re-ask one other provider only if the free check proves it wrong",
+ "max_spend_usd": 0.34,
+ "packages": [
+  {
+   "target": "pkg:pypi/jinja2@3.1.5",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 45521,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2025-27516"
+      ],
+      "summary": "Secure. The Jinja2 3.1.5 release contains no publicly disclosed CVEs and the maintainers have addressed prior template‑injection and denial‑of‑service issues in earlier versions. However, the library still permits arbitrary expression evaluation if a template is constructed from untrusted input; an attacker could inject Jinja2 expressions that access the filesystem or execute code. To mitigate this, always use the `Environment` with `autoescape=True` for HTML contexts, avoid `Template` from user‑supplied strings, and consider the `SandboxedEnvironment` for highly untrusted templates. Additionally, keep the package up to date, as newer releases may patch emerging vulnerabilities. No other significant security weaknesses are present in the current version."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xc36657268a3c302b6afad0558ea0c79630abc452c4aff79a6abc7454cb8e94f5",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352205
+     },
+     "signal_hash": "0x6d7f3c6d108f53c6c3b76b64dec23bf80701513ecf01f881dffa7a26ff9e84eb",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Secure' but vulnerability_count is 1"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "jinja2 3.1.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GHSA-cpwx-vrp4-4pq7, PYSEC-2026-1471"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27516 affects this version"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 6497,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2025-27516"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting jinja2 3.1.5 on PyPI (aliases counted once), for example GHSA-cpwx-vrp4-4pq7 (Jinja2 vulnerable to sandbox breakout through attr filter selecting fo)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x6b3e9b1392e78a05f600616746daa8e2b6fee8153ece789a9e8d265ef9836bbd",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352212
+     },
+     "signal_hash": "0x89b226b687ebcd8e72ec9e7bd3f85c7aefc0da5a6020b3c3ca0442bcafaab4d7",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "jinja2 3.1.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27516 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-CPWX-VRP4-4PQ7 affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:pypi/jinja2@3.1.6",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 30146,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The Jinja2 3.1.6 package has no known critical vulnerabilities in the National Vulnerability Database or the Python Package Index advisory list. Its release notes and changelog indicate only minor bug fixes and performance improvements, with no security patches required. The package is actively maintained, and its dependency graph shows no transitive dependencies with known high‑severity issues. No evidence of insecure defaults, hard‑coded secrets, or exposed debug interfaces was found. Therefore, the package meets current security standards for use in production."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x65c7d2e89124a834dcb243e9d905582725e40ef4d1f83a509f08837c8aaaffad",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352243
+     },
+     "signal_hash": "0x4b86d3ab19fbf388661f5fc2ed39a711ec0e415d03059b05119b60e2833ce3a8",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "jinja2 3.1.6 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:pypi/pyyaml@5.1.2",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 42567,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 3,
+      "issues": [
+       "CWE-94"
+      ],
+      "summary": "Insecure. The specified version of PyYAML, 5.1.2, is vulnerable to a remote code execution flaw (CWE-94) that allows attackers to execute arbitrary code via a malicious YAML payload. This occurs because the library's default `yaml.load` function uses the unsafe `FullLoader` or `UnsafeLoader` in certain contexts, permitting the instantiation of arbitrary Python objects. To remediate this, you must upgrade PyYAML to version 5.4 or later, which introduces the safer `SafeLoader` as the default for `yaml.load` and removes the unsafe loading capabilities. Additionally, you should explicitly use `yaml.safe_load` in your application code to ensure that only standard YAML types are parsed, thereby preventing the deserialization of arbitrary Python objects."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xb0724936ca2ecde4e3f8d49c64cd12acd954ca0c830fde444c82447b731d9c33",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352286
+     },
+     "signal_hash": "0x5bd0af8073fbda084e76c5f024a6ce22c7c708615106ed38ec8a33d6115b6d34",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "pyyaml 5.1.2 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 6 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 3 known"
+  },
+  {
+   "target": "pkg:pypi/pyyaml@6.0.3",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 38425,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Needs changes. The most serious issue is the potential for unsafe deserialization when callers use yaml.load without specifying a Loader, which can lead to arbitrary code execution (CWE‑20 Improper Input Validation). Recommend replacing all yaml.load calls with yaml.safe_load or explicitly passing yaml.FullLoader only when trusted input is guaranteed. Ensure the package version is pinned and regularly updated to incorporate upstream security patches. Validate and sanitize any YAML content before parsing, especially if it originates from untrusted sources. Document the safe usage pattern in the codebase to prevent accidental insecure calls."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x1bb3171f22e6100f86bc13ec32563f3d0d2a81da04131d65272689b4daf1f84b",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352325
+     },
+     "signal_hash": "0xb24eca49707234f0a927ae68b5ca8842c76609dd118e01f474e814f42b2e9bbb",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Needs changes' but vulnerability_count is 0"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "pyyaml 6.0.3 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Needs changes', but OSV lists no advisory for this version"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 4703,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting pyyaml 6.0.3 on PyPI."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x3e5d550a9c596e43e319c9f26af8186d211d80510c8ec88fb7c7e1badbdf6526",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352330
+     },
+     "signal_hash": "0x9f339a3190828cd46be9fe01dc04ebfdcc8b6667206d100cb0018da7ccdfcf6b",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "pyyaml 6.0.3 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/lodash@4.17.23",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 33154,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 2,
+      "issues": [
+       "CVE-2026-4800",
+       "CVE-2026-2950"
+      ],
+      "summary": "Secure. Lodash 4.17.23 includes patches for known prototype‑pollution and denial‑of‑service issues (e.g., CVE‑2021‑23337) and no new critical CVEs have been reported for this release; the package’s integrity is verified by npm’s checksum and it does not expose unsafe eval or file system access. The code was checked for known vulnerable functions (e.g., _.assign, _.merge) and they are safe in this version. No insecure defaults or configuration options are present. Ensure the dependency is kept up‑to‑date and monitor npm advisories for future releases."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xe394069bfd84b2e81643d48359a3b221349014305f03680e7b0a873adccc27c2",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352364
+     },
+     "signal_hash": "0xbbb10546c2f6538d49ae9361af9fd1f00fc75c2b533eb3ca3664324a73886e5c",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Secure' but vulnerability_count is 2"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "lodash 4.17.23 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GHSA-f23m-r3pf-42rh, GHSA-r5fr-rjxr-66jc"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-4800 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-2950 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "CVE-2021-23337 is about None/None, not lodash"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 7104,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 2,
+      "issues": [
+       "CVE-2026-4800",
+       "CVE-2026-2950"
+      ],
+      "summary": "OSV.dev lists 2 known vulnerabilities affecting lodash 4.17.23 on npm (aliases counted once), for example GHSA-f23m-r3pf-42rh (lodash vulnerable to prototype pollution via array-path bypass in `_.u); GHSA-r5fr-rjxr-66jc (lodash vulnerable to Code Injection via `_.template` imports key names)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x107d0459f43e8e22fed8a8c93799e9aa5cf93aad2db0e09f80ee8d34b8fefc1f",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352372
+     },
+     "signal_hash": "0x417f02f75d2a747c89b9017c8b5c7af55660ea55ddedbef41e33180c9b68237a",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "lodash 4.17.23 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-4800 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-2950 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-F23M-R3PF-42RH affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-R5FR-RJXR-66JC affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 2 known"
+  },
+  {
+   "target": "pkg:npm/lodash@4.18.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 31863,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The input is merely a package identifier for lodash version 4.18.1, which does not contain executable code or configuration to assess; no injection, authentication, or data handling is involved. Checked that the format is a simple string without any embedded commands or scripts, and there is no processing that could lead to command injection or path traversal. No further action required."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x282233cacf4cc70cc6985427a6b04a259f7bb6c9e06f419403d3647948179d5c",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352404
+     },
+     "signal_hash": "0xaeebe105cd07c55f3050cc2cb8ef56e5f9dd6d643d4a06eb25506cb4eaf5e513",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "lodash 4.18.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.5",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 36003,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2021-44906"
+      ],
+      "summary": "Insecure. The package version 1.2.5 of minimist is vulnerable to prototype pollution (CWE‑1321) allowing an attacker to modify Object prototype properties via crafted command‑line arguments; upgrade to a patched version (≥ 1.2.6 or later) or replace with a safer alternative. If upgrading is not possible, sanitize and validate all input arguments to ensure they do not contain keys like \"proto\", \"constructor\", or \"prototype\" before passing them to minimist. Ensure the dependency lockfile is regenerated after the upgrade and that CI pipelines verify no vulnerable versions are introduced. Also run a dependency scanning tool (e.g., npm audit, Snyk) to detect any transitive dependencies that might still pull in vulnerable minimist versions. Finally, implement runtime monitoring for unexpected prototype modifications to detect exploitation attempts."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x133655fe117a448fd0f553dde7f743f0797c9e13544744cefa97af7c5be94347",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352441
+     },
+     "signal_hash": "0x66d7835b52ac065baea7c0cae6f970b8b6b59bd242b6b67a206d358c06bf4022",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2021-44906 affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 1 known"
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.8",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 1956,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5090,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting minimist 1.2.8 on npm."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x764dd15b071ae48c76f6b0c711b0cfb78334c072e294927dff5ec4f0be1095bd",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352449
+     },
+     "signal_hash": "0xbf839f61d1382f5570ab635ded4c68074773940c9d90cbfa8ce162b61c9b7f9c",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 1068,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 7289,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 2,
+      "issues": [
+       "CVE-2026-91777",
+       "CVE-2026-91776"
+      ],
+      "summary": "OSV.dev lists 2 known vulnerabilities affecting com.fasterxml.jackson.core:jackson-databind 2.21.6 on Maven (aliases counted once), for example GHSA-cxp5-3px4-pw24 (jackson-databind quadratic forward-reference completion ); GHSA-wv8q-qhhj-9h54 (jackson-databind retains every unknown raw type ID )."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x48b657977040fe2be89112a9e96c1a8788d5c17b7139a3759088b0fe71e33880",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352458
+     },
+     "signal_hash": "0xb5df7b19450b24fda0892d20c43de8fdeaa5d9fb01096106fea127d6d7295282",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "com.fasterxml.jackson.core:jackson-databind 2.21.6 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-91777 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-91776 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-CXP5-3PX4-PW24 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-WV8Q-QHHJ-9H54 affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 2 known"
+  },
+  {
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 1021,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 6618,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting com.fasterxml.jackson.core:jackson-databind 2.23.0 on Maven."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x0504129d56991f6d94db3259cec6ef8534bda845781235ff5cfb10b8ca47a190",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352466
+     },
+     "signal_hash": "0xdec617cbbdb3de600ecb29c0940583f4fdfcc39ffa0bd9a4963e590abd79813a",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "com.fasterxml.jackson.core:jackson-databind 2.23.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:maven/org.yaml/snakeyaml@1.9",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 1065,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 9159,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 8,
+      "issues": [
+       "CVE-2022-25857",
+       "CVE-2022-38751",
+       "CVE-2022-38752",
+       "CVE-2022-38749",
+       "CVE-2022-38750",
+       "CVE-2022-1471",
+       "CVE-2017-18640",
+       "CVE-2022-41854"
+      ],
+      "summary": "OSV.dev lists 8 known vulnerabilities affecting org.yaml:snakeyaml 1.9 on Maven (aliases counted once), for example GHSA-3mc7-4q67-w48m (Uncontrolled Resource Consumption in snakeyaml); GHSA-98wm-3w3q-mw94 (snakeYAML before 1.31 vulnerable to Denial of Service due to Out-of-bo); GHSA-9w3m-gqgf-c4p9 (snakeYAML before 1.32 vulnerable to Denial of Service due to Out-of-bo)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x245876eb837f44d0026efa17d644c1ba83e2b9b4043944268db959eac9750b52",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352477
+     },
+     "signal_hash": "0x71b4bdc89b457f2e8b82dd801a49b1036f1088f6c099b7bbdb7bf53a784deb6f",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "org.yaml:snakeyaml 1.9 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 8 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-25857 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-38751 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-38752 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-38749 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-38750 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-1471 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2017-18640 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-41854 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-3MC7-4Q67-W48M affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-98WM-3W3Q-MW94 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-9W3M-GQGF-C4P9 affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 8 known"
+  },
+  {
+   "target": "pkg:maven/org.yaml/snakeyaml@2.7",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 1296,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5837,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting org.yaml:snakeyaml 2.7 on Maven."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x2bcfbe27693526db499cca2fdd4c67549fc5ab2eb827da617ef7d50ef6a34a25",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795352485
+     },
+     "signal_hash": "0xae98690e2fb4778c377031469fc3c12e9cbc6f3964eab34b9e2219766b0e03fd",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "org.yaml:snakeyaml 2.7 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  }
+ ],
+ "spent_usd": 0.22,
+ "receipts": [
+  "0xc36657268a3c302b6afad0558ea0c79630abc452c4aff79a6abc7454cb8e94f5",
+  "0x6b3e9b1392e78a05f600616746daa8e2b6fee8153ece789a9e8d265ef9836bbd",
+  "0x65c7d2e89124a834dcb243e9d905582725e40ef4d1f83a509f08837c8aaaffad",
+  "0xb0724936ca2ecde4e3f8d49c64cd12acd954ca0c830fde444c82447b731d9c33",
+  "0x1bb3171f22e6100f86bc13ec32563f3d0d2a81da04131d65272689b4daf1f84b",
+  "0x3e5d550a9c596e43e319c9f26af8186d211d80510c8ec88fb7c7e1badbdf6526",
+  "0xe394069bfd84b2e81643d48359a3b221349014305f03680e7b0a873adccc27c2",
+  "0x107d0459f43e8e22fed8a8c93799e9aa5cf93aad2db0e09f80ee8d34b8fefc1f",
+  "0x282233cacf4cc70cc6985427a6b04a259f7bb6c9e06f419403d3647948179d5c",
+  "0x133655fe117a448fd0f553dde7f743f0797c9e13544744cefa97af7c5be94347",
+  "0x764dd15b071ae48c76f6b0c711b0cfb78334c072e294927dff5ec4f0be1095bd",
+  "0x48b657977040fe2be89112a9e96c1a8788d5c17b7139a3759088b0fe71e33880",
+  "0x0504129d56991f6d94db3259cec6ef8534bda845781235ff5cfb10b8ca47a190",
+  "0x245876eb837f44d0026efa17d644c1ba83e2b9b4043944268db959eac9750b52",
+  "0x2bcfbe27693526db499cca2fdd4c67549fc5ab2eb827da617ef7d50ef6a34a25"
+ ]
+}
