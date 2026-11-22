@@ -65,6 +65,10 @@ Every number below links to raw node API output or a committed report (CLAUDE.md
 | Payer wallet (testnet only) | `0xA0C8…6C1C` (full address in the round reports) |
 | Reproducibility | `python tests/test_reproduce.py`, `python tests/test_verify.py`, CI on every push |
 
+**Independent use of our material:** Femtech-web's miner Salence (Miners/Providers track, routing
+ID 905227) reports "80.6% correct on 264 held-out AdversarialEval questions" in its #198
+`/progress` (22 Nov), i.e. our public training pairs used as another builder's test set.
+
 **Still needed for this track:** a runnable app for a named customer (see `PLAN.md`, Phase A),
 a demo video, and adoption evidence (another builder or user running it).
 
