@@ -105,7 +105,50 @@ from committed data, with uncertainty stated.
       rubygems.org; replay over rounds 2 and 3 (`eval/reports/2026-11-22-verified-ask.md`);
       hardened for exposure (token off loopback, rate limit, atomic cache)
 
-### Phase N: A Mind that audits dependencies with verified Telegraph answers (optional, after round 4)
+### Phase A: A customer-first app for Mission 10 (Apps & Agents track)
+
+**Telegraph feedback (22 Nov), the rules for this phase:**
+- Don't buy the same question from several miners by default: the user pays about 3x for what
+  ranked routing is meant to deliver at 1x. Independent verification only where it is worth it.
+- The goal is that the best providers get evaluated and ranked, so users don't compare answers.
+- Start from one commercial mission and work backwards: the customer, their problem, the outcome
+  they would pay for, the capabilities needed. Then build a complete application around it.
+- Apps & Agents and Evaluators are judged separately; final submission via anjoman.ai (form not
+  live yet). Evidence per track: `docs/SUBMISSION_EVIDENCE.md`.
+
+**Customer and problem (Mission 10, routes 1 and 2).** The mission names "coding-agent
+developers" whose model choices use "static benchmarks or token price, not cost per correct".
+Our customer: a team whose coding agent (or CI) adds and upgrades dependencies, and that must
+not ship a known-vulnerable version. The outcome they'd pay for: every dependency change gets a
+security answer they can act on automatically (pass, block, or flag for a person), at a known
+cost, with a receipt and the evidence.
+
+**App: Dependency Gate.**
+1. Trigger: a dependency change (a PR diff, or a manifest).
+2. **One** paid `SECURITY_REVIEW_GENERAL` call per changed package, through ranked routing or the
+   best-value provider from the leaderboard (1x cost).
+3. **Free** check of that answer with Verified Ask (OSV, deps.dev, rubygems.org; no extra miner).
+4. Action: verified "Secure" passes; verified vulnerable blocks with the advisories. Only when the
+   free check proves an answer wrong, or it has no verdict, does it re-ask **one** next provider;
+   if still unresolved, flag for a person. Never 3x by default.
+5. Output: a PR comment or report with the decision, the evidence, cost and receipts.
+6. **Leaderboard (route 1):** the benchmark becomes a small scheduled sample (not every request)
+   publishing cost per verified correct answer per provider. That is the evaluation the feedback
+   asks for, and it feeds provider choice. Verified outcomes are also candidate pool material for
+   the Evaluators track.
+7. Tests the mission requires: wrong, partial and unanswerable cases; unknown kept apart from
+   incorrect (unknown package and version cases already exist).
+
+- [ ] A0 Confirm the fit with Telegraph in one line (customer, route, 1x design) before building
+- [ ] A1 `gate/`: manifest diff in, one paid call per package, Verified Ask, decision, receipt out;
+      spend caps; CLI first, then a GitHub Action
+- [ ] A2 Measure against the benchmark cases: decisions correct, blocked wrongly, flagged, cost
+      per decision, versus (a) trusting ranked routing alone, (b) the free OSV lookup alone
+- [ ] A3 Scheduled leaderboard from a small sample; public page on the site
+- [ ] A4 One outside user or builder runs it (adoption counts for 10 of the 100 points)
+- [ ] A5 Demo video, docs, submission via anjoman.ai
+
+### Phase N: A Mind front end for the Dependency Gate (optional, after Phase A works)
 
 Proposed by the Telegraph team in the builders channel (11-22): build a Mind (Minds by Animoca
 Brands, hellominds.ai) that uses Telegraph through Anjoman for a hard multi-step job, test it
@@ -150,9 +193,9 @@ MCP directly, so until Telegraph says otherwise, our code orchestrates and the M
 
 1. **Investigator Mind.** Input: a dependency list (`package.json`, `requirements.txt`), 20 to 50
    packages. Our orchestrator asks Telegraph miners per package (Anjoman Skill or API key, or our
-   escrow runner) and runs each answer through Verified Ask. When an answer is contradicted, has
-   no verdict, or two providers disagree, it re-asks a **different** miner (picked from benchmark
-   reliability), up to a set budget. The Mind gets the evidence with `minds send`, writes the
+   escrow runner), **one call per package by default**, and runs each answer through Verified Ask
+   (free). Only when the free check proves an answer wrong, or it has no verdict, does it re-ask one
+   **different** miner (picked from benchmark reliability), within a set budget. The Mind gets the evidence with `minds send`, writes the
    audit, and says what is still uncertain. Code questions stay "unchecked".
 2. **Reviewer Mind.** Gets the investigator's findings and the raw evidence, re-checks every
    claim against Verified Ask, and approves or disputes each finding.
