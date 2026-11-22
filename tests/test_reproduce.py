@@ -115,6 +115,53 @@ class Round3(unittest.TestCase):
         self.assertEqual(delta, receipts)
 
 
+class Round4Pooled(unittest.TestCase):
+    """eval/reports/2026-11-22-rounds-2-4.md."""
+
+    @classmethod
+    def setUpClass(cls):
+        from score_v2 import score_rounds
+        d = ROOT / "bench" / "out"
+        cls.res = score_rounds([d / "round-2", d / "round-3", d / "round-4"], ROOT / "bench" / "cases-v2.json")
+        cls.R = cls.res["rounds"]
+        cls.calls = [json.loads(l) for l in (d / "round-4" / "calls.ndjson").read_text().splitlines() if l.strip()]
+        cls.before = json.loads((d / "round-4" / "ledger-before.json").read_text())
+        cls.after = json.loads((d / "round-4" / "ledger-after.json").read_text())
+
+    def test_round4_headline(self):
+        t = self.R["round-4"]["targets"]
+        self.assertEqual(len(self.calls), 1518)
+        self.assertEqual((t["20260828"]["correct"], t["20260828"]["rank"]), (32, 3))
+        self.assertEqual((t["905227"]["correct"], t["905227"]["rank"]), (17, 1))  # salence, ex evidence-security-review
+        self.assertEqual(t["routed"]["correct"], 17)
+        self.assertEqual(t["osv-baseline"]["correct"], 24)
+        self.assertEqual(self.R["round-4"]["n_ranked"], 32)
+        self.assertAlmostEqual(self.R["round-4"]["kendall_tau_rank_vs_accuracy"], 0.29, places=2)
+
+    def test_round4_reconciliation(self):
+        billed = [c for c in self.calls if isinstance(c.get("escrow_receipt"), dict)]
+        receipts = sum(int(c["escrow_receipt"]["amount_uusdc"]) for c in billed)
+        self.assertEqual((len(billed), receipts), (634, 6_340_000))
+        self.assertTrue(all(c.get("http") == 200 for c in billed))
+        delta = (int(self.after["charged"]) + int(self.after["unbilled"])) - (int(self.before["charged"]) + int(self.before["unbilled"]))
+        self.assertEqual(delta - receipts, 10_000)  # one unmatched charge, reported
+        self.assertEqual(sum(c.get("http") is None for c in self.calls), 3)
+
+    def test_pooled_stability(self):
+        a1 = [self.R[r]["targets"]["20260828"]["correct"] for r in self.R]
+        self.assertEqual(a1, [27, 31, 32])
+        self.assertEqual([self.R[r]["targets"]["905227"]["correct"] for r in self.R], [0, 0, 17])
+        self.assertEqual([self.R[r]["targets"]["routed"]["correct"] for r in self.R], [5, 1, 17])
+        common = set.intersection(*[set(self.R[r]["targets"]) for r in self.R])
+        self.assertEqual(len(common) - 2, 13 - 2)  # 13 incl. the route and the free baseline
+
+    def test_cost_per_rail(self):
+        def tot(r, key):
+            return round(sum(v[key] for k, v in self.R[r]["targets"].items() if k != "osv-baseline"), 2)
+        self.assertEqual([tot(r, "charged_onchain_usdc") for r in self.R], [5.60, 5.91, 6.34])
+        self.assertEqual([sum(v["correct"] for k, v in self.R[r]["targets"].items() if k != "osv-baseline") for r in self.R], [56, 71, 107])
+
+
 class Audit(unittest.TestCase):
     """eval/reports/2026-11-15-miner-audit.md."""
 

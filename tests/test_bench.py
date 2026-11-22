@@ -70,6 +70,19 @@ class ScoreV2(unittest.TestCase):
         self.assertGreaterEqual(hi, s["cost_per_correct"])
 
 
+class RailFill(unittest.TestCase):
+    def test_failed_escrow_call_is_not_charged(self):
+        import json, tempfile
+        from score_v2 import load
+        d = Path(tempfile.mkdtemp())
+        rows = [{"case": "a", "miner_id": "m", "http": 200, "rail": "escrow", "escrow_receipt": {"amount_uusdc": "10000"}},
+                {"case": "b", "miner_id": "m", "http": None, "error": "fetch failed"}]
+        (d / "calls.ndjson").write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+        recs = load(d)
+        self.assertEqual(recs[1]["rail"], "escrow")
+        self.assertFalse(charged_onchain(recs[1]))
+
+
 class Measures(unittest.TestCase):
     def test_charged(self):
         self.assertTrue(charged({"receipt": {"amount_uusdc": "10000"}}))

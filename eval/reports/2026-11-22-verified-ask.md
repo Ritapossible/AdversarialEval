@@ -1,12 +1,13 @@
 # Verified Ask: checking paid security answers before a buyer trusts them (2026-11-22)
 
-The benchmark ([round 2](2026-11-16-round-2.md), [round 3](2026-11-21-round-3.md)) showed that
-buyers of `SECURITY_REVIEW_GENERAL` answers can't rely on the node's ranking: the top-ranked miners
-scored 0/36. Verified Ask is the buyer-side fix. It checks every answer against free public data
+The benchmark ([round 2](2026-11-16-round-2.md), [round 3](2026-11-21-round-3.md),
+[rounds 2 to 4](2026-11-22-rounds-2-4.md)) showed that buyers of `SECURITY_REVIEW_GENERAL` answers
+can't rely on what a miner returns: most delivered answers have no usable verdict, and in two of
+three rounds the top-ranked miner scored 0/36. Verified Ask is the buyer-side fix. It checks every answer against free public data
 at the moment the buyer receives it, and returns one label the buyer's code can act on.
 
-This report replays it over the 2,162 answers already bought in rounds 2 and 3. **No new calls
-were made and nothing was spent.**
+This report replays it over the 3,680 calls already bought in rounds 2, 3 and 4 (updated after
+round 4; the first version covered rounds 2 and 3). **No new calls were made and nothing was spent.**
 
 ## What it checks
 
@@ -29,7 +30,7 @@ step), not a lookup.
 
 ## Result
 
-- **Replay:** `python -m verify.replay bench/out/round-2 bench/out/round-3 --out bench/out/verify-replay`
+- **Replay:** `python -m verify.replay bench/out/round-2 bench/out/round-3 bench/out/round-4 --out bench/out/verify-replay`
 - **Data:** [`bench/out/verify-replay/`](../../bench/out/verify-replay/): a label and its checks for
   every call, the summary, and every OSV, deps.dev and rubygems.org response used (2.2 MB), so
   `--offline` reproduces it exactly. `tests/test_verify.py` does that in CI.
@@ -38,37 +39,40 @@ step), not a lookup.
 
 | Benchmark grade | Answers | verified | unconfirmed | contradicted |
 |---|---:|---:|---:|---:|
-| correct | 113 | **112** | 0 | 1 |
-| wrong | 87 | **0** | 26 | 61 |
+| correct | 222 | **220** | 0 | 2 |
+| wrong | 142 | **0** | 47 | 95 |
 
-- **No wrong answer was labelled verified, and every verified answer was correct (112 of 112).**
-- 61 of the 87 wrong answers were contradicted outright. The other 26 had the right direction but
+Per round (correct verified / wrong verified): round 2 43 / 0, round 3 69 / 0, round 4 108 / 0.
+
+- **No wrong answer was labelled verified, in any round, and every verified answer was correct
+  (220 of 220).**
+- 95 of the 142 wrong answers were contradicted outright. The other 47 had the right direction but
   no `vulnerability_count`, which the benchmark grades as wrong; the verifier says unconfirmed and
   names the missing field.
-- The one correct answer that was contradicted is a real catch, not a false alarm. It is
-  vulnrank-triage on gin 1.5.0: right verdict, but it cites `GO-2026-5932`, an advisory about
-  `golang.org/x/crypto`. The benchmark's grade doesn't check citations.
+- The two correct answers that were contradicted are real catches, not false alarms. Both are
+  vulnrank-triage on gin 1.5.0 (rounds 3 and 4): right verdict, but it cites `GO-2026-5932`, an
+  advisory about `golang.org/x/crypto`. The benchmark's grade doesn't check citations.
 
 ### What the extra checks found
 
 | Failed check | Answers |
 |---|---:|
-| verdict disagrees with OSV | 53 |
-| fields contradict each other | 28 |
-| version was never published | 6 |
-| bad citation (placeholder, wrong package) | 7 answers, 8 citations |
+| verdict disagrees with OSV | 85 |
+| fields contradict each other | 40 |
+| version was never published | 8 |
+| bad citation (placeholder, wrong package) | 13 answers, 14 citations |
 
-- Bad citations came from two miners: txlens (5 answers, placeholder ids such as `CVE-2020-...`)
-  and vulnrank-triage (2 answers, advisories about other packages).
-- The unpublished-version check catches 6 confident answers about a package or version that does
+- Bad citations came from two miners: txlens (9 answers, placeholder ids such as `CVE-2020-...`)
+  and vulnrank-triage (4 answers, advisories about other packages).
+- The unpublished-version check catches 8 confident answers about a package or version that does
   not exist. Four were "Secure, 0 vulnerabilities" in round 2 (a1-preflight and the default route).
   The benchmark could only call these "confident clean".
 
 ### What a buyer gets
 
-- Of 577 delivered answers to package questions, **371 (64%) had no usable verdict**. A buyer's
+- Of 1,049 delivered answers to package questions, **677 (65%) had no usable verdict**. A buyer's
   code should reject those, and the label says so.
-- Of the rest, 112 come back verified, 68 contradicted with the reason, and 26 unconfirmed.
+- Of the rest, 220 come back verified, 105 contradicted with the reason, and 47 unconfirmed.
 
 ## Limits
 
@@ -79,7 +83,7 @@ step), not a lookup.
 - **OSV is the reference.** A miner that finds a real issue OSV doesn't know yet would be marked
   contradicted on the verdict, with the reason shown. A CVE missing from OSV is only a warning.
 - **Packages only.** Code answers are unchecked until the evaluator model is wired in.
-- 200 graded answers from two rounds; testnet miners.
+- 364 graded answers from three rounds; testnet miners.
 
 ## Using it
 

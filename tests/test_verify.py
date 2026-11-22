@@ -235,7 +235,7 @@ class VercelFunction(unittest.TestCase):
 
 
 class Replay(unittest.TestCase):
-    """eval/reports/2026-11-22-verified-ask.md: re-run offline from the committed evidence cache."""
+    """eval/reports/2026-11-22-verified-ask.md (rounds 2 to 4): re-run offline from the committed evidence cache."""
 
     def test_published_numbers(self):
         import subprocess
@@ -245,10 +245,11 @@ class Replay(unittest.TestCase):
         tmp = Path(__import__("tempfile").mkdtemp())
         (tmp / "sources-cache.json").write_text((out / "sources-cache.json").read_text())
         subprocess.run([sys.executable, "-m", "verify.replay", str(ROOT / "bench/out/round-2"), str(ROOT / "bench/out/round-3"),
-                        "--out", str(tmp), "--offline"], cwd=ROOT, check=True, capture_output=True)
+                        str(ROOT / "bench/out/round-4"), "--out", str(tmp), "--offline"], cwd=ROOT, check=True, capture_output=True)
         got = json.loads((tmp / "summary.json").read_text())
         self.assertEqual(got, json.loads((out / "summary.json").read_text()))
-        self.assertEqual((got["wrong"], got["wrong_contradicted"], got["correct"], got["correct_contradicted"]), (87, 61, 113, 1))
+        self.assertEqual((got["wrong"], got["wrong_contradicted"], got["correct"], got["correct_contradicted"]), (142, 95, 222, 2))
+        self.assertEqual(got["wrong_labels"].get("verified", 0), 0)  # the headline claim
 
 
 if __name__ == "__main__":

@@ -1,57 +1,60 @@
 {
  "rounds": [
   "round-2",
-  "round-3"
+  "round-3",
+  "round-4"
  ],
- "calls": 2162,
- "delivered": 782,
+ "calls": 3680,
+ "delivered": 1416,
  "labels_all_delivered": {
-  "verified": 112,
-  "invalid": 490,
-  "unconfirmed": 26,
-  "contradicted": 68,
-  "unchecked": 86
+  "verified": 220,
+  "invalid": 899,
+  "unconfirmed": 47,
+  "contradicted": 105,
+  "unchecked": 145
  },
- "package_questions_delivered": 577,
+ "package_questions_delivered": 1049,
  "labels_package_delivered": {
-  "verified": 112,
-  "invalid": 371,
-  "unconfirmed": 26,
-  "contradicted": 68
+  "verified": 220,
+  "invalid": 677,
+  "unconfirmed": 47,
+  "contradicted": 105
  },
- "graded_package_answers_with_verdict": 200,
- "wrong": 87,
- "wrong_contradicted": 61,
+ "graded_package_answers_with_verdict": 364,
+ "wrong": 142,
+ "wrong_contradicted": 95,
  "wrong_labels": {
-  "unconfirmed": 26,
-  "contradicted": 61
+  "unconfirmed": 47,
+  "contradicted": 95
  },
- "correct": 113,
- "correct_contradicted": 1,
+ "correct": 222,
+ "correct_contradicted": 2,
  "correct_labels": {
-  "verified": 112,
-  "contradicted": 1
+  "verified": 220,
+  "contradicted": 2
  },
  "failed_checks": {
-  "verdict": 53,
-  "exists": 6,
-  "fields": 28,
-  "citation": 8
+  "verdict": 85,
+  "exists": 8,
+  "fields": 40,
+  "citation": 14
  },
- "answers_with_bad_citation": 7,
+ "answers_with_bad_citation": 13,
  "bad_citation_by_miner": {
-  "txlens": 5,
-  "vulnrank-triage": 2
+  "txlens": 9,
+  "vulnrank-triage": 4
  },
  "unknown_cases": {
   "confident clean -> contradicted": 4,
-  "no answer -> invalid": 12,
-  "abstained -> contradicted": 1,
+  "no answer -> invalid": 25,
+  "abstained -> contradicted": 2,
   "no answer -> contradicted": 1,
-  "abstained -> invalid": 2
+  "abstained -> invalid": 4,
+  "invented -> invalid": 2,
+  "invented -> contradicted": 1
  },
  "code_labels": {
-  "unchecked": 86,
-  "invalid": 119
+  "unchecked": 145,
+  "invalid": 222
  }
 }

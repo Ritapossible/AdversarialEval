@@ -58,8 +58,8 @@ Every number below links to raw node API output or a committed report (CLAUDE.md
 | Round 1 pilot, 91 paid calls | [`2026-11-15-paid-benchmark.md`](../eval/reports/2026-11-15-paid-benchmark.md) |
 | Round 2, 598 paid calls (x402), reconciled with 560 on-chain transfers | [`2026-11-16-round-2.md`](../eval/reports/2026-11-16-round-2.md), `bench/out/round-2/onchain-payments.json` |
 | Round 3, 1,564 calls (escrow), 591 receipts = ledger change | [`2026-11-21-round-3.md`](../eval/reports/2026-11-21-round-3.md), `bench/out/round-3/ledger-*.json` |
-| Round 4 and the pooled report | pending (Nov 22) |
-| Verified Ask, replay over 2,162 paid answers | [`2026-11-22-verified-ask.md`](../eval/reports/2026-11-22-verified-ask.md), [`verify/`](../verify/) |
+| Round 4 (1,518 calls, escrow) and the pooled report, rounds 2 to 4 | [`2026-11-22-rounds-2-4.md`](../eval/reports/2026-11-22-rounds-2-4.md), `bench/out/round-4/ledger-*.json`, `bench/out/pooled-score.md` |
+| Verified Ask, replay over 3,680 paid calls (rounds 2 to 4) | [`2026-11-22-verified-ask.md`](../eval/reports/2026-11-22-verified-ask.md), [`verify/`](../verify/) |
 | Receipts per call | `bench/out/round-*/calls.ndjson` (`receipt`, `escrow_receipt`) |
 | Unknown vs incorrect (required by the mission) | unknown-package and unknown-version cases; graded `abstained` / `confident clean` / `invented` |
 | Payer wallet (testnet only) | `0xA0C8…6C1C` (full address in the round reports) |

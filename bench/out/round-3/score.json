@@ -2314,7 +2314,7 @@
      "charged_usdc": 0.12,
      "receipt_usdc": 0.12,
      "cost_per_correct": null,
-     "charged_onchain_usdc": 0.13,
+     "charged_onchain_usdc": 0.12,
      "cost_per_correct_onchain": null,
      "cost_per_correct_ci95": null,
      "median_ms": 122.5,

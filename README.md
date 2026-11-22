@@ -54,8 +54,8 @@ reporting results next to the shortcut judges the material is designed to defeat
 | Result | Evidence |
 |---|---|
 | **81 preference pairs eligible** in the live `SECURITY_REVIEW_GENERAL` pool (testnet), all *attested*, uploaded 2026-11-14, contributor `0x31Cf…3095`. Bounty #96 evaluation-material part submitted and moved to review. | Node API output in [`eval/reports/2026-11-14-pool-upload.md`](eval/reports/2026-11-14-pool-upload.md) |
-| **Paid benchmark of the live market** (rule pre-registered; payments matched to the chain or ledger): the top two ranked miners scored **0/36**, node rank vs accuracy τ = +0.02 and −0.18, and only one miner beat a free OSV lookup. | [`2026-11-16-round-2.md`](eval/reports/2026-11-16-round-2.md), [`2026-11-21-round-3.md`](eval/reports/2026-11-21-round-3.md) |
-| **Verified Ask**, replayed over 2,162 paid answers: **no wrong package answer was labelled verified**, and 112 of 112 verified answers were correct. It also caught cited advisories about other packages and placeholder ids. | [`2026-11-22-verified-ask.md`](eval/reports/2026-11-22-verified-ask.md) |
+| **Paid benchmark of the live market**, three rounds, 3,680 calls (rule pre-registered; payments matched to the chain or ledger): one miner beats a free OSV lookup in every round (pooled 83% vs 67%). The rank 1 miner scored **0/36** in rounds 2 and 3; in round 4 a rebuilt miner reached rank 1 with 17/36 and rank vs accuracy turned positive (τ = +0.02, −0.18, **+0.29**). | [`2026-11-22-rounds-2-4.md`](eval/reports/2026-11-22-rounds-2-4.md) |
+| **Verified Ask**, replayed over 3,680 paid calls: **no wrong package answer was labelled verified** in any round, and 220 of 220 verified answers were correct. It also caught cited advisories about other packages, placeholder ids, and "Secure" on unpublished versions. | [`2026-11-22-verified-ask.md`](eval/reports/2026-11-22-verified-ask.md) |
 | Shortcut judges at chance on that material: longer-answer 54%, TF-IDF-to-prompt 54%, security-keyword 44%. | `scripts/check_data.sh` |
 | Adapter: **72.4% / 74.7%** pairwise accuracy on 87 validation pairs (two seeds), versus ≤ 58% for every shortcut judge. | [`2026-11-11-cpu-v3-seed7.md`](eval/reports/2026-11-11-cpu-v3-seed7.md) |
 | Held out from training, whole failure types are **not** learned: **37–39%** on unseen context-reversal and false-alarm pairs. Validation accuracy holds only for trained types. | [`2026-11-14-lofo.md`](eval/reports/2026-11-14-lofo.md) |
@@ -74,7 +74,7 @@ uses an independent test set, under the frozen rule.
 | **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; **not registered**, pending the independent test |
 | **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
 | **Verified Ask** ([`verify/`](verify/)): an API a buyer calls before trusting a security answer. It checks the verdict, the cited advisory ids and the version against OSV, deps.dev and rubygems.org, and returns verified, contradicted, unconfirmed, invalid or unchecked | Working, tested; replayed over rounds 2 and 3 |
-| **Paid market benchmark** ([`bench/`](bench/)): cost per verified correct answer, per miner, three rounds | Rounds 2 and 3 done; round 4 on 11-22 |
+| **Paid market benchmark** ([`bench/`](bench/)): cost per verified correct answer, per miner, three rounds | Rounds 2 to 4 done, pooled report published |
 | **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
 
 ## How it works

@@ -35,6 +35,15 @@ def load(round_dir: Path) -> list[dict]:
         p = round_dir / name
         if p.exists():
             recs += [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    # bench/run.mjs did not record `rail` on calls that failed in the client (network error), so
+    # an escrow round's failed calls fell back to the x402 rule (charged). A round runs on one rail:
+    # fill the gap from the round's other calls. The raw files are left unchanged.
+    rails = {r["rail"] for r in recs if r.get("rail")}
+    if len(rails) == 1:
+        rail = rails.pop()
+        for r in recs:
+            if not r.get("rail") and not is_free(r):
+                r["rail"] = rail
     return recs
 
 

@@ -127,7 +127,7 @@ async function call(c, t) {
       cost_usd: body.cost_usd ?? null, duration_ms: body.duration_ms ?? null, signal_hash: body.signal_hash ?? null,
       error: body.error ?? null, message: body.message ?? null, warnings: body.warnings ?? null };
   } catch (e) {
-    rec = { ...rec, http: null, wall_ms: Date.now() - started, error: String(e?.message || e).slice(0, 300) };
+    rec = { ...rec, http: null, wall_ms: Date.now() - started, rail: opt.rail, error: String(e?.message || e).slice(0, 300) };
   }
   appendFileSync(outFile, JSON.stringify(rec) + "\n");
   console.log(`${c.id.padEnd(38)} ${t.slug.padEnd(30)} http=${rec.http} ${rec.result?.verdict ?? rec.error ?? ""}`);
