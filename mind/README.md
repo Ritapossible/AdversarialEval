@@ -44,6 +44,10 @@ Returns `label` (`verified`, `contradicted`, `unconfirmed`, `invalid`, `unchecke
 with the reason for each. `GET` on the same URL shows whether the token is configured.
 Details: [`verify/README.md`](../verify/README.md).
 
+**Timeouts (from another builder, 22 Nov).** Minds cuts an HTTP call at 60 seconds (504), while an
+Anjoman job can take about 2 minutes. The job keeps running: find it with `GET /agent/spend` and
+poll `GET /agent/jobs/{id}` until it finishes. Treat a 504 as "still running", not as a failure.
+
 ## 3. The Mind's instructions (its Skill playbook)
 
 Give the Mind this, in its own words:
