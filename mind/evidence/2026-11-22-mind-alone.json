@@ -1,0 +1,8 @@
+{
+ "mind": "38266542-f36b-1410-8467-00039ce7df11",
+ "alias": "dependency-guard",
+ "sent_at": "2026-11-22T13:01:55.631Z",
+ "sent": "Baseline test (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse any earlier verdicts from our chats. Use only your own knowledge and your own web search.\n\nFor each package version below, decide: BLOCK if it has at least one known published vulnerability, PASS if it has none, FLAG if you can't tell. Reply with exactly one line per package in the form `<purl> | <PASS/BLOCK/FLAG> | <advisory ids or reason>`, then one line with your confidence. Keep it short.\n\npkg:pypi/jinja2@3.1.5\npkg:pypi/jinja2@3.1.6\npkg:pypi/pyyaml@5.1.2\npkg:pypi/pyyaml@6.0.3\npkg:npm/lodash@4.17.23\npkg:npm/lodash@4.18.1\npkg:npm/minimist@1.2.5\npkg:npm/minimist@1.2.8\npkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.6\npkg:maven/com.fasterxml.jackson.core/jackson-databind@2.23.0\npkg:maven/org.yaml/snakeyaml@1.9\npkg:maven/org.yaml/snakeyaml@2.7",
+ "reply": null,
+ "replied_at": "2026-11-22T13:06:57.200Z"
+}
