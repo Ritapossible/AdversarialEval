@@ -77,6 +77,25 @@ easily; that favours the Mind alone. Telegraph's own advice is to try unfamiliar
 is the next test: newly published advisories, less common ecosystems, and versions that don't
 exist, where search is weaker and a miner's live lookup should matter more.
 
+## Running inside the Mind (same day)
+
+After Telegraph confirmed the route (Minds' own HTTP tool, the Anjoman key held as a private
+credential), the same flow runs inside Dependency.Guard with no outside code: one routed
+`/engine/ask`, then `/api/verify`, then one direct re-ask only when the check fails. Its first
+in-Mind run blocked minimist 1.2.5 and lodash 4.17.23, both verified, with receipts. It now
+keeps a watchlist and re-checks approved versions once a day with the free check only, buying a
+fresh answer only if a PASS is contradicted (cap $0.10 a day):
+[`mind/evidence/2026-11-22-watchlist.json`](../../mind/evidence/2026-11-22-watchlist.json).
+
+Two things it found:
+- Three routed asks at 13:44 to 13:45 UTC were refused with HTTP 400 "Payment was rejected by
+  the facilitator" and charged nothing; the identical request settled minutes later. A transient
+  payment-side failure, not a request problem.
+- **A routed ask can pay two miners.** One routed call settled $0.02 as two payments (TxLens and
+  a1-preflight, receipts in the watchlist). Our connector's routed calls also show $0.02. So the
+  ranked route itself sometimes buys a second answer; a buyer budgeting "1x" should expect up to
+  2x on the route.
+
 ## Limits
 
 - 12 packages, one run per arm, testnet miners. No intervals are given; at this size, differences
