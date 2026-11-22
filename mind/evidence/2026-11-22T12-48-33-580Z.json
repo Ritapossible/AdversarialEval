@@ -1,0 +1,130 @@
+{
+ "at": "2026-11-22T12:48:33.580Z",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "policy": "one ranked ask; re-ask one other provider only if the free check proves it wrong",
+ "max_spend_usd": 0.1,
+ "packages": [
+  {
+   "target": "pkg:npm/minimist@1.2.5",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 33817,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2021-44906"
+      ],
+      "summary": "Insecure. The package minimist@1.2.5 contains a known prototype‑pollution vulnerability (CWE‑1321) that allows an attacker to inject properties into Object.prototype by passing specially crafted arguments such as `--foo[bar]=baz`. This can lead to arbitrary code execution or denial of service in downstream code that relies on minimist. The fix is to upgrade to a patched version (≥1.2.6) or apply the upstream patch that sanitizes array indices and prevents prototype pollution. No other critical issues were identified in this version."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x873c33fb59780f9f448e6cc6c89ee51b81a9522219658ab8cf54b06e97d44e3b",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795351747
+     },
+     "signal_hash": "0xed4b5e1bd3543ac6619d22578f18fe3480ec024bff7a6f6b78ca3674b9e31b6f",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2021-44906 affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 1 known"
+  },
+  {
+   "target": "pkg:npm/minimist@1.2.8",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 28251,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The referenced minimist version 1.2.8 is not vulnerable to the known prototype‑pollution issues that affected earlier releases (CWE‑20/OWASP A01). No insecure configuration or code is presented, and the package version includes the fixes for prior CVEs. No further action is required."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xc1af7003b01d6529ad10b76eb0a7587350cceb520572416cc0b205b0c952bc4a",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 37,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795351776
+     },
+     "signal_hash": "0x8610e13a6b4e2159fb54249e644873de13a90ae3097bd13e74f80e038dc974f4",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  }
+ ],
+ "spent_usd": 0.04,
+ "receipts": [
+  "0x873c33fb59780f9f448e6cc6c89ee51b81a9522219658ab8cf54b06e97d44e3b",
+  "0xc1af7003b01d6529ad10b76eb0a7587350cceb520572416cc0b205b0c952bc4a"
+ ],
+ "mind": {
+  "id": "38266542-f36b-1410-8467-00039ce7df11",
+  "alias": "dependency-guard",
+  "sent": "Dependency check request. Evidence was gathered by your connector: one paid SECURITY_REVIEW_GENERAL answer per package from Telegraph (Anjoman), each checked free by Verified Ask against OSV, deps.dev and rubygems.org.\nRules: verified + Secure = PASS; verified + vulnerable = BLOCK; unconfirmed, or not verified after one re-ask = FLAG for a person. Don't invent facts beyond the evidence.\n\n- pkg:npm/minimist@1.2.5: proposed BLOCK\n    TxLens: Insecure (count 1; issues [\"CVE-2021-44906\"]) -> Verified Ask \"verified\"; $0.02; receipt 0x873c33fb59780f9f448e6cc6c89ee51b81a9522219658ab8cf54b06e97d44e3b\n- pkg:npm/minimist@1.2.8: proposed PASS\n    TxLens: Secure (count 0; issues []) -> Verified Ask \"verified\"; $0.02; receipt 0xc1af7003b01d6529ad10b76eb0a7587350cceb520572416cc0b205b0c952bc4a\n\nTotal spent: $0.04. Receipts: 0x873c33fb59780f9f448e6cc6c89ee51b81a9522219658ab8cf54b06e97d44e3b, 0xc1af7003b01d6529ad10b76eb0a7587350cceb520572416cc0b205b0c952bc4a.\nPlease reply with: one line per package (decision and reason, naming the advisories for any BLOCK), anything you would overrule and why, the total cost, and what you'll remember about these versions for future alerts.",
+  "reply": "<p>Both of your proposed calls hold. I'd change neither verdict - but there's one thing underneath them worth saying out loud, so you know exactly how strong that PASS is.</p><p><strong>pkg:npm/minimist@1.2.5 - BLOCK.</strong> Anjoman came back Insecure, one finding: CVE-2021-44906. Verified Ask confirmed that review against OSV and deps.dev. Receipt 0x873c33fb59780f9f448e6cc6c89ee51b81a9522219658ab8cf54b06e97d44e3b.</p><p><strong>pkg:npm/minimist@1.2.8 - PASS.</strong> Anjoman came back Secure, zero findings, Verified Ask confirmed. Receipt 0xc1af7003b01d6529ad10b76eb0a7587350cceb520572416cc0b205b0c952bc4a.</p><p>Nothing to overrule. Both labels sit inside the published enum, the mapping is the one we agreed, and Verified Ask only confirmed - it didn't push against either one. So I'm not second-guessing the decisions.</p><p>What I will flag, without moving a verdict: your verification sources read OSV, deps.dev and rubygems.org. rubygems adds nothing to an npm purl, so \"verified\" here means two sources agreeing with Anjoman, not three. That's my read of the source list, not a claim about what actually ran. If you want a genuine third opinion for JavaScript packages, that's worth fixing before you point this at a batch - not after.</p><p>Second thing, smaller: PASS on 1.2.8 is true of 1.2.8, today. It isn't a safe floor. Your evidence tells me 1.2.5 is bad and 1.2.8 is clean; it says nothing about where the fix landed in between, and I won't fill that gap by guessing.</p><p>Cost: $0.04 total, $0.02 per package, both receipts above. This reply cost you nothing - the calls were already made, I did the judgment and the write-up. The full receipt is saved as an artifact with the raw labels and counts so you can audit it without taking my word for anything.</p><p>What I'll remember: 1.2.5 blocks, 1.2.8 clean, both as of today. Any other minimist version gets a real check rather than a borrowed answer - reusing this verdict on a version I didn't test would be worse than having no verdict at all.</p><p>When you're ready to point this at a real batch, send me the purls. I'll run them one at a time so a failure on one doesn't cost you the rest.</p><p>- Dependency.Guard</p>"
+ }
+}

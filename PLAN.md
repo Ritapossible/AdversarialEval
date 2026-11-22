@@ -235,9 +235,9 @@ MCP directly, so until Telegraph says otherwise, our code orchestrates and the M
 - [x] N0 Ask the Telegraph team (now in the Minds forum): can a Mind load the Anjoman Skill (or a remote MCP URL), or
       does it need an outside orchestrator? Is this rewarded? What do Builder access rules require?
 - [x] N1a Host Verified Ask as a token-protected endpoint on the Vercel site (`site/api/verify.py`; live 11-22, GET shows `configured:false` and POST returns 503 until VERIFY_TOKEN is set). Setup guide: `mind/README.md`
-- [ ] N1 (user) Minds account and a Mind; Anjoman API key in Minds private credentials; funded Anjoman balance; check that `minds send --wait` works and what a
+- [x] N1 (user) Minds account and a Mind (Dependency.Guard, id 38266542-f36b-1410-8467-00039ce7df11); Anjoman API key in Minds private credentials; funded Anjoman balance; check that `minds send --wait` works and what a
       reply costs in Cognition
-- [ ] N2 Orchestrator (`mind/`): dependency list in, Telegraph asks plus Verified Ask, evidence
+- [x] N2 Orchestrator (`mind/connector/guard.mjs`, 11-22; first end-to-end run with the Mind in `mind/evidence/`): dependency list in, Telegraph asks plus Verified Ask, evidence
       to the Mind, report out. Spend caps on both Telegraph and Cognition
 - [ ] N3 Reviewer Mind and watch mode (daily OSV re-check, alert on change)
 - [ ] N4 Three-arm test on the benchmark package cases plus unseen packages; report in `eval/reports/`
