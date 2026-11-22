@@ -233,6 +233,12 @@ class VercelFunction(unittest.TestCase):
         finally:
             self.os.environ.pop("VERIFY_TOKEN", None)
 
+    def test_client_ip_prefers_edge_headers(self):
+        ip = self.mod.client_ip
+        self.assertEqual(ip({"x-real-ip": "1.1.1.1", "X-Forwarded-For": "9.9.9.9, 1.1.1.1"}, "127.0.0.1"), "1.1.1.1")
+        self.assertEqual(ip({"X-Forwarded-For": "9.9.9.9 (spoofed), 2.2.2.2"}, "127.0.0.1"), "2.2.2.2")
+        self.assertEqual(ip({}, "127.0.0.1"), "127.0.0.1")
+
     def test_copy_in_sync(self):
         import subprocess
         p = subprocess.run([sys.executable, str(ROOT / "tools" / "sync_site_api.py"), "--check"], capture_output=True, text=True)

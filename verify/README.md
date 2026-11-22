@@ -44,6 +44,10 @@ It makes outbound calls on behalf of its callers, so it is built not to become a
 - Bodies over 64 KB get 413. `target` is capped at 256 bytes, the intent's own limit.
 - At most 8 upstream calls run at once; responses are cached.
 - The cache (`--cache`) is written atomically: a temp file, then a rename.
+- The hosted copy (`site/api/verify.py` on Vercel) keeps no shared cache: each function
+  instance starts empty, so repeated checks call OSV and the registries again. Its rate limit is
+  per instance and keyed on the client address Vercel's edge reports (`x-real-ip`), so it is a
+  best-effort limit, not a quota.
 - Standard library only, no account, no key. Sources: api.osv.dev, api.deps.dev, rubygems.org.
 
 ## Replay
