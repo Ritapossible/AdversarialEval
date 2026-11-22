@@ -1,0 +1,282 @@
+{
+ "name": "code-review-v2",
+ "frozen": "before any paid call; see RULE.md",
+ "cases": [
+  {
+   "id": "path-prefix-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-22",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\nBASE = \"/srv/files\"\ndef read(name):\n    p = os.path.abspath(os.path.join(BASE, name))\n    if not p.startswith(BASE):\n        abort(403)\n    return open(p).read()",
+   "rationale": "startswith on a path without a trailing separator: ../files_secret/x resolves to /srv/files_secret/x, which passes; abspath doesn't resolve symlinks either",
+   "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+  },
+  {
+   "id": "path-prefix-fixed",
+   "kind": "pair",
+   "cwe": "CWE-22",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\nBASE = \"/srv/files\"\ndef read(name):\n    p = os.path.realpath(os.path.join(BASE, name))\n    if os.path.commonpath([p, BASE]) != BASE:\n        abort(403)\n    return open(p).read()",
+   "rationale": "realpath resolves .. and symlinks; commonpath compares whole path components, so only paths inside BASE pass",
+   "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+  },
+  {
+   "id": "git-argv-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-88",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\ndef last_commit(ref):\n    # ref comes from the query string\n    r = subprocess.run([\"git\", \"-C\", REPO, \"log\", \"-n1\", ref], capture_output=True, text=True)\n    return r.stdout",
+   "rationale": "no shell, but ref can be an option: --output=/var/www/x.php makes git log write a file of the attacker's choosing",
+   "source_url": "https://cwe.mitre.org/data/definitions/88.html"
+  },
+  {
+   "id": "git-argv-fixed",
+   "kind": "pair",
+   "cwe": "CWE-88",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef last_commit(ref):\n    # ref comes from the query string\n    r = subprocess.run([\"git\", \"-C\", REPO, \"log\", \"-n1\", \"--end-of-options\", ref], capture_output=True, text=True)\n    return r.stdout",
+   "rationale": "--end-of-options (git 2.24+) makes ref a revision, never an option; reading any revision of this repo is intended",
+   "source_url": "https://cwe.mitre.org/data/definitions/88.html"
+  },
+  {
+   "id": "redirect-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-601",
+   "language": "Python/Flask",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python/Flask:\n@app.get(\"/login/done\")\ndef done():\n    nxt = request.args.get(\"next\", \"/\")\n    if not nxt.startswith(\"/\"):\n        nxt = \"/\"\n    return redirect(nxt)",
+   "rationale": "//evil.example starts with '/' but browsers treat it as a scheme-relative URL to another host",
+   "source_url": "https://cwe.mitre.org/data/definitions/601.html"
+  },
+  {
+   "id": "redirect-fixed",
+   "kind": "pair",
+   "cwe": "CWE-601",
+   "language": "Python/Flask",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python/Flask:\n@app.get(\"/login/done\")\ndef done():\n    nxt = request.args.get(\"next\", \"/\")\n    if not re.fullmatch(r\"/(?!/)[\\w\\-./?=&%]*\", nxt):\n        nxt = \"/\"\n    return redirect(nxt)",
+   "rationale": "only a single leading slash followed by path-safe characters passes: no '//', backslash, tab or other control characters, so the browser can't read it as another host",
+   "source_url": "https://cwe.mitre.org/data/definitions/601.html"
+  },
+  {
+   "id": "regex-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-1333",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\ndef is_staff(email):\n    # email comes from a public sign-up form\n    return re.fullmatch(r\"(\\w+\\s?)+@example\\.com\", email) is not None",
+   "rationale": "nested quantifier (\\w+\\s?)+ backtracks exponentially on input like 'aaaa...a!'",
+   "source_url": "https://cwe.mitre.org/data/definitions/1333.html"
+  },
+  {
+   "id": "regex-fixed",
+   "kind": "pair",
+   "cwe": "CWE-1333",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef is_staff(email):\n    # email comes from a public sign-up form\n    return re.fullmatch(r\"[\\w.+-]+@example\\.com\", email) is not None",
+   "rationale": "single character class with one quantifier: linear-time matching",
+   "source_url": "https://cwe.mitre.org/data/definitions/1333.html"
+  },
+  {
+   "id": "merge-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-1321",
+   "language": "Node.js",
+   "truth": {
+    "affected": true
+   },
+   "target": "Node.js:\nfunction merge(t, s) {\n  for (const k in s)\n    if (s[k] && typeof s[k] === \"object\") merge(t[k] ??= {}, s[k]);\n    else t[k] = s[k];\n}\nmerge(settings, JSON.parse(req.body));",
+   "rationale": "JSON.parse makes __proto__ an own key; merge then writes through Object.prototype",
+   "source_url": "https://cwe.mitre.org/data/definitions/1321.html"
+  },
+  {
+   "id": "merge-fixed",
+   "kind": "pair",
+   "cwe": "CWE-1321",
+   "language": "Node.js",
+   "truth": {
+    "affected": false
+   },
+   "target": "Node.js:\nfunction merge(t, s) {\n for (const k of Object.keys(s)) {\n  if (k === \"__proto__\") continue;\n  const v = s[k];\n  if (v && typeof v == \"object\") merge(Object.hasOwn(t,k) ? t[k] : (t[k] = {}), v);\n  else t[k] = v;\n }\n}",
+   "rationale": "__proto__ is skipped and recursion only enters the target's own properties, so inherited objects (Object.prototype, Object.prototype.toString) are never written; constructor/prototype keys just become plain own properties",
+   "source_url": "https://cwe.mitre.org/data/definitions/1321.html"
+  },
+  {
+   "id": "untar-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-22",
+   "language": "Python 3.11",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python 3.11:\ndef unpack(upload, dest):\n    # upload is a user-supplied .tar file\n    with tarfile.open(fileobj=upload) as t:\n        t.extractall(dest)",
+   "rationale": "tarfile.extractall without a filter follows ../ and absolute member names and links (CVE-2007-4559)",
+   "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+  },
+  {
+   "id": "untar-fixed",
+   "kind": "pair",
+   "cwe": "CWE-22",
+   "language": "Python 3.12",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python 3.12:\ndef unpack(upload, dest):\n    # upload is a user-supplied .tar file\n    with tarfile.open(fileobj=upload) as t:\n        t.extractall(dest, filter=\"data\")",
+   "rationale": "the 'data' extraction filter rejects absolute paths, .. components, links outside dest and special files",
+   "source_url": "https://cwe.mitre.org/data/definitions/22.html"
+  },
+  {
+   "id": "profile-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-915",
+   "language": "Python/Flask",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python/Flask:\n# User columns: id, name, email, is_admin\n@app.patch(\"/me\")\ndef update_me():\n    for k, v in request.json.items():\n        setattr(current_user, k, v)\n    db.session.commit()",
+   "rationale": "every key in the request body is written, so a user can set is_admin",
+   "source_url": "https://cwe.mitre.org/data/definitions/915.html"
+  },
+  {
+   "id": "profile-fixed",
+   "kind": "pair",
+   "cwe": "CWE-915",
+   "language": "Python/Flask",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python/Flask:\n# User columns: id, name, email, is_admin\n@app.patch(\"/me\")\ndef update_me():\n    d = request.json\n    current_user.name = d.get(\"name\", current_user.name)\n    db.session.commit()",
+   "rationale": "only name can change",
+   "source_url": "https://cwe.mitre.org/data/definitions/915.html"
+  },
+  {
+   "id": "token-compare-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-208",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\ndef check(request):\n    sent = request.headers.get(\"X-Api-Token\", \"\")\n    return sent == os.environ[\"API_TOKEN\"]",
+   "rationale": "== returns at the first differing byte, leaking how much of the token matched",
+   "source_url": "https://cwe.mitre.org/data/definitions/208.html"
+  },
+  {
+   "id": "token-compare-fixed",
+   "kind": "pair",
+   "cwe": "CWE-208",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef check(request):\n    sent = request.headers.get(\"X-Api-Token\", \"\")\n    return hmac.compare_digest(sent, os.environ[\"API_TOKEN\"])",
+   "rationale": "constant-time comparison",
+   "source_url": "https://cwe.mitre.org/data/definitions/208.html"
+  },
+  {
+   "id": "reset-token-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-338",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\ndef reset_token():\n    alphabet = string.ascii_letters + string.digits\n    return \"\".join(random.choice(alphabet) for _ in range(32))",
+   "rationale": "random is a Mersenne Twister PRNG; its outputs are predictable, unfit for password-reset tokens",
+   "source_url": "https://cwe.mitre.org/data/definitions/338.html"
+  },
+  {
+   "id": "reset-token-fixed",
+   "kind": "pair",
+   "cwe": "CWE-338",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef reset_token():\n    return secrets.token_urlsafe(32)",
+   "rationale": "secrets uses the OS CSPRNG",
+   "source_url": "https://cwe.mitre.org/data/definitions/338.html"
+  },
+  {
+   "id": "orderby-vulnerable",
+   "kind": "pair",
+   "cwe": "CWE-89",
+   "language": "Python",
+   "truth": {
+    "affected": true
+   },
+   "target": "Python:\ndef users(sort):\n    if not any(c in sort for c in (\"name\", \"email\")):\n        sort = \"name\"\n    return db.execute(f\"SELECT id, name FROM users ORDER BY {sort}\")",
+   "rationale": "the check only requires 'name' or 'email' somewhere in the string: 'name; DROP TABLE users' passes",
+   "source_url": "https://cwe.mitre.org/data/definitions/89.html"
+  },
+  {
+   "id": "orderby-fixed",
+   "kind": "pair",
+   "cwe": "CWE-89",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef users(sort):\n    col = {\"name\": \"name\", \"email\": \"email\"}.get(sort, \"name\")\n    return db.execute(f\"SELECT id, name FROM users ORDER BY {col}\")",
+   "rationale": "only the two literal column names can reach the query",
+   "source_url": "https://cwe.mitre.org/data/definitions/89.html"
+  },
+  {
+   "id": "decoy-orderby-allowlist",
+   "kind": "decoy",
+   "cwe": "CWE-89",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef users(sort):\n    if sort.lower() not in (\"name\", \"email\"):\n        sort = \"name\"\n    return db.execute(f\"SELECT id, name FROM users ORDER BY {sort}\")",
+   "rationale": "f-string SQL, but sort can only be name or email in some letter case, which SQL treats as the same column",
+   "source_url": "https://cwe.mitre.org/data/definitions/89.html"
+  },
+  {
+   "id": "decoy-shell-constant",
+   "kind": "decoy",
+   "cwe": "CWE-78",
+   "language": "Python",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python:\ndef disk_report():\n    # no user input reaches this function\n    out = subprocess.run(\"df -h /var\", shell=True, capture_output=True, text=True)\n    return out.stdout",
+   "rationale": "shell=True with a constant command and no input",
+   "source_url": "https://cwe.mitre.org/data/definitions/78.html"
+  },
+  {
+   "id": "decoy-md5-etag",
+   "kind": "decoy",
+   "cwe": "CWE-328",
+   "language": "Python/Flask",
+   "truth": {
+    "affected": false
+   },
+   "target": "Python/Flask:\n@app.get(\"/static/<path:name>\")\ndef asset(name):\n    data = files.read(name)  # trusted build artifacts\n    etag = hashlib.md5(data).hexdigest()  # cache validator only\n    return Response(data, headers={\"ETag\": etag})",
+   "rationale": "MD5 as an HTTP cache validator has no security role; collisions only cause a stale cache",
+   "source_url": "https://cwe.mitre.org/data/definitions/328.html"
+  }
+ ]
+}

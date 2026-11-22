@@ -64,11 +64,17 @@ def main() -> None:
     g.add_argument("--miner")
     g.add_argument("--routed", action="store_true")
     ap.add_argument("--max-spend", type=float, default=0.15)
+    ap.add_argument("--cases", type=Path, help="a case file such as mind/code-test-v2/cases.json (default: the benchmark's 12 code cases)")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
-    cases = [c for c in json.loads((ROOT / "bench" / "cases-v2.json").read_text())["cases"] if c["kind"] == "code"]
+    import hashlib
+    import subprocess
+    src = a.cases or ROOT / "bench" / "cases-v2.json"
+    cases = [c for c in json.loads(src.read_text())["cases"] if a.cases or c["kind"] == "code"]
+    commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     run = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "arm": "routed" if a.routed else f"miner {a.miner}",
-           "rule": "bench/RULE-v2.md grading (fixed code: not Insecure and count 0)", "cases": []}
+           "rule": "bench/RULE-v2.md grading (fixed code: not Insecure and count 0)", "cases_file": str(src.relative_to(ROOT)),
+           "cases_sha256": hashlib.sha256(src.read_bytes()).hexdigest(), "repo_commit": commit, "cases": []}
     spent = 0.0
     for c in cases:
         if spent + 0.02 > a.max_spend + 1e-9:
@@ -76,8 +82,9 @@ def main() -> None:
             continue
         r = ask(c["target"], None if a.routed else a.miner)
         spent += float(r["cost_usd"] or 0)
-        g_ = grade(c, {"http": r["http"], "result": r["result"]})
-        run["cases"].append({"case": c["id"], "cwe": c["truth"]["cwe"], "vulnerable": c["truth"]["affected"], **r, "grade": g_})
+        g_ = grade({**c, "kind": "code"}, {"http": r["http"], "result": r["result"]})
+        run["cases"].append({"case": c["id"], "group": c.get("kind", "code"), "cwe": c.get("cwe") or c["truth"].get("cwe"),
+                             "vulnerable": c["truth"]["affected"], **r, "grade": g_})
         v = (r["result"] or {}).get("verdict")
         print(f"{c['id']:24} {str(v):14} {g_:10} ${r['cost_usd']} {r.get('error') or ''}")
     run["spent_usd"] = round(spent, 2)

@@ -33,5 +33,7 @@ jobs:
         run: python tests/test_reproduce.py
       - name: Verified Ask checks and replay
         run: python tests/test_verify.py
+      - name: Mind test cases and scoring
+        run: python tests/test_mind.py
       - name: Truth source tests
         run: node --test truth-sources/cve-cvss/test/select.test.js
