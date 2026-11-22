@@ -219,6 +219,23 @@ footer p { margin: 0; max-width: 80ch; }
     <p class="note">The orange tick marks a coin flip. Ranges cover two training runs. These validation pairs come from the same author as the training data, so they overstate real accuracy; an independent test set decides registration.</p>
   </section>
 
+  <section id="market">
+    <div class="sec-head"><h2>What a paid answer is worth</h2><span class="label">3 rounds, 3,680 paid calls, testnet</span></div>
+    <p class="small" style="margin-bottom:18px">We bought the same 46 security questions from every reachable Telegraph miner on three days, under a rule fixed before the first call, and reconciled the payments with the chain or the node's ledger (one $0.01 charge unmatched).</p>
+    <div class="rows" role="img" aria-label="Pooled accuracy on 108 answerable cases: best miner 83 percent, free OSV lookup 67 percent, always answering Insecure 50 percent, default route 21 percent">
+      <div class="numrow"><span class="k">Best miner (a1-preflight)<br><span class="label">95% CI 75 to 89%</span></span><span class="v ours">83%</span><div class="track"><div class="fill ours" style="width:83%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Free OSV lookup, $0<br><span class="label">95% CI 57 to 75%</span></span><span class="v">67%</span><div class="track"><div class="fill" style="width:67%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Always answer "Insecure"</span><span class="v">50%</span><div class="track"><div class="fill" style="width:50%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Default route (rank 1 miner)<br><span class="label">95% CI 15 to 30%</span></span><span class="v">21%</span><div class="track"><div class="fill" style="width:21%"></div><div class="coin"></div></div></div>
+    </div>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
+      <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
+      <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
+    </dl>
+    <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
+  </section>
+
   <section id="how">
     <div class="sec-head"><h2>How it works</h2></div>
     <div class="how">
