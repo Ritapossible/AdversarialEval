@@ -61,3 +61,17 @@ charge) counts as "not answered".
 - 23 cases; differences of one or two are noise.
 - Truth is by construction and review, not by a published advisory per case.
 - Snippets are short functions, not whole programs: real reviews also need data-flow across files.
+
+## Amendments
+
+**1 (2026-11-22, after the first run, before any rerun).** During the first run (about 14:30 to
+14:50 UTC) Anjoman refused payments with HTTP 400 "Payment was rejected by the facilitator",
+charging nothing: all 23 routed asks (arm B) and 3 of arm C's direct asks
+(token-compare-fixed, reset-token-vulnerable, reset-token-fixed) got no answer. A direct probe
+at about 14:53 UTC settled normally.
+- Arm B measured the outage, not the route. It is **rerun once in full**
+  (`2026-11-22-codev2-routed-rerun.json`); the first record stays published as run.
+- Arm C is **not** rerun: its 3 unanswered cases stay "no answer", as the rule says (one attempt,
+  no retries).
+- Arm D uses the rerun's answers. If the rerun is also refused, arm D uses arm C's answers and the
+  report says so.
