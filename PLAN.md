@@ -125,29 +125,57 @@ with and without Telegraph, and make a demo video. Not yet confirmed as a reward
 | Anjoman MCP | Local stdio (`npx -y @telegraphprotocol/telegraph-protocol-mcp`), wallet or API key; tools `telegraph_ask`, `telegraph_ask_miner`, `telegraph_find_miners`, `telegraph_ranking` and more; default limits $0.50 per ask, $5 per day | anjoman.ai/docs/using/mcp-server |
 | Anjoman Skill and API | Agent Skill (SKILL.md + Node script) for command-running agents; REST at backend.telegraphprotocol.com with `anjoman_` keys, 30 requests per minute | anjoman.ai/docs/using/anjoman-skill, api-keys |
 
-**Design, given the above.** A Mind can't call our code or the Anjoman MCP directly (as far as
-the docs say), so our code orchestrates and the Mind reasons:
+**Telegraph's guidance (Ahmed Ali, #hackathon, 11-19; screenshots from the user, 11-22).** What
+the team wants to see in a Mind:
+- it spots wrong or conflicting provider answers, investigates them with **different
+  specialists** and **independent truth sources**, asks for what is missing, and **revises its
+  conclusion** when the evidence changes;
+- **persistence:** it remembers earlier findings, watches for changes, and sends a **proactive
+  alert** explaining why its assessment changed;
+- ideally **two Minds**: one investigates, one independently reviews the findings;
+- the same cases **with and without Telegraph at a comparable budget**: errors caught, recovery,
+  completeness, cost; also **unseen cases**; easy for another builder to reproduce;
+- the whole run **recorded inside Minds** (setup, requests, evidence, costs, results). Video,
+  repo and findings posted in #hackathon and on X, tagging `@telegraphprotoc`, `@ysiu`,
+  `@marcmcg` and Minds;
+- the recommended route is the **Anjoman Skill**, used with a high budget.
 
-1. Input: a dependency list (`package.json`, `requirements.txt`), 20 to 50 packages.
-2. Our orchestrator asks Telegraph miners per package (Anjoman API key or our escrow runner),
-   runs each answer through Verified Ask, and re-asks another miner (picked from benchmark data)
-   when an answer is contradicted or has no verdict.
-3. It sends the Mind the evidence (labels, cited advisories, OSV ids) with `minds send`; the Mind
-   writes the audit report and explains what is uncertain. Code questions stay "unchecked".
-4. The with/without test, scored on our benchmark cases with frozen truth:
-   (a) the Mind alone, (b) the Mind with Telegraph answers trusted as given, (c) the Mind with
-   Telegraph answers plus Verified Ask. Report accuracy, completeness, cost and time per arm.
-5. Demo video: a request, providers answering, one caught (for example an advisory about
-   another package), a re-ask, and the report with its evidence.
+Other builders took finance and crypto Minds (supplier checks, counterparty checks, token risk).
+None does security, so a dependency-security Mind is distinct. Two of them asked whether Minds
+accept a Skill or a remote MCP URL; no answer was visible in the screenshots, which matches the gap
+in the Minds docs.
 
-- [ ] N0 Ask the Telegraph team: how did they connect Anjoman to a Mind (a Marketplace app, the
-      Skill?), is this rewarded, and what are the Builder access rules
+**Design, given the above.** The docs don't show a way for a Mind to call our code or the Anjoman
+MCP directly, so until Telegraph says otherwise, our code orchestrates and the Mind reasons:
+
+1. **Investigator Mind.** Input: a dependency list (`package.json`, `requirements.txt`), 20 to 50
+   packages. Our orchestrator asks Telegraph miners per package (Anjoman Skill or API key, or our
+   escrow runner) and runs each answer through Verified Ask. When an answer is contradicted, has
+   no verdict, or two providers disagree, it re-asks a **different** miner (picked from benchmark
+   reliability), up to a set budget. The Mind gets the evidence with `minds send`, writes the
+   audit, and says what is still uncertain. Code questions stay "unchecked".
+2. **Reviewer Mind.** Gets the investigator's findings and the raw evidence, re-checks every
+   claim against Verified Ask, and approves or disputes each finding.
+3. **Watch mode.** The audit is remembered. A daily job re-queries OSV for the watched versions;
+   when a new advisory appears (or a provider's answer changes), the investigator re-investigates
+   and the Mind sends an alert saying what changed and why the assessment moved.
+4. **Test, same cases and comparable budget:** (a) the Mind alone, (b) the Mind with Telegraph
+   answers trusted as given, (c) the Mind with Telegraph, Verified Ask and re-asking. Scored on
+   the benchmark's frozen package cases, plus unseen packages chosen by a fixed rule before
+   running. Report errors caught, errors recovered, completeness, cost and time per arm.
+5. **Demo video**, recorded inside Minds: a request, providers answering, one caught (for example
+   an advisory about another package), a re-ask, the reviewer's check, the report with evidence,
+   then a later alert.
+
+- [ ] N0 Ask the Telegraph team: can a Mind load the Anjoman Skill (or a remote MCP URL), or
+      does it need an outside orchestrator? Is this rewarded? What do Builder access rules require?
 - [ ] N1 Builder account and API key; one Mind; check that `minds send --wait` works and what a
       reply costs in Cognition
 - [ ] N2 Orchestrator (`mind/`): dependency list in, Telegraph asks plus Verified Ask, evidence
       to the Mind, report out. Spend caps on both Telegraph and Cognition
-- [ ] N3 Three-arm test on the benchmark package cases; report in `eval/reports/`
-- [ ] N4 Demo video (2 to 4 min)
+- [ ] N3 Reviewer Mind and watch mode (daily OSV re-check, alert on change)
+- [ ] N4 Three-arm test on the benchmark package cases plus unseen packages; report in `eval/reports/`
+- [ ] N5 Demo video (2 to 4 min), repo and findings posted in #hackathon and on X with the tags above
 
 **Gates:** don't start before round 4 and its pooled report are committed, and don't let it take
 time from the independent test set (deadline Nov 26). Stop at N1 if a Mind can't be reached from
