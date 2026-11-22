@@ -75,7 +75,7 @@ Scene 4's evidence instead.)
 **Screen:** the comparison report's two result tables.
 
 > "Telegraph asked us to test with and without it. On 26 packages, trusting the ranked answer
-> as-is got 11 of the 21 it answered right, missed three vulnerable versions and approved two
+> as-is got 11 of the 18 it answered right, missed three vulnerable versions and approved two
 > packages that don't exist. With the free check, nothing unsafe was approved. And the honest
 > part: the Mind on its own, looking up OSV directly, got all 26 right. For known package
 > vulnerabilities, a free lookup is the bar, and our benchmark shows only one paid miner beats
