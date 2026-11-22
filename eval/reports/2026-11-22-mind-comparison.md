@@ -77,6 +77,38 @@ easily; that favours the Mind alone. Telegraph's own advice is to try unfamiliar
 is the next test: newly published advisories, less common ecosystems, and versions that don't
 exist, where search is weaker and a miner's live lookup should matter more.
 
+## Second set: less common ecosystems and packages that don't exist
+
+Run the same day, the set fixed before running: the six package pairs the first set didn't use
+(Go: gin, x/net; Rust: hyper, tokio; Ruby: rack, nokogiri) plus the benchmark's two "unknown"
+cases (a PyPI package that doesn't exist, and jinja2 99.0.0). For those two, FLAG is correct and
+a confident PASS or BLOCK is wrong. The Mind-alone arm waits for its credits to refill.
+Evidence: [`mind/evidence/2026-11-22T13-58-35-411Z.json`](../../mind/evidence/2026-11-22T13-58-35-411Z.json).
+
+| | B: Telegraph trusted | C: Telegraph + Verified Ask |
+|---|---:|---:|
+| Correct decisions (of 14) | 7 | **12** |
+| Missed vulnerabilities (wrong PASS) | 1 (x/net 0.61.0) | **0** |
+| False alarms (wrong BLOCK) | 1 (nokogiri 1.19.7) | 0 |
+| Confident answer on a package that doesn't exist | **2** ("Secure" on both) | **0** (both FLAGged) |
+| FLAG, sent to a person | 1 | 2 (the two Go vulnerable versions) |
+| Not answered | 2 (transient "payment rejected", 1 network error) | 0 |
+| Cost | $0.23 | $0.33 |
+
+- **Go is where both providers failed.** TxLens and a1-preflight both called gin 1.5.0 (8
+  advisories in OSV) and x/net 0.61.0 (2) safe or gave a count of 0. Verified Ask contradicted
+  both answers, so the Mind FLAGs them for a person instead of passing them. No vulnerable version
+  got through; the cost is a human look at two packages.
+- **Fabricated citations, caught.** TxLens's "Secure" on gin 1.12.0 cited an advisory for
+  `golang.org/x/crypto` and seven CVE ids OSV doesn't know (the same list vulnrank-triage gave in
+  the benchmark), and its "Insecure" on rack 2.2.9 cited placeholders such as `CVE-2023-xxxx`.
+  The verdicts happened to be right; the evidence wasn't, and the re-ask gave a clean answer.
+- **Non-existent packages:** the routed miner said "Secure" for a package and a version that were
+  never published. Verified Ask's registry check caught both; a buyer trusting the route would
+  have approved a typo-squatting-shaped name.
+- **An option, not taken:** when both answers are contradicted and OSV itself lists advisories,
+  the free check alone could BLOCK. We kept FLAG, so a decision never rests on one source.
+
 ## Running inside the Mind (same day)
 
 After Telegraph confirmed the route (Minds' own HTTP tool, the Anjoman key held as a private

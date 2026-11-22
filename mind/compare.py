@@ -11,6 +11,8 @@ Arms, all on the same packages and graded against the benchmark's frozen truth
   C  Telegraph + Verified Ask: the connector's final decision (one re-ask only when proven wrong).
 FLAG and "no decision" count as neither right nor wrong; they are reported separately.
 A wrong PASS on an affected package is a "missed vulnerability", the costly error.
+For a package or version that doesn't exist (benchmark "unknown" cases), FLAG or no decision is
+correct and a confident PASS or BLOCK is wrong.
 """
 from __future__ import annotations
 
@@ -23,9 +25,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def truth() -> dict[str, bool]:
+def truth() -> dict[str, bool | None]:
+    """True = affected, False = clean, None = the package or version doesn't exist."""
     cases = json.loads((ROOT / "bench" / "cases-v2.json").read_text())["cases"]
-    return {c["target"]: c["truth"]["affected"] for c in cases if c["kind"] == "package"}
+    return {c["target"]: c["truth"]["affected"] for c in cases if c["kind"] in ("package", "unknown")}
 
 
 def arm_b(pkg: dict) -> str | None:
@@ -43,9 +46,18 @@ def parse_alone(reply: str) -> dict[str, str]:
 
 
 def score(decisions: dict[str, str | None], t: dict[str, bool], targets: list[str]) -> dict:
-    s = {"correct": 0, "wrong": 0, "missed_vulnerability": 0, "false_alarm": 0, "flag_or_none": 0}
+    s = {"correct": 0, "wrong": 0, "missed_vulnerability": 0, "false_alarm": 0, "flag_or_none": 0,
+         "nonexistent_flagged": 0, "nonexistent_confident": 0}
     for x in targets:
         d = decisions.get(x)
+        if t[x] is None:  # doesn't exist: the right outcome is to not decide
+            if d in ("PASS", "BLOCK"):
+                s["wrong"] += 1
+                s["nonexistent_confident"] += 1
+            else:
+                s["correct"] += 1
+                s["nonexistent_flagged"] += 1
+            continue
         if d not in ("PASS", "BLOCK"):
             s["flag_or_none"] += 1
         elif (d == "BLOCK") == t[x]:
@@ -56,10 +68,10 @@ def score(decisions: dict[str, str | None], t: dict[str, bool], targets: list[st
     return s
 
 
-def main(guard_path: str, alone_path: str) -> None:
+def main(guard_path: str, alone_path: str | None) -> None:
     t = truth()
     run = json.loads(Path(guard_path).read_text())
-    alone = json.loads(Path(alone_path).read_text())
+    alone = json.loads(Path(alone_path).read_text()) if alone_path else {"reply": None}
     targets = [p["target"] for p in run["packages"]]
     missing = [x for x in targets if x not in t]
     if missing:
@@ -68,8 +80,8 @@ def main(guard_path: str, alone_path: str) -> None:
     b = {p["target"]: arm_b(p) for p in run["packages"]}
     c = {p["target"]: p["decision"] for p in run["packages"]}
     cost_b = round(sum(p["attempts"][0].get("cost_usd") or 0 for p in run["packages"] if p["attempts"]), 2)
-    res = {"packages": len(targets), "affected": sum(t[x] for x in targets),
-           "A_mind_alone": {**score(a, t, targets), "cost_usd": 0.0, "parsed": len(a)},
+    res = {"packages": len(targets), "affected": sum(t[x] is True for x in targets), "nonexistent": sum(t[x] is None for x in targets),
+           "A_mind_alone": {**score(a, t, targets), "cost_usd": 0.0, "parsed": len(a)} if alone_path else "not run",
            "B_telegraph_trusted": {**score(b, t, targets), "cost_usd": cost_b},
            "C_telegraph_plus_verified_ask": {**score(c, t, targets), "cost_usd": run["spent_usd"]},
            "per_package": [{"target": x, "affected": t[x], "A": a.get(x), "B": b[x], "C": c[x]} for x in targets]}
@@ -77,4 +89,4 @@ def main(guard_path: str, alone_path: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

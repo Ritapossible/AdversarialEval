@@ -1,0 +1,1606 @@
+{
+ "at": "2026-11-22T13:58:35.411Z",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "policy": "one ranked ask; re-ask one other provider only if the free check proves it wrong",
+ "max_spend_usd": 0.36,
+ "packages": [
+  {
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.5.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 50140,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 0,
+      "issues": [
+       "CWE-295",
+       "dep:GO-2026-5932",
+       "CVE-2026-78663",
+       "CVE-2026-78659",
+       "CVE-2026-78669",
+       "CVE-2026-97032",
+       "CVE-2026-78660",
+       "CVE-2026-78661",
+       "CVE-2026-97045"
+      ],
+      "summary": "Needs changes. The gin v1.5.0 release predates several critical CVEs (e.g., CVE‑2020‑28469, CVE‑2021‑33196) that affect request parsing and panic handling, leading to possible denial‑of‑service or request smuggling; upgrade to the latest stable version (≥ v1.9.0) where these issues are patched. The package does not enforce strict input validation on URL parameters, which can enable injection attacks (CWE‑20 Improper Input Validation); add middleware to sanitize and validate all incoming data. Default error handling may expose stack traces to clients, constituting information leakage (CWE‑200 Exposure of Sensitive Information); configure gin to use a custom error handler that hides internal details. The logger writes to stdout without rate limiting, opening a potential log flooding vector (CWE‑770 Allocation/Resource Exhaustion); implement log throttling or structured logging with size caps. Finally, the framework’s built‑in recovery middleware catches panics but re‑panics in production if not configured, which can crash the service (CWE‑754 Improper Check for Unusual or Exceptional Conditions); ensure Recovery() is always registered with a safe handler in production deployments."
+     },
+     "cost_usd": 0.03,
+     "receipt": {
+      "receipt_hash": "0xc4f180ffb9d3c4f5e720c47898b3ac1d6f70cc4d9dd2f9f7f303229aa2eb2286",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795355966
+     },
+     "signal_hash": "0xf12c32a767ae817997d1ee782ac810d522d499829f68de84d69caa52b6c885ea",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Needs changes' but vulnerability_count is 0"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "github.com/gin-gonic/gin 1.5.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 8 advisories for this version"
+      },
+      {
+       "name": "count",
+       "status": "info",
+       "detail": "count 0, OSV lists 8 advisories (5 distinct once aliases are merged)"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "GO-2026-5932 is about Go/golang.org/x/crypto, Go/golang.org/x/crypto/openpgp, not github.com/gin-gonic/gin"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78663 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78659 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78669 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-97032 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78660 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78661 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-97045 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2020-28469 exists, but OSV's record names no package to confirm it applies"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2021-33196 exists, but OSV's record names no package to confirm it applies"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5970,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting gin-gonic/gin 1.5.0 on Go."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x360e9e993e7ec5fa87b16cc92ae3a6c8c59aef94f9d608c614e5f688751f9b47",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795355974
+     },
+     "signal_hash": "0x03b6788f29b9550d6451cfe6f2a2ff218c43716b7600affc8843d03eab13d3b3",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "github.com/gin-gonic/gin 1.5.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 8 advisories: GHSA-2c4m-59x9-fr2g, GHSA-3vp4-m3rf-835h, GHSA-6vm3-jj99-7229, GHSA-869c-j7wc-8jqv, GHSA-h395-qcrw-5vmq"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 2 answer(s): says 'Secure', but OSV lists 8 advisories: GHSA-2c4m-59x9-fr2g, GHSA-3vp4-m3rf-835h, GHSA-6vm3-jj99-7229, GHSA-869c-j7wc-8jqv, GHSA-h395-qcrw-5vmq"
+  },
+  {
+   "target": "pkg:golang/github.com/gin-gonic/gin@v1.12.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 41468,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": [
+       "CWE-295",
+       "dep:GO-2026-5932",
+       "CVE-2026-78663",
+       "CVE-2026-78659",
+       "CVE-2026-78669",
+       "CVE-2026-97032",
+       "CVE-2026-78660",
+       "CVE-2026-78661",
+       "CVE-2026-97045"
+      ],
+      "summary": "Secure. The reference is only to the Gin web framework version 1.12.0, which is a widely used, actively maintained library; no vulnerable code or configuration is presented. No insecure defaults, injection vectors, or exposure of secrets are evident. The package version is recent enough to include prior security fixes. No further action required."
+     },
+     "cost_usd": 0.03,
+     "receipt": {
+      "receipt_hash": "0xc8d55fadf364a5f4f7721f47122449c718da6f11e0e99aa9f3deb5bc4acfec9f",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356016
+     },
+     "signal_hash": "0x1d2d64ba6aa56bb79e862c441058070593365da5264cf1b4224837e3b8aa0b31",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "github.com/gin-gonic/gin 1.12.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "GO-2026-5932 is about Go/golang.org/x/crypto, Go/golang.org/x/crypto/openpgp, not github.com/gin-gonic/gin"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78663 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78659 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78669 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-97032 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78660 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-78661 does not exist in OSV (OSV doesn't carry every CVE)"
+      },
+      {
+       "name": "citation",
+       "status": "warn",
+       "detail": "CVE-2026-97045 does not exist in OSV (OSV doesn't carry every CVE)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5167,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting gin-gonic/gin 1.12.0 on Go."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x6ac1a9d609c942afc426a43be4b6be7b4dba59ede4ee4e362087d57479fcedf8",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356023
+     },
+     "signal_hash": "0x4761b68c4f474e455eee7e90e80b21ad410d2f0a9556824f6f904ad2315ee380",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "github.com/gin-gonic/gin 1.12.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:golang/golang.org/x/net@v0.61.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 30967,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": [
+       "CVE-2026-78661",
+       "CVE-2026-97045"
+      ],
+      "summary": "Secure. The input is a simple package identifier with version, containing no executable code, injection vectors, or configuration settings; it was checked for malicious payloads, command injection, and insecure references and none were found."
+     },
+     "cost_usd": 0.03,
+     "receipt": {
+      "receipt_hash": "0x00e3de1ab46ee3b47b966c15815994134a16534c0f755eda6cf22381d5b2eb88",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356055
+     },
+     "signal_hash": "0x711fdc9490ea8ef23f5cb13d54a6d7aaf4f0e8190563b156c1b689f7082c8a5a",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "golang.org/x/net 0.61.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GO-2026-6860, GO-2026-6866"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-78661 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-97045 affects this version"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5778,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting x/net 0.61.0 on Go."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x0da22423fd7cf25249cfda6b77b21bf6e7e5a622be4b5ca587f4d56ecf359189",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356062
+     },
+     "signal_hash": "0xbf3a3cc719c0dee74882ae344e10cb74fbc49683efab9fd3022ac23a4fce6ae0",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "golang.org/x/net 0.61.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GO-2026-6860, GO-2026-6866"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 2 answer(s): says 'Secure', but OSV lists 2 advisories: GO-2026-6860, GO-2026-6866"
+  },
+  {
+   "target": "pkg:golang/golang.org/x/net@v0.62.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 25668,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The input is a simple package identifier string with no execution context, no injection vectors, and no sensitive data exposure; it was checked for command injection, script execution, and data leakage risks and none were present."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x67781e24115aaf2bb2484e5fe5c1e18c4a0e70ee65bb43c956acf06c90f9c82d",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356089
+     },
+     "signal_hash": "0xfbc33ae8b7c455c0d058c3485a9b564c2a3e9b023a3c6f5b929cabd33aa3e03e",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "golang.org/x/net 0.62.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:cargo/hyper@0.14.11",
+   "attempts": [
+    {
+     "http": null,
+     "ms": 5752,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "error": "fetch failed",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 7098,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 1,
+      "issues": [
+       "GHSA-f67m-9j94-qv9j"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting hyper 0.14.11 on crates.io (aliases counted once), for example GHSA-f67m-9j94-qv9j (Parser creates invalid uninitialized value)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x1fe152e4de34e065a90f606d8fabe4a3775f407316e79054c2061d3f67e3704b",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356103
+     },
+     "signal_hash": "0x73fd722337f810165374be577a67b7ac02c0b057541fb1dd01388958980525c7",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "hyper 0.14.11 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-F67M-9J94-QV9J affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 1 known"
+  },
+  {
+   "target": "pkg:cargo/hyper@1.12.0",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 2141,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request: Payment was rejected by the facilitator. Please try again.",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 4773,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting hyper 1.12.0 on crates.io."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xbf3f6e4becd1e76c1dbf212ca279f49c537f1472c5c3f22c6e7d5375c462ce73",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356112
+     },
+     "signal_hash": "0xddfbc7379fba8d263303bf857c29b058d0246c88909da0d0f2a92280854fcb94",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "hyper 1.12.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:cargo/tokio@1.54.0",
+   "attempts": [
+    {
+     "http": 400,
+     "ms": 2041,
+     "miner": null,
+     "miner_id": null,
+     "result": null,
+     "cost_usd": 0,
+     "receipt": null,
+     "signal_hash": null,
+     "error": "Bad Request: Payment was rejected by the facilitator. Please try again.",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5935,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2026-115567"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting tokio 1.54.0 on crates.io (aliases counted once), for example GHSA-5wjr-9356-4wc8 (Tokio: Race condition in `tokio::time::Interval`)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x70a7b7e35402056e1af04a2ce6780b7b57f77a3e00f74be12a314ed4852cbada",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356121
+     },
+     "signal_hash": "0x8879253c5bae897fcfe37dc7239a1fd0a147ed8e19105eec82e884a85b64f597",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "tokio 1.54.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-115567 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-5WJR-9356-4WC8 affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:cargo/tokio@1.54.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 24380,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The query is a simple Cargo package reference with no code or configuration to analyze, so no security issues are present."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x42016f6a049199ec8d905c3921c11f0a12c4bb87cf4b3a911cc410ce9304037b",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356147
+     },
+     "signal_hash": "0x778bc1e367bb47f761eb6fb6ca7d9d9cb77a9e4e47f2d4b6f8e5d8311d8c9879",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "tokio 1.54.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:gem/rack@2.2.9",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 50761,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 25,
+      "issues": [
+       "CVE-2026-125111",
+       "CVE-2025-59830",
+       "CVE-2025-61919",
+       "CVE-2025-25184",
+       "CVE-2026-34763",
+       "CVE-2025-27610",
+       "CVE-2025-27111",
+       "CVE-2026-34829",
+       "CVE-2025-46727",
+       "CVE-2026-34785",
+       "CVE-2026-22860",
+       "CVE-2025-61770",
+       "CVE-2026-125108",
+       "CVE-2026-34831",
+       "CVE-2026-34786",
+       "CVE-2026-34830",
+       "CVE-2025-61780",
+       "CVE-2026-34230",
+       "CVE-2026-26961",
+       "CVE-2025-32441",
+       "CVE-2025-61771",
+       "CVE-2026-25500",
+       "CVE-2025-61772",
+       "CVE-2026-125110",
+       "CVE-2026-34826"
+      ],
+      "summary": "Insecure. The rack gem 2.2.9 is vulnerable to several known security issues, including CVE‑2023‑xxxx (remote code execution via crafted Rack::Request parsing), CVE‑2022‑xxxx (information disclosure through stack traces in error handling), and CVE‑2021‑xxxx (cross‑site request forgery due to missing CSRF protection in certain middleware). These vulnerabilities allow attackers to execute arbitrary code, exfiltrate sensitive data, or perform unauthorized actions on the server. The concrete fix is to upgrade to the latest stable release of rack (currently 3.x), which contains patches for all listed CVEs, and to audit any custom middleware for proper input validation and CSRF protection. Additionally, enable strict transport security headers and ensure the application runs behind a properly configured reverse proxy to mitigate potential downgrade attacks."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xb42c4236511cae33f25599f9d7141afa5e57ee5d39b53a1cd0057df67cb97a40",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356199
+     },
+     "signal_hash": "0xac5b6e64126686a9029df9c286df800c6de3557edc10a9f4c459cf39eff470fb",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rack 2.2.9 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 25 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "placeholder id 'CVE-2023-xxxx' instead of a real advisory"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "placeholder id 'CVE-2022-xxxx' instead of a real advisory"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "placeholder id 'CVE-2021-xxxx' instead of a real advisory"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125111 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-59830 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61919 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-25184 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34763 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27610 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27111 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34829 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-46727 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34785 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-22860 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61770 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125108 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34831 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34786 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34830 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61780 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34230 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-26961 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-32441 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61771 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-25500 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61772 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125110 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34826 affects this version"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 17264,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 25,
+      "issues": [
+       "CVE-2026-125111",
+       "CVE-2025-59830",
+       "CVE-2025-61919",
+       "CVE-2025-25184",
+       "CVE-2026-34763",
+       "CVE-2025-27610",
+       "CVE-2025-27111",
+       "CVE-2026-34829",
+       "CVE-2025-46727",
+       "CVE-2026-34785",
+       "CVE-2026-22860",
+       "CVE-2025-61770",
+       "CVE-2026-125108",
+       "CVE-2026-34831",
+       "CVE-2026-34786",
+       "CVE-2026-34830",
+       "CVE-2025-61780",
+       "CVE-2026-34230",
+       "CVE-2026-26961",
+       "CVE-2025-32441",
+       "CVE-2025-61771",
+       "CVE-2026-25500",
+       "CVE-2025-61772",
+       "CVE-2026-125110",
+       "CVE-2026-34826"
+      ],
+      "summary": "OSV.dev lists 25 known vulnerabilities affecting rack 2.2.9 on RubyGems (aliases counted once), for example GHSA-5v64-555j-wjxm (Rack: Multipart parsing allows DoS via unbounded scan buffer growth); GHSA-625h-95r8-8xpm (Rack has an unsafe default in Rack::QueryParser allows params_limit by); GHSA-6xw4-3v39-52mm (Rack is vulnerable to a memory-exhaustion DoS through unbounded URL-en)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x2532d0cb02d6adfe84e018591d4cb0b1125c086a79a2267949faf498dc205eec",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356217
+     },
+     "signal_hash": "0x84ab362866fa0c6be5dbe855eb878d534881710e98aeca9670af3f6c413b2396",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rack 2.2.9 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 25 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125111 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-59830 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61919 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-25184 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34763 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27610 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-27111 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34829 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-46727 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34785 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-22860 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61770 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125108 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34831 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34786 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34830 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61780 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34230 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-26961 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-32441 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61771 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-25500 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-61772 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-125110 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-34826 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-5V64-555J-WJXM affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-625H-95R8-8XPM affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-6XW4-3V39-52MM affects this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 25 known"
+  },
+  {
+   "target": "pkg:gem/rack@3.2.8",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 28553,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Secure. The provided material consists solely of a package query for rack version 3.2.8, which does not contain any code, configuration, or system description that could introduce security vulnerabilities. No potential weaknesses are present in this context."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x44696dd9fd15ad449f3bdf8b6865d2ad794b91be6c4bac8d1277d66bdc35002c",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356247
+     },
+     "signal_hash": "0x1bb11883b64692d02b207cc8ca88b60c069c040f3dca6d69ea7332bc86b760db",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rack 3.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:gem/nokogiri@1.9.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 41756,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 43,
+      "issues": [
+       "CWE-20",
+       "CWE-94"
+      ],
+      "summary": "Insecure. The most serious issue is the presence of multiple known critical vulnerabilities in this version, including a denial of service via crafted XML (CWE-20) and potential remote code execution through unsafe parsing of untrusted input (CWE-94). You must upgrade to the latest stable release of Nokogiri, which is 1.16.x or newer, to patch these flaws. Ensure your application validates and sanitizes all external XML and HTML inputs before processing them. Additionally, review your dependency management to enforce strict version constraints and enable automated security scanning in your CI/CD pipeline."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x8d3f393c95a17137c6484138ad4bcb4253ea573818b09e0ead5f908ae4bb6987",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356290
+     },
+     "signal_hash": "0xbc66db0d32749142234528ba1248869307a756424d371bcbd9629e572b79604d",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "nokogiri 1.9.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 43 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 43 known"
+  },
+  {
+   "target": "pkg:gem/nokogiri@1.19.7",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 29469,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "Needs changes. The most serious issue is the potential for XML External Entity (XXE) attacks when Nokogiri parses untrusted XML; the library historically allowed external entity resolution, which can lead to data exfiltration or denial of service (CWE‑200, OWASP A1). Fix: configure Nokogiri to disable external entities by passing `Nokogiri::XML::ParseOptions::NONET` or using `Nokogiri::XML::Document.parse(xml, nil, nil, Nokogiri::XML::ParseOptions::NONET)` and avoid `Nokogiri::XML::Document.parse` on untrusted input. A second concern is the use of the underlying libxml2 library, which has had buffer overflow and integer overflow bugs in the past (CWE‑120, CWE‑190). Mitigation: ensure the gem is updated to the latest patch release that includes the most recent libxml2 security fixes, and verify that the runtime environment uses a recent, patched libxml2. Finally, Nokogiri 1.19.7 may contain a known CVE‑2024‑xxxx that allows remote code execution via crafted XML when the `--enable-xml2` flag is used; this is mitigated by disabling the `--enable-xml2` feature or upgrading to a version where the vulnerability is patched."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x4e1d0b0ccc48629c7240cbfaa4144bc9fb1a3af637a7562432ba2983756c079c",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356323
+     },
+     "signal_hash": "0xb39ef02117b07ca83911f3b38069b507fba95c0ca200a107d20f75e9b78812a3",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "verdict 'Needs changes' but vulnerability_count is 0"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "nokogiri 1.19.7 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Needs changes', but OSV lists no advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "fail",
+       "detail": "placeholder id 'CVE-2024-xxxx' instead of a real advisory"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 6021,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting nokogiri 1.19.7 on RubyGems."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x937d581536aa6f77284d3acb477dcaceb210ae2cd555e073a1f50641b7dc95d1",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356331
+     },
+     "signal_hash": "0xf9417e074c338e49dccffe91eba3353e7cee0ff2883f019ec23f843efd92d932",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "nokogiri 1.19.7 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 21243,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "Secure. The query references a non-existent package, so there are no code artifacts, configurations, or system descriptions to assess for vulnerabilities. Since the package does not exist in the Python Package Index, it cannot introduce supply chain risks, malicious code, or configuration weaknesses. The absence of the package means there is no attack surface to evaluate. Therefore, no security issues are present in the provided material."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xcd52e99d2345417214c0132de98af54a35c54cdb9cf32d2c610d772169ba102b",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356354
+     },
+     "signal_hash": "0x938ea78ed2eb43e4c6fdebfaa22052a18072c287a01dc01e2e44f0554d86631b",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "warn",
+       "detail": "vulnerability_count is missing or not a number"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "adversarialeval-no-such-package-7f3c 1.0.0 is not published on PyPI"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 5313,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": null,
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "\"adversarialeval-no-such-package-7f3c\" is not published on PyPI, so there is no package to review and no security verdict is given."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x5673d03165310e92f14ad5c0fcdad90cf150878f2b90f6098f4d417a44b77cce",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356360
+     },
+     "signal_hash": "0x4280e64f0dda1bddcb94a56e010b463f80331002add00aaa2b71a946f52e15d5",
+     "error": null,
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 2 answer(s): no usable verdict (None)"
+  },
+  {
+   "target": "pkg:pypi/jinja2@99.0.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 21732,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "Secure. The version 99.0.0 of the Jinja2 package does not exist in the Python Package Index, so there are no known security vulnerabilities associated with it. Because the version is invalid, it cannot be installed or executed, meaning it poses no runtime security risk. No specific CWE or OWASP category applies to a non-existent software artifact. The primary issue is a supply chain or dependency management error rather than a code vulnerability. Ensure your dependency management tools validate version existence against the registry to prevent installation of invalid or typosquatted packages."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x020f902817a12833583339c3676d9c6ccabfdc5e8c037f924b3cabb2e77eb47a",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356382
+     },
+     "signal_hash": "0x644e90d07ed7f4e6bbe93da231b78878cfd497cc111d065cacef4d6e72df8796",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "warn",
+       "detail": "vulnerability_count is missing or not a number"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "jinja2 99.0.0 is not published on PyPI"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 6647,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": null,
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "jinja2 is published on PyPI, but it has no 99.0.0 release, so that version cannot be reviewed and no security verdict is given."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x6ab687afdba0c73be18951c9da94ea5b84e0236cf682ba793fe966de907f95f8",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 38,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795356389
+     },
+     "signal_hash": "0xb6fe685f10ec111191daa4e4aac515ba6f34d8a3bf2ca356e6e4b9b0b897a885",
+     "error": null,
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 2 answer(s): no usable verdict (None)"
+  }
+ ],
+ "spent_usd": 0.33,
+ "receipts": [
+  "0xc4f180ffb9d3c4f5e720c47898b3ac1d6f70cc4d9dd2f9f7f303229aa2eb2286",
+  "0x360e9e993e7ec5fa87b16cc92ae3a6c8c59aef94f9d608c614e5f688751f9b47",
+  "0xc8d55fadf364a5f4f7721f47122449c718da6f11e0e99aa9f3deb5bc4acfec9f",
+  "0x6ac1a9d609c942afc426a43be4b6be7b4dba59ede4ee4e362087d57479fcedf8",
+  "0x00e3de1ab46ee3b47b966c15815994134a16534c0f755eda6cf22381d5b2eb88",
+  "0x0da22423fd7cf25249cfda6b77b21bf6e7e5a622be4b5ca587f4d56ecf359189",
+  "0x67781e24115aaf2bb2484e5fe5c1e18c4a0e70ee65bb43c956acf06c90f9c82d",
+  "0x1fe152e4de34e065a90f606d8fabe4a3775f407316e79054c2061d3f67e3704b",
+  "0xbf3f6e4becd1e76c1dbf212ca279f49c537f1472c5c3f22c6e7d5375c462ce73",
+  "0x70a7b7e35402056e1af04a2ce6780b7b57f77a3e00f74be12a314ed4852cbada",
+  "0x42016f6a049199ec8d905c3921c11f0a12c4bb87cf4b3a911cc410ce9304037b",
+  "0xb42c4236511cae33f25599f9d7141afa5e57ee5d39b53a1cd0057df67cb97a40",
+  "0x2532d0cb02d6adfe84e018591d4cb0b1125c086a79a2267949faf498dc205eec",
+  "0x44696dd9fd15ad449f3bdf8b6865d2ad794b91be6c4bac8d1277d66bdc35002c",
+  "0x8d3f393c95a17137c6484138ad4bcb4253ea573818b09e0ead5f908ae4bb6987",
+  "0x4e1d0b0ccc48629c7240cbfaa4144bc9fb1a3af637a7562432ba2983756c079c",
+  "0x937d581536aa6f77284d3acb477dcaceb210ae2cd555e073a1f50641b7dc95d1",
+  "0xcd52e99d2345417214c0132de98af54a35c54cdb9cf32d2c610d772169ba102b",
+  "0x5673d03165310e92f14ad5c0fcdad90cf150878f2b90f6098f4d417a44b77cce",
+  "0x020f902817a12833583339c3676d9c6ccabfdc5e8c037f924b3cabb2e77eb47a",
+  "0x6ab687afdba0c73be18951c9da94ea5b84e0236cf682ba793fe966de907f95f8"
+ ]
+}
