@@ -30,3 +30,4 @@ data/sources/registry/
 # paid benchmark deps
 bench/node_modules/
 bench/out/*/run.log
+mind/evidence/.codev2-*.txt

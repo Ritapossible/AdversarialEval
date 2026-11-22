@@ -69,7 +69,7 @@ def main() -> None:
     a = ap.parse_args()
     import hashlib
     import subprocess
-    src = a.cases or ROOT / "bench" / "cases-v2.json"
+    src = (a.cases or ROOT / "bench" / "cases-v2.json").resolve()
     cases = [c for c in json.loads(src.read_text())["cases"] if a.cases or c["kind"] == "code"]
     commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     run = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "arm": "routed" if a.routed else f"miner {a.miner}",

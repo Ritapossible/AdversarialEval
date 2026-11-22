@@ -1,0 +1,28 @@
+{
+ "seed": 23,
+ "map": {
+  "snippet-01": "token-compare-vulnerable",
+  "snippet-02": "reset-token-fixed",
+  "snippet-03": "path-prefix-fixed",
+  "snippet-04": "merge-vulnerable",
+  "snippet-05": "redirect-fixed",
+  "snippet-06": "regex-vulnerable",
+  "snippet-07": "orderby-fixed",
+  "snippet-08": "untar-vulnerable",
+  "snippet-09": "reset-token-vulnerable",
+  "snippet-10": "decoy-orderby-allowlist",
+  "snippet-11": "regex-fixed",
+  "snippet-12": "redirect-vulnerable",
+  "snippet-13": "git-argv-fixed",
+  "snippet-14": "token-compare-fixed",
+  "snippet-15": "decoy-shell-constant",
+  "snippet-16": "untar-fixed",
+  "snippet-17": "profile-vulnerable",
+  "snippet-18": "profile-fixed",
+  "snippet-19": "decoy-md5-etag",
+  "snippet-20": "orderby-vulnerable",
+  "snippet-21": "path-prefix-vulnerable",
+  "snippet-22": "git-argv-vulnerable",
+  "snippet-23": "merge-fixed"
+ }
+}
