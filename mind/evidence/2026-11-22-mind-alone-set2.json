@@ -1,0 +1,8 @@
+{
+ "mind": "38266542-f36b-1410-8467-00039ce7df11",
+ "alias": "dependency-guard",
+ "sent_at": "2026-11-22T14:08:16.097Z",
+ "sent": "Baseline test 2 (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse any earlier verdicts from our chats or your watchlist. Use only your own knowledge and your own web search.\n\nFor each package version below, decide: BLOCK if it has at least one known published vulnerability, PASS if it has none, FLAG if you can't tell or the version doesn't exist. Reply with exactly one line per package in the form `<purl> | <PASS/BLOCK/FLAG> | <advisory ids or reason>`, then one line with your confidence. Keep it short.\n\npkg:golang/github.com/gin-gonic/gin@v1.5.0\npkg:golang/github.com/gin-gonic/gin@v1.12.0\npkg:golang/golang.org/x/net@v0.61.0\npkg:golang/golang.org/x/net@v0.62.0\npkg:cargo/hyper@0.14.11\npkg:cargo/hyper@1.12.0\npkg:cargo/tokio@1.54.0\npkg:cargo/tokio@1.54.1\npkg:gem/rack@2.2.9\npkg:gem/rack@3.2.8\npkg:gem/nokogiri@1.9.1\npkg:gem/nokogiri@1.19.7\npkg:pypi/adversarialeval-no-such-package-7f3c@1.0.0\npkg:pypi/jinja2@99.0.0",
+ "reply": "<p>On it. Fourteen purls, no paid tools, nothing reused from our chats or the watchlist.</p><p>Give me a few minutes - I'm confirming each version actually exists before I judge it, then pulling advisories. Answer comes back as one line per package, exactly as you asked.</p><p>- Dependency.Guard</p>",
+ "replied_at": "2026-11-22T14:08:53.538Z"
+}
