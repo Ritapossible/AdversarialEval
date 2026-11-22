@@ -221,9 +221,21 @@ MCP directly, so until Telegraph says otherwise, our code orchestrates and the M
   LangChain, ElizaOS and "any MCP client", but not Minds. So driving the Mind from our code is
   still the documented-safe route. Telegraph also floated a general-purpose Mind; not for us
   (focus on security depth).
-- [ ] N0 Ask the Telegraph team (now in the Minds forum): can a Mind load the Anjoman Skill (or a remote MCP URL), or
+- **Unblocked 11-22 (Telegraph, Minds forum):** a Mind can use its **HTTP tool** with an Anjoman
+  API key kept in Minds private credentials: `POST https://backend.telegraphprotocol.com/agent/chat`
+  with `stream: false`; long jobs continue after a Minds timeout, so poll `GET /agent/jobs/{id}`;
+  `GET /agent/spend` lists recent jobs. The Anjoman account needs a funded balance. A custom Mind
+  Skill can be built around this; no need to wait for the Bazaar listing. Telegraph now asks every
+  builder for **Mind IDs, working app links and demo videos**.
+- **New design:** the whole flow runs inside the Mind. The Mind calls Anjoman (one
+  SECURITY_REVIEW_GENERAL ask per package) and then a **hosted Verified Ask** endpoint (our Vercel
+  site, token-protected) to check each answer; it re-asks only when the check proves the answer
+  wrong, then passes, blocks or flags with cost and receipts. Phase A's Dependency Gate and this
+  Mind share the same logic; the Mind is the customer-facing front end.
+- [x] N0 Ask the Telegraph team (now in the Minds forum): can a Mind load the Anjoman Skill (or a remote MCP URL), or
       does it need an outside orchestrator? Is this rewarded? What do Builder access rules require?
-- [ ] N1 Builder account and API key; one Mind; check that `minds send --wait` works and what a
+- [ ] N1a Host Verified Ask as a token-protected endpoint on the Vercel site (`site/api/`)
+- [ ] N1 (user) Minds account and a Mind; Anjoman API key in Minds private credentials; funded Anjoman balance; check that `minds send --wait` works and what a
       reply costs in Cognition
 - [ ] N2 Orchestrator (`mind/`): dependency list in, Telegraph asks plus Verified Ask, evidence
       to the Mind, report out. Spend caps on both Telegraph and Cognition
