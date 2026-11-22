@@ -135,6 +135,22 @@ footer p { margin: 0; max-width: 80ch; }
   .fams span { grid-column: 2; }
   .numrow .v { font-size: 28px; }
 }
+/* track menu and track headers */
+.tracks { display: flex; justify-content: center; gap: 10px 22px; flex-wrap: wrap; padding-block: 14px; border-bottom: 1px solid var(--rule); font: 400 14px/1.4 var(--mono); }
+.tracks a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; }
+.tracks a:hover { border-bottom-color: var(--accent); }
+.tracks .sep { color: var(--muted); }
+.track-head { border-top: 2px solid var(--ink); padding-block: 30px 6px; }
+.track-head .label { display: block; margin-bottom: 8px; color: var(--accent); }
+.track-head h2 { font: 400 clamp(30px, 5vw, 40px)/1.1 var(--serif); margin: 0 0 10px; letter-spacing: -0.015em; }
+.track-head p { margin: 0; color: var(--ink-2); max-width: 62ch; }
+.track-link { margin: 18px 0 0; font: 400 15px/1.5 var(--mono); }
+.track-link a { color: var(--ink); }
+.gsteps { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.gsteps li { padding: 14px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 3rem 1fr; gap: 4px 12px; }
+.gsteps b { font: 400 15px/1.5 var(--mono); color: var(--accent); }
+.gsteps strong { font: 400 17px/1.4 var(--mono); }
+.gsteps span { grid-column: 2; font-size: 17px; color: var(--ink-2); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
@@ -142,9 +158,11 @@ footer p { margin: 0; max-width: 80ch; }
   <a class="wordmark" href="#top" id="top"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
   <a class="toplink" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener" aria-label="Source code on GitHub">↗</a>
 </header>
+<nav class="tracks col" aria-label="Hackathon tracks"><a href="#evaluators">Evaluators</a><span class="sep" aria-hidden="true">·</span><a href="#apps">Apps &amp; Agents</a></nav>
 
 <main class="col">
-  <div class="hero">
+  <div class="hero" id="evaluators">
+    <span class="label" style="color:var(--accent)">Track: Evaluators</span>
     <div class="status"><span class="dot" aria-hidden="true"></span>Evaluation data live on Telegraph testnet <span style="color:var(--muted)">/</span><br>SECURITY_REVIEW intent</div>
     <h1>Two security reviews. One is quietly wrong.</h1>
     <p class="lede">Each case has a sound review and one that is plausible but wrong in a single decisive fact: a fake advisory id, a wrong version range, a false alarm. Pick the review you would trust, then see the flaw, how shortcut judges did, and what our evaluator chose.</p>
@@ -213,22 +231,6 @@ footer p { margin: 0; max-width: 80ch; }
     <p class="note">The orange tick marks a coin flip. Ranges cover two training runs. These validation pairs come from the same author as the training data, so they overstate real accuracy; an independent test set decides registration.</p>
   </section>
 
-  <section id="market">
-    <div class="sec-head"><h2>What a paid answer is worth</h2><span class="label">3 rounds, 3,680 paid calls, testnet</span></div>
-    <p class="small" style="margin-bottom:18px">We bought the same 46 security questions from every reachable Telegraph miner on three days, under a rule fixed before the first call, and reconciled the payments with the chain or the node's ledger (one $0.01 charge unmatched).</p>
-    <div class="rows" role="img" aria-label="Pooled accuracy on 108 answerable cases: best miner 83 percent, free OSV lookup 67 percent, always answering Insecure 50 percent, default route 21 percent">
-      <div class="numrow"><span class="k">Best miner (a1-preflight)<br><span class="label">95% CI 75 to 89%</span></span><span class="v ours">83%</span><div class="track"><div class="fill ours" style="width:83%"></div><div class="coin"></div></div></div>
-      <div class="numrow"><span class="k">Free OSV lookup, $0<br><span class="label">95% CI 57 to 75%</span></span><span class="v">67%</span><div class="track"><div class="fill" style="width:67%"></div><div class="coin"></div></div></div>
-      <div class="numrow"><span class="k">Always answer "Insecure"</span><span class="v">50%</span><div class="track"><div class="fill" style="width:50%"></div><div class="coin"></div></div></div>
-      <div class="numrow"><span class="k">Default route (rank 1 miner)<br><span class="label">95% CI 15 to 30%</span></span><span class="v">21%</span><div class="track"><div class="fill" style="width:21%"></div><div class="coin"></div></div></div>
-    </div>
-    <dl class="kv" style="margin-top:22px">
-      <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
-      <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
-      <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
-    </dl>
-    <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
-  </section>
 
   <section id="how">
     <div class="sec-head"><h2>How it works</h2></div>
@@ -274,6 +276,47 @@ footer p { margin: 0; max-width: 80ch; }
   <section id="families-sec">
     <div class="sec-head"><h2>Ten ways a review can be wrong</h2></div>
     <ul class="fams" id="families"></ul>
+    <p class="track-link">Evaluators track, full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/evaluators.md" target="_blank" rel="noopener">tracks/evaluators.md</a></p>
+  </section>
+
+  <div class="track-head" id="apps">
+    <span class="label">Track: Apps &amp; Agents · Mission 10, Model Economy</span>
+    <h2>Dependency.Guard: a Mind that checks before it trusts</h2>
+    <p>For teams whose coding agents add and upgrade packages, and must not ship a known-vulnerable version. It runs inside Minds by Animoca Brands and buys its intelligence from Telegraph.</p>
+  </div>
+
+  <section id="guard" style="border-top:1px solid var(--rule)">
+    <ol class="gsteps">
+      <li><b>[1]</b><strong>Buy one answer</strong><span>One SECURITY_REVIEW answer per package from Telegraph's ranked route, through Anjoman. Never three providers by default.</span></li>
+      <li><b>[2]</b><strong>Check it for free</strong><span>Verified Ask compares the verdict with OSV for that exact version, confirms every cited advisory exists and applies, and that the version was ever published.</span></li>
+      <li><b>[3]</b><strong>Decide</strong><span>PASS, BLOCK or FLAG, with the advisories, every receipt and the cost. One other provider is asked only when the check proves the answer wrong. Approved versions are re-checked daily.</span></li>
+    </ol>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Trusting the answer</dt><dd>On 26 packages: 3 vulnerable versions passed, and 2 packages that don't exist were called "Secure".</dd>
+      <dt>With the check</dt><dd>Nothing unsafe was approved: 24 decided correctly, 2 sent to a person.</dd>
+      <dt>Code review</dt><dd>23 subtle functions: Telegraph's route 13, its best miner 11; the Mind 23, overruling all 10 wrong answers.</dd>
+      <dt>Honest result</dt><dd>The Mind on its own matched these scores by querying OSV directly. For known package vulnerabilities a free lookup is the bar; the value is that wrong paid answers never became decisions.</dd>
+      <dt>The Mind</dt><dd><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard</a> <span class="label">38266542-f36b-1410-8467-00039ce7df11</span></dd>
+    </dl>
+    <p class="note">Testnet, 22 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
+  </section>
+
+  <section id="market">
+    <div class="sec-head"><h2>What a paid answer is worth</h2><span class="label">3 rounds, 3,680 paid calls, testnet</span></div>
+    <p class="small" style="margin-bottom:18px">We bought the same 46 security questions from every reachable Telegraph miner on three days, under a rule fixed before the first call, and reconciled the payments with the chain or the node's ledger (one $0.01 charge unmatched).</p>
+    <div class="rows" role="img" aria-label="Pooled accuracy on 108 answerable cases: best miner 83 percent, free OSV lookup 67 percent, always answering Insecure 50 percent, default route 21 percent">
+      <div class="numrow"><span class="k">Best miner (a1-preflight)<br><span class="label">95% CI 75 to 89%</span></span><span class="v ours">83%</span><div class="track"><div class="fill ours" style="width:83%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Free OSV lookup, $0<br><span class="label">95% CI 57 to 75%</span></span><span class="v">67%</span><div class="track"><div class="fill" style="width:67%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Always answer "Insecure"</span><span class="v">50%</span><div class="track"><div class="fill" style="width:50%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Default route (rank 1 miner)<br><span class="label">95% CI 15 to 30%</span></span><span class="v">21%</span><div class="track"><div class="fill" style="width:21%"></div><div class="coin"></div></div></div>
+    </div>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
+      <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
+      <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
+    </dl>
+    <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
+    <p class="track-link">Apps &amp; Agents track, full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md" target="_blank" rel="noopener">tracks/apps-and-agents.md</a></p>
   </section>
 
   <footer>
