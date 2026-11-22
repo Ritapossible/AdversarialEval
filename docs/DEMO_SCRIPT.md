@@ -8,7 +8,8 @@ written or in your own words; the times are a guide.
 
 - **Anjoman balance at least $0.40.** A routed ask needs $0.26 free at the moment it is made
   (claim the faucet first; today's balance is about $0.27).
-- **Mind credits refilled.** Check the Mind's profile: Cognition well above 20.
+- **Mind credits.** The profile's Cognition figure is what counts (520 on 22 Nov); a report uses
+  about 5 and a long web-search task about 10. Replies can take a few minutes; that is normal.
 - **Hide secrets.** Never show the Anjoman key, the Verified Ask token, your email, or the
   message where the keys were stored (that thread was closed; record in a new one).
 - Open in tabs: the Minds app (Dependency.Guard, a fresh thread), https://adversarialeval.vercel.app,
