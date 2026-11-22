@@ -154,6 +154,58 @@ cost, with a receipt and the evidence.
 - [ ] A4 One outside user or builder runs it (adoption counts for 10 of the 100 points)
 - [ ] A5 Demo video, docs, submission via anjoman.ai
 
+### Phase P: CODE_PATCH_VERIFY (after the video, the test set and the submission are safe)
+
+**Why.** Telegraph's 22 Nov announcement asks for specialist intelligence where frontier models
+fail: live data and independently verifiable findings. Our own results show SECURITY_REVIEW for
+known CVEs is not that (a Mind with a free OSV lookup matched every paid answer). Whether a given
+commit or pull request passed CI *is*: a model can't know it, and the CI provider's API can prove
+it. Mission 10, area 1 of the announcement (CODE_PATCH_VERIFY, REGRESSION_VERIFY).
+
+**What the network looks like (checked 22 Nov).** The intent is `CODE_PATCH_VERIFY_GENERAL`
+(request `patch`: repository and commit, PR or CI run, at most 256 bytes; response `conclusion`
+from success/failure/cancelled/skipped/neutral/timed_out/pending, `passed` (scored), and off-chain
+`commit` and `pipeline`). It has **23 miners** (the parent `CODE_PATCH_VERIFY` shows 0, which
+misled our first read) and an active evaluator adapter (registration 155). Most miners are generic
+wrappers whose compatibility note says their endpoint has no field for `patch`; a few are serious
+(zk-patchproof: GitHub, GitLab, CircleCI and Actions, with evidence digests; zk-runpin, zk-patchci,
+zk-code-ci, a1-preflight). Same shape as the SECURITY_REVIEW market we benchmarked.
+
+**Order, cheapest evidence first:**
+1. **Benchmark the market (route 1, our method on a second intent).** A case set fixed by rule
+   before any call, with truth read from the providers' APIs and frozen: public commits and PRs
+   whose CI finished with success, failure, cancelled or skipped; one still running (pending);
+   a commit with no CI; a commit that doesn't exist; a malformed request. Audit which miners take
+   a canonical request (free), then one paid call per case and miner. Report accuracy, cost per
+   correct answer, and which miners confuse "pending" or "no CI" with "passed".
+   Budget: about 12 cases x the callable miners (likely 5 to 8) x $0.01 = $0.60 to $1.00.
+2. **"Verified Ask for CI".** Extend Verified Ask to check a CODE_PATCH_VERIFY answer against
+   the provider's API (does the commit exist, does `conclusion` match the check runs, is `passed`
+   consistent with `conclusion`). Free for the buyer, like the package check. Lets the
+   Dependency.Guard Mind also confirm that the PR applying an upgrade passed CI.
+3. **Evaluation material (Evaluators track, another intent).** Pairs where the worse answer is
+   plausible but wrong in one verifiable way: "success" while a required check failed, the merge
+   commit's result reported for the PR head, "pending" reported as passed, `passed: true` with
+   `conclusion: failure`. Same verification and length gates as the security pool.
+4. **A miner, only if steps 1 and 2 show a gap the existing miners leave.** Then its pitch is
+   measured, not claimed. Registration facts gathered 22 Nov: current Diamond
+   0x72a70e949362670Bf8bceAd24eFC5b8f950aa08b (the 0x3624... one is retired; example scripts
+   still point at it); `registerMiner(yamlUrl, sha256(yaml), feeAddress, minPriceUsdc >= 10000,
+   intents)`; bond to be confirmed with `minerBondParams()` (docs conflict: MACHINA vs USDC vs 0);
+   permissionless, activation about 10 to 15 minutes; 7-day grace period with a 5% traffic share.
+   Hosting: a Vercel function next to Verified Ask, with a read-only GitHub token (unauthenticated
+   GitHub allows only 60 requests per hour per IP).
+
+- [ ] P1 Case set and rule for CODE_PATCH_VERIFY (truth from GitHub, GitLab and CircleCI APIs), committed before calls
+- [ ] P2 Free audit of the 23 miners; paid round; report
+- [ ] P3 Verified Ask for CI answers; wire into the Mind
+- [ ] P4 Evaluation pairs for CODE_PATCH_VERIFY_GENERAL
+- [ ] P5 Decide on a miner from P2/P3 evidence
+
+**Gates:** after the demo video and the second test-set author (Nov 26). Stop at P2 if no
+miner takes canonical requests (then the gap is integration, not intelligence, and a miner is
+the right move after all).
+
 ### Phase N: A Mind front end for the Dependency Gate (optional, after Phase A works)
 
 Proposed by the Telegraph team in the builders channel (11-22): build a Mind (Minds by Animoca
