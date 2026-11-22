@@ -20,11 +20,13 @@ differs from OSV's is info by default and a warning with strict_count=True. The 
 from __future__ import annotations
 
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
 from typing import Protocol
 
 VERDICTS = {"Secure", "Needs changes", "Insecure"}
 VULNERABLE = {"Insecure", "Needs changes"}
+MAX_CITATION_LOOKUPS = 25  # bounds latency and upstream load per answer
 
 # purl type -> OSV ecosystem
 ECOSYSTEMS = {"pypi": "PyPI", "npm": "npm", "maven": "Maven", "golang": "Go", "cargo": "crates.io", "gem": "RubyGems"}
@@ -211,11 +213,17 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
     ids, placeholders = cited_ids(result)
     for p in placeholders:
         v.checks.append(Check("citation", "fail", f"placeholder id {p!r} instead of a real advisory"))
+    unknown = [vid for vid in ids if vid not in known][:MAX_CITATION_LOOKUPS]
+    with ThreadPoolExecutor(max_workers=8) as ex:  # lookups are independent; keep latency low
+        records = dict(zip(unknown, ex.map(src.osv_vuln, unknown)))
     for vid in ids:
         if vid in known:
             v.checks.append(Check("citation", "pass", f"{vid} affects this version"))
             continue
-        rec = src.osv_vuln(vid)
+        if vid not in records:
+            v.checks.append(Check("citation", "skip", f"{vid}: not looked up (over {MAX_CITATION_LOOKUPS} citations)"))
+            continue
+        rec = records[vid]
         if rec is None:
             v.checks.append(Check("citation", "skip", f"{vid}: OSV unavailable"))
         elif rec is False:

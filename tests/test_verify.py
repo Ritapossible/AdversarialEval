@@ -180,6 +180,60 @@ class Server(unittest.TestCase):
         self.assertEqual(handle("/v1/verify", json.dumps({"target": "pkg:pypi/jinja2@3.1.6", "strict_count": "yes"}).encode(), Fake())[0], 400)
 
 
+class VercelFunction(unittest.TestCase):
+    """site/api/verify.py: the hosted endpoint the Mind calls."""
+
+    @classmethod
+    def setUpClass(cls):
+        import importlib.util
+        import os
+        import threading
+        from http.server import ThreadingHTTPServer
+        spec = importlib.util.spec_from_file_location("site_verify", ROOT / "site" / "api" / "verify.py")
+        cls.mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.mod)
+        cls.mod.SRC = Fake()  # offline
+        cls.os = os
+        cls.srv = ThreadingHTTPServer(("127.0.0.1", 0), cls.mod.handler)
+        threading.Thread(target=cls.srv.serve_forever, daemon=True).start()
+        cls.url = f"http://127.0.0.1:{cls.srv.server_address[1]}/api/verify"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.srv.shutdown()
+
+    def call(self, body=None, token=None):
+        import urllib.error
+        import urllib.request
+        h = {"Content-Type": "application/json", **({"Authorization": f"Bearer {token}"} if token else {})}
+        req = urllib.request.Request(self.url, data=None if body is None else json.dumps(body).encode(), headers=h)
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        try:
+            with opener.open(req, timeout=10) as r:
+                return r.status, json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            return e.code, json.loads(e.read())
+
+    def test_refuses_until_configured_then_needs_token(self):
+        body = {"target": "pkg:pypi/jinja2@3.1.6", "result": ans("Secure", 0)}
+        self.os.environ.pop("VERIFY_TOKEN", None)
+        self.assertEqual(self.call(body)[0], 503)
+        self.assertEqual(self.call()[1]["configured"], False)  # GET
+        self.os.environ["VERIFY_TOKEN"] = "t"
+        try:
+            self.assertEqual(self.call(body)[0], 401)
+            self.assertEqual(self.call(body, "wrong")[0], 401)
+            status, out = self.call(body, "t")
+            self.assertEqual((status, out["label"]), (200, "verified"))
+        finally:
+            self.os.environ.pop("VERIFY_TOKEN", None)
+
+    def test_copy_in_sync(self):
+        import subprocess
+        p = subprocess.run([sys.executable, str(ROOT / "tools" / "sync_site_api.py"), "--check"], capture_output=True, text=True)
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+
+
 class Replay(unittest.TestCase):
     """eval/reports/2026-11-22-verified-ask.md: re-run offline from the committed evidence cache."""
 
