@@ -54,6 +54,8 @@ reporting results next to the shortcut judges the material is designed to defeat
 | Result | Evidence |
 |---|---|
 | **81 preference pairs eligible** in the live `SECURITY_REVIEW_GENERAL` pool (testnet), all *attested*, uploaded 2026-11-14, contributor `0x31Cf…3095`. Bounty #96 evaluation-material part submitted and moved to review. | Node API output in [`eval/reports/2026-11-14-pool-upload.md`](eval/reports/2026-11-14-pool-upload.md) |
+| **Paid benchmark of the live market** (rule pre-registered; payments matched to the chain or ledger): the top two ranked miners scored **0/36**, node rank vs accuracy τ = +0.02 and −0.18, and only one miner beat a free OSV lookup. | [`2026-11-16-round-2.md`](eval/reports/2026-11-16-round-2.md), [`2026-11-21-round-3.md`](eval/reports/2026-11-21-round-3.md) |
+| **Verified Ask**, replayed over 2,162 paid answers: **no wrong package answer was labelled verified**, and 112 of 112 verified answers were correct. It also caught cited advisories about other packages and placeholder ids. | [`2026-11-22-verified-ask.md`](eval/reports/2026-11-22-verified-ask.md) |
 | Shortcut judges at chance on that material: longer-answer 54%, TF-IDF-to-prompt 54%, security-keyword 44%. | `scripts/check_data.sh` |
 | Adapter: **72.4% / 74.7%** pairwise accuracy on 87 validation pairs (two seeds), versus ≤ 58% for every shortcut judge. | [`2026-11-11-cpu-v3-seed7.md`](eval/reports/2026-11-11-cpu-v3-seed7.md) |
 | Held out from training, whole failure types are **not** learned: **37–39%** on unseen context-reversal and false-alarm pairs. Validation accuracy holds only for trained types. | [`2026-11-14-lofo.md`](eval/reports/2026-11-14-lofo.md) |
@@ -68,9 +70,11 @@ uses an independent test set, under the frozen rule.
 | | Status |
 |---|---|
 | **Adversarial preference dataset** (264 training + 87 validation pairs, public) with a ten-family failure taxonomy ([`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md)) | Released in `data/public/`, `data/validation/` |
-| **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 81 eligible; 84 severity pairs in review |
+| **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 164 eligible (81 + 83 severity pairs) |
 | **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; **not registered**, pending the independent test |
 | **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
+| **Verified Ask** ([`verify/`](verify/)): an API a buyer calls before trusting a security answer. It checks the verdict, the cited advisory ids and the version against OSV, deps.dev and rubygems.org, and returns verified, contradicted, unconfirmed, invalid or unchecked | Working, tested; replayed over rounds 2 and 3 |
+| **Paid market benchmark** ([`bench/`](bench/)): cost per verified correct answer, per miner, three rounds | Rounds 2 and 3 done; round 4 on 11-22 |
 | **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
 
 ## How it works
@@ -137,6 +141,8 @@ including hosting, registration and pool upload, is in [`docs/RUNBOOK.md`](docs/
 | `eval/` | `score.py` (per-family scoring), `baselines.py` (shortcut judges), `reports/`, the frozen registration rule |
 | `scripts/` | `setup_kit.sh`, `check_data.sh`, `train.sh`, `export.sh`, `rehearse.sh` |
 | `truth-sources/cve-cvss/` | `CVE_LOOKUP_CVSS` truth source (serverless function, tests, YAML) |
+| `verify/` | Verified Ask: checks (`core.py`), public sources with an evidence cache (`sources.py`), HTTP API (`server.py`), replay (`replay.py`) |
+| `bench/` | Paid market benchmark: pre-registered rule, cases, runner, scorer, raw calls per round |
 | `site/` | "Spot the Flaw" demo page, served by Vercel (root directory `site`) |
 | `deploy/` | Executor host setup (systemd unit, Caddy TLS, health check) |
 | `docs/` | Research, taxonomy, dataset spec, runbook, reviewer guide, audit, submission checklist |

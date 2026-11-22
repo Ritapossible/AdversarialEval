@@ -31,5 +31,7 @@ jobs:
         run: python tests/test_bench.py
       - name: Published numbers reproduce from committed data
         run: python tests/test_reproduce.py
+      - name: Verified Ask checks and replay
+        run: python tests/test_verify.py
       - name: Truth source tests
         run: node --test truth-sources/cve-cvss/test/select.test.js
