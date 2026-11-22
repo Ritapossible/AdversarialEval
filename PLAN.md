@@ -141,7 +141,13 @@ cost, with a receipt and the evidence.
 
 - [ ] A0 Confirm the fit with Telegraph in one line (customer, route, 1x design) before building
 - [ ] A1 `gate/`: manifest diff in, one paid call per package, Verified Ask, decision, receipt out;
-      spend caps; CLI first, then a GitHub Action
+      spend caps; CLI first, then a GitHub Action. **Calls go through Anjoman's existing
+      integration, not our own payment code** (Telegraph: "use our existing Anjoman integrations
+      rather than rebuilding the intelligence layer"): `POST backend.telegraphprotocol.com/engine/ask`
+      with `intent: SECURITY_REVIEW_GENERAL`, `params: {target}` and an `anjoman_` API key, or the
+      Skill's `auto --intent ... --params ...`. Both report cost and a receipt. The key is entered
+      through the session's credential form, never in chat or the repo. `bench/run.mjs` (escrow)
+      stays for the benchmark only.
 - [ ] A2 Measure against the benchmark cases: decisions correct, blocked wrongly, flagged, cost
       per decision, versus (a) trusting ranked routing alone, (b) the free OSV lookup alone
 - [ ] A3 Scheduled leaderboard from a small sample; public page on the site
@@ -210,7 +216,12 @@ MCP directly, so until Telegraph says otherwise, our code orchestrates and the M
    an advisory about another package), a re-ask, the reviewer's check, the report with evidence,
    then a later alert.
 
-- [ ] N0 Ask the Telegraph team: can a Mind load the Anjoman Skill (or a remote MCP URL), or
+- Checked 11-22: the Anjoman MCP is local stdio only (no HTTP transport); the integrations page
+  lists Claude Desktop, Cursor, VS Code, Claude Code, Continue, Goose, Hermes, OpenClaw,
+  LangChain, ElizaOS and "any MCP client", but not Minds. So driving the Mind from our code is
+  still the documented-safe route. Telegraph also floated a general-purpose Mind; not for us
+  (focus on security depth).
+- [ ] N0 Ask the Telegraph team (now in the Minds forum): can a Mind load the Anjoman Skill (or a remote MCP URL), or
       does it need an outside orchestrator? Is this rewarded? What do Builder access rules require?
 - [ ] N1 Builder account and API key; one Mind; check that `minds send --wait` works and what a
       reply costs in Cognition
