@@ -1,36 +1,49 @@
-# Minds forum post: Dependency.Guard
+# Minds channel progress post: Dependency.Guard (asking for feedback)
 
-Two messages (Discord allows 2,000 characters each). Post the first as the thread, the second as
-a reply. Replace [VIDEO] once the demo is recorded. Check the character counts with
-`python3 -c "import sys;print(len(open(sys.argv[1]).read()))"` on each part if you edit them.
+Three messages; Discord allows 2,000 characters each. Post message 1 as the thread or first
+message, then 2 and 3 as replies. No video yet (planned for 23 Nov). Every number below comes from
+the committed reports: `eval/reports/2026-11-22-mind-comparison.md` and
+`eval/reports/2026-11-22-code-review-v2.md`.
 
-## Message 1 (thread)
+## Message 1: what it is
 
 **Dependency.Guard: a Mind that checks security answers before it trusts them**
-Mind ID: `38266542-f36b-1410-8467-00039ce7df11` · Mission 10 · Apps & Agents
+Mind ID: `38266542-f36b-1410-8467-00039ce7df11` · Mission 10 (Model Economy) · Apps & Agents
+Thanks @Chrysolite494 for the setup guide, it's what got the HTTP route working.
 
-**What it does:** when a project adds or upgrades a package, the Mind buys one SECURITY_REVIEW_GENERAL answer through Anjoman, checks it free against OSV, deps.dev and the registries (Verified Ask), and returns PASS, BLOCK or FLAG with the advisories, receipts and cost. It re-asks one other provider only when the check proves the first answer wrong. It keeps a watchlist and re-checks approved versions daily for free.
+**The job:** a coding team adds or upgrades a dependency. The Mind has to say PASS, BLOCK or FLAG for each package, with evidence and cost, and keep watching afterwards.
 
-**Tested with and without Telegraph** (testnet, 22 Nov, frozen answer keys):
-• 26 packages, 7 ecosystems, incl. 2 that don't exist. Trusting the routed answer: 11 right of the 18 it answered, 3 vulnerable versions passed, 2 fake packages called "Secure". With the check: nothing unsafe approved.
-• Caught: "Secure" with 2 vulnerabilities in the same answer, advisories for the wrong package, invented CVE ids, `CVE-2023-xxxx` placeholders.
-• The honest part: the Mind on its own got all 26 right by querying OSV directly. For known package vulnerabilities a free lookup is the bar, and in our paid benchmark (3,680 calls) only one miner beats it.
-• Code review (12 snippets): the Mind alone 12/12; the best miner 9/12; shown that miner's answers, the Mind overruled exactly the 3 wrong ones.
+**How it works inside Minds:**
+1. For each package it buys **one** `SECURITY_REVIEW_GENERAL` answer from Telegraph's ranked route through Anjoman (HTTP tool, key in private credentials).
+2. It checks that answer **for free** with Verified Ask, our open checker: does the verdict match OSV for that exact version, do the cited advisory ids exist and apply, does the version even exist?
+3. If the check proves the answer wrong, it asks **one** other provider. Never three by default.
+4. It reports one line per package with the advisories, every receipt and the total cost.
+5. It keeps a watchlist and re-checks approved versions every day for free; it only buys a new answer if something changes, capped at $0.10 a day.
 
-So the value we can show is narrow but real: wrong paid answers never become decisions, every call has a receipt, and the benchmark says which providers are worth paying. Next: a harder code test (23 multi-line cases, pre-registered).
+Everything is open source with receipts: https://github.com/Ritapossible/AdversarialEval
 
-Video: [VIDEO]
-Repo: https://github.com/Ritapossible/AdversarialEval
-Report: https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-mind-comparison.md
+## Message 2: what the tests found
 
-Try it on your own packages and tell me what it gets wrong.
+**Tested with and without Telegraph** (testnet, 22 Nov, answer keys frozen before any paid call):
 
-## Message 2 (reply: notes for other builders)
+**Packages** (26 versions, 7 ecosystems, incl. 2 that don't exist)
+• Trusting the routed answer: 11 right of the 18 it answered, 3 vulnerable versions passed, 2 non-existent packages called "Secure".
+• With the free check: nothing unsafe approved. It caught "Secure" alongside a count of 2 vulnerabilities, advisories for the wrong package, invented CVE ids and `CVE-2023-xxxx` placeholders.
+• The Mind on its own: 26 of 26, by querying OSV directly.
 
-**Notes from wiring a Mind to Anjoman** (thanks @Chrysolite494 for the setup guide):
-• `POST /engine/ask` with `{"intent": "SECURITY_REVIEW_GENERAL", "params": {"target": ...}}` returns a structured verdict plus an escrow receipt, which is easier to check than `/agent/chat` prose.
-• A routed ask **reserves $0.26** of your balance up front, even when it charges $0.01 to $0.03. Below $0.26 free, Anjoman refuses it with HTTP 400 "Insufficient escrow balance". Asks to one named miner (`/engine/ask/{minerId}`) reserve only its price.
-• A routed ask can **pay two miners** (we saw $0.02 settled as two payments). Budget for up to 2x on the route.
-• We saw short bursts of HTTP 400 "Payment was rejected by the facilitator", no charge; the same request worked minutes later. Don't treat it as a bad key.
-• From Python, set a User-Agent: Cloudflare blocks the default client (error 1010).
-• Minds' Cognition on the profile is the real balance; a long "Evaluating" is just slow work.
+**Code review** (23 subtle functions: 10 flaws, their fixes, 3 safe decoys, pre-registered)
+• Mind alone: 23/23. Telegraph's route: 13/23. Best miner by our benchmark, asked directly: 11/23. Both missed real flaws and flagged most of the safe code.
+• Shown the route's answers, the Mind overruled all 10 wrong ones.
+• The same miner gave a different verdict on 5 of 20 snippets, asked 15 minutes apart.
+
+**My honest read:** for known package vulnerabilities a free OSV lookup is the bar (in our 3,680-call benchmark only one miner beats it). What paying added was a receipted second opinion; the value we can show is that wrong paid answers never became decisions.
+
+## Message 3: feedback I'd love
+
+1. **Is "check before trusting" the right shape** for a Mind on Telegraph, given the results? Or would you rather see it lean on Telegraph more and verify less?
+2. **Where should a specialist beat a careful Mind?** I'd like a fair test where paid answers can win: very new advisories, private ecosystems, whole-file code review? Suggestions welcome.
+3. **Builders:** if your Mind takes security or package answers from Telegraph, would you try Verified Ask on them? It's free; I'll help you wire it in.
+4. **Telegraph team:** the facilitator refused all payments for ~20 min today (about 14:30 to 14:50 UTC, HTTP 400, no charge). Is that known? Also, routed asks reserve $0.26 and sometimes settle two payments; is that intended?
+
+Reports: https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports
+Demo video coming tomorrow. Tell me what it gets wrong!
