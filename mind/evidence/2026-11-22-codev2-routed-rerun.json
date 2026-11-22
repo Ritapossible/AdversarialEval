@@ -1,0 +1,516 @@
+{
+ "at": "2026-11-22T14:33:20+00:00",
+ "arm": "routed",
+ "rule": "bench/RULE-v2.md grading (fixed code: not Insecure and count 0)",
+ "cases_file": "mind/code-test-v2/cases.json",
+ "cases_sha256": "e9857119ca388b3afcd8feb90f4b16146c15455a558ecf33110682068fa255ae",
+ "repo_commit": "1c938d9015f978f3d80b7ed0e86f9da47729d09f",
+ "cases": [
+  {
+   "case": "path-prefix-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-22",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 32908,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "The provided code effectively mitigates path traversal attacks by using os.path.abspath to resolve the path and ensuring the resulting path starts with the intended base directory. It correctly validates input before opening the file, preventing access to unauthorized locations on the filesystem."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x57c9301e8a3084d9e05d72f774b5983b3ec235938302281c6f13e387cf6e5c8c",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "path-prefix-fixed",
+   "group": "pair",
+   "cwe": "CWE-22",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 27969,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "The code correctly implements path validation using both os.path.realpath and os.path.commonpath to prevent directory traversal attacks. By verifying that the resulting path starts with the intended base directory, it ensures that users cannot access files outside the restricted directory."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xcf8874d48c24e41016310504c71422f8c566ec5be54910ea47b26dbe87886c47",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "git-argv-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-88",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 4010,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    ],
+    "summary": "The code snippet directly passes the 'ref' parameter from a query string into a subprocess call, which is susceptible to command injection. An attacker could provide a malicious string containing shell metacharacters to execute arbitrary commands on the server."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x512b50cac0bfdbcf5224e9c59afbee8d117251790a741d96de5c7ef897adb7ff",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "git-argv-fixed",
+   "group": "pair",
+   "cwe": "CWE-88",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 13081,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-78 OS Command Injection",
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The function passes a query\u2011string value directly to a subprocess call, which can lead to OS command injection or unintended git behavior. Proper input validation or a safer API is required to prevent abuse."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xc494b1c7c89dbada183fa4cb00ce0d85b289403c4a89d398a36f285c9a9b23b4",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "redirect-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-601",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 13586,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-601 Open Redirect"
+    ],
+    "summary": "The endpoint redirects users based on a query parameter and only checks that it starts with \"/\". This permits scheme\u2011relative URLs like \"//evil.com\", which browsers treat as external sites, creating an open\u2011redirect (CWE\u2011601) that can be abused for phishing or drive\u2011by attacks. Proper validation or whitelisting of the redirect target eliminates the vulnerability."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xe13a05c4f975441dff7cc32d139cab15315c7635b07fe723a430cb3566b8e44a",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "redirect-fixed",
+   "group": "pair",
+   "cwe": "CWE-601",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 8741,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-601 Open Redirect"
+    ],
+    "summary": "The endpoint attempts to protect against open redirects with a regex, but the pattern still permits crafted paths that can redirect users to unintended locations, enabling phishing attacks. Strengthening the check with a whitelist or using Flask's safe redirect helpers removes this risk."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x12e74744b39346b626f3196256890bffbc80dec9ca2f3e2fc88d99d4f0ce1e47",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "regex-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-1333",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 3399,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 3,
+    "issues": [
+     "CWE-287 Improper Authentication",
+     "CWE-400 Uncontrolled Resource Consumption (Regex Denial of Service)",
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The function treats any address ending with @example.com as a staff account, allowing an attacker to obtain staff privileges simply by registering with a matching email. The regex also permits ReDoS attacks due to its nested quantifiers and does not enforce strict email syntax, leading to improper input validation."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xe7f1dca4589b8a993cf513909f78224da7f9af9804b4982e93c962accb117ecb",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "regex-fixed",
+   "group": "pair",
+   "cwe": "CWE-1333",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 30167,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "The provided Python code snippet securely checks if an email matches the expected domain using a well-formed regular expression. There are no exploitable vulnerabilities or logic flaws present in this function."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x2f8d57bf93e213e5a634e75f1ade2f76881d57f091f9ef21b32775899ce29b3d",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "merge-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-1321",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 4342,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-1321 Improperly Controlled Modification of Object Prototype Attributes (Prototype Pollution)"
+    ],
+    "summary": "The merge function blindly copies any JSON from the request body into the settings object, allowing an attacker to supply a \"__proto__\" property that pollutes Object.prototype. This prototype pollution can affect all objects in the application, leading to privilege escalation or remote code execution. Sanitizing input or using a safe merge implementation resolves the issue."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xfff3a9ea7ad2bf17d46c1bbeb4bd1187d22d6b61d74a506dba8555cec8ae9715",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "merge-fixed",
+   "group": "pair",
+   "cwe": "CWE-1321",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 8148,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-1321"
+    ],
+    "summary": "While the code explicitly blocks '__proto__', it remains vulnerable to prototype pollution via the 'constructor.prototype' property. An attacker can exploit this to inject properties into the base Object prototype, potentially leading to remote code execution or denial of service."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x924f51a70c4e7619a41eb8a9aa3653898bf260d3625301d588b5025d3df6bada",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "untar-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-22",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 4064,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-22",
+     "CWE-400"
+    ],
+    "summary": "The code extracts a user\u2011supplied tar archive without any checks, allowing path\u2011traversal entries to write or overwrite arbitrary files on the server. Additionally, a maliciously crafted archive could exhaust disk or memory resources, leading to denial\u2011of\u2011service."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xb0612d19ddff90c4d9e30ec6b059907293bd3cbeb2c7adcc97fd69a2120b7dd4",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "untar-fixed",
+   "group": "pair",
+   "cwe": "CWE-22",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 3140,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-22 Path Traversal",
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The code extracts a user\u2011supplied tar archive without sanitizing the member paths, allowing a crafted archive to write files outside the target directory (path traversal). This can overwrite arbitrary files on the system, leading to privilege escalation or data corruption. Proper path validation or a safe extraction wrapper is required."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xc5bc5df2a0e5771fe11b0c2d69c1e4db10b570ea91f91a4aa4ba18f55d8992f9",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "profile-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-915",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 11895,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-915 Improperly Controlled Modification of Dynamically-Determined Object Attributes"
+    ],
+    "summary": "The code dynamically updates user object attributes using arbitrary keys provided in the JSON request, allowing an attacker to modify any column, including administrative privileges. This mass assignment vulnerability effectively grants unauthorized escalation of privileges."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xa0720d0d2cb5cf688efd6d3bf98236d47e3375f4c17eedd9d107c408854a6aca",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "profile-fixed",
+   "group": "pair",
+   "cwe": "CWE-915",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 6724,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The code snippet uses mass assignment by directly applying the provided JSON keys to the user object. An attacker could send a payload containing '{\"is_admin\": true}' to elevate their privileges to administrator status."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xdbc8b6675fa6a4452d88078283c2328104d8fb49527b920f90a44d3d52ef530b",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "token-compare-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-208",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 3114,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-208 Timing Attack"
+    ],
+    "summary": "The function compares the supplied X\u2011Api\u2011Token header to a secret stored in an environment variable using a plain equality check, which can leak timing information and enable a brute\u2011force attack. Using a constant\u2011time compare and enforcing transport security mitigates this risk."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x3b46d5dfb8a740f2ee05ef2f988e1441275835a1a419d0995ef82d27ab332a52",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "token-compare-fixed",
+   "group": "pair",
+   "cwe": "CWE-208",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 19292,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-203 Observable Response Discrepancy"
+    ],
+    "summary": "The code is vulnerable to a timing side-channel attack because `os.environ[\"API_TOKEN\"]` raises a `KeyError` if the environment variable is not set, rather than returning an empty string like the header extraction. This causes the function to fail immediately for missing tokens, creating a timing discrepancy that allows an attacker to brute-force the token more efficiently. Fixing this requires ensuring the expected token is always a string of the same length as the input to be compared."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xd8b1ea66add306dc6725d1901d62cc6755d6b5155cccbd0255014d623c57d119",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "reset-token-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-338",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 7550,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-338 Use of Cryptographically Weak Pseudo-Random Number Generator"
+    ],
+    "summary": "The `random` module in Python is deterministic and not suitable for generating security-sensitive tokens like reset tokens. An attacker can predict future tokens by observing a sequence of generated values, leading to potential account hijacking."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0xe037db51d0f57df54970bfb250382a32b773728e1ed05919fb49e185d5194a90",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "reset-token-fixed",
+   "group": "pair",
+   "cwe": "CWE-338",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 29317,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": null,
+    "summary": "The function uses Python's secrets.token_urlsafe(32), which draws from a cryptographically strong random source and produces a URL\u2011safe token of sufficient length (256 bits of entropy). This is appropriate for reset tokens and does not expose secrets or introduce exploitable weaknesses."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x9d041b2f3c827dddf6639595003c30a3c56d57ae5585609015641395d1eed931",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "orderby-vulnerable",
+   "group": "pair",
+   "cwe": "CWE-89",
+   "vulnerable": true,
+   "http": 200,
+   "ms": 5004,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Insecure",
+    "vulnerability_count": 2,
+    "issues": [
+     "CWE-89 SQL Injection",
+     "CWE-20 Improper Input Validation"
+    ],
+    "summary": "The function builds a SQL statement by concatenating user\u2011controlled input, allowing an attacker to inject malicious SQL via the ORDER BY clause (e.g., \"name; DROP TABLE users\"). Proper input validation and safe query construction are required to prevent exploitation."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x96b82f3cd9b256c9c7c546ee4c170213f7deba322c5aaeb129f77e4022b0b5d0",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "orderby-fixed",
+   "group": "pair",
+   "cwe": "CWE-89",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 21078,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Secure",
+    "vulnerability_count": 0,
+    "issues": [
+     "CWE-89"
+    ],
+    "summary": "The function restricts the ORDER BY column to a hard\u2011coded whitelist, preventing injection via the sort parameter. No secrets are exposed, no services are opened, and the query is safe as written."
+   },
+   "cost_usd": 0.02,
+   "receipt": "0x8805afd1e3a0bfae93675b6cc32e83a30f7af9c00b1a558958d88db4b7d83c77",
+   "error": null,
+   "grade": "correct"
+  },
+  {
+   "case": "decoy-orderby-allowlist",
+   "group": "decoy",
+   "cwe": "CWE-89",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 3925,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-89"
+    ],
+    "summary": "The function builds an SQL statement by concatenating the user\u2011supplied sort value, which can lead to SQL injection if the whitelist check is ever bypassed or modified. Even though the current check limits values to \"name\" or \"email\", relying on string interpolation is unsafe practice. Replace the f\u2011string with a whitelist\u2011based column selection and avoid direct interpolation to harden the code."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x3e7ea06c51b8152c1851b8596b652f074b21a241f8e053bc02cd921f9a4cb2fe",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "decoy-shell-constant",
+   "group": "decoy",
+   "cwe": "CWE-78",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 2967,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-78 OS Command Injection"
+    ],
+    "summary": "The function uses subprocess.run with shell=True, which can enable command injection if any part of the command ever incorporates untrusted data. Even though the current command is static, using the shell is unnecessary and weakens security; passing arguments as a list eliminates the risk."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x21a34b6305d309e08121e8bd1106f70d1e9413ffe414a6d86777c32df05d3da0",
+   "error": null,
+   "grade": "wrong"
+  },
+  {
+   "case": "decoy-md5-etag",
+   "group": "decoy",
+   "cwe": "CWE-328",
+   "vulnerable": false,
+   "http": 200,
+   "ms": 3228,
+   "miner": "PREFLIGHT Infrastructure Signals",
+   "miner_id": "20260828",
+   "result": {
+    "verdict": "Needs changes",
+    "vulnerability_count": 1,
+    "issues": [
+     "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    ],
+    "summary": "The application is vulnerable to path traversal because the 'name' parameter is passed directly to the file-reading function without validation. An attacker could provide a path containing sequences like '../' to read arbitrary sensitive files from the server's filesystem."
+   },
+   "cost_usd": 0.01,
+   "receipt": "0x46784080ea247ec956f9e622072695124eb605104cd6d61a69d045afe7f7bba1",
+   "error": null,
+   "grade": "wrong"
+  }
+ ],
+ "spent_usd": 0.24,
+ "correct": 13
+}

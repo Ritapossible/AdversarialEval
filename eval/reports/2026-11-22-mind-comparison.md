@@ -166,6 +166,14 @@ ask needs $0.26 free and the balance was $0.27 after the earlier tests.
   Real code review (whole functions, framework context, data flow across files) is harder, and
   it is where a specialist would have to prove its price. This test doesn't reach that.
 
+## Fourth test: subtler code (pre-registered)
+
+23 multi-line functions (10 subtle flaws, their fixes, 3 safe decoys). Mind alone 23 of 23;
+Telegraph's route 13 (after a payment outage forced one rerun) and a1-preflight directly 11,
+with one and two missed flaws and nine or ten false alarms; the Mind shown the routed answers
+23 of 23, overruling all ten wrong ones. Full report:
+[`2026-11-22-code-review-v2.md`](2026-11-22-code-review-v2.md).
+
 ## What the three tests say together (updated)
 
 On every question we could grade on 22 Nov (known package vulnerabilities in seven ecosystems,

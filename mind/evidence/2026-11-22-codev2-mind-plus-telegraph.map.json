@@ -1,0 +1,29 @@
+{
+ "seed": 29,
+ "evidence_from": "2026-11-22-codev2-routed-rerun.json",
+ "map": {
+  "snippet-01": "untar-vulnerable",
+  "snippet-02": "profile-fixed",
+  "snippet-03": "redirect-vulnerable",
+  "snippet-04": "orderby-vulnerable",
+  "snippet-05": "decoy-md5-etag",
+  "snippet-06": "merge-vulnerable",
+  "snippet-07": "token-compare-fixed",
+  "snippet-08": "redirect-fixed",
+  "snippet-09": "git-argv-fixed",
+  "snippet-10": "regex-fixed",
+  "snippet-11": "path-prefix-fixed",
+  "snippet-12": "profile-vulnerable",
+  "snippet-13": "path-prefix-vulnerable",
+  "snippet-14": "token-compare-vulnerable",
+  "snippet-15": "regex-vulnerable",
+  "snippet-16": "decoy-orderby-allowlist",
+  "snippet-17": "reset-token-vulnerable",
+  "snippet-18": "decoy-shell-constant",
+  "snippet-19": "merge-fixed",
+  "snippet-20": "orderby-fixed",
+  "snippet-21": "untar-fixed",
+  "snippet-22": "git-argv-vulnerable",
+  "snippet-23": "reset-token-fixed"
+ }
+}
