@@ -107,7 +107,7 @@ from committed data, with uncertainty stated.
 
 ### Phase A: A customer-first app for Mission 10 (Apps & Agents track)
 
-**Telegraph feedback (22 Nov), the rules for this phase:**
+**Telegraph's feedback to another builder (Athar's Tina, which buys each question from three miners; read 22 Nov), taken as the rules for this phase:**
 - Don't buy the same question from several miners by default: the user pays about 3x for what
   ranked routing is meant to deliver at 1x. Independent verification only where it is worth it.
 - The goal is that the best providers get evaluated and ranked, so users don't compare answers.

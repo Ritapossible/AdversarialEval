@@ -1,6 +1,6 @@
 # Submission evidence
 
-Telegraph's guidance (22 Nov): the final submission goes through **anjoman.ai** (the form is not
+Telegraph's guidance in #hackathon (to another builder, read 22 Nov): the final submission goes through **anjoman.ai** (the form is not
 live yet). GitHub claims and `/progress` posts are not final submissions, and there is no
 standalone GitHub payout. **Apps & Agents and Evaluators are judged separately**, so the evidence
 for each track is kept apart here. Deadline: Dec 1, 2026, 23:59 UTC.
