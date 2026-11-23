@@ -154,6 +154,37 @@ cost, with a receipt and the evidence.
 - [ ] A4 One outside user or builder runs it (adoption counts for 10 of the 100 points)
 - [ ] A5 Demo video, docs, submission via anjoman.ai
 
+### Phase S: Dependency.Guard for Solana builders (after the video; before or instead of Phase P)
+
+**Why.** Telegraph's Solana announcement (23 Nov) asks for verified intelligence that Solana
+agents and apps can buy, using real Solana data, paid Telegraph requests, hard test cases and a
+comparison with frontier models, as working applications rather than concepts. Our strongest fit
+is idea 1 (verified intelligence for Solana AI agents), done by extending what already works
+instead of starting a new project.
+
+**What we found (23 Nov).** The relevant intents exist but are not Solana-specific:
+VALIDATOR_PERFORMANCE_VERIFY_GENERAL takes an Ethereum beacon-chain validator index;
+CRYPTO_TRANSFER_VERIFY_GENERAL (24 miners) has no request or response format yet ("not ready"
+on-chain); only two or three miners mention Solana. A real Solana case is in OSV:
+`@solana/web3.js` 1.95.6 and 1.95.7 were hijacked releases with key-stealing malware
+(GHSA-jcxm-7wvp-g6p5, CVE-2024-54134, MAL-2024-11183); 1.95.8 is clean.
+
+**Scope (about one day).**
+1. A Solana dependency case set, fixed by rule before any call, truth from OSV and frozen: the
+   Solana stack on npm and crates.io (`@solana/web3.js` malicious and clean versions, wallet and
+   SPL libraries, Anchor and the Rust crates Solana programs depend on, such as ed25519 and
+   curve25519 implementations), affected and clean versions, plus one non-existent version.
+2. The same three arms as the main comparison: Telegraph's routed answer trusted, Telegraph plus
+   Verified Ask, and the Mind alone; the Mind runs the in-Minds flow on a sample for the demo.
+3. Optional: pay through the node's Solana devnet USDC rail (x402 exact) for a Solana-settled
+   variant; today the Mind pays through Anjoman's escrow on Ethereum Sepolia.
+4. Post in the Solana thread: which idea, intents, data sources, results and limits.
+
+- [ ] S1 Solana case set and rule, committed before calls
+- [ ] S2 Three-arm run; report
+- [ ] S3 Demo clip and post in the Solana thread
+- [ ] S4 (optional) Solana devnet USDC payment path
+
 ### Phase P: CODE_PATCH_VERIFY (after the video, the test set and the submission are safe)
 
 **Why.** Telegraph's 22 Nov announcement asks for specialist intelligence where frontier models
