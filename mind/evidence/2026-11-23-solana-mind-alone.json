@@ -1,0 +1,8 @@
+{
+ "mind": "38266542-f36b-1410-8467-00039ce7df11",
+ "alias": "dependency-guard",
+ "sent_at": "2026-11-23T10:45:41.389Z",
+ "sent": "Solana baseline test (\"Mind alone\"). For this message only, do NOT use Telegraph, Anjoman or Verified Ask, and don't reuse earlier verdicts or your watchlist. Use only your own knowledge and your own web search.\n\nThese are packages a Solana app or agent might depend on. For each version decide: BLOCK if it has at least one known published vulnerability or is a known malicious release, PASS if it has none, FLAG if you can't tell or the version doesn't exist. Reply with exactly one line per package in the form `<purl> | <PASS/BLOCK/FLAG> | <advisory ids or reason>`, then one line with your confidence. Keep it short.\n\npkg:npm/secp256k1@5.0.2\npkg:cargo/ed25519-dalek@3.0.0\npkg:cargo/ed25519-dalek@1.0.1\npkg:cargo/curve25519-dalek@5.0.0\npkg:npm/ws@8.23.0\npkg:npm/@solana/web3.js@9.9.9\npkg:npm/ws@8.17.0\npkg:cargo/borsh@1.8.1\npkg:cargo/curve25519-dalek@3.2.0\npkg:cargo/solana-program@99.0.0\npkg:npm/secp256k1@4.0.3\npkg:npm/node-fetch@2.6.6\npkg:cargo/borsh@0.9.3\npkg:npm/@solana/web3.js@3.2.1\npkg:npm/node-fetch@3.3.2\npkg:npm/@solana/web3.js@1.95.7",
+ "reply": "<p>Picked this up. Sixteen purls, several of which are version-existence questions as much as vulnerability questions. Working through them with registries and advisory data only - no Telegraph, no Anjoman, no Verified Ask, nothing from the watchlist.</p><p>Lines coming shortly.</p><p>- Dependency.Guard</p>",
+ "replied_at": "2026-11-23T10:46:02.741Z"
+}
