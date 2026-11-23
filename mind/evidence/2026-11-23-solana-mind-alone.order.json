@@ -1,0 +1,21 @@
+{
+ "seed": 31,
+ "order": [
+  "pkg:npm/secp256k1@5.0.2",
+  "pkg:cargo/ed25519-dalek@3.0.0",
+  "pkg:cargo/ed25519-dalek@1.0.1",
+  "pkg:cargo/curve25519-dalek@5.0.0",
+  "pkg:npm/ws@8.23.0",
+  "pkg:npm/@solana/web3.js@9.9.9",
+  "pkg:npm/ws@8.17.0",
+  "pkg:cargo/borsh@1.8.1",
+  "pkg:cargo/curve25519-dalek@3.2.0",
+  "pkg:cargo/solana-program@99.0.0",
+  "pkg:npm/secp256k1@4.0.3",
+  "pkg:npm/node-fetch@2.6.6",
+  "pkg:cargo/borsh@0.9.3",
+  "pkg:npm/@solana/web3.js@3.2.1",
+  "pkg:npm/node-fetch@3.3.2",
+  "pkg:npm/@solana/web3.js@1.95.7"
+ ]
+}

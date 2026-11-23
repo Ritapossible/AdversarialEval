@@ -32,3 +32,4 @@ bench/node_modules/
 bench/out/*/run.log
 mind/evidence/.codev2-*.txt
 mind/evidence/.codev2-D.txt
+mind/evidence/.*.txt
