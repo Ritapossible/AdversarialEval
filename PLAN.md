@@ -154,6 +154,16 @@ cost, with a receipt and the evidence.
 - [ ] A4 One outside user or builder runs it (adoption counts for 10 of the 100 points)
 - [ ] A5 Demo video, docs, submission via anjoman.ai
 
+## Nov 24 checklist
+
+Owner: edit the Apps submission's live link to adversarialeval.vercel.app/#apps; chase the second
+independent test author (20 pairs by Nov 25, cutoff Nov 26); say which defiplusacademy pairs were
+read; post `/progress` on #198 by Nov 25; post in the Solana thread; faucet top-up; Qwen API key
+if the Qwen demo goes ahead.
+Claude: run Dependency.Guard on real packages (receipts to `mind/evidence/`); draft `/progress`;
+on the owner's go: Qwen demo prep (find a real Qwen-based app), Pay.sh docs (S5), the 8 short rows,
+the Solana clip (S3).
+
 ### Phase S: Dependency.Guard for Solana builders (after the video; before or instead of Phase P)
 
 **Why.** Telegraph's Solana announcement (23 Nov) asks for verified intelligence that Solana
