@@ -61,6 +61,25 @@ class CodeCasesV2(unittest.TestCase):
         self.assertIsNotNone(re.fullmatch(pat, "/account?tab=keys"))
 
 
+class SolanaCases(unittest.TestCase):
+    """mind/solana-test: frozen case file."""
+
+    def test_shape(self):
+        d = json.loads((ROOT / "mind" / "solana-test" / "cases.json").read_text())
+        cs = d["cases"]
+        self.assertEqual(len({c["id"] for c in cs}), len(cs))
+        truths = [c["truth"]["affected"] for c in cs]
+        self.assertEqual((truths.count(True), truths.count(False), truths.count(None)), (7, 7, 2))
+        for c in cs:
+            self.assertLessEqual(len(c["target"].encode()), 256)
+            self.assertRegex(c["target"], r"^pkg:(npm|cargo)/.+@[^@]+$")
+            if c["truth"]["affected"]:
+                self.assertTrue(c["truth"]["osv_ids"])
+        web3 = [c for c in cs if c["target"] == "pkg:npm/@solana/web3.js@1.95.7"]
+        self.assertTrue(web3 and web3[0]["withdrawn_from_registry"])
+        self.assertIn("MAL-2024-11183", web3[0]["truth"]["osv_ids"])
+
+
 class Compare(unittest.TestCase):
     def test_nonexistent_scoring(self):
         from compare import score

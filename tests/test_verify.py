@@ -116,6 +116,18 @@ class Labels(unittest.TestCase):
         v = verify("pkg:pypi/jinja2@99.0.0", ans("Secure", 0), Fake())
         self.assertEqual((v.label, failed(v)), ("contradicted", ["exists"]))
 
+    def test_withdrawn_malicious_version(self):
+        # gone from the registry, but OSV lists it: a real, known-bad version (e.g. a hijacked release)
+        f = Fake()
+        mal = {"id": "MAL-2024-0001", "aliases": [], "affected": [{"package": {"ecosystem": "PyPI", "name": "jinja2"}}]}
+        f.version_exists = lambda pkg: False
+        f.osv_query = lambda pkg: [mal]
+        v = verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1, ["MAL-2024-0001"]), f)
+        self.assertEqual(v.label, "verified")
+        self.assertIn("withdrawn", v.checks[1].detail)
+        v = verify("pkg:pypi/jinja2@3.1.5", ans("Secure", 0), f)
+        self.assertEqual((v.label, failed(v)), ("contradicted", ["verdict"]))
+
     def test_invalid_and_unchecked(self):
         self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans(None, 2, ["CVE-2025-27516"]), Fake()).label, "invalid")
         self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", None, Fake()).label, "invalid")

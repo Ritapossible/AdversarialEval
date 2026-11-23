@@ -1,0 +1,242 @@
+{
+ "name": "solana-dependencies-v1",
+ "truth_read_at": "2026-11-23T07:41:15+00:00",
+ "rule": "mind/solana-test/RULE.md",
+ "cases": [
+  {
+   "id": "npm-solana-web3.js-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@solana/web3.js@1.95.7",
+   "why": "Solana's JavaScript SDK; 1.95.6 and 1.95.7 were hijacked releases",
+   "withdrawn_from_registry": true,
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-jcxm-7wvp-g6p5",
+     "MAL-2024-11183"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-jcxm-7wvp-g6p5"
+   }
+  },
+  {
+   "id": "npm-solana-web3.js-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@solana/web3.js@3.2.1",
+   "why": "Solana's JavaScript SDK; 1.95.6 and 1.95.7 were hijacked releases (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=%40solana/web3.js"
+   }
+  },
+  {
+   "id": "npm-secp256k1-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/secp256k1@4.0.3",
+   "why": "secp256k1 signatures, a dependency of older @solana/web3.js",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 1,
+    "osv_ids": [
+     "GHSA-584q-6j8j-r5pm"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-584q-6j8j-r5pm"
+   }
+  },
+  {
+   "id": "npm-secp256k1-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/secp256k1@5.0.2",
+   "why": "secp256k1 signatures, a dependency of older @solana/web3.js (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=secp256k1"
+   }
+  },
+  {
+   "id": "npm-ws-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/ws@8.17.0",
+   "why": "WebSocket client used by Solana RPC subscriptions (rpc-websockets)",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 3,
+    "osv_ids": [
+     "GHSA-3h5v-q93c-6h6q",
+     "GHSA-58qx-3vcg-4xpx",
+     "GHSA-96hv-2xvq-fx4p"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-3h5v-q93c-6h6q"
+   }
+  },
+  {
+   "id": "npm-ws-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/ws@8.23.0",
+   "why": "WebSocket client used by Solana RPC subscriptions (rpc-websockets) (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=ws"
+   }
+  },
+  {
+   "id": "npm-node-fetch-affected",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/node-fetch@2.6.6",
+   "why": "HTTP client used by @solana/web3.js",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 1,
+    "osv_ids": [
+     "GHSA-r683-j2x4-v87g"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-r683-j2x4-v87g"
+   }
+  },
+  {
+   "id": "npm-node-fetch-latest",
+   "kind": "package",
+   "ecosystem": "npm",
+   "target": "pkg:npm/node-fetch@3.3.2",
+   "why": "HTTP client used by @solana/web3.js (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=node-fetch"
+   }
+  },
+  {
+   "id": "cargo-ed25519-dalek-affected",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/ed25519-dalek@1.0.1",
+   "why": "Ed25519 signatures, used by Solana's Rust SDK",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-w5vr-6qhr-36cc",
+     "RUSTSEC-2022-0093"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-w5vr-6qhr-36cc"
+   }
+  },
+  {
+   "id": "cargo-ed25519-dalek-latest",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/ed25519-dalek@3.0.0",
+   "why": "Ed25519 signatures, used by Solana's Rust SDK (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=ed25519-dalek"
+   }
+  },
+  {
+   "id": "cargo-curve25519-dalek-affected",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/curve25519-dalek@3.2.0",
+   "why": "curve arithmetic under ed25519-dalek in Solana crates",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-x4gp-pqpj-f43q",
+     "RUSTSEC-2024-0344"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-x4gp-pqpj-f43q"
+   }
+  },
+  {
+   "id": "cargo-curve25519-dalek-latest",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/curve25519-dalek@5.0.0",
+   "why": "curve arithmetic under ed25519-dalek in Solana crates (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=curve25519-dalek"
+   }
+  },
+  {
+   "id": "cargo-borsh-affected",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/borsh@0.9.3",
+   "why": "Borsh serialisation, Solana's account and instruction encoding",
+   "withdrawn_from_registry": false,
+   "truth": {
+    "affected": true,
+    "osv_count": 2,
+    "osv_ids": [
+     "GHSA-fjx5-qpf4-xjf2",
+     "RUSTSEC-2023-0033"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-fjx5-qpf4-xjf2"
+   }
+  },
+  {
+   "id": "cargo-borsh-latest",
+   "kind": "package",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/borsh@1.8.1",
+   "why": "Borsh serialisation, Solana's account and instruction encoding (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_count": 0,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=borsh"
+   }
+  },
+  {
+   "id": "unknown-npm-solana-web3.js",
+   "kind": "unknown",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@solana/web3.js@9.9.9",
+   "why": "version never published",
+   "truth": {
+    "affected": null
+   }
+  },
+  {
+   "id": "unknown-cargo-solana-program",
+   "kind": "unknown",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/solana-program@99.0.0",
+   "why": "version never published",
+   "truth": {
+    "affected": null
+   }
+  }
+ ],
+ "dropped": [
+  {
+   "package": "elliptic",
+   "reason": "default release 6.6.1 still has 1 advisories"
+  }
+ ]
+}

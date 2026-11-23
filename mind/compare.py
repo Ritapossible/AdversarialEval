@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Score the with/without-Telegraph comparison for the Dependency Guard Mind.
 
-    python mind/compare.py mind/evidence/<guard run>.json mind/evidence/<mind-alone>.json
+    python mind/compare.py mind/evidence/<guard run>.json mind/evidence/<mind-alone>.json [--cases <case file>]
 
 Arms, all on the same packages and graded against the benchmark's frozen truth
 (bench/cases-v2.json; affected -> BLOCK is correct, clean -> PASS is correct):
@@ -25,9 +25,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def truth() -> dict[str, bool | None]:
-    """True = affected, False = clean, None = the package or version doesn't exist."""
-    cases = json.loads((ROOT / "bench" / "cases-v2.json").read_text())["cases"]
+def truth(path: Path | None = None) -> dict[str, bool | None]:
+    """True = affected, False = clean, None = the package or version doesn't exist.
+    Default: the benchmark's cases (bench/cases-v2.json); or any case file with the same shape."""
+    cases = json.loads((path or ROOT / "bench" / "cases-v2.json").read_text())["cases"]
     return {c["target"]: c["truth"]["affected"] for c in cases if c["kind"] in ("package", "unknown")}
 
 
@@ -68,8 +69,8 @@ def score(decisions: dict[str, str | None], t: dict[str, bool], targets: list[st
     return s
 
 
-def main(guard_path: str, alone_path: str | None) -> None:
-    t = truth()
+def main(guard_path: str, alone_path: str | None, cases_path: str | None = None) -> None:
+    t = truth(Path(cases_path) if cases_path else None)
     run = json.loads(Path(guard_path).read_text())
     alone = json.loads(Path(alone_path).read_text()) if alone_path else {"reply": None}
     targets = [p["target"] for p in run["packages"]]
@@ -89,4 +90,10 @@ def main(guard_path: str, alone_path: str | None) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("guard_run")
+    ap.add_argument("mind_alone", nargs="?")
+    ap.add_argument("--cases", help="case file (default bench/cases-v2.json), e.g. mind/solana-test/cases.json")
+    a = ap.parse_args()
+    main(a.guard_run, a.mind_alone, a.cases)

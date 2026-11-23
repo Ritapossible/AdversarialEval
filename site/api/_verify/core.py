@@ -174,9 +174,17 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
     else:
         v.checks.append(Check("fields", "pass", "verdict and count agree"))
 
-    # 2. the version exists
+    # 2. the version exists. A version the registry no longer has, but that OSV lists advisories
+    # for, existed and was withdrawn (typically a hijacked or malicious release): it is real and
+    # known-bad, not a typo. Only a version neither knows is treated as never published.
     exists = src.version_exists(pkg)
-    if exists is False:
+    vulns = src.osv_query(pkg)
+    withdrawn = exists is False and bool(vulns)
+    if withdrawn:
+        exists = True
+        v.checks.append(Check("exists", "pass", f"{pkg.name} {pkg.version} was withdrawn from {pkg.ecosystem}, "
+                              f"but OSV lists {_n(len(vulns))} for it, so it was published"))
+    elif exists is False:
         v.checks.append(Check("exists", "fail", f"{pkg.name} {pkg.version} is not published on {pkg.ecosystem}"))
     elif exists is None:
         v.checks.append(Check("exists", "skip", "registry lookup unavailable"))
@@ -184,7 +192,6 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
         v.checks.append(Check("exists", "pass", f"{pkg.name} {pkg.version} is published"))
 
     # 3. verdict vs OSV for this exact version
-    vulns = src.osv_query(pkg)
     known: set[str] = set()
     if vulns is None:
         v.checks.append(Check("verdict", "skip", "OSV unavailable"))
