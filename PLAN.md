@@ -164,6 +164,15 @@ Claude: run Dependency.Guard on real packages (receipts to `mind/evidence/`); dr
 on the owner's go: Qwen demo prep (find a real Qwen-based app), Pay.sh docs (S5), the 8 short rows,
 the Solana clip (S3).
 
+Improvements to our own build (when the owner says go):
+- Site: a plain "What we don't claim" section (testnet, small samples, the Mind's rule is not a sandbox).
+- Site: adoption evidence (another team's miner trained on our public pairs and reports its score).
+- Site: one evidence row per Dependency.Guard decision (package, verdict, advisory link, receipt).
+- Benchmark: how many independent providers sit behind the miners we paid (distinct pay-to
+  addresses in our own payment records); free, from data we already have.
+- Solana run: add named frontier models answering alone, reported as right / wrong / couldn't tell.
+- Sign each run file so a changed result fails verification (fits the Solana decision receipt).
+
 ### Phase S: Dependency.Guard for Solana builders (after the video; before or instead of Phase P)
 
 **Why.** Telegraph's Solana announcement (23 Nov) asks for verified intelligence that Solana
