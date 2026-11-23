@@ -185,6 +185,27 @@ on-chain); only two or three miners mention Solana. A real Solana case is in OSV
 - [ ] S3 Demo clip and post in the Solana thread
 - [ ] S4 (optional) Solana devnet USDC payment path
 
+**Update (23 Nov, second announcement: five priority use cases).** Telegraph now names five Solana
+use cases and wants 3 to 5 working applications with real Solana functionality, paid Telegraph
+requests, independent verification, measurable results against frontier models, commercial value,
+demo video and X post. Ours maps to **use case 3, Verified Intelligence Economy (Telegraph x
+Pay.sh)**: agents buy specialist intelligence chosen by independent evaluation instead of by API
+listing, compared against a frontier model and direct paid API selection, measuring correctness,
+cost, latency and task fulfilment. What we already have for it: the paid market benchmark (listing
+order vs evaluated choice: the default route 21% vs the best miner 83%, pooled), Verified Ask as
+independent verification, and three-arm tests with receipts. Gaps, in order:
+
+- [ ] S5 Read the use-case post and Pay.sh's docs; confirm what "Telegraph x Pay.sh" needs (no claims
+      about Pay.sh until read)
+- [ ] S6 Pay on Solana: one paid Telegraph request settled in Solana devnet USDC (node's x402 Solana
+      rail, or Pay.sh), with the receipt checked on-chain (absorbs S4)
+- [ ] S7 A fourth arm, "direct paid API selection": the provider an agent would pick from a listing,
+      next to the evaluated choice, the frontier model alone, and evaluated + Verified Ask
+- [ ] S8 Harder Solana cases, where the frontier model alone is not already perfect (the 16-case set
+      was easy: every arm got every real version right)
+- [ ] S9 Commercial case in one page: who pays (teams shipping Solana agents and wallets), for what,
+      and the price per check against the cost of a wrong PASS
+
 ### Phase P: CODE_PATCH_VERIFY (after the video, the test set and the submission are safe)
 
 **Why.** Telegraph's 22 Nov announcement asks for specialist intelligence where frontier models
