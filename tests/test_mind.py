@@ -89,6 +89,21 @@ class Compare(unittest.TestCase):
         s = score({"a": "PASS", "b": "BLOCK", "x": "FLAG"}, t, ["a", "b", "x"])
         self.assertEqual((s["missed_vulnerability"], s["false_alarm"], s["nonexistent_flagged"]), (1, 1, 1))
 
+    def test_unparsed_reply_is_an_error(self):
+        # audit bug 9: lines that don't parse must not silently count as "no decision"
+        with tempfile.TemporaryDirectory() as d:
+            run = {"spent_usd": 0, "packages": [{"target": t, "decision": "PASS", "attempts": []}
+                                                 for t in ("pkg:npm/minimist@1.2.8", "pkg:npm/minimist@1.2.5")]}
+            (Path(d) / "run.json").write_text(json.dumps(run))
+            (Path(d) / "alone.json").write_text(json.dumps({"reply": "pkg:npm/minimist@1.2.8 | PASS\nminimist 1.2.5: block it"}))
+            cmd = [sys.executable, str(ROOT / "mind" / "compare.py"), str(Path(d) / "run.json"), str(Path(d) / "alone.json")]
+            p = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertNotEqual(p.returncode, 0)
+            self.assertIn("1 package", p.stderr)
+            p = subprocess.run(cmd + ["--allow-partial"], capture_output=True, text=True)
+            self.assertEqual(p.returncode, 0, p.stderr)
+            self.assertEqual(json.loads(p.stdout)["A_mind_alone"]["unparsed"], ["pkg:npm/minimist@1.2.5"])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)

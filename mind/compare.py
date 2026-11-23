@@ -69,7 +69,7 @@ def score(decisions: dict[str, str | None], t: dict[str, bool], targets: list[st
     return s
 
 
-def main(guard_path: str, alone_path: str | None, cases_path: str | None = None) -> None:
+def main(guard_path: str, alone_path: str | None, cases_path: str | None = None, allow_partial: bool = False) -> None:
     t = truth(Path(cases_path) if cases_path else None)
     run = json.loads(Path(guard_path).read_text())
     alone = json.loads(Path(alone_path).read_text()) if alone_path else {"reply": None}
@@ -78,11 +78,16 @@ def main(guard_path: str, alone_path: str | None, cases_path: str | None = None)
     if missing:
         sys.exit(f"not benchmark package cases: {missing}")
     a = parse_alone(alone.get("reply") or "")
+    unparsed = [x for x in targets if x not in a]
+    if alone_path and unparsed and not allow_partial:
+        # a reply in another format would otherwise count silently as "no decision"
+        sys.exit(f"Mind-alone reply has no PASS/BLOCK/FLAG line for {len(unparsed)} package(s): {unparsed[:5]}. "
+                 "Fix the parse, or pass --allow-partial to score them as no decision.")
     b = {p["target"]: arm_b(p) for p in run["packages"]}
     c = {p["target"]: p["decision"] for p in run["packages"]}
     cost_b = round(sum(p["attempts"][0].get("cost_usd") or 0 for p in run["packages"] if p["attempts"]), 2)
     res = {"packages": len(targets), "affected": sum(t[x] is True for x in targets), "nonexistent": sum(t[x] is None for x in targets),
-           "A_mind_alone": {**score(a, t, targets), "cost_usd": 0.0, "parsed": len(a)} if alone_path else "not run",
+           "A_mind_alone": {**score(a, t, targets), "cost_usd": 0.0, "parsed": len(a), "unparsed": unparsed} if alone_path else "not run",
            "B_telegraph_trusted": {**score(b, t, targets), "cost_usd": cost_b},
            "C_telegraph_plus_verified_ask": {**score(c, t, targets), "cost_usd": run["spent_usd"]},
            "per_package": [{"target": x, "affected": t[x], "A": a.get(x), "B": b[x], "C": c[x]} for x in targets]}
@@ -95,5 +100,6 @@ if __name__ == "__main__":
     ap.add_argument("guard_run")
     ap.add_argument("mind_alone", nargs="?")
     ap.add_argument("--cases", help="case file (default bench/cases-v2.json), e.g. mind/solana-test/cases.json")
+    ap.add_argument("--allow-partial", action="store_true", help="score unparsed Mind-alone lines as no decision")
     a = ap.parse_args()
-    main(a.guard_run, a.mind_alone, a.cases)
+    main(a.guard_run, a.mind_alone, a.cases, a.allow_partial)

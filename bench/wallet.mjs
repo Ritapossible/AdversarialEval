@@ -3,7 +3,7 @@
 //   node bench/wallet.mjs balance
 //   node bench/wallet.mjs mint-usdc <amount>            # Telegraph's Sepolia test USDC is open-mint
 //   node bench/wallet.mjs send-erc20 <token> <to> <amount> <decimals>
-//   node bench/wallet.mjs escrow-deposit <amount>       # approve + LedgerFacet.depositUSDC on the Diamond
+//   node bench/wallet.mjs escrow-deposit <amount> <token>  # approve + LedgerFacet.depositUSDC on the Diamond
 //   node bench/wallet.mjs escrow-balance                # the node's ledger view of this payer
 //
 // Key: $BENCH_KEY_FILE (default ~/.adversarialeval/burner.key). Never stored in the repo.
@@ -50,14 +50,21 @@ if (cmd === "balance") {
 } else if (cmd === "send-erc20") {
   await send(a[0], "transfer", [a[1], parseUnits(a[2], Number(a[3]))]);
 } else if (cmd === "escrow-deposit") {
-  // escrow is funded in the open-mint test USDC (docs: anjoman.ai/docs/using/escrow-inference)
+  // The deposit asset has changed during the testnet (open-mint test USDC until 2026-11-16, then
+  // Circle USDC), so the token is never assumed: pass the one the Diamond's docs name today
+  // (anjoman.ai/docs/using/escrow-inference). Most people fund through the Anjoman dashboard instead.
+  const token = a[1];
+  if (!a[0] || !/^0x[0-9a-fA-F]{40}$/.test(token || "")) {
+    console.error("usage: escrow-deposit <amount> <token address>  (e.g. Circle Sepolia USDC " + CIRCLE_USDC + ")");
+    process.exit(2);
+  }
   const amount = parseUnits(a[0], 6);
-  await send(TEST_USDC, "approve", [DIAMOND, amount]);
+  await send(token, "approve", [DIAMOND, amount]);
   await send(DIAMOND, "depositUSDC", [amount]);
 } else if (cmd === "escrow-balance") {
   const r = await fetch(`${NODE}/v1/ledger/account/${account.address.toLowerCase()}`);
   const d = await r.json();
   console.log(JSON.stringify({ deposited: d.deposited, charged: d.charged, unbilled: d.unbilled, balance: d.balance, available: d.available }));
 } else {
-  console.log("usage: balance | mint-usdc <amount> | send-erc20 <token> <to> <amount> <decimals>");
+  console.log("usage: balance | mint-usdc <amount> | send-erc20 <token> <to> <amount> <decimals> | escrow-deposit <amount> <token> | escrow-balance");
 }
