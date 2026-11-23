@@ -193,7 +193,9 @@ Pay.sh)**: agents buy specialist intelligence chosen by independent evaluation i
 listing, compared against a frontier model and direct paid API selection, measuring correctness,
 cost, latency and task fulfilment. What we already have for it: the paid market benchmark (listing
 order vs evaluated choice: the default route 21% vs the best miner 83%, pooled), Verified Ask as
-independent verification, and three-arm tests with receipts. Gaps, in order:
+independent verification, and three-arm tests with receipts. Full plan (product, buyers, four
+arms, hard cases, Solana payment, deliverables, order of work): `docs/SOLANA_USE_CASE_3.md`.
+Not started; gaps, in order:
 
 - [ ] S5 Read the use-case post and Pay.sh's docs; confirm what "Telegraph x Pay.sh" needs (no claims
       about Pay.sh until read)

@@ -193,6 +193,7 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 | 11-08 | Every advisory fact comes from OSV (`tools/fetch_sources.py`), and `build.py` rejects unverified ids | Two of our own id comments were wrong on the first fetch (GHSA-h75v… is Jinja2, not vm2) |
 | 11-08 | The kit gate governs train and pool sets; validation is reported only | The kit gate's repeat check is meaningless below about 50 rows |
 | 11-04 | Contextual reversal (F4) is a core family | It's a documented failure of another contributor's LoRA, and likely the incumbent's too |
+| 11-23 | Solana: build use case 3 (Verified Intelligence Economy) on Dependency.Guard, not a new project; plan in docs/SOLANA_USE_CASE_3.md, not started | It reuses the benchmark, Verified Ask, the Mind and the connector; use cases 1, 2, 4, 5 need data or stacks we don't have |
 | 11-23 | Miner output is untrusted data: the connector passes the Mind only structured fields; the Mind keeps a standing rule (hosts allowlist, credential destinations) | A miner can write instructions into its answer, and the Mind holds the Anjoman key and an HTTP tool |
 | 11-23 | Rotate the Anjoman key after the hackathon (owner) | It was stored by typing it into the Mind's chat, so it may persist in Minds' history |
 | 11-23 | Commit email left unchanged; using GitHub's noreply address for future commits is the owner's call | It is already public in 150+ commits, so rewriting files would hide nothing |
