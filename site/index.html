@@ -295,16 +295,17 @@ footer p { margin: 0; max-width: 80ch; }
     <ol class="gsteps">
       <li><b>[1]</b><strong>Buy one answer</strong><span>One SECURITY_REVIEW answer per package from Telegraph's ranked route, through Anjoman. Never three providers by default.</span></li>
       <li><b>[2]</b><strong>Check it for free</strong><span>Verified Ask compares the verdict with OSV for that exact version, confirms every cited advisory exists and applies, and that the version was ever published.</span></li>
-      <li><b>[3]</b><strong>Decide</strong><span>PASS, BLOCK or FLAG, with the advisories, every receipt and the cost. One other provider is asked only when the check proves the answer wrong. Approved versions are re-checked daily.</span></li>
+      <li><b>[3]</b><strong>Decide</strong><span>PASS, BLOCK or FLAG, with the advisories, every receipt and the cost. One other provider is asked only when the check proves the answer wrong. Every PASS and BLOCK is re-checked for free each day, and a PASS that stops verifying raises an alert.</span></li>
     </ol>
     <dl class="kv" style="margin-top:22px">
       <dt>Trusting the answer</dt><dd>On 26 packages: 3 vulnerable versions passed, and 2 packages that don't exist were called "Secure".</dd>
       <dt>With the check</dt><dd>Nothing unsafe was approved: 24 decided correctly, 2 sent to a person.</dd>
       <dt>Code review</dt><dd>23 subtle functions: Telegraph's route 13, its best miner 11; the Mind 23, overruling all 10 wrong answers.</dd>
+      <dt>Solana stack</dt><dd>16 versions, including the hijacked <code>@solana/web3.js</code> 1.95.7: every bad version blocked; trusting the answer gave confident verdicts on 2 versions that don't exist; with the check, 16 of 16 for $0.22.</dd>
       <dt>Honest result</dt><dd>The Mind on its own matched these scores by querying OSV directly. For known package vulnerabilities a free lookup is the bar; the value is that wrong paid answers never became decisions.</dd>
       <dt>The Mind</dt><dd><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard</a> <span class="label">38266542-f36b-1410-8467-00039ce7df11</span></dd>
     </dl>
-    <p class="note">Testnet, 22 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
+    <p class="note">Testnet, 22 and 23 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
   </section>
 
   <section id="market">
@@ -327,7 +328,7 @@ footer p { margin: 0; max-width: 80ch; }
 
   <footer>
     <p>Cases come from the public AdversarialEval training set, picked by a fixed rule per flaw type. Pairs were drafted with AI assistance; every advisory fact was checked against OSV, and each case links its source.</p>
-    <p>Telegraph Hackathon Season II entry, Evaluators track. Open source under MIT: <a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">github.com/Ritapossible/AdversarialEval</a></p>
+    <p>Telegraph Hackathon Season II entry: Evaluators track and Apps &amp; Agents track. Open source under MIT: <a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">github.com/Ritapossible/AdversarialEval</a></p>
   </footer>
 </main>
 

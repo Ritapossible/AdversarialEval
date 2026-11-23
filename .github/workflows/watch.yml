@@ -1,0 +1,33 @@
+# Watch mode for Dependency.Guard: every day, re-check every PASS and BLOCK decision on record
+# against today's public data (OSV, deps.dev, npm, PyPI, rubygems.org). Free: nothing is bought,
+# no secret is used. The report is attached to the run and shown in its summary; the run fails
+# when a PASS is no longer verified or a BLOCK lost its advisories, so GitHub notifies the owner.
+name: watch
+on:
+  schedule:
+    - cron: "17 6 * * *"   # daily, 06:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Re-check watched decisions (free)
+        run: |
+          python mind/watch.py mind/evidence/*watchlist*.json mind/evidence/20*T*Z.json \
+            --out watch-report.json --fail-on-alert | tee watch.txt
+      - name: Summary
+        if: always()
+        run: |
+          { echo '### Dependency.Guard watch'; echo '```'; cat watch.txt 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: watch-report
+          path: watch-report.json
+          if-no-files-found: ignore

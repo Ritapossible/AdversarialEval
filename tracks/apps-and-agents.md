@@ -6,7 +6,8 @@
 dependency change is safe to ship. For each package it buys **one** `SECURITY_REVIEW_GENERAL`
 answer from Telegraph's ranked route through Anjoman, checks it **free** with **Verified Ask**,
 re-asks one other provider only when the check proves the answer wrong, and returns **PASS, BLOCK
-or FLAG** with the advisories, receipts and cost. It re-checks approved versions daily. It is
+or FLAG** with the advisories, receipts and cost. Every PASS and BLOCK is re-checked for free each
+day ([`mind/watch.py`](../mind/watch.py), run by the [`watch`](../.github/workflows/watch.yml) job). It is
 backed by a **paid benchmark** of the security miners (3,680 calls) that shows which providers
 are worth paying for.
 
@@ -31,8 +32,8 @@ reflect accuracy.
 |---|---|---|
 | **Paid market benchmark** | Same 46 cases bought from every reachable miner on three days under a pre-registered rule; payments reconciled with the chain (x402) or the node's ledger (escrow); accuracy, cost per correct answer, rank agreement, stability | [`bench/`](../bench/), [`bench/RULE-v2.md`](../bench/RULE-v2.md) |
 | **Verified Ask** | Free check of a security answer: verdict vs OSV for the exact version, cited advisory ids exist and apply, version exists, fields agree. Labels: verified, contradicted, unconfirmed, invalid, unchecked | [`verify/`](../verify/), hosted at `/api/verify` (token-protected, rate-limited) |
-| **Dependency.Guard Mind** | The full flow inside Minds with its HTTP tool and private credentials; daily watchlist | [`mind/README.md`](../mind/README.md), [`mind/evidence/2026-11-22-watchlist.json`](../mind/evidence/2026-11-22-watchlist.json) |
-| **Connector** | The same flow from outside Minds; produced the test evidence | [`mind/connector/guard.mjs`](../mind/connector/guard.mjs) |
+| **Dependency.Guard Mind** | The full flow inside Minds with its HTTP tool and private credentials; a watchlist of its decisions, re-checked free each day; a standing rule that miner output is untrusted data ([drill](../mind/evidence/2026-11-23-mind-injection-drill.json)) | [`mind/README.md`](../mind/README.md), [`mind/evidence/2026-11-22-watchlist.json`](../mind/evidence/2026-11-22-watchlist.json), [`mind/evidence/watch/`](../mind/evidence/watch/) |
+| **Connector** | The same flow from outside Minds; produced the test evidence. Reads lockfiles, reserves the worst-case price against its cap, logs every paid attempt as it returns, reconciles with the balance, and passes the Mind only structured fields | [`mind/connector/guard.mjs`](../mind/connector/guard.mjs) |
 
 Spending policy, following Telegraph's guidance: one ranked answer per package, never several
 providers by default; a re-ask only when the free check proves the answer wrong; caps per package,

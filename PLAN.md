@@ -317,14 +317,14 @@ MCP directly, so until Telegraph says otherwise, our code orchestrates and the M
   Mind share the same logic; the Mind is the customer-facing front end.
 - [x] N0 Ask the Telegraph team (now in the Minds forum): can a Mind load the Anjoman Skill (or a remote MCP URL), or
       does it need an outside orchestrator? Is this rewarded? What do Builder access rules require?
-- [x] N1a Host Verified Ask as a token-protected endpoint on the Vercel site (`site/api/verify.py`; live 11-22, GET shows `configured:false` and POST returns 503 until VERIFY_TOKEN is set). Setup guide: `mind/README.md`
+- [x] N1a Host Verified Ask as a token-protected endpoint on the Vercel site (`site/api/verify.py`; live 11-22; VERIFY_TOKEN set, GET shows `configured:true`, POST needs the token). Setup guide: `mind/README.md`
 - [x] N1 (user) Minds account and a Mind (Dependency.Guard, id 38266542-f36b-1410-8467-00039ce7df11); Anjoman API key in Minds private credentials; funded Anjoman balance; check that `minds send --wait` works and what a
       reply costs in Cognition
 - [x] N2 Orchestrator (`mind/connector/guard.mjs`, 11-22; first end-to-end run with the Mind in `mind/evidence/`): dependency list in, Telegraph asks plus Verified Ask, evidence
       to the Mind, report out. Spend caps on both Telegraph and Cognition
-- [ ] N3 Reviewer Mind and watch mode (daily OSV re-check, alert on change)
-- [ ] N4 Three-arm test on the benchmark package cases plus unseen packages; report in `eval/reports/`
-- [ ] N5 Demo video (2 to 4 min), repo and findings posted in #hackathon and on X with the tags above
+- [x] N3 Watch mode (11-23): `mind/watch.py` re-checks every PASS and BLOCK for free; the daily `watch` GitHub job fails on an alert
+- [x] N4 Three-arm tests: packages, code v2, Solana (`eval/reports/2026-11-22-mind-comparison.md`, `2026-11-22-code-review-v2.md`, `2026-11-23-solana-dependencies.md`)
+- [x] N5 Demo video, repo and findings posted (11-23)
 
 **Gates:** don't start before round 4 and its pooled report are committed, and don't let it take
 time from the independent test set (deadline Nov 26). Stop at N1 if a Mind can't be reached from

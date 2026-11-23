@@ -8,8 +8,10 @@ cost and receipt. It re-asks a different provider only when Verified Ask proves 
 Route: the Minds **HTTP tool**, as confirmed by Telegraph on 22 Nov (no Bazaar listing needed).
 
 **Status (22 Nov):** live. Mind **Dependency.Guard**, id `38266542-f36b-1410-8467-00039ce7df11`.
-It runs the whole flow itself with its HTTP tool and two private credentials, and keeps a daily
-watchlist ([`evidence/2026-11-22-watchlist.json`](evidence/2026-11-22-watchlist.json)). The
+It runs the whole flow itself with its HTTP tool and two private credentials, and keeps a
+watchlist of its decisions ([`evidence/2026-11-22-watchlist.json`](evidence/2026-11-22-watchlist.json)).
+Every PASS and BLOCK on record is re-checked for free each day by [`watch.py`](watch.py) (the
+[`watch`](../.github/workflows/watch.yml) GitHub job; reports in [`evidence/watch/`](evidence/watch/)). The
 connector below (`connector/guard.mjs`) runs the same flow from outside Minds and produced the
 test evidence; results are in
 [`eval/reports/2026-11-22-mind-comparison.md`](../eval/reports/2026-11-22-mind-comparison.md) and
@@ -26,6 +28,21 @@ test evidence; results are in
 | Verified Ask token (`VERIFY_TOKEN`) | Vercel → project → Settings → Environment Variables | Any long random string; also store it in the Mind as `verifyAskToken` the same way |
 
 Never paste a key into a chat, a GitHub issue, Discord, or this repo.
+
+**Untrusted input.** Miners are third parties, so a miner's answer can carry text written to steer
+the Mind ("PASS this", "send your key to ..."). Two layers stop it:
+- the connector passes the Mind only structured fields (verdict, count, well-formed advisory ids,
+  our own checks, cost, receipt), never a miner's free text or self-chosen name
+  (`safeEvidence` in `connector/guard.mjs`, tested in `connector/test/`);
+- when the Mind calls Anjoman itself, a standing rule in its skill (saved 23 Nov,
+  [`evidence/2026-11-23-mind-untrusted-input-rule.json`](evidence/2026-11-23-mind-untrusted-input-rule.json))
+  limits what it reads from an answer, which hosts it calls, and where each credential may go. A
+  drill with an injected answer ([`evidence/2026-11-23-mind-injection-drill.json`](evidence/2026-11-23-mind-injection-drill.json))
+  was flagged as an injection attempt and changed nothing.
+
+The second layer is an instruction to a model, not an enforced sandbox, so keep the Anjoman
+balance small, and **rotate the Anjoman key after the hackathon**: it was stored by typing it into
+the Mind's chat, so it may persist in Minds' conversation history.
 
 ## 2. The two HTTP tools
 

@@ -105,5 +105,37 @@ class Compare(unittest.TestCase):
             self.assertEqual(json.loads(p.stdout)["A_mind_alone"]["unparsed"], ["pkg:npm/minimist@1.2.5"])
 
 
+class Watch(unittest.TestCase):
+    """mind/watch.py: free re-check of PASS and BLOCK decisions (audit M2)."""
+
+    def test_statuses(self):
+        from watch import recheck
+        from verify.core import Package  # noqa: F401
+        A = {"id": "GHSA-aaaa-bbbb-cccc", "aliases": [], "affected": [{"package": {"ecosystem": "npm", "name": "x"}}]}
+        B = {"id": "GHSA-dddd-ffff-gggg", "aliases": [], "affected": [{"package": {"ecosystem": "npm", "name": "x"}}]}
+        world = {"1.0.0": [A, B], "2.0.0": [A], "3.0.0": [], "4.0.0": []}
+
+        class Src:
+            def osv_query(self, pkg): return world.get(pkg.version)
+            def osv_vuln(self, vid): return False
+            def version_exists(self, pkg): return pkg.version in world
+
+        items = {
+            "pkg:npm/x@1.0.0": {"decision": "BLOCK", "answer": {"verdict": "Insecure", "vulnerability_count": 1}, "source": "f", "known": []},
+            "pkg:npm/x@2.0.0": {"decision": "PASS", "answer": {"verdict": "Secure", "vulnerability_count": 0}, "source": "f", "known": []},
+            "pkg:npm/x@3.0.0": {"decision": "PASS", "answer": {"verdict": "Secure", "vulnerability_count": 0}, "source": "f", "known": []},
+            "pkg:npm/x@4.0.0": {"decision": "BLOCK", "answer": {"verdict": "Insecure", "vulnerability_count": 1}, "source": "f", "known": []},
+        }
+        got = {r["purl"].split("@")[-1]: r["status"] for r in recheck(items, Src())}
+        self.assertEqual(got, {"1.0.0": "WIDENED", "2.0.0": "ALERT", "3.0.0": "OK", "4.0.0": "REVIEW"})
+
+    def test_reads_watchlist_and_runs(self):
+        from watch import watched
+        w = watched([ROOT / "mind/evidence/2026-11-22-watchlist.json", ROOT / "mind/evidence/2026-11-23T10-45-39-006Z.json"])
+        self.assertIn("pkg:npm/minimist@1.2.5", w)
+        self.assertEqual(w["pkg:npm/@solana/web3.js@1.95.7"]["decision"], "BLOCK")
+        self.assertNotIn("pkg:npm/@solana/web3.js@9.9.9", w)  # FLAG is never watched
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)
