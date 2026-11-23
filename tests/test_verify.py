@@ -122,11 +122,30 @@ class Labels(unittest.TestCase):
         mal = {"id": "MAL-2024-0001", "aliases": [], "affected": [{"package": {"ecosystem": "PyPI", "name": "jinja2"}}]}
         f.version_exists = lambda pkg: False
         f.osv_query = lambda pkg: [mal]
+        f.was_published = lambda pkg: True  # the registry's history shows it (npm keeps unpublished versions in `time`)
         v = verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1, ["MAL-2024-0001"]), f)
         self.assertEqual(v.label, "verified")
         self.assertIn("withdrawn", v.checks[1].detail)
         v = verify("pkg:pypi/jinja2@3.1.5", ans("Secure", 0), f)
         self.assertEqual((v.label, failed(v)), ("contradicted", ["verdict"]))
+        # an explicit version list in the OSV record is proof too
+        del f.was_published
+        f.osv_query = lambda pkg: [{**mal, "affected": [{"package": {"ecosystem": "PyPI", "name": "jinja2"}, "versions": ["3.1.5"]}]}]
+        self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans("Insecure", 1), f).label, "verified")
+
+    def test_never_published_version_inside_an_open_range(self):
+        # audit bug 1: OSV ranges like "introduced: 0" match versions that never existed
+        # (flatmap-stream 99.0.0). Without proof of publication it must not be "verified".
+        f = Fake()
+        mal = {"id": "MAL-2025-20690", "aliases": [], "affected": [{"package": {"ecosystem": "PyPI", "name": "jinja2"}}]}
+        f.version_exists = lambda pkg: False
+        f.osv_query = lambda pkg: [mal]
+        f.was_published = lambda pkg: False  # the registry's history says never
+        v = verify("pkg:pypi/jinja2@99.0.0", ans("Insecure", 1, ["MAL-2025-20690"]), f)
+        self.assertEqual((v.label, failed(v)), ("contradicted", ["exists"]))
+        del f.was_published  # no history available (not npm): can't tell, so never verified
+        v = verify("pkg:pypi/jinja2@99.0.0", ans("Insecure", 1, ["MAL-2025-20690"]), f)
+        self.assertEqual(v.label, "unconfirmed")
 
     def test_invalid_and_unchecked(self):
         self.assertEqual(verify("pkg:pypi/jinja2@3.1.5", ans(None, 2, ["CVE-2025-27516"]), Fake()).label, "invalid")
@@ -183,6 +202,61 @@ class Hardening(unittest.TestCase):
         s.save()
         self.assertEqual(json.loads((d / "c.json").read_text())["k"]["json"], [1])
         self.assertEqual([p.name for p in d.iterdir()], ["c.json"])  # no temp file left behind
+
+
+class SourcesCache(unittest.TestCase):
+    """audit bug 8 and 10: expiring, bounded cache; OSV paging; PyPI spelling."""
+
+    def test_expiry_and_cap(self):
+        import time as _t
+        from verify.sources import LiveSources
+        src = LiveSources(offline=True, max_age=60, max_entries=2)
+        src.cache = {"a": {"status": 200, "json": 1, "at": _t.time() - 120}, "b": {"status": 200, "json": 2, "at": _t.time()}}
+        self.assertIsNone(src._get("a"))          # expired, and offline: unavailable rather than stale
+        self.assertEqual(src._get("b"), (200, 2))
+        src.offline = False
+        import urllib.request
+        real = urllib.request.urlopen
+        class R:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+            def read(self): return b"3"
+        urllib.request.urlopen = lambda *a, **k: R()
+        try:
+            for k in ("https://x.test/c", "https://x.test/d", "https://x.test/e"):
+                src._get(k)
+        finally:
+            urllib.request.urlopen = real
+        self.assertEqual(len(src.cache), 2)
+        self.assertEqual(list(src.cache), ["https://x.test/d", "https://x.test/e"])
+        replay = LiveSources(offline=True)  # replays keep everything, forever
+        replay.cache = {"a": {"status": 200, "json": 1}}
+        self.assertEqual(replay._get("a"), (200, 1))
+
+    def test_osv_paging(self):
+        from verify.sources import LiveSources
+        src = LiveSources(offline=True)
+        pages = {None: {"vulns": [{"id": "A"}], "next_page_token": "t1"}, "t1": {"vulns": [{"id": "B"}]}}
+        src._get = lambda url, body=None, **k: (200, pages[(body or {}).get("page_token")])
+        self.assertEqual([x["id"] for x in src.osv_query(Package("npm", "x", "1.0.0"))], ["A", "B"])
+
+    def test_pypi_spelling(self):
+        from verify.sources import LiveSources, _pep440_key
+        self.assertEqual(_pep440_key("2.0"), _pep440_key("2.0.0"))
+        self.assertNotEqual(_pep440_key("1.10"), _pep440_key("1.1"))
+        src = LiveSources(offline=True)
+        src._get = lambda url, body=None, **k: (200, ["2.0.0"]) if "pypi.org" in url else (404, None)
+        self.assertTrue(src.version_exists(Package("pypi", "x", "2.0")))
+        self.assertFalse(src.version_exists(Package("pypi", "x", "2.1")))
+
+    def test_npm_history(self):
+        from verify.sources import LiveSources
+        src = LiveSources(offline=True)
+        src._get = lambda url, body=None, **k: (200, ["1.95.6", "1.95.7"])
+        self.assertTrue(src.was_published(Package("npm", "@solana/web3.js", "1.95.7")))
+        self.assertFalse(src.was_published(Package("npm", "@solana/web3.js", "9.9.9")))
+        self.assertIsNone(src.was_published(Package("cargo", "borsh", "0.9.3")))
 
 
 class Server(unittest.TestCase):
@@ -243,6 +317,18 @@ class VercelFunction(unittest.TestCase):
             status, out = self.call(body, "t")
             self.assertEqual((status, out["label"]), (200, "verified"))
         finally:
+            self.os.environ.pop("VERIFY_TOKEN", None)
+
+    def test_token_guessing_is_rate_limited(self):
+        # audit S4: the limit applies before the token check
+        body = {"target": "pkg:pypi/jinja2@3.1.6", "result": ans("Secure", 0)}
+        self.os.environ["VERIFY_TOKEN"] = "t"
+        saved = self.mod.LIMITER
+        self.mod.LIMITER = self.mod.RateLimiter(2)
+        try:
+            self.assertEqual([self.call(body, "wrong")[0] for _ in range(3)], [401, 401, 429])
+        finally:
+            self.mod.LIMITER = saved
             self.os.environ.pop("VERIFY_TOKEN", None)
 
     def test_client_ip_prefers_edge_headers(self):

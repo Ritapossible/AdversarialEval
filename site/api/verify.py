@@ -14,10 +14,10 @@ import sys
 from http.server import BaseHTTPRequestHandler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _verify.server import MAX_BODY, RateLimiter, authorized, handle  # noqa: E402
+from _verify.server import CACHE_MAX_AGE, MAX_BODY, RateLimiter, authorized, handle  # noqa: E402
 from _verify.sources import LiveSources  # noqa: E402
 
-SRC = LiveSources(None, timeout=6)
+SRC = LiveSources(None, timeout=6, max_age=CACHE_MAX_AGE, max_entries=5_000)
 LIMITER = RateLimiter(int(os.environ.get("VERIFY_RATE_PER_MIN", "60")))
 
 
@@ -49,11 +49,11 @@ class handler(BaseHTTPRequestHandler):  # Vercel's Python runtime looks for this
         token = os.environ.get("VERIFY_TOKEN")
         if not token:
             return self._send(503, {"error": "not configured: set VERIFY_TOKEN in the deployment"})
+        client = client_ip(self.headers, self.client_address[0])
+        if not LIMITER.allow(client):  # before the token check, so guessing is limited too
+            return self._send(429, {"error": "rate limit exceeded"})
         if not authorized(self.headers.get("Authorization"), token):
             return self._send(401, {"error": "missing or wrong bearer token"})
-        client = client_ip(self.headers, self.client_address[0])
-        if not LIMITER.allow(client):
-            return self._send(429, {"error": "rate limit exceeded"})
         try:
             n = int(self.headers.get("Content-Length") or 0)
         except ValueError:

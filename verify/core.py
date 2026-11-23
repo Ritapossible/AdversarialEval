@@ -76,7 +76,21 @@ class Verdict:
 class Sources(Protocol):
     def osv_query(self, pkg: Package) -> list[dict] | None: ...       # vulns for this version; None = unavailable
     def osv_vuln(self, vid: str) -> dict | None | bool: ...           # the record; False = 404; None = unavailable
-    def version_exists(self, pkg: Package) -> bool | None: ...         # None = can't tell
+    def version_exists(self, pkg: Package) -> bool | None: ...         # published now? None = can't tell
+    # Optional: was this version ever published (it may have been withdrawn since)? None = can't tell.
+    # def was_published(self, pkg: Package) -> bool | None: ...
+
+
+def _ever_published(src, pkg: Package, vulns: list[dict]) -> bool | None:
+    """Proof that a version the registry no longer serves did exist once. OSV can't give it: its
+    ranges also match versions that never existed (an advisory "introduced: 0" with no fix covers
+    99.0.0), so only an explicit version list in a record, or the registry's own history, counts."""
+    for x in vulns:
+        for a in x.get("affected", []):
+            if pkg.version in (a.get("versions") or []) and _applies({"affected": [a]}, pkg):
+                return True
+    fn = getattr(src, "was_published", None)
+    return fn(pkg) if fn else None
 
 
 def parse_target(target: str) -> Package | None:
@@ -176,13 +190,18 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
     # 2. the version exists. A version the registry no longer has, but that OSV lists advisories
     # for, existed and was withdrawn (typically a hijacked or malicious release): it is real and
     # known-bad, not a typo. Only a version neither knows is treated as never published.
-    exists = src.version_exists(pkg)
-    vulns = src.osv_query(pkg)
-    withdrawn = exists is False and bool(vulns)
-    if withdrawn:
+    with ThreadPoolExecutor(max_workers=2) as ex:  # independent lookups: run them together
+        f_exists, f_vulns = ex.submit(src.version_exists, pkg), ex.submit(src.osv_query, pkg)
+        exists, vulns = f_exists.result(), f_vulns.result()
+    once = _ever_published(src, pkg, vulns) if exists is False and vulns else False
+    if once:
         exists = True
-        v.checks.append(Check("exists", "pass", f"{pkg.name} {pkg.version} was withdrawn from {pkg.ecosystem}, "
-                              f"but OSV lists {_n(len(vulns))} for it, so it was published"))
+        v.checks.append(Check("exists", "pass", f"{pkg.name} {pkg.version} was published and later withdrawn "
+                              f"from {pkg.ecosystem}; OSV lists {_n(len(vulns))} for it"))
+    elif once is None:
+        exists = None
+        v.checks.append(Check("exists", "skip", f"{pkg.name} {pkg.version} is not on {pkg.ecosystem} now and OSV's "
+                              "ranges cover it, but nothing proves it was ever published"))
     elif exists is False:
         v.checks.append(Check("exists", "fail", f"{pkg.name} {pkg.version} is not published on {pkg.ecosystem}"))
     elif exists is None:
@@ -221,8 +240,10 @@ def verify(target: str, result: dict | None, src: Sources, strict_count: bool = 
     for p in placeholders:
         v.checks.append(Check("citation", "fail", f"placeholder id {p!r} instead of a real advisory"))
     unknown = [vid for vid in ids if vid not in known][:MAX_CITATION_LOOKUPS]
-    with ThreadPoolExecutor(max_workers=8) as ex:  # lookups are independent; keep latency low
-        records = dict(zip(unknown, ex.map(src.osv_vuln, unknown)))
+    records: dict = {}
+    if unknown:
+        with ThreadPoolExecutor(max_workers=min(8, len(unknown))) as ex:  # independent lookups; keep latency low
+            records = dict(zip(unknown, ex.map(src.osv_vuln, unknown)))
     for vid in ids:
         if vid in known:
             v.checks.append(Check("citation", "pass", f"{vid} affects this version"))
