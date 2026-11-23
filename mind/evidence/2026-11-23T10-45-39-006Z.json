@@ -1,0 +1,1016 @@
+{
+ "at": "2026-11-23T10:45:39.006Z",
+ "intent": "SECURITY_REVIEW_GENERAL",
+ "policy": "one ranked ask; re-ask one other provider only if the free check proves it wrong",
+ "max_spend_usd": 0.4,
+ "packages": [
+  {
+   "target": "pkg:npm/@solana/web3.js@1.95.7",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 9266,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 2,
+      "issues": [
+       "CVE-2024-54134",
+       "MAL-2024-11183"
+      ],
+      "summary": "OSV.dev lists 2 known vulnerabilities affecting @solana/web3.js 1.95.7 on npm (aliases counted once), for example GHSA-jcxm-7wvp-g6p5 (Modified package published to npm, containing malware that exfiltrates); MAL-2024-11183 (Malicious code in @solana/web3.js (npm))."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x04e391742d304157458a36780f6eb2445e6d3d508146e3aaa970e780dbf8d29e",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430750
+     },
+     "signal_hash": "0x52d599b53d9eba6066ffa6307e71d0000fa207fcf700864fc33351cde073146c",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@solana/web3.js 1.95.7 was withdrawn from npm, but OSV lists 2 advisories for it, so it was published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2024-54134 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "MAL-2024-11183 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-JCXM-7WVP-G6P5 affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 2 known"
+  },
+  {
+   "target": "pkg:npm/@solana/web3.js@3.2.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 22488,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting @solana/web3.js 3.2.1 on npm."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xcff7d185d26758d8e1c728db82be7a5acd517c1849d4a3c8a0be242d51990b35",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430774
+     },
+     "signal_hash": "0x0ca54108e68cc14d684c63a6940a11f4f2f3e2c0f838005f8fa172b63b9fc798",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@solana/web3.js 3.2.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/secp256k1@4.0.3",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 7769,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2024-48930"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting secp256k1 4.0.3 on npm (aliases counted once), for example GHSA-584q-6j8j-r5pm (secp256k1-node allows private key extraction over ECDH)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x06227cd4ee9670c0cb452b18aff6ef453e9eefa831f2ef92e07a1d499602ce41",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430784
+     },
+     "signal_hash": "0x947aaf57eb2882fedc59ccdf4cde7da11eb101a6f463f419883c72e4e8fb632f",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "secp256k1 4.0.3 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2024-48930 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-584Q-6J8J-R5PM affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 1 known"
+  },
+  {
+   "target": "pkg:npm/secp256k1@5.0.2",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 38578,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": [
+       "CWE-119",
+       "CWE-203"
+      ],
+      "summary": "OSV.dev lists no known vulnerabilities affecting secp256k1 5.0.2 on npm."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x70ec29db4e42c65819482015f1c7bbeca1da2057e81db5695ae0b761b80dc9ef",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430823
+     },
+     "signal_hash": "0x8a15581bf7009b57ac7f2a33bc4e1b9fa7fd51c342248fca75e8749e12e31521",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "secp256k1 5.0.2 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/ws@8.17.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 11757,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 3,
+      "issues": [
+       "CVE-2024-37890",
+       "CVE-2026-45736",
+       "CVE-2026-48779"
+      ],
+      "summary": "OSV.dev lists 3 known vulnerabilities affecting ws 8.17.0 on npm (aliases counted once), for example GHSA-3h5v-q93c-6h6q (ws affected by a DoS when handling a request with many HTTP headers); GHSA-58qx-3vcg-4xpx (ws: Uninitialized memory disclosure); GHSA-96hv-2xvq-fx4p (ws: Memory exhaustion DoS from tiny fragments and data chunks)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x02404350ad6e95cac1ea31625a9309902c7581fca247950841d4a8a6dd151db3",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430837
+     },
+     "signal_hash": "0xb06e5bb734dfc776fea1a191d990c830a115bf24efdec1f84b5254ca4eb86045",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ws 8.17.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 3 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2024-37890 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-45736 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-48779 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-3H5V-Q93C-6H6Q affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-58QX-3VCG-4XPX affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-96HV-2XVQ-FX4P affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 3 known"
+  },
+  {
+   "target": "pkg:npm/ws@8.23.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 32350,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": [
+       "CWE-400",
+       "CWE-20"
+      ],
+      "summary": "OSV.dev lists no known vulnerabilities affecting ws 8.23.0 on npm."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x1f6a078857d96a08fd004836f3112447088f465eb33e3a9bf24b7e7483b180f0",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430870
+     },
+     "signal_hash": "0xb91a232d360313d2175397abec4a34da778824c96046ef43470048f5c97dd78b",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ws 8.23.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/node-fetch@2.6.6",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 7786,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2022-0235"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting node-fetch 2.6.6 on npm (aliases counted once), for example GHSA-r683-j2x4-v87g (node-fetch forwards secure headers to untrusted sites)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x9abd48480785682adf911413494b48f987310e1a146535021ef7380e63233428",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430880
+     },
+     "signal_hash": "0xbcf43112eeb953ec9d8a5f09e43208e858e3db90af8cbfdeb393b299d8b33ca9",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "node-fetch 2.6.6 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-0235 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-R683-J2X4-V87G affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Insecure, 1 known"
+  },
+  {
+   "target": "pkg:npm/node-fetch@3.3.2",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 33583,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": [
+       "CWE-400",
+       "CWE-20"
+      ],
+      "summary": "OSV.dev lists no known vulnerabilities affecting node-fetch 3.3.2 on npm."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xe63c422c465a76b85735755a512b41ee116f032587a234ecda5de9865585a95c",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430915
+     },
+     "signal_hash": "0x2a391358c6268e0eb3360a62a9c252b6f3dd8dcf8a055ed5f7bf1aab6c24f647",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "node-fetch 3.3.2 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:cargo/ed25519-dalek@1.0.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 12515,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2022-50237"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting ed25519-dalek 1.0.1 on crates.io (aliases counted once), for example GHSA-w5vr-6qhr-36cc (`ed25519-dalek` Double Public Key Signing Function Oracle Attack)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xc1e3e968fddbc8822ac7a0a1a9dc6cc2f2235ce6168fb8b199b5e56acf4dd974",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430929
+     },
+     "signal_hash": "0x839a4d946def32e61371843e033b374d3ece298ec45ff0ed4f7771bd5b47af95",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ed25519-dalek 1.0.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2022-50237 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-W5VR-6QHR-36CC affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:cargo/ed25519-dalek@3.0.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 17801,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting ed25519-dalek 3.0.0 on crates.io."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x815ef3453c3e907390e6cd98485fe9e846007e629b608cc66f1633bfbc6baf3f",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430948
+     },
+     "signal_hash": "0x37915b82a8e7048fdca06af87217f548c94abeb474a9a6ea9bbdaf42896a68d1",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ed25519-dalek 3.0.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:cargo/curve25519-dalek@3.2.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 11713,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "CVE-2024-58262"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting curve25519-dalek 3.2.0 on crates.io (aliases counted once), for example GHSA-x4gp-pqpj-f43q (curve25519-dalek has timing variability in `curve25519-dalek`'s `Scala)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x50bcd6775c78f76d71309398287bca565173ac315a31b554a4542b71e928902e",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430962
+     },
+     "signal_hash": "0xa52d1e42564d720ab02a82c705b7841c0794494212fc8c7eb7c2b99499ba09b2",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "curve25519-dalek 3.2.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2024-58262 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-X4GP-PQPJ-F43Q affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:cargo/curve25519-dalek@5.0.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 34691,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting curve25519-dalek 5.0.0 on crates.io."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x2388454ae3188fbdd515658bb86b7786e6e07e6b0cb8289f160ed42863029833",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795430998
+     },
+     "signal_hash": "0xb22235fd46cfc5bd983815f0bceb22e1c035055b0053642f28f2b43477900212",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "curve25519-dalek 5.0.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:cargo/borsh@0.9.3",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 10808,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Needs changes",
+      "vulnerability_count": 1,
+      "issues": [
+       "GHSA-fjx5-qpf4-xjf2"
+      ],
+      "summary": "OSV.dev lists 1 known vulnerability affecting borsh 0.9.3 on crates.io (aliases counted once), for example GHSA-fjx5-qpf4-xjf2 (Parsing borsh messages with ZST which are not-copy/clone is unsound)."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0xaf31484d07ab81158dc238d7d4dbeb1f5b206f1e71f8d6f84669718e06554622",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795431010
+     },
+     "signal_hash": "0x2df693eec1899430e758bf81cec074d1c107a0ca9c71fc93f6f4509931d0000a",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "borsh 0.9.3 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-FJX5-QPF4-XJF2 affects this version"
+      }
+     ]
+    }
+   ],
+   "decision": "BLOCK",
+   "reason": "verified: Needs changes, 1 known"
+  },
+  {
+   "target": "pkg:cargo/borsh@1.8.1",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 18210,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": 0,
+      "issues": null,
+      "summary": "OSV.dev lists no known vulnerabilities affecting borsh 1.8.1 on crates.io."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x7d7cfff3592c105438671372bbfbd4be87cdd3a405b2e90f4edddc31ec1b2083",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795431029
+     },
+     "signal_hash": "0x332fa2b02f3beeedaf05d8ea2025fe1a421faa8a4bf28e557bc04741b7e5e45d",
+     "error": null,
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "borsh 1.8.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ],
+   "decision": "PASS",
+   "reason": "verified: Secure, 0 known"
+  },
+  {
+   "target": "pkg:npm/@solana/web3.js@9.9.9",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 44553,
+     "miner": "TxLens",
+     "miner_id": "9002",
+     "result": {
+      "verdict": "Secure",
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "Secure. The package @solana/web3.js@9.9.9 has no publicly disclosed vulnerabilities in its dependency tree, and its source code follows standard cryptographic practices for key handling and transaction signing. The package is maintained by the Solana Foundation, which regularly audits and publishes security updates. No known issues such as insecure defaults, hardcoded secrets, or improper input validation have been reported. The package is distributed via npm with integrity checks, and its license (Apache-2.0) permits safe use in commercial applications. Therefore, the package meets current security best practices and poses no immediate risk."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0x2670c3d3ce8e5da66ce1fd0d43c80b6683f70962c16091de4775e6c47ca2ca81",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "6121",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795431075
+     },
+     "signal_hash": "0x0aec9d6fded682c3801ba94d38963b3a14de260257ee8b20cbc5adb067cb2996",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "warn",
+       "detail": "vulnerability_count is missing or not a number"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "@solana/web3.js 9.9.9 is not published on npm"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "http": 200,
+     "ms": 8708,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": null,
+      "vulnerability_count": null,
+      "issues": null,
+      "summary": "@solana/web3.js is published on npm, but it has no 9.9.9 release, so that version cannot be reviewed and no security verdict is given."
+     },
+     "cost_usd": 0.01,
+     "receipt": {
+      "receipt_hash": "0x9bb9d4f56572204853f3e21596e72095306c205078ea4c8dafb8974cbc991e4a",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795431085
+     },
+     "signal_hash": "0xbc2de30d139fcb42d9303a55d784471c32fc2613cfec21cb5b6a5cfcfb50937b",
+     "error": null,
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ],
+     "reask": true
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 2 answer(s): no usable verdict (None)"
+  },
+  {
+   "target": "pkg:cargo/solana-program@99.0.0",
+   "attempts": [
+    {
+     "http": 200,
+     "ms": 27143,
+     "miner": "PREFLIGHT Infrastructure Signals",
+     "miner_id": "20260828",
+     "result": {
+      "verdict": "Insecure",
+      "vulnerability_count": 3,
+      "issues": [
+       "CWE-284",
+       "CWE-190",
+       "CWE-20"
+      ],
+      "summary": "solana-program is published on crates.io, but it has no 99.0.0 release, so that version cannot be reviewed and no security verdict is given."
+     },
+     "cost_usd": 0.02,
+     "receipt": {
+      "receipt_hash": "0xca034753df6bc46f0c6e29e64a1362354be0f0b43f6455c174f259ab7a2fe505",
+      "rail": "escrow",
+      "payer": "0x3d664b9203bdaff79a5e412f9a0ca273ab0b5f49",
+      "miner": "5311",
+      "intent": "SECURITY_REVIEW_GENERAL",
+      "amount_uusdc": "10000",
+      "epoch_id": 43,
+      "settlement": "epoch",
+      "chain": "telegraph",
+      "timestamp": 1795431112
+     },
+     "signal_hash": "0xecf9e1ef7ca2587c287d4552407d45a74942d5fd0bb60e345878f76713bb9bc1",
+     "error": null,
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "solana-program 99.0.0 is not published on crates.io"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    }
+   ],
+   "decision": "FLAG",
+   "reason": "not verified after 1 answer(s): solana-program 99.0.0 is not published on crates.io"
+  }
+ ],
+ "spent_usd": 0.22,
+ "receipts": [
+  "0x04e391742d304157458a36780f6eb2445e6d3d508146e3aaa970e780dbf8d29e",
+  "0xcff7d185d26758d8e1c728db82be7a5acd517c1849d4a3c8a0be242d51990b35",
+  "0x06227cd4ee9670c0cb452b18aff6ef453e9eefa831f2ef92e07a1d499602ce41",
+  "0x70ec29db4e42c65819482015f1c7bbeca1da2057e81db5695ae0b761b80dc9ef",
+  "0x02404350ad6e95cac1ea31625a9309902c7581fca247950841d4a8a6dd151db3",
+  "0x1f6a078857d96a08fd004836f3112447088f465eb33e3a9bf24b7e7483b180f0",
+  "0x9abd48480785682adf911413494b48f987310e1a146535021ef7380e63233428",
+  "0xe63c422c465a76b85735755a512b41ee116f032587a234ecda5de9865585a95c",
+  "0xc1e3e968fddbc8822ac7a0a1a9dc6cc2f2235ce6168fb8b199b5e56acf4dd974",
+  "0x815ef3453c3e907390e6cd98485fe9e846007e629b608cc66f1633bfbc6baf3f",
+  "0x50bcd6775c78f76d71309398287bca565173ac315a31b554a4542b71e928902e",
+  "0x2388454ae3188fbdd515658bb86b7786e6e07e6b0cb8289f160ed42863029833",
+  "0xaf31484d07ab81158dc238d7d4dbeb1f5b206f1e71f8d6f84669718e06554622",
+  "0x7d7cfff3592c105438671372bbfbd4be87cdd3a405b2e90f4edddc31ec1b2083",
+  "0x2670c3d3ce8e5da66ce1fd0d43c80b6683f70962c16091de4775e6c47ca2ca81",
+  "0x9bb9d4f56572204853f3e21596e72095306c205078ea4c8dafb8974cbc991e4a",
+  "0xca034753df6bc46f0c6e29e64a1362354be0f0b43f6455c174f259ab7a2fe505"
+ ]
+}

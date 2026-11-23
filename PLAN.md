@@ -180,8 +180,8 @@ on-chain); only two or three miners mention Solana. A real Solana case is in OSV
    variant; today the Mind pays through Anjoman's escrow on Ethereum Sepolia.
 4. Post in the Solana thread: which idea, intents, data sources, results and limits.
 
-- [ ] S1 Solana case set and rule, committed before calls
-- [ ] S2 Three-arm run; report
+- [x] S1 Solana case set and rule, committed before calls
+- [x] S2 Three-arm run; report (`eval/reports/2026-11-23-solana-dependencies.md`)
 - [ ] S3 Demo clip and post in the Solana thread
 - [ ] S4 (optional) Solana devnet USDC payment path
 
