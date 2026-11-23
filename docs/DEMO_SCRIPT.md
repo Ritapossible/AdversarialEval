@@ -40,8 +40,13 @@ written or in your own words; the times are a guide.
 **Screen:** type in a fresh thread:
 
 ```
-Run Dependency Check on pkg:npm/minimist@1.2.5, pkg:npm/minimist@1.2.8 and pkg:pypi/jinja2@99.0.0
+Run Dependency Check on pkg:pypi/pyyaml@5.1.2, pkg:pypi/pyyaml@6.0.3 and pkg:pypi/jinja2@99.0.0
 ```
+
+(Use packages the Mind hasn't checked inside Minds: minimist and lodash are on its watchlist
+and it may reuse them. pyyaml 5.1.2 is vulnerable, 6.0.3 is clean, and jinja2 99.0.0 was never
+published. On 22 Nov the route answered "Needs changes" with 0 vulnerabilities on pyyaml 6.0.3
+and "Secure" on jinja2 99.0.0, both caught by the check; the live answers may differ.)
 
 While it works:
 
@@ -52,10 +57,10 @@ While it works:
 
 **Screen:** the reply. Point at each line.
 
-> "minimist 1.2.5: blocked, with the advisory, CVE-2021-44906, verified. 1.2.8: passed, verified.
-> And jinja2 99.0.0: that version was never published. Telegraph's ranked answer called it
-> Secure. The check caught it, and the Mind flagged it for a person instead of approving a
-> package that doesn't exist. Every paid call has a receipt, and here's the total cost."
+> "pyyaml 5.1.2: blocked, with its advisories, verified. 6.0.3: passed, verified. And jinja2
+> 99.0.0: that version was never published. If the paid answer calls it Secure, the check
+> catches it, and the Mind flags it for a person instead of approving a package that doesn't
+> exist. Every paid call has a receipt, and here's the total cost."
 
 (If the live run gives a different catch, describe that one. If nothing is caught live, cut to
 Scene 4's evidence instead.)
@@ -84,8 +89,11 @@ Scene 4's evidence instead.)
 
 ## Scene 6. It keeps watching (2:30 to 2:45)
 
-**Screen:** the watchlist (mind/evidence/2026-11-22-watchlist.json) or ask the Mind "What are you
-watching?"
+**Screen:** ask the Mind, in the same thread:
+
+```
+What are you watching, and what did today's daily check find?
+```
 
 > "It remembers every version it approved or blocked, and re-checks them every day for free. Only
 > if a new advisory hits an approved version does it buy a fresh answer and alert me."
