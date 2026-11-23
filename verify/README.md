@@ -11,6 +11,12 @@ Results and method: [`eval/reports/2026-11-22-verified-ask.md`](../eval/reports/
 - **Code snippets are `unchecked`.** Facts can't settle them; that needs the evaluator model.
 - **OSV is the reference.** A real issue that OSV doesn't list yet shows as contradicted, with the
   reason. A cited CVE that OSV doesn't carry is only a warning.
+- **Existence comes from the registry, not OSV.** OSV matches versions by range, so an advisory
+  "introduced: 0" with no fix also covers 99.0.0, which was never published. A version the registry
+  doesn't serve counts as withdrawn (real and known-bad, like the hijacked `@solana/web3.js`
+  1.95.7) only with proof it was published: the version listed explicitly in an OSV record, or in
+  npm's own history. Otherwise it is "not published" (contradicted), or unconfirmed where no
+  history exists.
 
 ## Labels
 
@@ -40,15 +46,23 @@ It makes outbound calls on behalf of its callers, so it is built not to become a
 
 - On any address other than loopback it **refuses to start without `VERIFY_TOKEN`**, and then every
   request needs `Authorization: Bearer <token>` (compared in constant time).
-- Each client address gets `--rate` requests per minute (default 60), then HTTP 429.
+- Each client address gets `--rate` requests per minute (default 60), counted before the token
+  check so guessing is limited too, then HTTP 429.
 - Bodies over 64 KB get 413. `target` is capped at 256 bytes, the intent's own limit.
-- At most 8 upstream calls run at once; responses are cached.
+- A connection that stalls for 15 s is dropped (408), and at most `--max-threads` (32) requests run
+  at once (others get 503).
+- At most 8 upstream calls run at once. Answers are cached for an hour (so a new advisory shows up
+  within that), at most 20,000 entries.
 - The cache (`--cache`) is written atomically: a temp file, then a rename.
 - The hosted copy (`site/api/verify.py` on Vercel) keeps no shared cache: each function
-  instance starts empty, so repeated checks call OSV and the registries again. Its rate limit is
+  instance starts empty (then caches for an hour, at most 5,000 entries). Its rate limit is
   per instance and keyed on the client address Vercel's edge reports (`x-real-ip`), so it is a
   best-effort limit, not a quota.
-- Standard library only, no account, no key. Sources: api.osv.dev, api.deps.dev, rubygems.org.
+- Standard library only, no account, no key. Sources: api.osv.dev, api.deps.dev, registry.npmjs.org,
+  pypi.org, rubygems.org.
+
+For a whole run from one process (one cache), `python -m verify --jsonl` reads one
+`{"id", "target", "result"}` per line and answers one line each; the Mind connector uses it.
 
 ## Replay
 
