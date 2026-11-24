@@ -14,7 +14,8 @@ mind/evidence/2026-11-23-solana-mind-alone.json --cases mind/solana-test/cases.j
 - The key case: `@solana/web3.js` 1.95.7, a hijacked release that stole private keys
   (GHSA-jcxm-7wvp-g6p5, CVE-2024-54134, MAL-2024-11183), since withdrawn from npm.
 - Arm A: Dependency.Guard in Minds, told not to use Telegraph, Anjoman, Verified Ask or its
-  watchlist. Sent 10:45:41 UTC, shuffled order (seed 31,
+  watchlist, only its own knowledge and web search (its reply says it read registry and advisory
+  data itself, as in the earlier package sets). Sent 10:45:41 UTC, shuffled order (seed 31,
   `mind/evidence/2026-11-23-solana-mind-alone.order.json`), full reply 10:47:02 UTC.
 - Arms B and C: one run of `mind/connector/guard.mjs --no-mind --max-spend 0.40`, started 10:45:39
   UTC, intent `SECURITY_REVIEW_GENERAL`, routed by Anjoman. B acts on the first answer's verdict;
@@ -64,6 +65,24 @@ $0.67 before, $0.45 after: matches the $0.22 the connector recorded.
 - The Mind alone matched the best paid arm again, as on the earlier package sets. The value
   Telegraph plus Verified Ask adds is a receipt-backed, independently checked decision, not
   better accuracy on this set.
+
+## Re-check before reporting (24 Nov)
+
+- **Pre-registration holds.** The rule and cases were committed at 07:42:19 UTC (`58b54d2`), three
+  hours before the first paid call (10:45:39 UTC), and neither file has changed since. The run
+  file itself doesn't name that commit (the rule asked it to); from now on the connector records
+  its repository commit in every run file.
+- **The fixed Verified Ask gives the same labels.** After this run, an audit tightened how Verified
+  Ask treats versions missing from the registry (`docs/AUDIT_2026-11-23.md`, bug 1). All 17 stored
+  answers were checked again with the fixed code on 24 Nov: 0 labels changed, so B, C and the
+  payments stand as reported.
+- **Scoring is strict.** `compare.py` now refuses a Mind reply it can't fully parse; all 16 lines of
+  arm A parse, and the scores are unchanged (16, 14, 16).
+- **The clean and affected versions still hold.** The daily free watch re-checked all 14 decided
+  versions on 23 Nov (`mind/evidence/watch/2026-11-23.json`): all still verified.
+- **Intervals** (Wilson, 95%): 16 of 16 is 81% to 100%; 14 of 16 is 64% to 97%. They overlap: on
+  this set the difference between B and C is the 2 versions that don't exist, not a measured gap
+  in accuracy.
 
 ## Limits
 

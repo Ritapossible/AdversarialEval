@@ -28,7 +28,7 @@
 //
 // Miner text is untrusted: only the verdict, the count, well-formed advisory ids and our own check
 // results are passed to the Mind, never a miner's free text.
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createInterface } from "node:readline";
 import { basename, dirname, join, resolve } from "node:path";
@@ -220,7 +220,9 @@ async function main() {
   const log = (rec) => appendFileSync(`${stem}.attempts.ndjson`, JSON.stringify(rec) + "\n");
   const run = { at, intent: INTENT, policy: "one ranked ask; re-ask one other provider only if the free check proves it wrong",
     max_spend_usd: maxSpend, concurrency, packages: targets.map((target) => ({ target, attempts: [] })),
-    skipped_from_manifest: fromManifest.skipped, attempts_log: `${basename(stem)}.attempts.ndjson` };
+    skipped_from_manifest: fromManifest.skipped, attempts_log: `${basename(stem)}.attempts.ndjson`,
+    // the code and pre-registered rules this run used
+    repo_commit: spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).stdout?.trim() || null };
 
   // money: committed = spent + reserved for asks in flight + possibly charged
   const money = { spent: 0, reserved: 0, uncertain: 0, routedInFlight: 0 };

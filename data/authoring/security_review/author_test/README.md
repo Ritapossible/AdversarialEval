@@ -59,4 +59,6 @@ delete any pair you aren't sure about ("when in doubt, leave the pair out").
   flags a reused rejected answer at 4.8% (one row of 21 is already over its 2% line) and a
   bag-of-words probe at 66.7% (limit 65%); both are small-sample effects and the gate is meant
   for training sets, so they are recorded, not acted on.
-- Still to do: a maintainer reads every pair and sets `reviewed: true` only on the ones checked.
+- Reviewed (24 Nov 2026): the maintainer read all 21 pairs; every row now has `reviewed: true`.
+  They stay `independent: false` and `ai_assisted`, so they still never count toward the
+  independent test set (40 pairs from 2 authors).
