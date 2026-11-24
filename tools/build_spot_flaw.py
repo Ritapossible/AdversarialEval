@@ -8,8 +8,8 @@ pairs (see runs/frozen/demo_row_ids.txt). The page then shows what the adapter p
 each training run. Never pass scores from a run that trained on the demo pairs.
 
 Writes
-  site/spot-the-flaw.html  page body (title, style, markup, script) for the claude.ai artifact
-  site/index.html          the same page as a full HTML document, for GitHub Pages
+  site-src/spot-data.json  the cases, shortcut-judge picks and adapter picks shown in the game;
+                           then runs tools/build_site.py, which builds site/evaluators.html
 
 Only data/public/ rows are used: validation is published after the hackathon and
 data/private/ is never published (CLAUDE.md rule 1). Pairs are chosen by a fixed rule
@@ -29,8 +29,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, read_jsonl, row_id  # noqa: E402
 
-TEMPLATE = ROOT / "tools" / "spot_flaw_template.html"
-OUT = ROOT / "site"
 SEC = re.compile(r"\b(cve|ghsa|cwe|owasp|vulnerab\w*|inject\w*|exploit\w*|critical|rce|"
                  r"xss|ssrf|traversal|insecure|attack\w*|malicious|unsafe|leak\w*)\b", re.I)
 FAMILIES = {
@@ -122,18 +120,12 @@ def main(argv=None) -> int:
     payload = {"cases": cases, "stats": STATS, "families": FAMILIES,
                "model_note": a.model_note if runs else ""}
     data = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
-    body = TEMPLATE.read_text().replace("__DATA__", data)
-    OUT.mkdir(exist_ok=True)
-    (OUT / "spot-the-flaw.html").write_text(body)
-    # full document for static hosts: everything up to </style> belongs in <head>
-    cut = body.index("</style>") + len("</style>")
-    head, rest = body[:cut], body[cut:].lstrip("\n")
-    (OUT / "index.html").write_text(
-        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
-        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n"
-        + head + "\n</head>\n<body>\n" + rest + "\n</body>\n</html>\n")
+    # the data only; the page around it is built by tools/build_site.py from site-src/
+    (ROOT / "site-src" / "spot-data.json").write_text(data + "\n")
+    import subprocess
+    subprocess.run([sys.executable, str(ROOT / "tools" / "build_site.py")], check=True)
     fams = sorted({c["family"] for c in cases}, key=lambda f: int(f[1:]))
-    print(f"wrote {len(cases)} cases ({', '.join(fams)}) to site/; "
+    print(f"wrote {len(cases)} cases ({', '.join(fams)}) to site-src/spot-data.json; "
           f"longer-answer judge right on {sum(c['longer'] == 'chosen' for c in cases)}, "
           f"keyword judge right on {sum(c['keywords'] == 'chosen' for c in cases)}"
           + (f", adapter right on {[sum(c['model'][k] == 'chosen' for c in cases) for k in range(len(runs))]} per run"

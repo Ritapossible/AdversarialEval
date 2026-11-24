@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20.5' fill='%23fff' stroke='%23e8501c' stroke-width='4'/%3E%3Ccircle cx='24' cy='24' r='10' fill='none' stroke='%23111' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='24' r='4.2' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v={{asset_version}}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar col">
+    <a class="brand" href="/" aria-label="AdversarialEval, home"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="icon" aria-hidden="true"></span><span class="txt">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+{{nav}}
+        <li><a class="gh" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="col">
+{{body}}
+</main>
+
+<footer class="site-footer">
+  <div class="grid col">
+    <div>
+      <h2>AdversarialEval</h2>
+      <p>Making Telegraph's security answers trustworthy: evaluation material, an evaluator adapter, a paid benchmark of the live market, and Dependency.Guard.</p>
+      <p>Telegraph Hackathon Season II: Evaluators track and Apps &amp; Agents track. Testnet. Open source under MIT.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+{{footer_nav}}
+      </ul>
+    </div>
+    <div>
+      <h2>Source</h2>
+      <ul>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports" target="_blank" rel="noopener">All reports</a></li>
+        <li><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard on Minds</a></li>
+        <li><a href="https://github.com/telegraphprotocol/bounties/issues/198" target="_blank" rel="noopener">Mission 10, Model Economy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/nav.js?v={{asset_version}}" defer></script>
+{{scripts}}
+</body>
+</html>

@@ -14,7 +14,7 @@ are worth paying for.
 | | |
 |---|---|
 | Mind | Dependency.Guard, id `38266542-f36b-1410-8467-00039ce7df11` ([profile](https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11)) |
-| Working app | https://adversarialeval.vercel.app (benchmark summary; hosted Verified Ask at `/api/verify`) |
+| Working app | https://adversarialeval.vercel.app/dependency-guard (decisions with their evidence and Solana payments; hosted Verified Ask at `/api/verify`) |
 | Mission | [#198, Mission 10, Model Economy](https://github.com/telegraphprotocol/bounties/issues/198): routes 1 (cost per verified correct answer) and 2 (procurement via ranked routing) |
 | Demo video | to follow |
 

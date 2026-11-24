@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evidence and limits | AdversarialEval</title>
+<meta name="description" content="Every report, how to verify the signed results and on-chain payments yourself, and what this project does not claim.">
+<meta property="og:title" content="Evidence and limits | AdversarialEval">
+<meta property="og:description" content="Every report, how to verify the signed results and on-chain payments yourself, and what this project does not claim.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20.5' fill='%23fff' stroke='%23e8501c' stroke-width='4'/%3E%3Ccircle cx='24' cy='24' r='10' fill='none' stroke='%23111' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='24' r='4.2' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=7424f34b84">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar col">
+    <a class="brand" href="/" aria-label="AdversarialEval, home"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="icon" aria-hidden="true"></span><span class="txt">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Overview<span class="hint">What this is and the key results</span></a></li>
+        <li><a href="/evaluators">Evaluators<span class="hint">Spot the Flaw, test results, the dataset</span></a></li>
+        <li><a href="/dependency-guard">Dependency.Guard<span class="hint">The app: how it works and its evidence</span></a></li>
+        <li><a href="/benchmark">Benchmark<span class="hint">What a paid answer is worth</span></a></li>
+        <li><a href="/evidence" aria-current="page">Evidence<span class="hint">Reports, signed results, limits</span></a></li>
+        <li><a class="gh" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="col">
+  <div class="page-hero">
+    <span class="eyebrow">Evidence and limits</span>
+    <h1>Everything here can be checked.</h1>
+    <p class="lede">Rules and answer keys are committed before any paid call, payments are matched to the chain or the node's ledger, and every result file is fingerprinted and signed. This page lists the evidence and what it does not show.</p>
+  </div>
+
+  <section id="limits">
+    <div class="sec-head"><h2>What we don't claim</h2></div>
+    <ul class="claims">
+      <li>Everything runs on testnet: test USDC, testnet miners, routing that changes daily.</li>
+      <li>Samples are small (16 to 46 cases per test); read differences of one or two as noise.</li>
+      <li>A strong AI model with web search matched our checked results on known advisories. Our claim is that paid answers should never be trusted unchecked, not that they beat a free lookup.</li>
+      <li>The adapter scored 77.5% on the independent test, below the 80% bar we set ourselves.</li>
+      <li>The Mind's rule against acting on text inside miner answers is an instruction to a model, not a sandbox.</li>
+      <li>Payout addresses are an upper bound on how many independent providers exist: one team can use several.</li>
+      <li>Every result file is fingerprinted and signed; <code>node tools/evidence_manifest.mjs verify</code> fails if one changes.</li>
+    </ul>
+  </section>
+
+  <section id="verify">
+    <div class="sec-head"><h2>Check it yourself</h2></div>
+    <div class="two">
+      <div class="prose"><p>Every report and run file is hashed (SHA-256) and the list is signed with Ed25519. The public key is in the repository; the private key never is. The check runs on every push.</p></div>
+      <pre class="cmd">git clone https://github.com/Ritapossible/AdversarialEval
+cd AdversarialEval
+node tools/evidence_manifest.mjs verify
+python bench/solana_reconcile.py bench/out/solana-v2</pre>
+    </div>
+  </section>
+
+  <section id="reports">
+    <div class="sec-head"><h2>Reports</h2><span class="label">newest first</span></div>
+    <ul class="reports">
+      <li><span class="date">2026-11-24</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-solana-use-case-3.md" target="_blank" rel="noopener">Solana use case 3, paid on Solana</a><span class="d">21 hard cases, four approaches, 55 payments confirmed on-chain</span></span></li>
+      <li><span class="date">2026-11-24</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-test-score.md" target="_blank" rel="noopener">Independent test result</a><span class="d">40 outside pairs, frozen by hash, scored once: 77.5%</span></span></li>
+      <li><span class="date">2026-11-24</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Provider independence</a><span class="d">37 listed miners, 13 payout addresses</span></span></li>
+      <li><span class="date">2026-11-23</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-23-solana-dependencies.md" target="_blank" rel="noopener">Solana dependencies</a><span class="d">16 versions with and without Telegraph</span></span></li>
+      <li><span class="date">2026-11-22</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">Rounds 2 to 4, pooled</a><span class="d">3,680 paid calls; accuracy, cost per correct, rank agreement</span></span></li>
+      <li><span class="date">2026-11-22</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-verified-ask.md" target="_blank" rel="noopener">Verified Ask</a><span class="d">replayed over every paid answer</span></span></li>
+      <li><span class="date">2026-11-22</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-mind-comparison.md" target="_blank" rel="noopener">Dependency.Guard with and without Telegraph</a><span class="d">26 package versions in 7 ecosystems</span></span></li>
+      <li><span class="date">2026-11-22</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-code-review-v2.md" target="_blank" rel="noopener">Code review, pre-registered</a><span class="d">23 subtle functions</span></span></li>
+      <li><span class="date">2026-11-23</span><span><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/docs/AUDIT_2026-11-23.md" target="_blank" rel="noopener">Audit and fixes</a><span class="d">full review of the runtime paths, every fix verified</span></span></li>
+    </ul>
+    <p class="track-link">Per-track summaries: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/evaluators.md" target="_blank" rel="noopener">Evaluators</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md" target="_blank" rel="noopener">Apps &amp; Agents</a></p>
+  </section>
+
+  <section id="thanks">
+    <div class="sec-head"><h2>Acknowledgements</h2></div>
+    <ul class="claims">
+      <li>Telegraph's official adapter kit and foundation model (MIT; from ModernBERT-base, Apache-2.0).</li>
+      <li>Advisory data from the GitHub Advisory Database (CC BY 4.0) via OSV, and NVD data (not endorsed or certified by the NVD).</li>
+      <li>Fexx, for findings that shaped our held-out testing and for 20 independent test pairs he checked by hand.</li>
+      <li>Lino, for 20 independent test pairs that completed the test set.</li>
+      <li>defiplusacademy, for 21 test pairs reported separately as author-written.</li>
+      <li>Chrysolite494, for the guide to connecting a Mind to Anjoman.</li>
+      <li>Minds by Animoca Brands, where Dependency.Guard runs; package data from deps.dev and rubygems.org.</li>
+    </ul>
+  </section>
+  <div class="next"><a href="/benchmark">← Benchmark</a><a href="/">Overview →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="grid col">
+    <div>
+      <h2>AdversarialEval</h2>
+      <p>Making Telegraph's security answers trustworthy: evaluation material, an evaluator adapter, a paid benchmark of the live market, and Dependency.Guard.</p>
+      <p>Telegraph Hackathon Season II: Evaluators track and Apps &amp; Agents track. Testnet. Open source under MIT.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">Overview</a></li>
+        <li><a href="/evaluators">Evaluators</a></li>
+        <li><a href="/dependency-guard">Dependency.Guard</a></li>
+        <li><a href="/benchmark">Benchmark</a></li>
+        <li><a href="/evidence">Evidence</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Source</h2>
+      <ul>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports" target="_blank" rel="noopener">All reports</a></li>
+        <li><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard on Minds</a></li>
+        <li><a href="https://github.com/telegraphprotocol/bounties/issues/198" target="_blank" rel="noopener">Mission 10, Model Economy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/nav.js?v=7424f34b84" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dependency.Guard | AdversarialEval</title>
+<meta name="description" content="A Mind that buys one security answer per package from Telegraph, checks it for free against public sources, and decides PASS, BLOCK or FLAG with the evidence.">
+<meta property="og:title" content="Dependency.Guard | AdversarialEval">
+<meta property="og:description" content="A Mind that buys one security answer per package from Telegraph, checks it for free against public sources, and decides PASS, BLOCK or FLAG with the evidence.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20.5' fill='%23fff' stroke='%23e8501c' stroke-width='4'/%3E%3Ccircle cx='24' cy='24' r='10' fill='none' stroke='%23111' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='24' r='4.2' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=7424f34b84">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar col">
+    <a class="brand" href="/" aria-label="AdversarialEval, home"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="icon" aria-hidden="true"></span><span class="txt">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Overview<span class="hint">What this is and the key results</span></a></li>
+        <li><a href="/evaluators">Evaluators<span class="hint">Spot the Flaw, test results, the dataset</span></a></li>
+        <li><a href="/dependency-guard" aria-current="page">Dependency.Guard<span class="hint">The app: how it works and its evidence</span></a></li>
+        <li><a href="/benchmark">Benchmark<span class="hint">What a paid answer is worth</span></a></li>
+        <li><a href="/evidence">Evidence<span class="hint">Reports, signed results, limits</span></a></li>
+        <li><a class="gh" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="col">
+  <div class="page-hero">
+    <span class="eyebrow">Apps &amp; Agents track · Mission 10, Model Economy</span>
+    <h1>Dependency.Guard checks before it trusts.</h1>
+    <p class="lede">For teams whose coding agents add and upgrade packages, and must not ship a known-vulnerable or malicious version. It runs inside Minds by Animoca Brands, buys its intelligence from Telegraph, and never acts on a paid answer it hasn't checked.</p>
+    <div class="ctas">
+      <a class="pill" href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Open the Mind <span aria-hidden="true">↗</span></a>
+      <a class="under" href="#evidence">See the evidence</a>
+    </div>
+  </div>
+
+  <section id="guard">
+    <div class="sec-head"><h2>How it works</h2></div>
+    <ol class="gsteps">
+      <li><b>[1]</b><strong>Buy one answer</strong><span>One SECURITY_REVIEW answer per package from Telegraph's ranked route, through Anjoman. Never three providers by default.</span></li>
+      <li><b>[2]</b><strong>Check it for free</strong><span>Verified Ask compares the verdict with OSV for that exact version, confirms every cited advisory exists and applies, and that the version was ever published.</span></li>
+      <li><b>[3]</b><strong>Decide</strong><span>PASS, BLOCK or FLAG, with the advisories, every receipt and the cost. One other provider is asked only when the check proves the answer wrong. Every PASS and BLOCK is re-checked for free each day, and a PASS that stops verifying raises an alert.</span></li>
+    </ol>
+  </section>
+
+  <section id="results">
+    <div class="sec-head"><h2>Results so far</h2><span class="label">with and without Telegraph, testnet</span></div>
+    <dl class="kv">
+      <dt>Trusting the answer</dt><dd>On 26 packages: 3 vulnerable versions passed, and 2 packages that don't exist were called "Secure".</dd>
+      <dt>With the check</dt><dd>Nothing unsafe was approved: 24 decided correctly, 2 sent to a person.</dd>
+      <dt>Code review</dt><dd>23 subtle functions: Telegraph's route 13, its best miner 11; the Mind 23, overruling all 10 wrong answers.</dd>
+      <dt>Paid on Solana</dt><dd>21 hard Solana cases, every call paid in USDC on Solana devnet and confirmed on-chain: Telegraph's ranked answer trusted, 6 right, approving malware 5 times; with the check, 20 right, nothing unsafe approved, $0.35.</dd>
+      <dt>Solana stack</dt><dd>16 versions, including the hijacked <code>@solana/web3.js</code> 1.95.7: every bad version blocked; trusting the answer gave confident verdicts on 2 versions that don't exist; with the check, 16 of 16 for $0.22.</dd>
+      <dt>Honest result</dt><dd>The Mind on its own matched these scores by querying OSV directly. For known package vulnerabilities a free lookup is the bar; the value is that wrong paid answers never became decisions.</dd>
+      <dt>The Mind</dt><dd><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard</a> <span class="label">38266542-f36b-1410-8467-00039ce7df11</span></dd>
+    </dl>
+    <p class="note">Testnet, 22 to 24 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
+  </section>
+
+  <section id="evidence">
+    <div class="sec-head"><h2>Four decisions and their evidence</h2><span class="label">Solana use case 3, paid on Solana</span></div>
+    <div class="tablewrap"><table class="evid">
+      <thead><tr><th>Package</th><th>Paid answer said</th><th>Free check</th><th>Decision</th><th>Paid on Solana</th></tr></thead>
+      <tbody>
+        <tr><td><code>solana-web3.js 1.98.0</code><br><span class="label">malware look-alike</span></td><td>Secure</td><td>contradicted: OSV lists <a href="https://osv.dev/vulnerability/MAL-2025-1378" target="_blank" rel="noopener">MAL-2025-1378</a></td><td><b>BLOCK</b></td><td><a href="https://explorer.solana.com/tx/4dei1oMBmHmoDyenG6qjiP9izqGDEFr5nCFoHSyqEk67y45ni9pQoEDFLViRFcak5i9wedYCxrNMcBFYLxLe4ekn?cluster=devnet" target="_blank" rel="noopener">4dei1o…</a></td></tr>
+        <tr><td><code>@solana/web3.js 1.95.6</code><br><span class="label">hijacked release</span></td><td>Secure</td><td>contradicted: <a href="https://osv.dev/vulnerability/GHSA-jcxm-7wvp-g6p5" target="_blank" rel="noopener">GHSA-jcxm-7wvp-g6p5</a></td><td><b>BLOCK</b></td><td><a href="https://explorer.solana.com/tx/4Ws3gez2CoA9ZQeYj6p2fChnx8UYDV55Mt1zTbwrogWNJyCKBH4cQPsUVZZJk8xjxfYJfdPg77yp1dfqYJsHWtQd?cluster=devnet" target="_blank" rel="noopener">4Ws3ge…</a></td></tr>
+        <tr><td><code>solana-web3-js 1.0.0</code><br><span class="label">never published</span></td><td>Secure</td><td>contradicted: not on <a href="https://www.npmjs.com/package/solana-web3-js" target="_blank" rel="noopener">npm</a></td><td><b>FLAG</b></td><td><a href="https://explorer.solana.com/tx/5onwCLn6ibRzywdvNqxDX5i15BMKRG2oT1WbhnFRfJuN17fhBhcNEX1VCedQRYDWG9zsxD8MwaVNdnT3ytXyEhQf?cluster=devnet" target="_blank" rel="noopener">5onwCL…</a></td></tr>
+        <tr><td><code>ws 8.23.0</code><br><span class="label">clean release</span></td><td>Insecure</td><td>contradicted: <a href="https://osv.dev/list?ecosystem=npm&amp;q=ws" target="_blank" rel="noopener">OSV</a> lists none</td><td><b>PASS</b></td><td><a href="https://explorer.solana.com/tx/2h4p3BnJXsrmCFwpLX2ecsfxXgeMs3hkE5PCCbx3r3zbJBPmKz5j2i9HchJAbCEJ7ZkQqQTYE1yX3CFNNBeRZYgx?cluster=devnet" target="_blank" rel="noopener">2h4p3B…</a></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">From the use case 3 run: Telegraph's ranked answer, checked against public sources, then one re-ask of the best-measured miner; each payment is a devnet USDC transaction you can open. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-solana-use-case-3.md" target="_blank" rel="noopener">Full report</a>.</p>
+  </section>
+  <div class="next"><a href="/evaluators">← Evaluators</a><a href="/benchmark">Benchmark →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="grid col">
+    <div>
+      <h2>AdversarialEval</h2>
+      <p>Making Telegraph's security answers trustworthy: evaluation material, an evaluator adapter, a paid benchmark of the live market, and Dependency.Guard.</p>
+      <p>Telegraph Hackathon Season II: Evaluators track and Apps &amp; Agents track. Testnet. Open source under MIT.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">Overview</a></li>
+        <li><a href="/evaluators">Evaluators</a></li>
+        <li><a href="/dependency-guard">Dependency.Guard</a></li>
+        <li><a href="/benchmark">Benchmark</a></li>
+        <li><a href="/evidence">Evidence</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Source</h2>
+      <ul>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports" target="_blank" rel="noopener">All reports</a></li>
+        <li><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard on Minds</a></li>
+        <li><a href="https://github.com/telegraphprotocol/bounties/issues/198" target="_blank" rel="noopener">Mission 10, Model Economy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/nav.js?v=7424f34b84" defer></script>
+
+</body>
+</html>

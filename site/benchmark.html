@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paid market benchmark | AdversarialEval</title>
+<meta name="description" content="3,680 paid calls to Telegraph&#x27;s security miners under rules fixed in advance: accuracy, cost per correct answer, rank agreement and provider independence.">
+<meta property="og:title" content="Paid market benchmark | AdversarialEval">
+<meta property="og:description" content="3,680 paid calls to Telegraph&#x27;s security miners under rules fixed in advance: accuracy, cost per correct answer, rank agreement and provider independence.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20.5' fill='%23fff' stroke='%23e8501c' stroke-width='4'/%3E%3Ccircle cx='24' cy='24' r='10' fill='none' stroke='%23111' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='24' r='4.2' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=7424f34b84">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar col">
+    <a class="brand" href="/" aria-label="AdversarialEval, home"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="icon" aria-hidden="true"></span><span class="txt">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Overview<span class="hint">What this is and the key results</span></a></li>
+        <li><a href="/evaluators">Evaluators<span class="hint">Spot the Flaw, test results, the dataset</span></a></li>
+        <li><a href="/dependency-guard">Dependency.Guard<span class="hint">The app: how it works and its evidence</span></a></li>
+        <li><a href="/benchmark" aria-current="page">Benchmark<span class="hint">What a paid answer is worth</span></a></li>
+        <li><a href="/evidence">Evidence<span class="hint">Reports, signed results, limits</span></a></li>
+        <li><a class="gh" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="col">
+  <div class="page-hero">
+    <span class="eyebrow">Model Economy · paid benchmark</span>
+    <h1>What is a paid security answer worth?</h1>
+    <p class="lede">We bought the same security questions from every reachable Telegraph miner, under rules fixed before the first call, and reconciled every payment. The result tells a buyer which providers are worth paying, and how far the default route can be trusted.</p>
+  </div>
+
+  <section id="market">
+    <div class="sec-head"><h2>Accuracy across three paid rounds</h2><span class="label">3 rounds, 3,680 paid calls, testnet</span></div>
+    <p class="small" style="margin-bottom:18px">We bought the same 46 security questions from every reachable Telegraph miner on three days, under a rule fixed before the first call, and reconciled the payments with the chain or the node's ledger (one $0.01 charge unmatched).</p>
+    <div class="rows" role="img" aria-label="Pooled accuracy on 108 answerable cases: best miner 83 percent, free OSV lookup 67 percent, always answering Insecure 50 percent, default route 21 percent">
+      <div class="numrow"><span class="k">Best miner (a1-preflight)<br><span class="label">95% CI 75 to 89%</span></span><span class="v ours">83%</span><div class="track"><div class="fill ours" style="width:83%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Free OSV lookup, $0<br><span class="label">95% CI 57 to 75%</span></span><span class="v">67%</span><div class="track"><div class="fill" style="width:67%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Always answer "Insecure"</span><span class="v">50%</span><div class="track"><div class="fill" style="width:50%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Default route (rank 1 miner)<br><span class="label">95% CI 15 to 30%</span></span><span class="v">21%</span><div class="track"><div class="fill" style="width:21%"></div><div class="coin"></div></div></div>
+    </div>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
+      <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
+      <dt>Real competition</dt><dd>37 miners are listed for this intent, but they pay out to only 13 addresses, and two addresses run 26 of them. The 32 miners that answered in round 4 belong to 9 payout identities. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Method</a></dd>
+      <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
+    </dl>
+    <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
+    <p class="track-link">Full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md" target="_blank" rel="noopener">tracks/apps-and-agents.md</a></p>
+  </section>
+
+  <section id="independence">
+    <div class="sec-head"><h2>How many providers are really competing?</h2><span class="label">public listing, 24 Nov</span></div>
+    <dl class="kv">
+      <dt>Listed miners</dt><dd>37 for <code>SECURITY_REVIEW_GENERAL</code></dd>
+      <dt>Payout addresses</dt><dd>13 distinct. Two addresses run 26 of the 37 miners (18 and 8).</dd>
+      <dt>In our rounds</dt><dd>The 32 miners that answered in round 4 belong to 9 payout identities; in the Solana run, the ranked route sent 19 of 21 questions to one miner.</dd>
+      <dt>Why it matters</dt><dd>When one operator runs many miners, a "second opinion" can come from the same source, and agreement between miners says less than it seems.</dd>
+    </dl>
+    <p class="note">Addresses are an upper bound on independence: one team can use several. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Method and data</a>.</p>
+  </section>
+  <div class="next"><a href="/dependency-guard">← Dependency.Guard</a><a href="/evidence">Evidence and limits →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="grid col">
+    <div>
+      <h2>AdversarialEval</h2>
+      <p>Making Telegraph's security answers trustworthy: evaluation material, an evaluator adapter, a paid benchmark of the live market, and Dependency.Guard.</p>
+      <p>Telegraph Hackathon Season II: Evaluators track and Apps &amp; Agents track. Testnet. Open source under MIT.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">Overview</a></li>
+        <li><a href="/evaluators">Evaluators</a></li>
+        <li><a href="/dependency-guard">Dependency.Guard</a></li>
+        <li><a href="/benchmark">Benchmark</a></li>
+        <li><a href="/evidence">Evidence</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Source</h2>
+      <ul>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports" target="_blank" rel="noopener">All reports</a></li>
+        <li><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard on Minds</a></li>
+        <li><a href="https://github.com/telegraphprotocol/bounties/issues/198" target="_blank" rel="noopener">Mission 10, Model Economy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/nav.js?v=7424f34b84" defer></script>
+
+</body>
+</html>

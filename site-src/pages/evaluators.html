@@ -1,0 +1,122 @@
+  <div class="page-hero">
+    <span class="eyebrow">Evaluators track · SECURITY_REVIEW intent</span>
+    <h1>Two security reviews. One is quietly wrong.</h1>
+    <p class="lede">Each case has a sound review and one that is plausible but wrong in a single decisive fact: a fake advisory id, a wrong version range, a false alarm. Pick the review you would trust, then see the flaw, how shortcut judges did, and what our evaluator chose.</p>
+    <div class="ctas">
+      <a class="pill" href="#game">Start the test <span aria-hidden="true">↓</span></a>
+      <a class="under" href="#how">How the pairs are made</a>
+    </div>
+    <p class="small"><span id="n-cases"></span> real cases from the public dataset. Every advisory fact is checked against OSV.</p>
+  </div>
+
+  <section id="game" aria-live="polite">
+    <div class="sec-head">
+      <h2 id="progress">Case 1 of 1</h2>
+      <div class="tally">
+        <span>You <b id="score-you">0</b>/<b id="score-n">0</b></span>
+        <span>Longer-answer judge <b id="score-longer">0</b></span>
+        <span>Keyword judge <b id="score-kw">0</b></span>
+        <span id="chip-model" hidden>Our evaluator <b id="score-model">0</b></span>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="bar"><span class="label">[ Request ]</span><span class="label" id="case-id"></span></div>
+      <pre id="prompt"></pre>
+    </div>
+    <div class="answers">
+      <button class="answer" id="ans-a" type="button" data-side="a">
+        <span class="label-row"><span class="who">[A] Review</span><span class="stamp" hidden></span></span>
+        <span class="text"></span>
+      </button>
+      <button class="answer" id="ans-b" type="button" data-side="b">
+        <span class="label-row"><span class="who">[B] Review</span><span class="stamp" hidden></span></span>
+        <span class="text"></span>
+      </button>
+    </div>
+    <p class="hint" id="hint">Tap the review you trust, or press <kbd>A</kbd> or <kbd>B</kbd>.</p>
+
+    <div class="reveal" id="reveal" hidden>
+      <div class="verdict-row"><span class="ring" aria-hidden="true"><i></i></span><p class="verdict" id="verdict"></p></div>
+      <dl class="kv">
+        <dt>Flaw type</dt><dd><code id="fam-code"></code><span id="fam-name"></span><span class="note" id="fam-desc" style="display:block;margin:4px 0 0"></span></dd>
+        <dt>The flaw</dt><dd id="flaw"></dd>
+        <dt>Longer-answer judge</dt><dd><span class="res" id="j-longer"></span></dd>
+        <dt>Keyword judge</dt><dd><span class="res" id="j-kw"></span></dd>
+        <dt id="judge-model-k" hidden>Our evaluator</dt><dd id="judge-model" hidden><span class="res" id="j-model"></span><span class="note" style="display:block;margin:4px 0 0">Never trained on this case.</span></dd>
+        <dt>Source</dt><dd><a id="source" href="#" target="_blank" rel="noopener">Source advisory</a></dd>
+      </dl>
+      <p class="note" id="model-note" hidden></p>
+      <div class="row-actions">
+        <button class="pill" id="next" type="button">Next case</button>
+        <button class="under" id="share" type="button">Copy link to this case</button>
+      </div>
+    </div>
+
+    <div class="summary" id="summary" hidden>
+      <span class="label">[ Your result ]</span>
+      <div class="big" id="sum-you"></div>
+      <p id="sum-text" style="margin:0;color:var(--ink-2)"></p>
+      <div class="row-actions"><button class="pill" id="restart" type="button">Play again</button></div>
+    </div>
+  </section>
+
+  <section id="numbers">
+    <div class="sec-head"><h2>Why judges get fooled</h2><span class="label">accuracy on <span id="n-val"></span> held-out pairs</span></div>
+    <div class="rows" id="chart" role="img"></div>
+    <p class="note">The orange tick marks a coin flip. Ranges cover two training runs. These validation pairs come from the same author as the training data, so they overstate real accuracy.</p>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Independent test</dt><dd>40 pairs from 2 outside authors, frozen by hash and scored once: <b>77.5%</b> (95% CI 62.5 to 87.7%), against at most 60% for every shortcut judge. Just under our own pre-registered 80% bar, and reported as such. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-test-score.md" target="_blank" rel="noopener">Report</a></dd>
+      <dt>Used by others</dt><dd>Another team's miner (Salence, Femtech-web) uses our 264 public training pairs as its test set and reports 80.6% on them.</dd>
+      <dt>In the network</dt><dd>164 of our pairs are eligible in Telegraph's live evaluation pool for <code>SECURITY_REVIEW_GENERAL</code>.</dd>
+    </dl>
+  </section>
+
+  <section id="how">
+    <div class="sec-head"><h2>How it works</h2></div>
+    <div class="how">
+      <ol class="steps">
+        <li><b>[1] Source</b><span>real advisories from OSV and GitHub</span></li>
+        <li><b>[2] Pair</b><span>identical answers, one decisive fact changed</span></li>
+        <li><b>[3] Verify</b><span>every fact and label checked; shortcut judges near 50%</span></li>
+        <li><b>[4] Review</b><span>a person approves every pair</span></li>
+        <li><b>[5] Pool</b><span>live in the Telegraph evaluation pool</span></li>
+      </ol>
+      <svg class="flow" viewBox="0 0 230 600" aria-hidden="true">
+        <g fill="none" stroke="#111" stroke-width="1.2">
+          <rect x="85" y="10" width="60" height="84" fill="#fff"/>
+          <path d="M97 32h36M97 46h36M97 60h22M97 74h36" stroke="#cfcfcc"/>
+          <path d="M115 94v34"/>
+          <rect x="68" y="128" width="94" height="58" fill="#fff"/>
+          <path d="M80 148h22M80 166h22" stroke="#111"/>
+          <path d="M112 148h38M112 166h30" stroke="#cfcfcc"/>
+        </g>
+        <g fill="none" stroke-width="1">
+          <path d="M115 186 C 40 230, 60 300, 115 352" stroke="#9a9a9a"/>
+          <path d="M115 186 C 70 240, 80 300, 115 352" stroke="#bdbdbd"/>
+          <path d="M115 186 C 100 250, 100 300, 115 352" stroke="#111"/>
+          <path d="M115 186 C 130 250, 130 300, 115 352" stroke="#9a9a9a"/>
+          <path d="M115 186 C 160 240, 150 300, 115 352" stroke="#bdbdbd"/>
+          <path d="M115 186 C 190 230, 170 300, 115 352" stroke="#9a9a9a"/>
+        </g>
+        <circle cx="115" cy="372" r="20" fill="#fff" stroke="#e8501c" stroke-width="2.5"/>
+        <circle cx="115" cy="372" r="10" fill="#fff" stroke="#111" stroke-width="1.3"/>
+        <circle cx="115" cy="372" r="4" fill="#111"/>
+        <g fill="none" stroke="#111" stroke-width="1.2">
+          <path d="M115 392 C 115 430, 70 440, 70 476M115 392V476M115 392 C 115 430, 160 440, 160 476"/>
+          <rect x="52" y="476" width="36" height="52" fill="#fff"/>
+          <rect x="97" y="476" width="36" height="52" fill="#fff"/>
+          <rect x="142" y="476" width="36" height="52" fill="#fff"/>
+          <path d="M62 492l5 5 9-10M107 492l5 5 9-10M152 492l5 5 9-10"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section id="families-sec">
+    <div class="sec-head"><h2>Ten ways a review can be wrong</h2></div>
+    <ul class="fams" id="families"></ul>
+    <p class="track-link">Full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/evaluators.md" target="_blank" rel="noopener">tracks/evaluators.md</a></p>
+  </section>
+  <script id="spot-data" type="application/json">{{spot_data}}</script>
+  <div class="next"><a href="/">← Overview</a><a href="/dependency-guard">Dependency.Guard →</a></div>

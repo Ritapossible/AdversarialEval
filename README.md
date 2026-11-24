@@ -86,7 +86,7 @@ with small samples; each report states its limits.
 | **Verified Ask** ([`verify/`](verify/)): an API a buyer calls before trusting a security answer. It checks the verdict, the cited advisory ids and the version against OSV, deps.dev and rubygems.org, and returns verified, contradicted, unconfirmed, invalid or unchecked | Tested; replayed over rounds 2 to 4; hosted at `adversarialeval.vercel.app/api/verify` (token-protected) |
 | **Dependency.Guard Mind** ([`mind/`](mind/)): on Minds by Animoca, it buys one ranked `SECURITY_REVIEW_GENERAL` answer per package through Anjoman, checks it with Verified Ask, re-asks one other provider only when the check proves it wrong, and returns PASS, BLOCK or FLAG with receipts; every PASS and BLOCK is re-checked free each day ([`mind/watch.py`](mind/watch.py), daily [`watch`](.github/workflows/watch.yml) job), and miner text is treated as untrusted data | Live inside Minds; connector, evidence and comparison tests in the repo |
 | **Paid market benchmark** ([`bench/`](bench/)): cost per verified correct answer, per miner, three rounds | Rounds 2 to 4 done, pooled report published |
-| **"Spot the Flaw" demo**: pick the sound review of two, then see the flaw, the shortcut judges and the adapter's held-out choice ([`site/`](site/)) | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
+| **Website** ([`site/`](site/), built from [`site-src/`](site-src/) by `tools/build_site.py`): five pages (overview, Evaluators with the "Spot the Flaw" test, Dependency.Guard, the paid benchmark, evidence and limits), with a mobile menu | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app); [Spot the Flaw](https://adversarialeval.vercel.app/evaluators) |
 
 ## How it works
 

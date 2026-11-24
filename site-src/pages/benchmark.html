@@ -1,0 +1,36 @@
+  <div class="page-hero">
+    <span class="eyebrow">Model Economy · paid benchmark</span>
+    <h1>What is a paid security answer worth?</h1>
+    <p class="lede">We bought the same security questions from every reachable Telegraph miner, under rules fixed before the first call, and reconciled every payment. The result tells a buyer which providers are worth paying, and how far the default route can be trusted.</p>
+  </div>
+
+  <section id="market">
+    <div class="sec-head"><h2>Accuracy across three paid rounds</h2><span class="label">3 rounds, 3,680 paid calls, testnet</span></div>
+    <p class="small" style="margin-bottom:18px">We bought the same 46 security questions from every reachable Telegraph miner on three days, under a rule fixed before the first call, and reconciled the payments with the chain or the node's ledger (one $0.01 charge unmatched).</p>
+    <div class="rows" role="img" aria-label="Pooled accuracy on 108 answerable cases: best miner 83 percent, free OSV lookup 67 percent, always answering Insecure 50 percent, default route 21 percent">
+      <div class="numrow"><span class="k">Best miner (a1-preflight)<br><span class="label">95% CI 75 to 89%</span></span><span class="v ours">83%</span><div class="track"><div class="fill ours" style="width:83%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Free OSV lookup, $0<br><span class="label">95% CI 57 to 75%</span></span><span class="v">67%</span><div class="track"><div class="fill" style="width:67%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Always answer "Insecure"</span><span class="v">50%</span><div class="track"><div class="fill" style="width:50%"></div><div class="coin"></div></div></div>
+      <div class="numrow"><span class="k">Default route (rank 1 miner)<br><span class="label">95% CI 15 to 30%</span></span><span class="v">21%</span><div class="track"><div class="fill" style="width:21%"></div><div class="coin"></div></div></div>
+    </div>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
+      <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
+      <dt>Real competition</dt><dd>37 miners are listed for this intent, but they pay out to only 13 addresses, and two addresses run 26 of them. The 32 miners that answered in round 4 belong to 9 payout identities. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Method</a></dd>
+      <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
+    </dl>
+    <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
+    <p class="track-link">Full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md" target="_blank" rel="noopener">tracks/apps-and-agents.md</a></p>
+  </section>
+
+  <section id="independence">
+    <div class="sec-head"><h2>How many providers are really competing?</h2><span class="label">public listing, 24 Nov</span></div>
+    <dl class="kv">
+      <dt>Listed miners</dt><dd>37 for <code>SECURITY_REVIEW_GENERAL</code></dd>
+      <dt>Payout addresses</dt><dd>13 distinct. Two addresses run 26 of the 37 miners (18 and 8).</dd>
+      <dt>In our rounds</dt><dd>The 32 miners that answered in round 4 belong to 9 payout identities; in the Solana run, the ranked route sent 19 of 21 questions to one miner.</dd>
+      <dt>Why it matters</dt><dd>When one operator runs many miners, a "second opinion" can come from the same source, and agreement between miners says less than it seems.</dd>
+    </dl>
+    <p class="note">Addresses are an upper bound on independence: one team can use several. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Method and data</a>.</p>
+  </section>
+  <div class="next"><a href="/dependency-guard">← Dependency.Guard</a><a href="/evidence">Evidence and limits →</a></div>

@@ -43,6 +43,8 @@ jobs:
         run: python tests/test_mind.py
       - name: Truth source tests
         run: node --test truth-sources/cve-cvss/test/*.test.js
+      - name: Website built from its sources (tools/build_site.py)
+        run: python tools/build_site.py --check
       - name: Signed evidence unchanged (tools/evidence_manifest.mjs)
         run: node tools/evidence_manifest.mjs verify
       - name: Mind connector tests (offline)
