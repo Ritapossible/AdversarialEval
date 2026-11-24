@@ -157,6 +157,14 @@ footer p { margin: 0; max-width: 80ch; }
 .gsteps strong { font: 400 17px/1.4 var(--mono); }
 .gsteps span { grid-column: 2; font-size: 17px; color: var(--ink-2); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.sub { font: 500 20px/1.3 var(--serif); margin: 30px 0 12px; }
+.tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.evid { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 620px; }
+.evid th { font: 400 13px/1.4 var(--mono); color: var(--muted); text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--ink); }
+.evid td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; overflow-wrap: anywhere; }
+.evid code { font: 500 14px/1.3 var(--mono); }
+.claims { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 17px; }
+.claims code { font: 500 14px/1.4 var(--mono); overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
@@ -234,7 +242,12 @@ footer p { margin: 0; max-width: 80ch; }
   <section id="numbers">
     <div class="sec-head"><h2>Why judges get fooled</h2><span class="label">accuracy on <span id="n-val"></span> held-out pairs</span></div>
     <div class="rows" id="chart" role="img"></div>
-    <p class="note">The orange tick marks a coin flip. Ranges cover two training runs. These validation pairs come from the same author as the training data, so they overstate real accuracy; an independent test set decides registration.</p>
+    <p class="note">The orange tick marks a coin flip. Ranges cover two training runs. These validation pairs come from the same author as the training data, so they overstate real accuracy.</p>
+    <dl class="kv" style="margin-top:22px">
+      <dt>Independent test</dt><dd>40 pairs from 2 outside authors, frozen by hash and scored once: <b>77.5%</b> (95% CI 62.5 to 87.7%), against at most 60% for every shortcut judge. Just under our own pre-registered 80% bar, and reported as such. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-test-score.md" target="_blank" rel="noopener">Report</a></dd>
+      <dt>Used by others</dt><dd>Another team's miner (Salence, Femtech-web) uses our 264 public training pairs as its test set and reports 80.6% on them.</dd>
+      <dt>In the network</dt><dd>164 of our pairs are eligible in Telegraph's live evaluation pool for <code>SECURITY_REVIEW_GENERAL</code>.</dd>
+    </dl>
   </section>
 
 
@@ -301,11 +314,23 @@ footer p { margin: 0; max-width: 80ch; }
       <dt>Trusting the answer</dt><dd>On 26 packages: 3 vulnerable versions passed, and 2 packages that don't exist were called "Secure".</dd>
       <dt>With the check</dt><dd>Nothing unsafe was approved: 24 decided correctly, 2 sent to a person.</dd>
       <dt>Code review</dt><dd>23 subtle functions: Telegraph's route 13, its best miner 11; the Mind 23, overruling all 10 wrong answers.</dd>
+      <dt>Paid on Solana</dt><dd>21 hard Solana cases, every call paid in USDC on Solana devnet and confirmed on-chain: Telegraph's ranked answer trusted, 6 right, approving malware 5 times; with the check, 20 right, nothing unsafe approved, $0.35.</dd>
       <dt>Solana stack</dt><dd>16 versions, including the hijacked <code>@solana/web3.js</code> 1.95.7: every bad version blocked; trusting the answer gave confident verdicts on 2 versions that don't exist; with the check, 16 of 16 for $0.22.</dd>
       <dt>Honest result</dt><dd>The Mind on its own matched these scores by querying OSV directly. For known package vulnerabilities a free lookup is the bar; the value is that wrong paid answers never became decisions.</dd>
       <dt>The Mind</dt><dd><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard</a> <span class="label">38266542-f36b-1410-8467-00039ce7df11</span></dd>
     </dl>
-    <p class="note">Testnet, 22 and 23 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
+    <p class="note">Testnet, 22 to 24 Nov 2026, answer keys frozen before any paid call; small samples, so read differences of one or two as noise.</p>
+    <h3 class="sub">Four decisions and their evidence</h3>
+    <div class="tablewrap"><table class="evid">
+      <thead><tr><th>Package</th><th>Paid answer said</th><th>Free check</th><th>Decision</th><th>Paid on Solana</th></tr></thead>
+      <tbody>
+        <tr><td><code>solana-web3.js 1.98.0</code><br><span class="label">malware look-alike</span></td><td>Secure</td><td>contradicted: OSV lists <a href="https://osv.dev/vulnerability/MAL-2025-1378" target="_blank" rel="noopener">MAL-2025-1378</a></td><td><b>BLOCK</b></td><td><a href="https://explorer.solana.com/tx/4dei1oMBmHmoDyenG6qjiP9izqGDEFr5nCFoHSyqEk67y45ni9pQoEDFLViRFcak5i9wedYCxrNMcBFYLxLe4ekn?cluster=devnet" target="_blank" rel="noopener">4dei1o…</a></td></tr>
+        <tr><td><code>@solana/web3.js 1.95.6</code><br><span class="label">hijacked release</span></td><td>Secure</td><td>contradicted: <a href="https://osv.dev/vulnerability/GHSA-jcxm-7wvp-g6p5" target="_blank" rel="noopener">GHSA-jcxm-7wvp-g6p5</a></td><td><b>BLOCK</b></td><td><a href="https://explorer.solana.com/tx/4Ws3gez2CoA9ZQeYj6p2fChnx8UYDV55Mt1zTbwrogWNJyCKBH4cQPsUVZZJk8xjxfYJfdPg77yp1dfqYJsHWtQd?cluster=devnet" target="_blank" rel="noopener">4Ws3ge…</a></td></tr>
+        <tr><td><code>solana-web3-js 1.0.0</code><br><span class="label">never published</span></td><td>Secure</td><td>contradicted: not on <a href="https://www.npmjs.com/package/solana-web3-js" target="_blank" rel="noopener">npm</a></td><td><b>FLAG</b></td><td><a href="https://explorer.solana.com/tx/5onwCLn6ibRzywdvNqxDX5i15BMKRG2oT1WbhnFRfJuN17fhBhcNEX1VCedQRYDWG9zsxD8MwaVNdnT3ytXyEhQf?cluster=devnet" target="_blank" rel="noopener">5onwCL…</a></td></tr>
+        <tr><td><code>ws 8.23.0</code><br><span class="label">clean release</span></td><td>Insecure</td><td>contradicted: <a href="https://osv.dev/list?ecosystem=npm&amp;q=ws" target="_blank" rel="noopener">OSV</a> lists none</td><td><b>PASS</b></td><td><a href="https://explorer.solana.com/tx/2h4p3BnJXsrmCFwpLX2ecsfxXgeMs3hkE5PCCbx3r3zbJBPmKz5j2i9HchJAbCEJ7ZkQqQTYE1yX3CFNNBeRZYgx?cluster=devnet" target="_blank" rel="noopener">2h4p3B…</a></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">From the use case 3 run: Telegraph's ranked answer, checked against public sources, then one re-ask of the best-measured miner; each payment is a devnet USDC transaction you can open. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-solana-use-case-3.md" target="_blank" rel="noopener">Full report</a>.</p>
   </section>
 
   <section id="market">
@@ -320,10 +345,24 @@ footer p { margin: 0; max-width: 80ch; }
     <dl class="kv" style="margin-top:22px">
       <dt>Rank vs accuracy</dt><dd>Kendall's &tau; +0.02, &minus;0.18, then +0.29 in round 4, when a rebuilt miner reached rank 1 (17 of 36 right; it gives no verdict on clean packages).</dd>
       <dt>Verified Ask</dt><dd>Our free check of each paid answer against OSV labelled none of 142 wrong answers as verified, and all 220 verified answers were correct.</dd>
+      <dt>Real competition</dt><dd>37 miners are listed for this intent, but they pay out to only 13 addresses, and two addresses run 26 of them. The 32 miners that answered in round 4 belong to 9 payout identities. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Method</a></dd>
       <dt>Cost per correct</dt><dd>$0.014 to $0.017 from the best miner; $0.06 to $0.10 across all miners.</dd>
     </dl>
     <p class="note">Accuracy is pooled over 108 answerable cases (36 per round). Testnet miners, one payer wallet, 46 cases per round, so read overlapping ranges as ties. Full method and data: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">the pooled report</a>.</p>
     <p class="track-link">Apps &amp; Agents track, full results and evidence: <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md" target="_blank" rel="noopener">tracks/apps-and-agents.md</a></p>
+  </section>
+
+  <section id="limits">
+    <div class="sec-head"><h2>What we don't claim</h2></div>
+    <ul class="claims">
+      <li>Everything runs on testnet: test USDC, testnet miners, routing that changes daily.</li>
+      <li>Samples are small (16 to 46 cases per test); read differences of one or two as noise.</li>
+      <li>A strong AI model with web search matched our checked results on known advisories. Our claim is that paid answers should never be trusted unchecked, not that they beat a free lookup.</li>
+      <li>The adapter scored 77.5% on the independent test, below the 80% bar we set ourselves.</li>
+      <li>The Mind's rule against acting on text inside miner answers is an instruction to a model, not a sandbox.</li>
+      <li>Payout addresses are an upper bound on how many independent providers exist: one team can use several.</li>
+      <li>Every result file is fingerprinted and signed; <code>node tools/evidence_manifest.mjs verify</code> fails if one changes.</li>
+    </ul>
   </section>
 
   <footer>

@@ -95,6 +95,8 @@ Cost per correct decision: D $0.0175, B $0.025, C $0.035.
 - OSV is the truth; clean versions are clean as of 24 Nov.
 - Testnet: devnet USDC and testnet miners; one run per arm; routing changes daily.
 - Arm B's rule ("first listed") is one reasonable listing choice, not the only one.
+- Arm A is the Dependency.Guard Mind; Minds doesn't disclose which model it runs, and a named-model
+  arm needs our own key for that model's API, which this run didn't have.
 - Pay.sh's own CLI keeps keys in the OS keychain and documents no devnet mode, so the run pays with
   the x402 Solana client (`@x402/svm`), the same protocol, from a burner devnet wallet.
 

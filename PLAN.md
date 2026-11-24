@@ -165,13 +165,13 @@ on the owner's go: Qwen demo prep (find a real Qwen-based app), Pay.sh docs (S5)
 the Solana clip (S3).
 
 Improvements to our own build (when the owner says go):
-- Site: a plain "What we don't claim" section (testnet, small samples, the Mind's rule is not a sandbox).
-- Site: adoption evidence (another team's miner trained on our public pairs and reports its score).
-- Site: one evidence row per Dependency.Guard decision (package, verdict, advisory link, receipt).
-- Benchmark: how many independent providers sit behind the miners we paid (distinct pay-to
+- [x] (11-24) Site: a plain "What we don't claim" section (testnet, small samples, the Mind's rule is not a sandbox).
+- [x] (11-24) Site: adoption evidence (another team's miner trained on our public pairs and reports its score).
+- [x] (11-24, four decisions with Solana tx links) Site: one evidence row per Dependency.Guard decision (package, verdict, advisory link, receipt).
+- [x] (11-24: 37 miners, 13 addresses; round 4: 32 miners, 9 providers) Benchmark: how many independent providers sit behind the miners we paid (distinct pay-to
   addresses in our own payment records); free, from data we already have.
-- Solana run: add named frontier models answering alone, reported as right / wrong / couldn't tell.
-- Sign each run file so a changed result fails verification (fits the Solana decision receipt).
+- [~] (11-24: frontier model alone = the Mind, model not disclosed by Minds; a named-model arm needs our own API key) Solana run: add named frontier models answering alone, reported as right / wrong / couldn't tell.
+- [x] (11-24: tools/evidence_manifest.mjs, verified in CI) Sign each run file so a changed result fails verification (fits the Solana decision receipt).
 
 ### Phase S: Dependency.Guard for Solana builders (after the video; before or instead of Phase P)
 

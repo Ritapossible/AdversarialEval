@@ -3,11 +3,13 @@
 
     python tests/test_bench.py
 """
+import json
 import sys
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "bench"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "bench"))
 from benchlib import bootstrap_ratio, charged, charged_onchain, grade, id_match, kendall_tau_b, percentile, wilson  # noqa: E402
 
 AFF = {"id": "a", "kind": "package", "truth": {"affected": True, "osv_ids": ["GHSA-aaaa-bbbb-cccc"]}}
@@ -128,6 +130,28 @@ class Measures(unittest.TestCase):
         self.assertEqual(percentile([1, 2, 3, 4, 5], 0.5), 3)
         self.assertIsNone(percentile([], 0.9))
 
+
+
+class ProviderIndependence(unittest.TestCase):
+    """tools/provider_independence.py: miners grouped by the payout address the listing publishes."""
+
+    def test_grouping(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from provider_independence import analyse
+        listing = [{"id": 1, "slug": "a1", "fee_address": "0xA", "wallet_address": "0xA"},
+                   {"id": 2, "slug": "a2", "fee_address": "0xa", "wallet_address": "0xa"},
+                   {"id": 3, "slug": "b", "fee_address": "0xB", "wallet_address": "0xB"}]
+        out = analyse(listing)
+        self.assertEqual((out["miners_listed"], out["distinct_fee_addresses"], out["single_miner_providers"]), (3, 2, 1))
+        self.assertEqual(out["largest_groups"][0]["slugs"], ["a1", "a2"])  # addresses compared case-insensitively
+
+    def test_published_snapshot(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from provider_independence import analyse
+        snap = json.loads((ROOT / "eval/reports/raw/2026-11-24-miners-security-review.json").read_text())
+        out = analyse(snap["miners"])
+        self.assertEqual((out["miners_listed"], out["distinct_fee_addresses"]), (37, 13))
+        self.assertEqual([g["miners"] for g in out["largest_groups"][:2]], [18, 8])
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)

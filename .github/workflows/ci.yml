@@ -43,5 +43,7 @@ jobs:
         run: python tests/test_mind.py
       - name: Truth source tests
         run: node --test truth-sources/cve-cvss/test/*.test.js
+      - name: Signed evidence unchanged (tools/evidence_manifest.mjs)
+        run: node tools/evidence_manifest.mjs verify
       - name: Mind connector tests (offline)
         run: node --test mind/connector/test/*.test.mjs
