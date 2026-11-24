@@ -70,8 +70,9 @@ def render() -> dict[str, str]:
     layout = (SRC / "layout.html").read_text()
     spot_data = (SRC / "spot-data.json").read_text().strip().replace("</", "<\\/")
     for file, path, label, hint, title, desc in PAGES:
+        current = ' aria-current="page"'
         nav = "\n".join(
-            f'        <li><a href="{p}"{" aria-current=\"page\"" if f == file else ""}>{l}<span class="hint">{h}</span></a></li>'
+            f'        <li><a href="{p}"{current if f == file else ""}>{l}<span class="hint">{h}</span></a></li>'
             for f, p, l, h, *_ in PAGES)
         footer_nav = "\n".join(f'        <li><a href="{p}">{l}</a></li>' for _, p, l, *_ in PAGES)
         body = (SRC / "pages" / file).read_text().replace("{{spot_data}}", spot_data)
