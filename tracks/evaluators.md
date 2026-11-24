@@ -5,8 +5,9 @@
 Evaluation material in which every worse answer is **plausible but wrong in one decisive,
 verifiable way**, contributed to Telegraph's evaluation pool for `SECURITY_REVIEW_GENERAL`, plus
 an Evaluator adapter trained and measured on it. **164 attested pairs are eligible in the live
-pool.** The adapter is not registered: its registration waits on an independent test set under a
-rule fixed before any test data existed.
+pool.** On an independent test set (40 pairs from 2 outside authors, scored once under a rule fixed
+before any test data existed) the adapter scores **77.5%**, against at most 60% for every
+shortcut judge. That is just under the rule's 80% bar, so it is not registered.
 
 ## The problem
 
@@ -59,14 +60,15 @@ deduplication across public, validation, test and pool sets.
   only if accuracy is at least 80%, the Wilson lower bound at least 65%, and every shortcut judge
   at most 60%. Amendment 1 allows AI-assisted pairs from independent authors, reported
   separately.
-- **Collected:** 20 pairs from Fexx
-  ([intake report](../eval/reports/2026-11-18-test-intake-fexx.md)). A second independent author
-  is being sought; cutoff 26 Nov 2026.
+- **Collected:** 20 pairs from Fexx (GPT-6) and 20 from Lino (Grok), both author-reviewed
+  ([Fexx intake](../eval/reports/2026-11-18-test-intake-fexx.md)); frozen by hash on 24 Nov
+  ([freeze](../eval/reports/2026-11-24-test-freeze.md)).
+- **Result** ([report](../eval/reports/2026-11-24-test-score.md)): 31 of 40, **77.5%** (95% CI
+  62.5 to 87.7%); Fexx 85%, Lino 70%; strongest shortcut judge 60%. Bar: 80% and a lower bound of
+  65%, so **do not register**. No retraining follows from the score.
 - **Separate, not independent:** 21 author-written, AI-assisted pairs from defiplusacademy, kept
   out of the test set and to be reported under their own heading
   ([intake notes](../data/authoring/security_review/author_test/README.md)).
-- If the test set is incomplete by the cutoff, the adapter is not registered and the write-up
-  says "independent test pending".
 
 ## Reproduce
 
@@ -82,4 +84,4 @@ bash scripts/train.sh cpu-v3 --epochs 6 --lr 0.0002 --seed 7   # about 40 minute
 
 - Validation pairs share an author with the training pairs, so they overstate real accuracy.
 - Failure types absent from training are not learned (37 to 39% held out).
-- The adapter is not registered; no on-chain evaluation result exists yet.
+- The adapter is not registered (independent test 77.5%, bar 80%); no on-chain evaluation result exists.

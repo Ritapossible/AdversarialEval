@@ -1,0 +1,322 @@
+[
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "9e42a02b444fa083e43ff162c857f633221b43a43fc9e005575a7edf6bbc9305",
+  "family": "F0",
+  "chosen": 7.464717864990234,
+  "rejected": 3.6964468955993652,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "3fdceb108134113e85cb97de6493ff7dc76e68a9f005e6bc327bdf3c0d093772",
+  "family": "F0",
+  "chosen": 3.3979179859161377,
+  "rejected": 1.0934065580368042,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "6930bc33b41f65ddd7c0901bf3797e0f9f35a4653a945cdcb711bdf28f96ceb7",
+  "family": "F0",
+  "chosen": 5.86249303817749,
+  "rejected": 5.824459075927734,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "7995573aa15aa0f38d173790e62c8307019466a3aaf6eed4bd359ba637a9f4d2",
+  "family": "F0",
+  "chosen": 6.287137985229492,
+  "rejected": 5.756504058837891,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "2a10d8936b55c5fbf310d95ff9fd8cf5ffe8987e73a70b0be40cd22e6a17323f",
+  "family": "F0",
+  "chosen": 7.91765022277832,
+  "rejected": 4.529482364654541,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "d517c4f3e3b4a2cfbf62b8f8096e218f507bd77f1c3a40bb7c32cffe556931c6",
+  "family": "F0",
+  "chosen": 3.5931167602539062,
+  "rejected": 4.484950542449951,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "e8f4739e5a2039b28e6036dabae9b142179498e5e5ea9141fd2924079386220c",
+  "family": "F0",
+  "chosen": 6.375220775604248,
+  "rejected": 7.0072784423828125,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "ceb7c1191e21f0c1ce7e03b560a98d99fbed92c522f7bc0be9b6f53dc839e146",
+  "family": "F0",
+  "chosen": 10.500190734863281,
+  "rejected": 8.067329406738281,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "880bfff3b78c94ba18dcda4dc9197435253a832dd020dc6f02ed18c00b43815c",
+  "family": "F0",
+  "chosen": 1.8747715950012207,
+  "rejected": 1.668932318687439,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "5632eab301cd1c8607fb51463d9aa20c8c4d651c71cc4d4a457752fe4196ecb2",
+  "family": "F0",
+  "chosen": 7.079855442047119,
+  "rejected": 6.902690410614014,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "7004d5f6bbee3372a8f5acfb108698c9a4039b3bbe0a4bab08e9160d9c08e35c",
+  "family": "F0",
+  "chosen": 2.5663583278656006,
+  "rejected": 0.9929330348968506,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "6d1e96372953f95ee55da0f3d40b4aba14661d08720b220c5f4141ae5a077cee",
+  "family": "F0",
+  "chosen": 2.6422481536865234,
+  "rejected": 1.5706329345703125,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "2cdb4f5a04a018d7aa7f5e29ee320298e628b7e0370e50e23be30e47b5bede1a",
+  "family": "F0",
+  "chosen": 10.571733474731445,
+  "rejected": 8.609792709350586,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "6637e5b3e209808c53f6b2bd3b5230c50ec36b6b0e631d48dd4fd68471c0290a",
+  "family": "F0",
+  "chosen": 4.832124710083008,
+  "rejected": 4.495620250701904,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "5f98a01120471fe9e2e363e165623ae82d22a511b11526fd47773151747e80d4",
+  "family": "F0",
+  "chosen": 10.37759017944336,
+  "rejected": 11.672786712646484,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "d16942a3ae9ac75af3a772cdd0227eb2a41a4382f32047ea03365c125f01a292",
+  "family": "F0",
+  "chosen": 4.214232921600342,
+  "rejected": 4.155522346496582,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "1ca650ceddc66efd72bac666229aa9de2282fd9e3a4f16da59df8a026ce65dd0",
+  "family": "F0",
+  "chosen": 2.4461514949798584,
+  "rejected": 0.8908419609069824,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "72a8c52b235cb41b7d549a0c4fbf543fdc003e689d2ec9036ce476bba2911377",
+  "family": "F0",
+  "chosen": 5.257585048675537,
+  "rejected": 5.239748001098633,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "ec01816e33c92451d5f94be91810a53d6beaaca5bc3be443b9ef8bb324c552f2",
+  "family": "F0",
+  "chosen": 3.1942813396453857,
+  "rejected": 0.8858027458190918,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "ea22df58db7f7a4bdad4cfe40a31ccdbf983432b7a14ed575741db3200f323e3",
+  "family": "F0",
+  "chosen": 5.509886264801025,
+  "rejected": 0.7102802991867065,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "47478fc4074e5f381f1e5b4e36280c5433f9459b84e5605fa3a628d6969ea415",
+  "family": "F0",
+  "chosen": 3.203385591506958,
+  "rejected": 4.6160359382629395,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "136b05393c5982cd60b964975e384abde08015e37c99200e2c3586751a9db149",
+  "family": "F0",
+  "chosen": 3.746011972427368,
+  "rejected": 4.490137100219727,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "76d76f47a872dff582d05bb4ad57938d60e8d94063f13915297007c4c2932669",
+  "family": "F0",
+  "chosen": 7.2718424797058105,
+  "rejected": 8.728200912475586,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "c1dbc32fda9ebe94bc03cbde4d7b552dd1d815368058a79a8537b5e7aef76a86",
+  "family": "F0",
+  "chosen": 6.339474678039551,
+  "rejected": 3.93278431892395,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "16b85df567dcd21a1afafd71d960335f1cc6b0251bc40b38dc258d649f7c163f",
+  "family": "F0",
+  "chosen": 11.242612838745117,
+  "rejected": 9.231656074523926,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "be8c814db55693d59a0a99da97d95f43aaefbff97cbba3a4b737b98ea5e66e3b",
+  "family": "F0",
+  "chosen": 5.921937465667725,
+  "rejected": 5.511146545410156,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "540dd7e8083d933d0efed93ba24b441bc1e5256f5730559a2c3e22fb3e81c122",
+  "family": "F0",
+  "chosen": 2.9016199111938477,
+  "rejected": 4.043575286865234,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "0cd7adfa6607eef77e261f950857040e38be4645e1ef7fc1e5f8cfc9f516f656",
+  "family": "F0",
+  "chosen": 6.286919116973877,
+  "rejected": 5.411256790161133,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "71753d2357e36659b6f91ed299c99a819498292c85620f67d54ed795f964fe02",
+  "family": "F0",
+  "chosen": 7.990573406219482,
+  "rejected": 2.8512425422668457,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "9922b34ce933a1e3493e0de2897e2eb7a480e676ab63dd87049a1cf189cdc48a",
+  "family": "F0",
+  "chosen": 6.304783344268799,
+  "rejected": -0.09711495041847229,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "b3cd4a557eef84f10ae7b59343a691803183b5f4a13fb2d3c60cc18901e3c820",
+  "family": "F0",
+  "chosen": 7.95528507232666,
+  "rejected": 5.65248966217041,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "552c0e410cb4e309ebf87154eed41effb142d8f710716e21fb0e09b14ffccb04",
+  "family": "F0",
+  "chosen": 5.79114294052124,
+  "rejected": 3.30107045173645,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "66699fa778f3e909c6abbaf6c934721254ae64205dcad4c4177233b0d879f840",
+  "family": "F0",
+  "chosen": 7.825068473815918,
+  "rejected": 10.047155380249023,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "4d0622404d1ddbd3ff3840c695cf217515379412f2385e77a638dca8fe6fd20d",
+  "family": "F0",
+  "chosen": 3.209338903427124,
+  "rejected": 6.497063636779785,
+  "correct": 0.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "5ea844c3a4a12098e5a256307f44b96f6ba3288a20d7e1e822aaa82f75738624",
+  "family": "F0",
+  "chosen": 8.718637466430664,
+  "rejected": 6.2102203369140625,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "4c0130d073ab6c1869d99f065167ddf98abc18f8f37fab40f21eca63a70b18a3",
+  "family": "F0",
+  "chosen": 8.189140319824219,
+  "rejected": 5.262312412261963,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "0b3d3dfecd8f3918d919027fea5f301e8688d0123521fa70a304e39bdcc9dd7c",
+  "family": "F0",
+  "chosen": 8.032227516174316,
+  "rejected": 7.091684818267822,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "e5a3a0289bf3fc69020d5ce215684e884e6530f3a684f99f8eefa717ba01d84a",
+  "family": "F0",
+  "chosen": 4.2844929695129395,
+  "rejected": 1.0195955038070679,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "5a4a4faa5a16fe39157a3f9e4548b5acf0f2609dd245eb70de46d144573a001f",
+  "family": "F0",
+  "chosen": 7.622280120849609,
+  "rejected": 4.062769889831543,
+  "correct": 1.0
+ },
+ {
+  "file": "data/test/security_review.test.jsonl",
+  "row_id": "1975e14d39a885eaaf955ef7ffa32a8cd773d22d4d17d0b0ad38bdf1b4a7a011",
+  "family": "F0",
+  "chosen": 8.624661445617676,
+  "rejected": 6.509246349334717,
+  "correct": 1.0
+ }
+]
