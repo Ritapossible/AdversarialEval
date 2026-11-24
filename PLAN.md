@@ -52,7 +52,7 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 - [ ] Upload the private pool set (signed) → confirm the rows are `eligible`
 
 ### Phase U: Audit upgrades (Nov 10–20), see `docs/AUDIT_2026-11-10.md`
-- [ ] U1 Frozen test split `data/test/` by outside reviewers. **Done (Claude):** split support, `docs/REVIEWER_GUIDE.md`, CSV template, importer, `docs/OUTREACH.md`. **Open (you):** recruit 2–3 reviewers
+- [x] U1 (11-24: 40 pairs, Fexx 20 + Lino 20, every shortcut judge <= 60%) Frozen test split `data/test/` by outside reviewers. **Done (Claude):** split support, `docs/REVIEWER_GUIDE.md`, CSV template, importer, `docs/OUTREACH.md`. **Open (you):** recruit 2–3 reviewers
 - [ ] U2 Human-reviewed pool upload. **Done (Claude):** 91 candidates (`gen_osv_pairs.py --split private`, 17 packages disjoint from every published split, every label verified by OSV, kit gate PASS), review sheet + `tools/review_pool.py`, upload refuses unreviewed rows. **Open (you):** review `data/private/review/pool_review.csv`, then a contributor wallet
 - [ ] U3 Sample and label real miner responses (blocked: funded wallet)
 - [ ] U4 Seed runs + registration rule: independent-test accuracy about 80% or more (the 15-pair remote check passes only 69% of the time at 75%) (blocked for registration: wallets, VM, `/claim` #96)
