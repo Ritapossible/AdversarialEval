@@ -1,0 +1,998 @@
+{
+ "at": "2026-11-24T18:33:08.924Z",
+ "cases": "mind/solana-test-v2/cases.json",
+ "repo_commit": "80cb1a78abae03e0c611e7c543130691060804a9",
+ "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+ "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+ "listing_miner": {
+  "id": "9002",
+  "name": "TxLens"
+ },
+ "fallback_miner": {
+  "id": "20260828",
+  "name": "a1-preflight"
+ },
+ "spent_usd_by_count": 0.54,
+ "decisions": [
+  {
+   "case": "malicious-npm-solana-web3_js",
+   "target": "pkg:npm/solana-web3.js@1.98.0",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-web3.js 1.98.0 was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 1 advisory: MAL-2025-1378"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-web3.js 1.98.0 was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "MAL-2025-1378 affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "malicious-npm-solana-web3",
+   "target": "pkg:npm/solana-web3@1.0.1-maintenance",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-web3 1.0.1-maintenance was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 1 advisory: MAL-2025-3918"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-web3 1.0.1-maintenance was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "MAL-2025-3918 affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "malicious-npm-solana-transaction-toolkit",
+   "target": "pkg:npm/solana-transaction-toolkit@1.0.0",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "FLAG",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-transaction-toolkit 1.0.0 was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 1 advisory: MAL-2025-41"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "malicious-npm-solana-stable-web-huks",
+   "target": "pkg:npm/solana-stable-web-huks@1.0.0",
+   "listing_verdict": "Needs changes",
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-stable-web-huks 1.0.0 was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 1 advisory: MAL-2025-40"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "solana-stable-web-huks 1.0.0 was published and later withdrawn from npm; OSV lists 1 advisory for it"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "MAL-2025-40 affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "withdrawn-npm-solana-web3_js",
+   "target": "pkg:npm/@solana/web3.js@1.95.6",
+   "listing_verdict": null,
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@solana/web3.js 1.95.6 was published and later withdrawn from npm; OSV lists 2 advisories for it"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GHSA-jcxm-7wvp-g6p5, MAL-2024-11183"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@solana/web3.js 1.95.6 was published and later withdrawn from npm; OSV lists 2 advisories for it"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2024-54134 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "MAL-2024-11183 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-JCXM-7WVP-G6P5 affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "latest-npm-bigint-buffer",
+   "target": "pkg:npm/bigint-buffer@1.1.5",
+   "listing_verdict": "Needs changes",
+   "ranked_verdict": null,
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "bigint-buffer 1.1.5 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2025-3194 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-3GC7-FJRX-P6MG affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "latest-npm-elliptic",
+   "target": "pkg:npm/elliptic@6.6.1",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Insecure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "elliptic 6.6.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "recent-cargo-anchor-lang",
+   "target": "pkg:cargo/anchor-lang@1.0.0-rc.1",
+   "listing_verdict": null,
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "anchor-lang 1.0.0-rc.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GHSA-429q-fhh4-r6hj, RUSTSEC-2026-0146"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "anchor-lang 1.0.0-rc.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-429Q-FHH4-R6HJ affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-cargo-anchor-lang",
+   "target": "pkg:cargo/anchor-lang@1.2.2",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Insecure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "anchor-lang 1.2.2 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Insecure', but OSV lists no advisory for this version"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "anchor-lang 1.2.2 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "recent-cargo-tokio",
+   "target": "pkg:cargo/tokio@1.54.0",
+   "listing_verdict": "Needs changes",
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "tokio 1.54.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 2 advisories: GHSA-5wjr-9356-4wc8, RUSTSEC-2026-0384"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "tokio 1.54.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 2 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-115567 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-5WJR-9356-4WC8 affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-cargo-tokio",
+   "target": "pkg:cargo/tokio@1.54.1",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "tokio 1.54.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "recent-cargo-rustls",
+   "target": "pkg:cargo/rustls@0.23.45",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rustls 0.23.45 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Secure', but OSV lists 8 advisories: GHSA-c8m5-c952-6cm4, GHSA-h2v8-394m-p7vv, GHSA-vp88-798v-h67f, GHSA-w44r-93j7-qv28, RUSTSEC-2026-0346"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rustls 0.23.45 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 8 advisories for this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-123609 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-123610 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-123612 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "CVE-2026-123611 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-C8M5-C952-6CM4 affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-H2V8-394M-P7VV affects this version"
+      },
+      {
+       "name": "citation",
+       "status": "pass",
+       "detail": "GHSA-VP88-798V-H67F affects this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-cargo-rustls",
+   "target": "pkg:cargo/rustls@0.23.46",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "rustls 0.23.46 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "recent-npm-ws",
+   "target": "pkg:npm/ws@8.20.1",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Insecure",
+   "verified_decision": "BLOCK",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ws 8.20.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 1 advisory for this version"
+      },
+      {
+       "name": "count",
+       "status": "info",
+       "detail": "count 2, OSV lists 1 advisory (1 distinct once aliases are merged)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-npm-ws",
+   "target": "pkg:npm/ws@8.23.0",
+   "listing_verdict": null,
+   "ranked_verdict": "Insecure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ws 8.23.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Insecure', but OSV lists no advisory for this version"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "ws 8.23.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-npm-solana-web3_js",
+   "target": "pkg:npm/@solana/web3.js@3.2.1",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@solana/web3.js 3.2.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-npm-coral-xyz-anchor",
+   "target": "pkg:npm/@coral-xyz/anchor@0.32.1",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "@coral-xyz/anchor 0.32.1 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "clean-npm-bs58",
+   "target": "pkg:npm/bs58@6.0.0",
+   "listing_verdict": null,
+   "ranked_verdict": null,
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "bs58 6.0.0 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "unknown-npm-solana-web3-js",
+   "target": "pkg:npm/solana-web3-js@1.0.0",
+   "listing_verdict": "Needs changes",
+   "ranked_verdict": "Secure",
+   "verified_decision": "FLAG",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "solana-web3-js 1.0.0 is not published on npm"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "unknown-npm-solana-spl-token",
+   "target": "pkg:npm/solana-spl-token@1.0.0",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "FLAG",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "solana-spl-token 1.0.0 is not published on npm"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "case": "unknown-npm-solana-keypair",
+   "target": "pkg:npm/solana-keypair@1.0.0",
+   "listing_verdict": "Insecure",
+   "ranked_verdict": "Secure",
+   "verified_decision": "FLAG",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "fail",
+       "detail": "solana-keypair 1.0.0 is not published on npm"
+      },
+      {
+       "name": "verdict",
+       "status": "skip",
+       "detail": "version not published, so OSV's empty answer means nothing"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "invalid",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "fail",
+       "detail": "no usable verdict (None)"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

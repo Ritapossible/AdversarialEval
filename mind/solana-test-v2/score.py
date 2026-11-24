@@ -91,6 +91,9 @@ def main() -> None:
         for r in onchain["rows"]:
             if r.get("onchain") == "success":
                 paid_tx[(r["case"], r["arm"])] = r["usdc_paid"]
+        for u in onchain["summary"].get("unrecorded_payments", []):  # paid, but the answer was lost
+            k = tuple(u["nearest_call"].split("|"))
+            paid_tx[k] = paid_tx.get(k, 0) + u["usdc_paid"]
 
     def arm_calls(names):
         return [c for c in calls if c["arm"] in names]

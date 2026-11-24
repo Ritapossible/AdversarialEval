@@ -7,6 +7,7 @@
   "confirmed_success": 3,
   "usdc_paid_onchain": 0.03,
   "paid_in_run_without_tx": [],
+  "unrecorded_payments": [],
   "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
  },
  "rows": [

@@ -1,0 +1,282 @@
+{
+ "cases": 21,
+ "affected": 11,
+ "clean": 7,
+ "unknown": 3,
+ "arms": {
+  "B_listing": {
+   "correct": 8,
+   "missed_vulnerability": 4,
+   "false_alarm": 2,
+   "unknown_decided": 3,
+   "no_decision": 4,
+   "accuracy_pct": 38.1,
+   "wilson_95": [
+    20.8,
+    59.1
+   ],
+   "task_fulfilled": false,
+   "calls": 21,
+   "usdc_paid_onchain": 0.2,
+   "latency_s_median_per_case": 9.2,
+   "latency_s_total": 215.7
+  },
+  "C_ranked": {
+   "correct": 6,
+   "missed_vulnerability": 8,
+   "false_alarm": 2,
+   "unknown_decided": 3,
+   "no_decision": 2,
+   "accuracy_pct": 28.6,
+   "wilson_95": [
+    13.8,
+    50.0
+   ],
+   "task_fulfilled": false,
+   "calls": 21,
+   "usdc_paid_onchain": 0.21,
+   "latency_s_median_per_case": 8.3,
+   "latency_s_total": 172.9
+  },
+  "D_verified": {
+   "correct": 20,
+   "missed_vulnerability": 0,
+   "false_alarm": 0,
+   "unknown_decided": 0,
+   "no_decision": 1,
+   "accuracy_pct": 95.2,
+   "wilson_95": [
+    77.3,
+    99.2
+   ],
+   "task_fulfilled": false,
+   "calls": 36,
+   "usdc_paid_onchain": 0.35,
+   "latency_s_median_per_case": 14.0,
+   "latency_s_total": 270.3
+  },
+  "A_frontier_alone": {
+   "correct": 21,
+   "missed_vulnerability": 0,
+   "false_alarm": 0,
+   "unknown_decided": 0,
+   "no_decision": 0,
+   "accuracy_pct": 100.0,
+   "wilson_95": [
+    84.5,
+    100.0
+   ],
+   "task_fulfilled": true
+  }
+ },
+ "per_case": [
+  {
+   "type": "malicious",
+   "target": "pkg:npm/solana-web3.js@1.98.0",
+   "truth": true,
+   "B_listing": "PASS",
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "malicious",
+   "target": "pkg:npm/solana-web3@1.0.1-maintenance",
+   "truth": true,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "malicious",
+   "target": "pkg:npm/solana-transaction-toolkit@1.0.0",
+   "truth": true,
+   "B_listing": "PASS",
+   "C_ranked": "PASS",
+   "D_verified": "FLAG",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "malicious",
+   "target": "pkg:npm/solana-stable-web-huks@1.0.0",
+   "truth": true,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "withdrawn",
+   "target": "pkg:npm/@solana/web3.js@1.95.6",
+   "truth": true,
+   "B_listing": null,
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "latest",
+   "target": "pkg:npm/bigint-buffer@1.1.5",
+   "truth": true,
+   "B_listing": "BLOCK",
+   "C_ranked": null,
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "latest",
+   "target": "pkg:npm/elliptic@6.6.1",
+   "truth": true,
+   "B_listing": "PASS",
+   "C_ranked": "BLOCK",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "recent",
+   "target": "pkg:cargo/anchor-lang@1.0.0-rc.1",
+   "truth": true,
+   "B_listing": null,
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:cargo/anchor-lang@1.2.2",
+   "truth": false,
+   "B_listing": "PASS",
+   "C_ranked": "BLOCK",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "recent",
+   "target": "pkg:cargo/tokio@1.54.0",
+   "truth": true,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:cargo/tokio@1.54.1",
+   "truth": false,
+   "B_listing": "PASS",
+   "C_ranked": "PASS",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "recent",
+   "target": "pkg:cargo/rustls@0.23.45",
+   "truth": true,
+   "B_listing": "PASS",
+   "C_ranked": "PASS",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:cargo/rustls@0.23.46",
+   "truth": false,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "recent",
+   "target": "pkg:npm/ws@8.20.1",
+   "truth": true,
+   "B_listing": "BLOCK",
+   "C_ranked": "BLOCK",
+   "D_verified": "BLOCK",
+   "A_frontier_alone": "BLOCK"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:npm/ws@8.23.0",
+   "truth": false,
+   "B_listing": null,
+   "C_ranked": "BLOCK",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:npm/@solana/web3.js@3.2.1",
+   "truth": false,
+   "B_listing": "PASS",
+   "C_ranked": "PASS",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:npm/@coral-xyz/anchor@0.32.1",
+   "truth": false,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "clean",
+   "target": "pkg:npm/bs58@6.0.0",
+   "truth": false,
+   "B_listing": null,
+   "C_ranked": null,
+   "D_verified": "PASS",
+   "A_frontier_alone": "PASS"
+  },
+  {
+   "type": "unknown",
+   "target": "pkg:npm/solana-web3-js@1.0.0",
+   "truth": null,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "FLAG",
+   "A_frontier_alone": "FLAG"
+  },
+  {
+   "type": "unknown",
+   "target": "pkg:npm/solana-spl-token@1.0.0",
+   "truth": null,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "FLAG",
+   "A_frontier_alone": "FLAG"
+  },
+  {
+   "type": "unknown",
+   "target": "pkg:npm/solana-keypair@1.0.0",
+   "truth": null,
+   "B_listing": "BLOCK",
+   "C_ranked": "PASS",
+   "D_verified": "FLAG",
+   "A_frontier_alone": "FLAG"
+  }
+ ],
+ "onchain": {
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "network": "solana-devnet",
+  "calls": 57,
+  "with_signature": 54,
+  "confirmed_success": 54,
+  "usdc_paid_onchain": 0.55,
+  "paid_in_run_without_tx": [],
+  "unrecorded_payments": [
+   {
+    "tx": "2Yx5E2fPNY3y8DhQDwqYtMgHd17nUqtHyDEtNYgXB4RV4cLDf1sqKfQ5TJgLthynWaPLpqWqjqCobw3wPyZWjG7m",
+    "block_time": 1795545042,
+    "usdc_paid": 0.01,
+    "nearest_call": "clean-npm-ws|listing",
+    "nearest_call_error": "fetch failed"
+   }
+  ],
+  "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
+ }
+}

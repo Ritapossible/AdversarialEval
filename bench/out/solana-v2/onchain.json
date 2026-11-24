@@ -1,0 +1,692 @@
+{
+ "summary": {
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "network": "solana-devnet",
+  "calls": 57,
+  "with_signature": 54,
+  "confirmed_success": 54,
+  "usdc_paid_onchain": 0.55,
+  "paid_in_run_without_tx": [],
+  "unrecorded_payments": [
+   {
+    "tx": "2Yx5E2fPNY3y8DhQDwqYtMgHd17nUqtHyDEtNYgXB4RV4cLDf1sqKfQ5TJgLthynWaPLpqWqjqCobw3wPyZWjG7m",
+    "block_time": 1795545042,
+    "usdc_paid": 0.01,
+    "nearest_call": "clean-npm-ws|listing",
+    "nearest_call_error": "fetch failed"
+   }
+  ],
+  "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
+ },
+ "rows": [
+  {
+   "case": "malicious-npm-solana-web3_js",
+   "arm": "listing",
+   "tx": "v9A91NynZuXSW3G6QnMVgo7MM3hb9TE9ahnZpPTopjcdagMusrjXzD5LfPRDUyPsmGovDpRrsrtbYhJAyRWH5Cj",
+   "slot": 525879140,
+   "block_time": 1795544688,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-web3_js",
+   "arm": "ranked",
+   "tx": "2v7dyAHxhgYUMcnkewNhtqMyZ3YPMnZj5J6YVHXGPWowpv8KNbzD8jPdWs6XEaRBKEfVsYHM3iC7zdZjjVff6pGR",
+   "slot": 525879162,
+   "block_time": 1795544694,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-web3_js",
+   "arm": "reask",
+   "tx": "4dei1oMBmHmoDyenG6qjiP9izqGDEFr5nCFoHSyqEk67y45ni9pQoEDFLViRFcak5i9wedYCxrNMcBFYLxLe4ekn",
+   "slot": 525879199,
+   "block_time": 1795544703,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-web3",
+   "arm": "listing",
+   "tx": "4pMJ4869K1f66mwEeEJMvFKTsuDEVJpmS1MKNurgQgCkSr117xpr8sPJ3TVCscNLB5Y1EEwsgCmkzna1Q1mYoa6c",
+   "slot": 525879232,
+   "block_time": 1795544712,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-web3",
+   "arm": "ranked",
+   "tx": "3tUuEUodWgM1pWHsR6ZXzwmq8EzTjPZgEQtae7tDXxfitWcwA8nvmeykVrJTG3eaYYHRPHHTgK9pfQ6ci6TkF6VS",
+   "slot": 525879266,
+   "block_time": 1795544720,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-web3",
+   "arm": "reask",
+   "tx": "giHKcBsrvjux5vGQ9P1qHhdNLMsiipf9LYokuYoYiF36CPUxswF6KT6T4SthLkXq9vb5TjPPYCa7M3rcPzNB1C6",
+   "slot": 525879306,
+   "block_time": 1795544729,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-transaction-toolkit",
+   "arm": "listing",
+   "tx": "2HMMxHCRibVWxpAhyUrqDnLfG3HmtVPXbytgTZfWbPE7szbXAtA5BH6QzjY882csGZcA2HpKJqAefKg1kDu6FQ6r",
+   "slot": 525879339,
+   "block_time": 1795544737,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-transaction-toolkit",
+   "arm": "ranked",
+   "tx": "4wyaW9esLAhTtHVNdzQFCx1KkHaERTiVVZzunmQ9mpHi73LRy68c8ZrxPbG8Xm1BWFranyASWpu7Pzs35EYXhdYr",
+   "slot": 525879373,
+   "block_time": 1795544745,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-transaction-toolkit",
+   "arm": "reask",
+   "paid_in_run": null,
+   "tx": null,
+   "onchain": "no signature"
+  },
+  {
+   "case": "malicious-npm-solana-stable-web-huks",
+   "arm": "listing",
+   "tx": "3ocMMN42YbL7hCbdTbZXQVw2cyn5SFTtEpN1KMuaexSQJF37rCjXRZ3q3WPCACq67VoWV93JXugNcpWTpwM7qGVu",
+   "slot": 525879444,
+   "block_time": 1795544762,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-stable-web-huks",
+   "arm": "ranked",
+   "tx": "32ey6TUrnNUuNQ3wC5m3EVyZtVMmR1Y28kFwFHfmGzhyfE28JA842safkrQxDqcrMciud1TbAgbNkjFHsmDYcjAk",
+   "slot": 525879491,
+   "block_time": 1795544773,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "malicious-npm-solana-stable-web-huks",
+   "arm": "reask",
+   "tx": "5ZrfaK7dvfgg4kHnxRvbxuacDgGwff4QhkSBxuEMC42haavAKEKrK4CeQBxA1fXoUBuTFKKVbaB47AmE53oDynJY",
+   "slot": 525879542,
+   "block_time": 1795544786,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "withdrawn-npm-solana-web3_js",
+   "arm": "listing",
+   "tx": "Kbu3cwQq5Zk7a48i7bFq7YDti3LqwFzRMzrzqCWAYGYxDxT3FZ7yEimQe5UGev3gQ3XQetrJYKrygMz2GJwwAcg",
+   "slot": 525879576,
+   "block_time": 1795544794,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "withdrawn-npm-solana-web3_js",
+   "arm": "ranked",
+   "tx": "2dF8Jk65BTRecsEAcxgG9r56zpHprueXrDHF7563W6i1eA2EPPeHcCixvgVEmDfgMiGewpfuFKoq1VmiCgdhy3Wf",
+   "slot": 525879654,
+   "block_time": 1795544812,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "withdrawn-npm-solana-web3_js",
+   "arm": "reask",
+   "tx": "4Ws3gez2CoA9ZQeYj6p2fChnx8UYDV55Mt1zTbwrogWNJyCKBH4cQPsUVZZJk8xjxfYJfdPg77yp1dfqYJsHWtQd",
+   "slot": 525879694,
+   "block_time": 1795544822,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "latest-npm-bigint-buffer",
+   "arm": "listing",
+   "tx": "2dzvqoYnsAQ2gP6dqg5fzFR6e22q7xnTVWrmmNSxTTsBS5bEyaQ7odNCUiA9tfSXUCr6wWmKhmpY89RNfh98UeKQ",
+   "slot": 525879742,
+   "block_time": 1795544834,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "latest-npm-bigint-buffer",
+   "arm": "ranked",
+   "tx": "UCKin3HaNBzCDuFKY95RgrDgeih1LGUAiJGirniovTdHWiq6af1Kwv7BZk3B4WV53Kn6JD6akqfTJZVWs9rxnPK",
+   "slot": 525879775,
+   "block_time": 1795544842,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "latest-npm-bigint-buffer",
+   "arm": "reask",
+   "tx": "4AK11pbziLNCS2SE2r5kCRr5zk4sc3rm5HGuCjPPFdUB5gvUyGxD9sHTVHjJfdqpZk7TegBZ4QAz9mzKtQQv2qd4",
+   "slot": 525879816,
+   "block_time": 1795544851,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "latest-npm-elliptic",
+   "arm": "listing",
+   "tx": "XBhYakmh3gYCk7jBd7QzatzSAm22uU6Jcn2dhwSv6EvZKD5kjbmtX5wUXQmCDE9scyBjZnf7ZUteXGWmzpB1HGW",
+   "slot": 525879847,
+   "block_time": 1795544859,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "latest-npm-elliptic",
+   "arm": "ranked",
+   "tx": "3Zp7trZYmxqecrXHkWnmCsdgbi8X2inghPz2C3FNuxXZHudJ5ugJU7C5SSjKTEaC6GcSqdK6E2frTDsvr5XWQ4JY",
+   "slot": 525879887,
+   "block_time": 1795544868,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-anchor-lang",
+   "arm": "listing",
+   "tx": "2BnHZZWCXL56yLSRXkakMp1cudo3riGPdeNeT4fsS4jA7fXg9h7VsGonSXdWAdrzLm3qD76yGFr4N2hSfgznbWBn",
+   "slot": 525879924,
+   "block_time": 1795544877,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-anchor-lang",
+   "arm": "ranked",
+   "tx": "2w91VqhJKz1qV6i7kQUMoRk7wrMcnVYeSgyTospn8hMiG7oEgzsNYDS1M9fQZXKVBjyN8d3ToxuiXEm7zxnYvj7e",
+   "slot": 525880002,
+   "block_time": 1795544896,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-anchor-lang",
+   "arm": "reask",
+   "tx": "4EAVYkpDCHRXc14298mjMKFRqF7QvPqiB4RGwpKZLEkkNn1jQWwzfpvuTYQCyjHbvgRfT25NQgzMVUs2WFWQ7zGV",
+   "slot": 525880038,
+   "block_time": 1795544905,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-anchor-lang",
+   "arm": "listing",
+   "tx": "5sF8gx8eETsVgUbgTu2qWXhPyu81n1TMxiLt1WmHFNUMZYBi17SmenbQDYrC6uXNRtSqfU1MknMm9bX4EzdD8qvn",
+   "slot": 525880070,
+   "block_time": 1795544912,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-anchor-lang",
+   "arm": "ranked",
+   "tx": "oFkkEhb8ywDL9w1kn28BNp9g8v7Vyh7AbFqvAVrcLBCsv2Xnh3gTu8ReTRPMZvSJywRiJPPSbvA5pAMov6TgutL",
+   "slot": 525880101,
+   "block_time": 1795544920,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-anchor-lang",
+   "arm": "reask",
+   "tx": "5HPjTHP8wMa8UPdzibmDc35Few4hsCnU1Ex1gcEqtuy7rA67H4sHNdQ53jRU92Do7yYnAuf4JVigcTRif5md3LUu",
+   "slot": 525880145,
+   "block_time": 1795544930,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-tokio",
+   "arm": "listing",
+   "tx": "2rpdDrrGFAdprAbXsbFmAJ6xNBqJNsMAniG1TqKs9X5c9VwqwkWf3UPnp6PsrTbCA9AUz7yjrCWJD6aqHHxsZMtr",
+   "slot": 525880171,
+   "block_time": 1795544937,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-tokio",
+   "arm": "ranked",
+   "tx": "AeBo31MSmaayr4nJVusFxLXSELZM78YqVT5cKwfpBTY7yLsUxUE8Lq3qWzMrM5i31GnYTMno51v7NxXbtzamck9",
+   "slot": 525880205,
+   "block_time": 1795544945,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-tokio",
+   "arm": "reask",
+   "tx": "53y23psxv4abBFWALshmqbc2S5WJvVErzEGmyt4LXPE3c5JUxCDd3Rj6WMzJtxVJJQEUHjjyE6YVUVm7dck9qZ4w",
+   "slot": 525880247,
+   "block_time": 1795544955,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-tokio",
+   "arm": "listing",
+   "tx": "4EGLPJHRgu6SUurYLixHZVwD2RVc2ATt3YEsuepPqWnxsB19abXsiHwBthpamc5vE89s29qCtz97FVQTaZrQKteS",
+   "slot": 525880284,
+   "block_time": 1795544964,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-tokio",
+   "arm": "ranked",
+   "tx": "2DN8cMqSqa2NgZUQKsyDEY2mn4S2S91KobuTpKwBSkvBi7kicUH4gytwJAjSGHRmz2Uw9vtMTNnh57Vzat7imhXf",
+   "slot": 525880313,
+   "block_time": 1795544971,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-rustls",
+   "arm": "listing",
+   "tx": "A1wEVQgguJ1xmRbmJUCEfyvEVwhDRpr8jxyiUSNCH3W2fQqT7mdgNRLwYHKrSPnWcqS54CLy2M4fDFhWGbKS4EZ",
+   "slot": 525880347,
+   "block_time": 1795544979,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-rustls",
+   "arm": "ranked",
+   "tx": "46AJzpg4tRvPVQRLKHPiWaLyx9hvj4uYgyaQSPLCKSe2nSyAg9EoUozS51mskNrsowV9WGvuTKqBgYxttEGsxXzG",
+   "slot": 525880392,
+   "block_time": 1795544990,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-cargo-rustls",
+   "arm": "reask",
+   "tx": "3brN8oxLQwEeynLij8evWBfESBZ4Ldcwq6mFwaL9AwVsc3b7QYonQsAsBfyaV4chyQcjnawn9ePMZsrmtYp9ZvBk",
+   "slot": 525880429,
+   "block_time": 1795544999,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-rustls",
+   "arm": "listing",
+   "tx": "LDNxfiTGNawootw8dPsvTRibkACQ3bPj1DfuGFWNHpbWs3tU7vEQeQmKDV4eYbu5ZQxN9Q9kcLrzJDTfWQ5cNpL",
+   "slot": 525880468,
+   "block_time": 1795545008,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-cargo-rustls",
+   "arm": "ranked",
+   "tx": "SfkhYaFPpGGr7NFcK8btB92iU84XmYjVsZC2j3c8UeDqHMbZHLTkCHMQFXpCuwQVVz5MvbWa2AzUHmQ3LbUQeCE",
+   "slot": 525880500,
+   "block_time": 1795545015,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-npm-ws",
+   "arm": "listing",
+   "tx": "ZjtQnXHew8oHrPnenBJSaoBWAWQsWXc9UDUjLGrxBYCxgXepMU9FW7Gq5wjV4bnHspM85fMYPTjCZTprtLEXWnU",
+   "slot": 525880541,
+   "block_time": 1795545025,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "recent-npm-ws",
+   "arm": "ranked",
+   "tx": "HEyBM8zQPvMH2mrxHDoywLZ4XWfMuDnHCaWMRxJpMWvsjVfAAtJV1FAfuYk2j6aqWvbwHetx5HHQUZhCeTMGBP7",
+   "slot": 525880572,
+   "block_time": 1795545033,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-ws",
+   "arm": "listing",
+   "paid_in_run": null,
+   "tx": null,
+   "onchain": "no signature"
+  },
+  {
+   "case": "clean-npm-ws",
+   "arm": "ranked",
+   "tx": "3rNxMRGYSfZQ7UQdLxEmjeazGJ2qBhh1VE3uS1q12LuU5WtXsmwDBidGjiYbbcR4Cjh3tb1vAJ4fDR12zamw32z9",
+   "slot": 525880683,
+   "block_time": 1795545059,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-ws",
+   "arm": "reask",
+   "tx": "2h4p3BnJXsrmCFwpLX2ecsfxXgeMs3hkE5PCCbx3r3zbJBPmKz5j2i9HchJAbCEJ7ZkQqQTYE1yX3CFNNBeRZYgx",
+   "slot": 525880721,
+   "block_time": 1795545068,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-solana-web3_js",
+   "arm": "listing",
+   "tx": "5VJKgewr1j42Cn3RGFBGLWpzBSw5Tu63Rvo8yDDbmnpVRsuC4bwLN1mnJyfspB4vHwUFRBkgFVgfM9bToM531U88",
+   "slot": 525880746,
+   "block_time": 1795545074,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-solana-web3_js",
+   "arm": "ranked",
+   "tx": "2BKHTcEzpBL26veNehqpBgP89sE7WdcTZZELfSY9tmS8Y2SiXfCC6oLW88uB78tXaqo6JS19NESbXxvcwMdUfv33",
+   "slot": 525880778,
+   "block_time": 1795545082,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-coral-xyz-anchor",
+   "arm": "listing",
+   "tx": "5nCY6tNHxY6FVD9gwSiA2peBH6eEUFJJ2rh13pfrujwnHvD636UEBwKxwTT9McDBXgUPBscP45fwZTngztC29kGY",
+   "slot": 525880821,
+   "block_time": 1795545092,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-coral-xyz-anchor",
+   "arm": "ranked",
+   "tx": "3fvfKsRcHmtZhqMWySU7mMqy9xfaJfeeYyKqSZKAv3YFxoR6KrWToqj47Xu2tLsWTRRDyQbH3yWX2RLP372NqKjE",
+   "slot": 525880851,
+   "block_time": 1795545099,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-bs58",
+   "arm": "listing",
+   "paid_in_run": null,
+   "tx": null,
+   "onchain": "no signature"
+  },
+  {
+   "case": "clean-npm-bs58",
+   "arm": "ranked",
+   "tx": "4SDQjcBUQMWbFvDuxcVTfA1SYF6VRJ3GmU2f2Nw4wLzH9gsXj29rvZPMYyDZeuwSQL1C2KyxDEJYx2jqVLtsv4CQ",
+   "slot": 525880892,
+   "block_time": 1795545109,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "clean-npm-bs58",
+   "arm": "reask",
+   "tx": "32FvdmHHpM3PmCkAABcHHyER9VtD3wFZmocjuz64rZ96fRrh6KsxuGy2tWX373TUZFqPzbimVb6SBgmQxXdPjFRx",
+   "slot": 525880932,
+   "block_time": 1795545119,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-web3-js",
+   "arm": "listing",
+   "tx": "5XCpRjML3E7az8WphyDqQXTThpMjKUv842Q96rYCzQyhv4UyWBanuz4ECBaiYaeDMBHYicisRu2U789CCjfnHps4",
+   "slot": 525880957,
+   "block_time": 1795545125,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-web3-js",
+   "arm": "ranked",
+   "tx": "2a275Br2M4WyN8bHNNo9Wq9417aJeYW75wAQewEi396mbpEXidbbLXBiji52z11rA7wKgXfZ2xBsyvUMbKV6hRYD",
+   "slot": 525880985,
+   "block_time": 1795545132,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-web3-js",
+   "arm": "reask",
+   "tx": "5onwCLn6ibRzywdvNqxDX5i15BMKRG2oT1WbhnFRfJuN17fhBhcNEX1VCedQRYDWG9zsxD8MwaVNdnT3ytXyEhQf",
+   "slot": 525881018,
+   "block_time": 1795545140,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-spl-token",
+   "arm": "listing",
+   "tx": "HkDY72dwPJe1yhFxbXvWvesFHWENZJjYcYDWkHGTYJqc5FMXoL3cuF17vfwf1F2b6d9kEjhFBkNxXxsLv1wbudY",
+   "slot": 525881044,
+   "block_time": 1795545146,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-spl-token",
+   "arm": "ranked",
+   "tx": "5AddWQYQ9FutR61ZEGyFgCZxT9ku1XsZvV7MRVDxUW5y7mdNdHfj7iGD5V7r8JmrkDBDVEpZjWb6k3TvbppwddSu",
+   "slot": 525881076,
+   "block_time": 1795545154,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-spl-token",
+   "arm": "reask",
+   "tx": "4mdmZRo9pfhnviPyiB32UVZTi6sS44EamH1jCsZL8bVWttPdpvGRKanxJoENR1u6HXDFhXCWhgUMMRfTMYzKrkHv",
+   "slot": 525881117,
+   "block_time": 1795545164,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-keypair",
+   "arm": "listing",
+   "tx": "39MBmuZMJZZujKqcY8CpdChurArjpaUrAWZ3DELo8MG39DbuV9iNz1gs9MCZjgFU7n2bYguSM8sDveYL5vndwXtn",
+   "slot": 525881144,
+   "block_time": 1795545170,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-keypair",
+   "arm": "ranked",
+   "tx": "3QgrNa8bzFPpaAWiy6DQm9S6SbZG1FJtmnNfi7ZFzFVYSSqCMdw5ea8pigUfV83x33dLrahVTVwn3jEYF6dUa9QX",
+   "slot": 525881175,
+   "block_time": 1795545177,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "unknown-npm-solana-keypair",
+   "arm": "reask",
+   "tx": "66BDPeXo8K2JRbeX965C3dfoGNi4MzowLkYTqpeuXv2eTBYBhNxgGh8punyW1T1dVYFmhyCTLNZWxFvWTgQqXBHu",
+   "slot": 525881209,
+   "block_time": 1795545185,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  }
+ ]
+}
