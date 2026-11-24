@@ -3,10 +3,13 @@
   "private": true,
   "type": "module",
   "description": "Paid SECURITY_REVIEW benchmark: cost per verified correct answer (Mission 10, route 1)",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@x402/evm": "2.29.0",
     "@x402/fetch": "2.29.0",
+    "@x402/svm": "2.29.0",
     "viem": "2.57.13"
   }
 }

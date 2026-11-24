@@ -80,6 +80,33 @@ class SolanaCases(unittest.TestCase):
         self.assertIn("MAL-2024-11183", web3[0]["truth"]["osv_ids"])
 
 
+class SolanaCasesV2(unittest.TestCase):
+    """mind/solana-test-v2: the hard Solana set for use case 3 (frozen)."""
+
+    def test_shape(self):
+        cs = json.loads((ROOT / "mind" / "solana-test-v2" / "cases.json").read_text())["cases"]
+        self.assertEqual(len({c["id"] for c in cs}), len(cs))
+        types = [c["type"] for c in cs]
+        for t, n in {"malicious": 4, "withdrawn": 1, "latest": 2, "recent": 4, "clean": 7, "unknown": 3}.items():
+            self.assertEqual(types.count(t), n, t)
+        for c in cs:
+            self.assertRegex(c["target"], r"^pkg:(npm|cargo)/.+@[^@]+$")
+            if c["truth"]["affected"]:
+                self.assertTrue(c["truth"]["osv_ids"])
+        self.assertTrue(all(any(i.startswith("MAL-") for i in c["truth"]["osv_ids"]) for c in cs if c["type"] == "malicious"))
+
+    def test_grading(self):
+        sys.path.insert(0, str(ROOT / "mind" / "solana-test-v2"))
+        from score import grade, wilson
+        cs = [{"target": "a", "truth": {"affected": True}}, {"target": "b", "truth": {"affected": False}},
+              {"target": "x", "truth": {"affected": None}}]
+        g = grade({"a": "BLOCK", "b": "PASS", "x": "FLAG"}, cs)
+        self.assertTrue(g["task_fulfilled"])
+        g = grade({"a": "PASS", "b": "BLOCK", "x": "BLOCK"}, cs)
+        self.assertEqual((g["missed_vulnerability"], g["false_alarm"], g["unknown_decided"]), (1, 1, 1))
+        self.assertEqual(wilson(16, 16)[0], 80.6)
+
+
 class Compare(unittest.TestCase):
     def test_nonexistent_scoring(self):
         from compare import score

@@ -1,0 +1,326 @@
+{
+ "name": "solana-dependencies-v2-hard",
+ "truth_read_at": "2026-11-24T18:08:30+00:00",
+ "rule": "mind/solana-test-v2/RULE.md",
+ "cases": [
+  {
+   "id": "malicious-npm-solana-web3_js",
+   "kind": "package",
+   "type": "malicious",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-web3.js@1.98.0",
+   "why": "look-alike of a Solana package; known malware",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "MAL-2025-1378"
+    ],
+    "source_url": "https://osv.dev/vulnerability/MAL-2025-1378"
+   },
+   "withdrawn_from_registry": true
+  },
+  {
+   "id": "malicious-npm-solana-web3",
+   "kind": "package",
+   "type": "malicious",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-web3@1.0.1-maintenance",
+   "why": "look-alike of a Solana package; known malware",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "MAL-2025-3918"
+    ],
+    "source_url": "https://osv.dev/vulnerability/MAL-2025-3918"
+   },
+   "withdrawn_from_registry": true
+  },
+  {
+   "id": "malicious-npm-solana-transaction-toolkit",
+   "kind": "package",
+   "type": "malicious",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-transaction-toolkit@1.0.0",
+   "why": "look-alike of a Solana package; known malware",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "MAL-2025-41"
+    ],
+    "source_url": "https://osv.dev/vulnerability/MAL-2025-41"
+   },
+   "withdrawn_from_registry": true
+  },
+  {
+   "id": "malicious-npm-solana-stable-web-huks",
+   "kind": "package",
+   "type": "malicious",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-stable-web-huks@1.0.0",
+   "why": "look-alike of a Solana package; known malware",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "MAL-2025-40"
+    ],
+    "source_url": "https://osv.dev/vulnerability/MAL-2025-40"
+   },
+   "withdrawn_from_registry": true
+  },
+  {
+   "id": "withdrawn-npm-solana-web3_js",
+   "kind": "package",
+   "type": "withdrawn",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@solana/web3.js@1.95.6",
+   "why": "the other hijacked @solana/web3.js release",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-jcxm-7wvp-g6p5",
+     "MAL-2024-11183"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-jcxm-7wvp-g6p5"
+   },
+   "withdrawn_from_registry": true
+  },
+  {
+   "id": "latest-npm-bigint-buffer",
+   "kind": "package",
+   "type": "latest",
+   "ecosystem": "npm",
+   "target": "pkg:npm/bigint-buffer@1.1.5",
+   "why": "big-integer buffer conversion under @solana/buffer-layout-utils (SPL token tooling) (current default release, still affected)",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-3gc7-fjrx-p6mg"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-3gc7-fjrx-p6mg"
+   }
+  },
+  {
+   "id": "latest-npm-elliptic",
+   "kind": "package",
+   "type": "latest",
+   "ecosystem": "npm",
+   "target": "pkg:npm/elliptic@6.6.1",
+   "why": "elliptic-curve library common in wallet and Solana JS tooling (current default release, still affected)",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-848j-6mx2-7j84"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-848j-6mx2-7j84"
+   }
+  },
+  {
+   "id": "recent-cargo-anchor-lang",
+   "kind": "package",
+   "type": "recent",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/anchor-lang@1.0.0-rc.1",
+   "why": "Anchor, the main framework for Solana programs; advisory GHSA-429q-fhh4-r6hj published 2026-05-13",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-429q-fhh4-r6hj",
+     "RUSTSEC-2026-0146"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-429q-fhh4-r6hj"
+   },
+   "recent_advisory": "GHSA-429q-fhh4-r6hj",
+   "recent_published": "2026-05-13"
+  },
+  {
+   "id": "clean-cargo-anchor-lang",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/anchor-lang@1.2.2",
+   "why": "Anchor, the main framework for Solana programs (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=anchor-lang"
+   }
+  },
+  {
+   "id": "recent-cargo-tokio",
+   "kind": "package",
+   "type": "recent",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/tokio@1.54.0",
+   "why": "async runtime under the Solana Rust client and validator tooling; advisory GHSA-5wjr-9356-4wc8 published 2026-10-23",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-5wjr-9356-4wc8",
+     "RUSTSEC-2026-0384"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-5wjr-9356-4wc8"
+   },
+   "recent_advisory": "GHSA-5wjr-9356-4wc8",
+   "recent_published": "2026-10-23"
+  },
+  {
+   "id": "clean-cargo-tokio",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/tokio@1.54.1",
+   "why": "async runtime under the Solana Rust client and validator tooling (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=tokio"
+   }
+  },
+  {
+   "id": "recent-cargo-rustls",
+   "kind": "package",
+   "type": "recent",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/rustls@0.23.45",
+   "why": "TLS for Solana Rust RPC clients; advisory GHSA-vp88-798v-h67f published 2026-10-27",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-c8m5-c952-6cm4",
+     "GHSA-h2v8-394m-p7vv",
+     "GHSA-vp88-798v-h67f",
+     "GHSA-w44r-93j7-qv28",
+     "RUSTSEC-2026-0346",
+     "RUSTSEC-2026-0347",
+     "RUSTSEC-2026-0348",
+     "RUSTSEC-2026-0349"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-c8m5-c952-6cm4"
+   },
+   "recent_advisory": "GHSA-vp88-798v-h67f",
+   "recent_published": "2026-10-27"
+  },
+  {
+   "id": "clean-cargo-rustls",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "crates.io",
+   "target": "pkg:cargo/rustls@0.23.46",
+   "why": "TLS for Solana Rust RPC clients (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=crates.io&q=rustls"
+   }
+  },
+  {
+   "id": "recent-npm-ws",
+   "kind": "package",
+   "type": "recent",
+   "ecosystem": "npm",
+   "target": "pkg:npm/ws@8.20.1",
+   "why": "WebSocket client used by Solana RPC subscriptions; advisory GHSA-96hv-2xvq-fx4p published 2026-06-15",
+   "truth": {
+    "affected": true,
+    "osv_ids": [
+     "GHSA-96hv-2xvq-fx4p"
+    ],
+    "source_url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
+   },
+   "recent_advisory": "GHSA-96hv-2xvq-fx4p",
+   "recent_published": "2026-06-15"
+  },
+  {
+   "id": "clean-npm-ws",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "npm",
+   "target": "pkg:npm/ws@8.23.0",
+   "why": "WebSocket client used by Solana RPC subscriptions (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=ws"
+   }
+  },
+  {
+   "id": "clean-npm-solana-web3_js",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@solana/web3.js@3.2.1",
+   "why": "core Solana package (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=%40solana/web3.js"
+   }
+  },
+  {
+   "id": "clean-npm-coral-xyz-anchor",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "npm",
+   "target": "pkg:npm/@coral-xyz/anchor@0.32.1",
+   "why": "core Solana package (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=%40coral-xyz/anchor"
+   }
+  },
+  {
+   "id": "clean-npm-bs58",
+   "kind": "package",
+   "type": "clean",
+   "ecosystem": "npm",
+   "target": "pkg:npm/bs58@6.0.0",
+   "why": "core Solana package (current default release)",
+   "truth": {
+    "affected": false,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=bs58"
+   }
+  },
+  {
+   "id": "unknown-npm-solana-web3-js",
+   "kind": "unknown",
+   "type": "unknown",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-web3-js@1.0.0",
+   "why": "plausible Solana package name that was never published",
+   "truth": {
+    "affected": null,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=solana-web3-js"
+   }
+  },
+  {
+   "id": "unknown-npm-solana-spl-token",
+   "kind": "unknown",
+   "type": "unknown",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-spl-token@1.0.0",
+   "why": "plausible Solana package name that was never published",
+   "truth": {
+    "affected": null,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=solana-spl-token"
+   }
+  },
+  {
+   "id": "unknown-npm-solana-keypair",
+   "kind": "unknown",
+   "type": "unknown",
+   "ecosystem": "npm",
+   "target": "pkg:npm/solana-keypair@1.0.0",
+   "why": "plausible Solana package name that was never published",
+   "truth": {
+    "affected": null,
+    "osv_ids": [],
+    "source_url": "https://osv.dev/list?ecosystem=npm&q=solana-keypair"
+   }
+  }
+ ],
+ "dropped": []
+}
