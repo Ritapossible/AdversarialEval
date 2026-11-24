@@ -63,13 +63,13 @@ reporting results next to the shortcut judges the material is designed to defeat
 | **Solana dependencies, pre-registered** (16 versions from the Solana stack, incl. the hijacked `@solana/web3.js` 1.95.7 and 2 that don't exist): every arm blocked all 7 bad versions; trusting Telegraph's verdict gave confident verdicts on **both non-existent versions** (14/16); with Verified Ask 16/16 for $0.22; the Mind alone 16/16. | [`2026-11-23-solana-dependencies.md`](eval/reports/2026-11-23-solana-dependencies.md) |
 | Shortcut judges at chance on that material: longer-answer 54%, TF-IDF-to-prompt 54%, security-keyword 44%. | `scripts/check_data.sh` |
 | Adapter: **72.4% / 74.7%** pairwise accuracy on 87 validation pairs (two seeds), versus ≤ 58% for every shortcut judge. | [`2026-11-11-cpu-v3-seed7.md`](eval/reports/2026-11-11-cpu-v3-seed7.md) |
-| **Independent test** (40 pairs from 2 outside authors, frozen by hash, scored once): **77.5%** (95% CI 62.5 to 87.7%) versus at most 60% for every shortcut judge. Just under the frozen 80% bar, so the adapter is **not registered**, as the rule decides. | [`2026-11-24-test-score.md`](eval/reports/2026-11-24-test-score.md) |
+| **Independent test** (40 pairs from 2 outside authors, frozen by hash, scored once): **77.5%** (95% CI 62.5 to 87.7%) versus at most 60% for every shortcut judge. Just under our pre-registered 80% bar; the owner decided to register it anyway, stated as an override, not a pass. | [`2026-11-24-test-score.md`](eval/reports/2026-11-24-test-score.md) |
 | Held out from training, whole failure types are **not** learned: **37–39%** on unseen context-reversal and false-alarm pairs. Validation accuracy holds only for trained types. | [`2026-11-14-lofo.md`](eval/reports/2026-11-14-lofo.md) |
 | Local rehearsal of the node's remote check (kit executor, real WASM engine, the node's own client): identity echo verified, and WASM and PyTorch scoring agree on **87/87** pairs. | [`2026-11-11-rehearsal-cpu-v3-seed13.md`](eval/reports/2026-11-11-rehearsal-cpu-v3-seed13.md) |
 | A shortcut found and fixed: a model trained on hand-written pairs preferred any "vulnerable" answer (100% vs 0% on version pairs); balanced minimal pairs removed it. | [`2026-11-10-cpu-v1-seed7.md`](eval/reports/2026-11-10-cpu-v1-seed7.md) |
 
 The validation figures are on same-author data; the independent test (77.5%) is the figure to
-quote, and it decided registration under the frozen rule. Benchmark and Mind results are on testnet,
+quote. It missed our own registration bar; registering anyway is the owner's stated override. Benchmark and Mind results are on testnet,
 with small samples; each report states its limits.
 
 ## Deliverables
@@ -78,7 +78,7 @@ with small samples; each report states its limits.
 |---|---|
 | **Adversarial preference dataset** (264 training + 87 validation pairs, public) with a ten-family failure taxonomy ([`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md)) | Released in `data/public/`, `data/validation/` |
 | **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 164 eligible (81 + 83 severity pairs) |
-| **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (bar 80%), so **not registered**, by the frozen rule |
+| **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (our bar 80%); **registration in preparation** by the owner's decision, an override of our own rule |
 | **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
 | **Verified Ask** ([`verify/`](verify/)): an API a buyer calls before trusting a security answer. It checks the verdict, the cited advisory ids and the version against OSV, deps.dev and rubygems.org, and returns verified, contradicted, unconfirmed, invalid or unchecked | Tested; replayed over rounds 2 to 4; hosted at `adversarialeval.vercel.app/api/verify` (token-protected) |
 | **Dependency.Guard Mind** ([`mind/`](mind/)): on Minds by Animoca, it buys one ranked `SECURITY_REVIEW_GENERAL` answer per package through Anjoman, checks it with Verified Ask, re-asks one other provider only when the check proves it wrong, and returns PASS, BLOCK or FLAG with receipts; every PASS and BLOCK is re-checked free each day ([`mind/watch.py`](mind/watch.py), daily [`watch`](.github/workflows/watch.yml) job), and miner text is treated as untrusted data | Live inside Minds; connector, evidence and comparison tests in the repo |
@@ -180,8 +180,9 @@ Setting up the Mind inside Minds (keys, HTTP tool, the skill's instructions) is 
   ([#198](https://github.com/telegraphprotocol/bounties/issues/198)); evidence for each track in
   [`docs/SUBMISSION_EVIDENCE.md`](docs/SUBMISSION_EVIDENCE.md).
 - **Done 24 Nov:** the independent test set (40 pairs, Fexx and Lino), frozen and scored once:
-  77.5%, Wilson lower bound 62.5%. Below the frozen bar (≥ 80%, ≥ 65%), so the adapter is not
-  registered; the result is published as a measured limit.
+  77.5%, Wilson lower bound 62.5%. Below our frozen bar (≥ 80%, ≥ 65%), so the rule says do not
+  register; the owner decided to register anyway, and every report says so. The network's own
+  remote check and competition then judge it.
 - **Final submission:** through anjoman.ai when the form opens, by 1 Dec 2026, 23:59 UTC.
 
 ## Acknowledgements

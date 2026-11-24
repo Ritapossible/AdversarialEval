@@ -70,6 +70,9 @@ the independent result is consistent with it.
 eligible on the live network) plus this result, reported as a measured limit. No retraining,
 tuning or seed swap follows from this score.
 
+**Owner decision, same day:** register anyway, as an explicit override of this outcome; the bar
+is unchanged and the result above stands (`eval/RULE-registration.md`, "Owner decision").
+
 ## What it says
 
 - The adapter judges independent security reviews well above chance and above every shortcut

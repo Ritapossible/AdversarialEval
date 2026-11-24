@@ -71,3 +71,23 @@ well as pooled. The bar is applied to the **pooled** test set, with the minimums
 (≥ 40 pairs, ≥ 2 independent authors). If the pooled set passes but the human-written part
 alone falls below 80% (with at least 15 such pairs), the write-up says so prominently.
 Nothing else in this rule changes.
+
+## Owner decision (2026-11-24, after the test set was scored)
+
+The frozen bar was applied as written: the test scored 77.5% (Wilson lower bound 62.5%), below
+the 80% / 65% bar, so **the rule's outcome is DO NOT REGISTER**
+(`eval/reports/2026-11-24-test-score.md`). This section does not change that outcome or the bar,
+and the bar is not lowered retroactively.
+
+The project owner has decided to **register the adapter anyway**, as an explicit override of the
+rule's recommendation, for these reasons:
+- the bar was our own, stricter than the network's: the node itself decides by its remote check
+  (11 of 15 public pairs) and its competition, which judge the adapter independently of us;
+- a failed attempt costs gas, about 1.5 hours and a bond locked for 2 days, and the bond is never
+  slashed (docs, verified 11-12);
+- at a true 77.5%, the remote check passes about 3 times in 4 (binomial, 11 of 15).
+
+Every place that reports the adapter says this plainly: "independent test 77.5%, below our
+pre-registered 80% bar; registered by the owner's decision, not because it passed." Nothing is
+retrained, tuned or re-selected: the candidate stays cpu-v3 seed 13 and its 11 Nov package bytes.
+
