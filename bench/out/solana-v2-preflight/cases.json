@@ -1,0 +1,3 @@
+{"name": "solana-v2-preflight", "note": "payment-path check before the frozen run; not part of the 21 cases", "cases": [
+ {"id": "preflight-npm-minimist", "kind": "package", "type": "clean", "ecosystem": "npm", "target": "pkg:npm/minimist@1.2.8",
+  "truth": {"affected": false, "osv_ids": [], "source_url": "https://osv.dev/list?ecosystem=npm&q=minimist"}}]}

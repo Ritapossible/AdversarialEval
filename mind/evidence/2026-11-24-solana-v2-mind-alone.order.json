@@ -1,0 +1,26 @@
+{
+ "seed": 41,
+ "order": [
+  "pkg:npm/@coral-xyz/anchor@0.32.1",
+  "pkg:npm/ws@8.20.1",
+  "pkg:npm/solana-web3-js@1.0.0",
+  "pkg:npm/solana-transaction-toolkit@1.0.0",
+  "pkg:npm/bs58@6.0.0",
+  "pkg:npm/solana-web3@1.0.1-maintenance",
+  "pkg:npm/ws@8.23.0",
+  "pkg:npm/solana-spl-token@1.0.0",
+  "pkg:npm/solana-stable-web-huks@1.0.0",
+  "pkg:npm/solana-web3.js@1.98.0",
+  "pkg:npm/@solana/web3.js@3.2.1",
+  "pkg:cargo/rustls@0.23.45",
+  "pkg:npm/elliptic@6.6.1",
+  "pkg:npm/@solana/web3.js@1.95.6",
+  "pkg:cargo/anchor-lang@1.2.2",
+  "pkg:cargo/tokio@1.54.0",
+  "pkg:npm/solana-keypair@1.0.0",
+  "pkg:npm/bigint-buffer@1.1.5",
+  "pkg:cargo/anchor-lang@1.0.0-rc.1",
+  "pkg:cargo/tokio@1.54.1",
+  "pkg:cargo/rustls@0.23.46"
+ ]
+}

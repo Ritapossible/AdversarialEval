@@ -1,0 +1,69 @@
+{
+ "at": "2026-11-24T18:24:31.441Z",
+ "cases": "bench/out/solana-v2-preflight/cases.json",
+ "repo_commit": "ee023043d80242573141e93324f455f6933e636a",
+ "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+ "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+ "listing_miner": {
+  "id": "9002",
+  "name": "TxLens"
+ },
+ "fallback_miner": {
+  "id": "20260828",
+  "name": "a1-preflight"
+ },
+ "spent_usd_by_count": 0.03,
+ "decisions": [
+  {
+   "case": "preflight-npm-minimist",
+   "target": "pkg:npm/minimist@1.2.8",
+   "listing_verdict": "Secure",
+   "ranked_verdict": "Insecure",
+   "verified_decision": "PASS",
+   "steps": [
+    {
+     "from": "ranked",
+     "label": "contradicted",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "fail",
+       "detail": "says 'Insecure', but OSV lists no advisory for this version"
+      }
+     ]
+    },
+    {
+     "from": "reask",
+     "label": "verified",
+     "checks": [
+      {
+       "name": "fields",
+       "status": "pass",
+       "detail": "verdict and count agree"
+      },
+      {
+       "name": "exists",
+       "status": "pass",
+       "detail": "minimist 1.2.8 is published"
+      },
+      {
+       "name": "verdict",
+       "status": "pass",
+       "detail": "OSV lists 0 advisories for this version"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "summary": {
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "network": "solana-devnet",
+  "calls": 3,
+  "with_signature": 3,
+  "confirmed_success": 3,
+  "usdc_paid_onchain": 0.03,
+  "paid_in_run_without_tx": [],
+  "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
+ },
+ "rows": [
+  {
+   "case": "preflight-npm-minimist",
+   "arm": "listing",
+   "tx": "4c16JtfUd8tTcq244Gu8rZ23LoAapKG2yKPY944RkkoyxDgz8wMLJfXVSicyuBaiABUEwkv5ezXrMkXZYJqn4ZLp",
+   "slot": 525878987,
+   "block_time": 1795544651,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "preflight-npm-minimist",
+   "arm": "ranked",
+   "tx": "5mwWTgyM5oWDdE9RxTMs6ru74UaAJPnUcKSDpgEuZwkYtsV3DzzeKutpEDpeSvFd7FZGu5SQqvjBbu6kWrEa3F4T",
+   "slot": 525879019,
+   "block_time": 1795544658,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "preflight-npm-minimist",
+   "arm": "reask",
+   "tx": "army2gDduGU3SjKLGSeTKaNqeZmWakAwKQpMEEjbD4NTPXRzebYve1FaMJzKJtzuEjqw2P1v4TpqUD8mpXXdMd9",
+   "slot": 525879054,
+   "block_time": 1795544667,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  }
+ ]
+}
