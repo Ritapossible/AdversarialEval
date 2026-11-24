@@ -239,6 +239,9 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 
 ## Gotchas
 
+- CI runs Python 3.11; this machine's default is newer. Run the test suite with /usr/bin/python3.11 before pushing (an f-string with a backslash broke CI on 11-24).
+- GitHub Pages is switched on but unused (the site is on Vercel); its 'github-pages' deployment shows a red X until the owner sets Settings > Pages > Source to None.
+
 - OSV ids are **case-sensitive** (`GHSA-` + lowercase). Uppercased GHSA lookups always 404, which once made unverified "fabricated" ids look verified. Many CVEs exist only as aliases (e.g. CVE-2023-6014), so check aliases too.
 - OSV records can disagree with their own aliases on affected ranges (jinja2 GHSA-fqh9: fixed 2.7.2 vs PYSEC-2014-82: 2.7.3). Generated labels must pass `tools/verify_generated.py`; ambiguous advisories go in `data/sources/ambiguous_advisories.txt`.
 - Don't edit `scripts/train.sh` while a run is executing it: bash reads scripts incrementally.
