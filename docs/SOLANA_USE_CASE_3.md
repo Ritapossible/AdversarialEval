@@ -12,8 +12,10 @@ Source: Telegraph's post "Solana Institutional AI & Commercial Use Cases" (Disco
 > compared against a frontier model and direct paid API selection. Measure correctness, costs,
 > latency and actual task fulfillment.
 
-Status: **planned, nothing built for it yet.** Facts about Pay.sh below are open questions until we
-have read its documentation; nothing here claims how Pay.sh works.
+Status (24 Nov): **built and run.** Result: `eval/reports/2026-11-24-solana-use-case-3.md`. Every
+Telegraph call was paid per request in devnet USDC with x402 on Solana (the protocol Pay.sh uses),
+and every payment was confirmed on-chain. Pay.sh's CLI itself keeps keys in the OS keychain and
+documents no devnet mode, so the run uses the x402 Solana client directly.
 
 ## Why this use case, not the other four
 

@@ -216,13 +216,13 @@ independent verification, and three-arm tests with receipts. Full plan (product,
 arms, hard cases, Solana payment, deliverables, order of work): `docs/SOLANA_USE_CASE_3.md`.
 Not started; gaps, in order:
 
-- [ ] S5 Read the use-case post and Pay.sh's docs; confirm what "Telegraph x Pay.sh" needs (no claims
+- [x] S5 (11-24: Pay.sh = x402/MPP on Solana; node accepts x402 exact on Solana devnet) Read the use-case post and Pay.sh's docs; confirm what "Telegraph x Pay.sh" needs (no claims
       about Pay.sh until read)
-- [ ] S6 Pay on Solana: one paid Telegraph request settled in Solana devnet USDC (node's x402 Solana
+- [x] S6 (11-24: 55 calls paid on Solana devnet, all confirmed on-chain) Pay on Solana: one paid Telegraph request settled in Solana devnet USDC (node's x402 Solana
       rail, or Pay.sh), with the receipt checked on-chain (absorbs S4)
-- [ ] S7 A fourth arm, "direct paid API selection": the provider an agent would pick from a listing,
+- [x] S7 (11-24: first listed = TxLens) A fourth arm, "direct paid API selection": the provider an agent would pick from a listing,
       next to the evaluated choice, the frontier model alone, and evaluated + Verified Ask
-- [ ] S8 Harder Solana cases, where the frontier model alone is not already perfect (the 16-case set
+- [x] S8 (11-24: 21 cases, report eval/reports/2026-11-24-solana-use-case-3.md) Harder Solana cases, where the frontier model alone is not already perfect (the 16-case set
       was easy: every arm got every real version right)
 - [ ] S9 Commercial case in one page: who pays (teams shipping Solana agents and wallets), for what,
       and the price per check against the cost of a wrong PASS

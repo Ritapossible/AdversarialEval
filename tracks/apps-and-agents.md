@@ -55,13 +55,15 @@ none of 142 wrong package answers labelled verified; 220 of 220 verified answers
 
 **With and without Telegraph** ([packages](../eval/reports/2026-11-22-mind-comparison.md),
 [code](../eval/reports/2026-11-22-code-review-v2.md),
-[Solana](../eval/reports/2026-11-23-solana-dependencies.md))
+[Solana](../eval/reports/2026-11-23-solana-dependencies.md),
+[Solana use case 3, paid on Solana](../eval/reports/2026-11-24-solana-use-case-3.md))
 
 | Test | Telegraph answer trusted | Telegraph + Verified Ask (or the Mind weighing it) | Mind alone |
 |---|---|---|---|
 | 26 packages, 7 ecosystems, incl. 2 that don't exist | 11 right of the 18 answered; 3 vulnerable versions passed; 2 non-existent packages called "Secure" | nothing unsafe approved (24 decided right, 2 flagged for a person) | 26 of 26 (by querying OSV itself) |
 | 23 subtle code functions (pre-registered) | route 13/23, best miner directly 11/23; both missed real flaws | the Mind, shown the routed answers, 23/23, overruling all 10 wrong ones | 23 of 23 |
 | 16 Solana stack versions (pre-registered), incl. the hijacked `@solana/web3.js` 1.95.7 and 2 that don't exist | 14/16: all 7 bad versions blocked, but both non-existent versions given a confident verdict | 16/16 for $0.22; both non-existent versions flagged | 16 of 16 |
+| 21 hard Solana cases, every call paid in USDC on Solana devnet (pre-registered) | ranked route 6/21, approving malware 5 times; first-listed provider 8/21 | 20/21 for $0.35, nothing unsafe approved (1 malware package flagged for a person) | 21 of 21 |
 
 Other findings: the same miner changed its verdict on 5 of 20 snippets asked 15 minutes apart;
 a routed ask reserves $0.26 and can settle two payments; a facilitator outage refused payments
