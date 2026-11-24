@@ -199,9 +199,9 @@ Setting up the Mind inside Minds (keys, HTTP tool, the skill's instructions) is 
   NVD data (US government; not endorsed or certified by the NVD).
 - Fexx ([@fexx301](https://github.com/fexx301)), for findings shared in the Evaluators
   community that shaped our held-out testing and severity-pair design, and for 20 independent,
-  AI-assisted test pairs they checked by hand ([intake report](eval/reports/2026-11-18-test-intake-fexx.md)).
-- Lino, for 20 independent, AI-assisted test pairs (drafted with Grok, every pair read and
-  revised by hand) that completed the 40-pair independent test set
+  AI-assisted test pairs he checked by hand ([intake report](eval/reports/2026-11-18-test-intake-fexx.md)).
+- Lino, for 20 independent, AI-assisted test pairs (drafted with Grok; he read and revised every
+  pair by hand) that completed the 40-pair independent test set
   ([test result](eval/reports/2026-11-24-test-score.md)).
 - defiplusacademy ([@defiplusacademy24-art](https://github.com/defiplusacademy24-art)), for 21
   AI-assisted test pairs, scored and reported separately as author-written pairs (not part of the
