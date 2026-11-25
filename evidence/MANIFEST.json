@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "signed_at": "2026-11-24T19:48:18.618Z",
- "at_commit": "b5f1d13e1333940993fdf4cc34664458c0af0c0c",
+ "signed_at": "2026-11-25T07:32:16.259Z",
+ "at_commit": "296a9f56cffbb9103c51d2d21464a42cd5f99f94",
  "scope": [
   "eval/reports",
   "bench/out",
@@ -124,6 +124,8 @@
   "mind/evidence/2026-11-23T11-14-23-336Z.json": "4464089d65760acaa6010d1b067c12b22c676573a36b3784d7e40a3b3e6ac2db",
   "mind/evidence/2026-11-24-solana-v2-mind-alone.json": "8b7a6ef85defa5658ea6775322c3a28b3e1800172a3f4eedac9a01a0f5871722",
   "mind/evidence/2026-11-24-solana-v2-mind-alone.order.json": "5aff29a33a783dd563bc0fe41510eb49a27da5861046efce0fcbfe72c7d64ea3",
+  "mind/evidence/2026-11-25T07-29-17-364Z.attempts.ndjson": "7e94b32d2ab072794b1b3175f40875f7ca9a1b4e1dfb4fa48976611d249dbfc5",
+  "mind/evidence/2026-11-25T07-29-17-364Z.json": "9c1da01c510bf5a680694afefaa771d3469d6d9861323594958d0bcbf812badb",
   "mind/evidence/watch/2026-11-23.json": "884c8cba625788d178c32ef170733b35366eb7af32dca2c4d3e4aea9f544a841"
  }
 }
