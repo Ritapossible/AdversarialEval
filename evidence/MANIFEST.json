@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "signed_at": "2026-11-25T07:32:16.259Z",
- "at_commit": "296a9f56cffbb9103c51d2d21464a42cd5f99f94",
+ "signed_at": "2026-11-25T09:12:09.643Z",
+ "at_commit": "ec10d316cd69e294ec9eeff430c9807a3d116ce0",
  "scope": [
   "eval/reports",
   "bench/out",
@@ -11,6 +11,8 @@
  "algorithm": "ed25519 over the exact bytes of MANIFEST.json; files hashed with SHA-256",
  "files": {
   "bench/out/calls.ndjson": "11121cc61da983f19beb7dbebc5f1950be3326be75656e0880600fc2b0f423e2",
+  "bench/out/deploycheck-qwen-agent/report.json": "7234b3e8afc5170f26c5173672f4d6b8d92d58abbd1697cd6584c91919ad6897",
+  "bench/out/deploycheck-qwen-agent/report.md": "9d175c9bdab558179a4588ec74b090bed1fae67bdb8cfb3274a8f3bcde4ddbd7",
   "bench/out/onchain-payments-round1.json": "6bc0fec02750b7b4141f9e6c3f39871d520b4caeadd7a3492670fe1b7898589d",
   "bench/out/pooled-score.json": "15e9d8f375aac03a8337efeb664f9a5bb5a80fd82b8ce7929c18c8206e372f65",
   "bench/out/pooled-score.md": "4390fd86a97e8f618b36ac5b1909cbca70a2a5b6682d7e214efeb5aa8976fbf4",
@@ -93,6 +95,7 @@
   "eval/reports/2026-11-24-solana-use-case-3.md": "89f36b5bd449cb2b9a615e0266544bde176b60da257c965c779446dd230fc91b",
   "eval/reports/2026-11-24-test-freeze.md": "5a1015b03339a8c4386a0e41073284ea8875b93a6cece4e86897d945e6defbb4",
   "eval/reports/2026-11-24-test-score.md": "f0e0746cb1924fe2275f4f8293bcd092845434f071591fe8ca33b3932c5e4fb8",
+  "eval/reports/2026-11-25-qwen-agent-predeploy.md": "6250c9f12462a0c981057c8353a5defd6825286f69f5f38cc5e2f103a2a38109",
   "eval/reports/raw/2026-11-15-miner-audit.json": "ebd5dbc18b99f0a02a32d48c71693b546e6e3efa975cc229c17e17dbffb56d4b",
   "eval/reports/raw/2026-11-22-evalpool-mine.json": "0503084f75dc76d9b9e8c8979df66016640621efcb634cb2737c0a1b98e55200",
   "eval/reports/raw/2026-11-22-evalpool-status.json": "806e2e71c15dfd19281238f4ab96918a1d6a77793231e69f8171d1afb64eaa81",

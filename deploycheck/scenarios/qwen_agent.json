@@ -1,0 +1,106 @@
+{
+ "name": "Qwen-Agent 0.0.34 with its web UI (pip install \"qwen-agent[gui]\")",
+ "why": "Alibaba's own agent framework (github.com/QwenLM/Qwen-Agent), latest release on PyPI, installed the way its README tells customers to",
+ "entry_modules": [
+  "qwen_agent.agents",
+  "qwen_agent.gui"
+ ],
+ "source_module": "qwen_agent",
+ "smoke": "deploycheck/apps/qwen_agent_webui.py",
+ "reach_rules": "deploycheck/rules/pypi.json",
+ "key_packages": [
+  "qwen-agent",
+  "gradio",
+  "gradio-client",
+  "modelscope-studio",
+  "numpy",
+  "soundfile",
+  "tqdm",
+  "python-dateutil",
+  "pillow",
+  "starlette",
+  "fastapi"
+ ],
+ "telegraph_targets": [
+  "pkg:pypi/qwen-agent@0.0.34",
+  "pkg:pypi/gradio@5.23.1",
+  "pkg:pypi/gradio@5.50.0",
+  "pkg:pypi/gradio@6.32.0"
+ ],
+ "candidates": [
+  {
+   "name": "as shipped",
+   "install": [
+    "qwen-agent[gui]==0.0.34"
+   ],
+   "probe_undeclared": true
+  },
+  {
+   "name": "fix 1: add the 4 missing packages",
+   "install": [
+    "qwen-agent[gui]==0.0.34",
+    "numpy",
+    "soundfile",
+    "tqdm",
+    "python-dateutil"
+   ]
+  },
+  {
+   "name": "fix 2: fix 1 + gradio 5.50.0",
+   "install": [
+    "qwen-agent[gui]==0.0.34",
+    "numpy",
+    "soundfile",
+    "tqdm",
+    "python-dateutil"
+   ],
+   "overrides": [
+    "gradio==5.50.0"
+   ]
+  },
+  {
+   "name": "fix 3: fix 1 + gradio 6.32.0",
+   "install": [
+    "qwen-agent[gui]==0.0.34",
+    "numpy",
+    "soundfile",
+    "tqdm",
+    "python-dateutil"
+   ],
+   "overrides": [
+    "gradio==6.32.0"
+   ]
+  },
+  {
+   "name": "fix 4: fix 3 + modelscope-studio 2.1.2",
+   "install": [
+    "qwen-agent[gui]==0.0.34",
+    "numpy",
+    "soundfile",
+    "tqdm",
+    "python-dateutil"
+   ],
+   "overrides": [
+    "gradio==6.32.0",
+    "modelscope-studio==2.1.2"
+   ]
+  },
+  {
+   "name": "fix 5: fix 2 + pillow 13.0.0 + starlette 1.3.1 (forced)",
+   "install": [
+    "qwen-agent[gui]==0.0.34",
+    "numpy",
+    "soundfile",
+    "tqdm",
+    "python-dateutil"
+   ],
+   "overrides": [
+    "gradio==5.50.0"
+   ],
+   "force": [
+    "pillow==13.0.0",
+    "starlette==1.3.1"
+   ]
+  }
+ ]
+}

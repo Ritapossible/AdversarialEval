@@ -1,0 +1,84 @@
+{
+ "_note": "Reachability rules, one per advisory, written after reading each advisory's text (linked by id on osv.dev). 'uses' are regular expressions searched in the app's own source; a match means the app uses the vulnerable feature. 'condition' marks advisories that also need something outside the code (platform, attacker position). A package's '_default' rule applies to its advisories without their own rule; it is written for the whole class (for Pillow, any decoder flaw is reachable once the app decodes images it receives).",
+ "gradio": {
+  "GHSA-39mp-8hj3-5c49": {
+   "needs": "serving a Gradio app (absolute path traversal)",
+   "uses": [
+    "\\.launch\\("
+   ],
+   "condition": "the server runs on Windows with Python 3.13 or later"
+  },
+  "GHSA-6655-8ph2-63j3": {
+   "needs": "the Audio component (weak cache key for numpy audio)",
+   "uses": [
+    "gr\\.Audio\\b"
+   ],
+   "condition": "the attacker already has local access to the server"
+  },
+  "GHSA-7hp7-4p35-3cx2": {
+   "needs": "proxying an external Space loaded with gr.load() (shared reverse-proxy client)",
+   "uses": [
+    "gr\\.load\\("
+   ]
+  },
+  "GHSA-8jw3-6x8j-v96g": {
+   "needs": "the flagging feature",
+   "uses": [
+    "allow_flagging|flagging_mode|FlaggingCallback|gr\\.Interface\\("
+   ]
+  },
+  "GHSA-h3h8-3v2v-rg7m": {
+   "needs": "OAuth components such as gr.LoginButton",
+   "uses": [
+    "LoginButton|OAuthProfile|OAuthToken"
+   ]
+  },
+  "GHSA-j36p-7w88-g82j": {
+   "needs": "the FileExplorer component",
+   "uses": [
+    "FileExplorer"
+   ]
+  },
+  "GHSA-jmh7-g254-2cq9": {
+   "needs": "gr.load() of an attacker-controlled Space (SSRF via proxy_url)",
+   "uses": [
+    "gr\\.load\\("
+   ]
+  },
+  "GHSA-pfjf-5gxr-995x": {
+   "needs": "OAuth login enabled (open redirect)",
+   "uses": [
+    "LoginButton|OAuthProfile|OAuthToken"
+   ]
+  },
+  "GHSA-wmjh-cpqj-4v6x": {
+   "needs": "serving a Gradio app (CORS origin check on every request)",
+   "uses": [
+    "\\.launch\\("
+   ]
+  }
+ },
+ "pillow": {
+  "_default": {
+   "needs": "decoding images the app receives (any Pillow image-decoder flaw)",
+   "uses": [
+    "Image\\.open\\("
+   ]
+  }
+ },
+ "starlette": {
+  "_default": {
+   "needs": "serving HTTP with Starlette (every Gradio app)",
+   "uses": [
+    "\\.launch\\("
+   ]
+  },
+  "GHSA-wqp7-x3pw-xc5r": {
+   "needs": "StaticFiles serving (SSRF and NTLM theft via UNC paths)",
+   "uses": [
+    "\\.launch\\("
+   ],
+   "condition": "the server runs on Windows"
+  }
+ }
+}
