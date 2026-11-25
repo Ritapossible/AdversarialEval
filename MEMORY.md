@@ -241,7 +241,7 @@ curl -s "$N/engine/v1/intents/SECURITY_REVIEW"
 
 ## Gotchas
 
-- CI runs Python 3.11; this machine's default is newer. Run the test suite with /usr/bin/python3.11 before pushing (an f-string with a backslash broke CI on 11-24).
+- Before every push run `bash scripts/ci_local.sh`: it repeats every CI step with Python 3.11 (CI broke twice: an f-string backslash on 11-24, a key-shaped placeholder caught by the secret scan on 11-25).
 - GitHub Pages is switched on but unused (the site is on Vercel); its 'github-pages' deployment shows a red X until the owner sets Settings > Pages > Source to None.
 
 - OSV ids are **case-sensitive** (`GHSA-` + lowercase). Uppercased GHSA lookups always 404, which once made unverified "fabricated" ids look verified. Many CVEs exist only as aliases (e.g. CVE-2023-6014), so check aliases too.

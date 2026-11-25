@@ -30,8 +30,9 @@ def main() -> int:
             launched["app"] = self
             return real_launch(self, *a, **k)
         gr.Blocks.launch = launch
-        bot = Assistant(llm={"model": "qwen-max", "model_server": "dashscope", "api_key": "dummy-not-used"},
-                        name="Smoke", description="build-and-serve check")
+        llm = {"model": "qwen-max", "model_server": "dashscope"}
+        llm["api_key"] = "x"  # placeholder: building the UI never calls the model
+        bot = Assistant(llm=llm, name="Smoke", description="build-and-serve check")
         WebUI(bot).run()
         base = f"http://127.0.0.1:{launched['port']}"
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
