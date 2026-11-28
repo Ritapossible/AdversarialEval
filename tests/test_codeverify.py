@@ -76,5 +76,52 @@ class Frozen(unittest.TestCase):
             h.update(f.relative_to(ROOT).as_posix().encode() + b"\0" + f.read_bytes() + b"\0")
         self.assertEqual(h.hexdigest(), "e7b8bc328d31ff6fccc2f5b4b6d4a021fd0f382d05ee6675509973c29bb8bba8")
 
+class Registry(unittest.TestCase):
+    """B2: only a 404 means 'not on PyPI'; rate limits and outages are retried, then the change is skipped."""
+
+    def setUp(self):
+        import checks
+        self.checks = checks
+        self._http, self._sleep = checks.http_json, checks.time.sleep
+        checks.time.sleep = lambda s: None
+
+    def tearDown(self):
+        self.checks.http_json, self.checks.time.sleep = self._http, self._sleep
+
+    def err(self, code):
+        import urllib.error
+        return urllib.error.HTTPError("https://pypi.org/x", code, "x", {}, None)
+
+    def test_404_is_missing_and_yanked_is_flagged(self):
+        def fake(url, timeout=60):
+            if "nosuch" in url:
+                raise self.err(404)
+            return {"info": {"yanked": "old" in url, "yanked_reason": "bad build"}}
+        self.checks.http_json = fake
+        reqs = parse_requirements("nosuch==1.0\nold==2.0\nfine==3.0")
+        probs = self.checks.registry(reqs)
+        self.assertEqual(len(probs), 2)
+        self.assertIn("not found on PyPI", probs[0])
+        self.assertIn("yanked", probs[1])
+
+    def test_rate_limit_is_retried_then_succeeds(self):
+        calls = []
+        def fake(url, timeout=60):
+            calls.append(url)
+            if len(calls) < 3:
+                raise self.err(429)
+            return {"info": {}}
+        self.checks.http_json = fake
+        self.assertEqual(self.checks.registry(parse_requirements("pyyaml==6.0.2")), [])
+        self.assertEqual(len(calls), 3)
+
+    def test_outage_is_not_reported_as_missing(self):
+        def fake(url, timeout=60):
+            raise self.err(503)
+        self.checks.http_json = fake
+        with self.assertRaises(self.checks.RegistryUnavailable):
+            self.checks.registry(parse_requirements("pyyaml==6.0.2"))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)

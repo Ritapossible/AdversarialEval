@@ -1,0 +1,53 @@
+{
+ "read_at": "2026-11-28T18:11:32+00:00",
+ "markets": {
+  "pm-7203506": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1m",
+    "close": 59958.0,
+    "candle_open_utc": "2026-11-27T16:59:00+00:00"
+   }
+  },
+  "pm-5170735": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1m",
+    "minutes": 44640,
+    "extreme": 87220.0
+   }
+  },
+  "pm-5170791": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1m",
+    "minutes": 44640,
+    "extreme": 2174.08
+   }
+  },
+  "pm-6891215": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1m",
+    "minutes": 10080,
+    "extreme": 62006.0
+   }
+  },
+  "pm-5170814": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=XRPUSDT&interval=1m",
+    "minutes": 44640,
+    "extreme": 1.555
+   }
+  },
+  "pm-6563869": {
+   "outcome": "no",
+   "evidence": {
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1m",
+    "minutes": 10080,
+    "extreme": 73510.0
+   }
+  }
+ }
+}

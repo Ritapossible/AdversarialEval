@@ -5,11 +5,16 @@
     node bench/telegraph_jobs.mjs --jobs <out>/jobs1.json --out <out> --max-spend 0.75
     python resolve/run.py jobs2     # second, independent provider jobs   -> <out>/jobs2.json
     node bench/telegraph_jobs.mjs --jobs <out>/jobs2.json --out <out> --max-spend 0.75
+    python resolve/run.py sources   # read each named source once, save it -> <out>/sources.json
     python resolve/run.py score     # arms A, B, C against the truth      -> <out>/score.json
+
+`sources` runs once, right after the paid calls; `score` reads only saved data (calls, sources), so
+a score never changes when a source changes later or a future market settles.
 """
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
 import math
 import sys
@@ -66,7 +71,7 @@ def cites(rec: dict | None) -> bool:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["jobs1", "jobs2", "score"])
+    ap.add_argument("cmd", choices=["jobs1", "jobs2", "sources", "score"])
     ap.add_argument("--out", type=Path, default=ROOT / "bench/out/eventres")
     ap.add_argument("--cases", type=Path, default=HERE / "cases.json")
     a = ap.parse_args()
@@ -87,13 +92,33 @@ def main() -> None:
         for m in markets:
             first = calls.get(f"ranked|{m['id']}") or {}
             first_fee = fees.get(str(first.get("miner_id")), "?")
-            pick = next(x for x in SECOND if fees.get(x) and fees[x] != first_fee)
+            pick = next((x for x in SECOND if fees.get(x) and fees[x] != first_fee), None)
+            if pick is None:  # no listed miner with a different payout address: record it, buy nothing
+                print(f"{m['id']}: no independent second provider (first miner fee {first_fee})")
+                continue
             js.append({"key": f"second|{m['id']}", "intent": INTENT, "params": {"event": m["event"]}, "miner": pick,
                        "first_miner": first.get("miner_id"), "first_fee": first_fee})
         (out / "jobs2.json").write_text(json.dumps({"jobs": js}, indent=1) + "\n")
         print(len(js), "second-provider jobs")
         return
 
+    if a.cmd == "sources":
+        f = out / "sources.json"
+        if f.exists():
+            raise SystemExit(f"{f} exists: sources are read once and kept; delete it only to start a run over")
+        saved = {}
+        for m in markets:
+            if m["contract"]:
+                o, ev = resolve(m["contract"])
+                saved[m["id"]] = {"outcome": o, "evidence": ev}
+                print(f"{m['id']:32} {o}")
+        f.write_text(json.dumps({"read_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "markets": saved}, indent=1) + "\n")
+        return
+
+    src_file = out / "sources.json"
+    if any(m["contract"] for m in markets) and not src_file.exists():
+        raise SystemExit(f"run `python resolve/run.py sources --out {out}` first: scores use saved source readings only")
+    sources = json.loads(src_file.read_text())["markets"] if src_file.exists() else {}
     rows = []
     for m in markets:
         r1, r2 = calls.get(f"ranked|{m['id']}"), calls.get(f"second|{m['id']}")
@@ -101,11 +126,11 @@ def main() -> None:
         A = o1 if o1 in ("yes", "no") else "unresolved"
         B = o1 if o1 == o2 and o1 in ("yes", "no") else "unresolved"
         if m["contract"]:
-            C, ev = resolve(m["contract"])
+            C = sources[m["id"]]["outcome"]
             c_how = "official source in the contract"
         else:
             agree = o1 == o2 and o1 in ("yes", "no") and cites(r1) and cites(r2)
-            C, ev = (o1 if agree else "unresolved"), {}
+            C = o1 if agree else "unresolved"
             c_how = "two independent answers agree, each citing a source" if agree else "left for a person"
         rows.append({"id": m["id"], "kind": m.get("kind") or m.get("category"), "truth": m["truth"], "A": A, "B": B, "C": C, "C_how": c_how,
                      "C_caught_dispute": bool(m["contract"]) and o1 in ("yes", "no") and o1 != C,

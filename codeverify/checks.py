@@ -18,6 +18,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
@@ -56,6 +57,30 @@ def parse_requirements(text: str) -> list[dict]:
     return out
 
 
+class RegistryUnavailable(RuntimeError):
+    """PyPI could not be reached or kept failing: the change is not checked, rather than held."""
+
+
+def pypi_info(url: str, tries: int = 4, wait: float = 2.0) -> dict | None:
+    """PyPI JSON for a project or release, None if it doesn't exist (HTTP 404 only). Rate limits and
+    server errors are retried with backoff; if PyPI stays unavailable, RegistryUnavailable is raised."""
+    last = ""
+    for attempt in range(tries):
+        try:
+            return http_json(url, timeout=60).get("info") or {}
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return None
+            last = f"HTTP {e.code}"
+            if e.code not in (429, 500, 502, 503, 504):
+                break
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last = str(e)[:120]
+        if attempt < tries - 1:
+            time.sleep(wait * 2 ** attempt)
+    raise RegistryUnavailable(f"PyPI unavailable for {url}: {last}")
+
+
 def registry(reqs: list[dict]) -> list[str]:
     """Check 1: every dependency exists on PyPI (at its pinned version) and isn't yanked."""
     problems = []
@@ -64,10 +89,9 @@ def registry(reqs: list[dict]) -> list[str]:
             problems.append(f"unparseable requirement `{r['line']}`")
             continue
         url = f"https://pypi.org/pypi/{r['name']}/{r['version']}/json" if r["pinned"] else f"https://pypi.org/pypi/{r['name']}/json"
-        try:
-            info = http_json(url, timeout=60).get("info") or {}
-        except urllib.error.HTTPError as e:
-            problems.append(f"`{r['line']}` not found on PyPI (HTTP {e.code})")
+        info = pypi_info(url)
+        if info is None:
+            problems.append(f"`{r['line']}` not found on PyPI (HTTP 404)")
             continue
         if r["pinned"] and info.get("yanked"):
             problems.append(f"`{r['line']}` is yanked on PyPI: {info.get('yanked_reason') or 'no reason given'}")
@@ -217,8 +241,12 @@ def main() -> None:
             seed = int(sdir.name[1:])
             if (tdir.name, seed) in have:
                 continue
-            res = check_change(sdir, work_root, str(tools / "bin/python"), HERE / "tests" / f"{tdir.name}_hidden.py",
-                               HERE / "tests" / f"{tdir.name}_visible.py")
+            try:
+                res = check_change(sdir, work_root, str(tools / "bin/python"), HERE / "tests" / f"{tdir.name}_hidden.py",
+                                   HERE / "tests" / f"{tdir.name}_visible.py")
+            except RegistryUnavailable as e:  # not recorded, so a re-run checks it again
+                print(f"{tdir.name} s{seed}: SKIPPED, {e}", flush=True)
+                continue
             row = {"task": tdir.name, "seed": seed, "at": now(), "repo_commit": commit, "bandit_version": bver, **res}
             with dst.open("a") as fh:
                 fh.write(json.dumps(row) + "\n")
