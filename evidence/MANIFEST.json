@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "signed_at": "2026-11-28T10:29:19.328Z",
- "at_commit": "8ed50b2fce4f49f37c5e0ce5bafd6aa03cd53342",
+ "signed_at": "2026-11-28T14:20:26.212Z",
+ "at_commit": "7ec1f73db4f19fcab5bb82fad0b42d377c58c4aa",
  "scope": [
   "eval/reports",
   "bench/out",
@@ -300,6 +300,7 @@
   "eval/reports/2026-11-24-test-score.md": "f0e0746cb1924fe2275f4f8293bcd092845434f071591fe8ca33b3932c5e4fb8",
   "eval/reports/2026-11-25-qwen-agent-predeploy.md": "6250c9f12462a0c981057c8353a5defd6825286f69f5f38cc5e2f103a2a38109",
   "eval/reports/2026-11-28-polymarket-resolution.md": "fdfa9a97ae88c6d9534b9f0f4719547887c7e110a3e90c16869fbb24c638f842",
+  "eval/reports/2026-11-28-polymarket-via-app.md": "76b8c60fc926bf3fc178ed3f506b59b96ff794396ade786ef4b087839c501f25",
   "eval/reports/2026-11-28-prediction-market-resolution.md": "524cfd2d6c71517fd35b7f7dba5b005705707e530884339da3906923f2278b50",
   "eval/reports/2026-11-28-qwen-code-verification.md": "618fdabf2bfcca99154dbbd6d047b428394a65b02da2ac4b046580e8cfa8e1db",
   "eval/reports/raw/2026-11-15-miner-audit.json": "ebd5dbc18b99f0a02a32d48c71693b546e6e3efa975cc229c17e17dbffb56d4b",
@@ -336,6 +337,11 @@
   "mind/evidence/2026-11-24-solana-v2-mind-alone.order.json": "5aff29a33a783dd563bc0fe41510eb49a27da5861046efce0fcbfe72c7d64ea3",
   "mind/evidence/2026-11-25T07-29-17-364Z.attempts.ndjson": "7e94b32d2ab072794b1b3175f40875f7ca9a1b4e1dfb4fa48976611d249dbfc5",
   "mind/evidence/2026-11-25T07-29-17-364Z.json": "9c1da01c510bf5a680694afefaa771d3469d6d9861323594958d0bcbf812badb",
+  "mind/evidence/2026-11-28T10-41-49-223Z.markets.attempts.ndjson": "137d76a2e6aa31603f258c4718b3516969f5ad12d4b12c340d58c53d248db49a",
+  "mind/evidence/2026-11-28T10-41-49-223Z.markets.json": "dcac67d915ae13e6548a9b66bebc79cf4014de7868ba9828c1a32d50b610cf07",
+  "mind/evidence/aborted/2026-11-28T10-32-50-524Z.markets.attempts.ndjson": "c4200e4ec175206aa8c8b66abe260e7bd4e46c0f649978c34319196a04427e6a",
+  "mind/evidence/aborted/2026-11-28T10-36-06-092Z.markets.attempts.ndjson": "01b832e2767415304a4bf2ec9aea6aa3eed3c788c064f5181b42041817aee800",
+  "mind/evidence/aborted/2026-11-28T10-38-16-493Z.markets.attempts.ndjson": "3fb6afaf162bb3b4dfdef3f22bdcf424067466f63819e5bab1445d65b747877c",
   "mind/evidence/watch/2026-11-23.json": "884c8cba625788d178c32ef170733b35366eb7af32dca2c4d3e4aea9f544a841"
  }
 }
