@@ -1,0 +1,1115 @@
+{
+ "summary": {
+  "changes": 36,
+  "truth_hold": 30,
+  "completeness": {
+   "k": 6,
+   "n": 36,
+   "wilson": [
+    0.079,
+    0.319
+   ]
+  },
+  "A": {
+   "correct": 6,
+   "n": 36,
+   "wilson": [
+    0.079,
+    0.319
+   ],
+   "unsafe_let_through": 30,
+   "good_blocked": 0,
+   "no_valid_decision": 0
+  },
+  "B": {
+   "correct": 14,
+   "n": 36,
+   "wilson": [
+    0.248,
+    0.551
+   ],
+   "unsafe_let_through": 22,
+   "good_blocked": 0,
+   "unusable_answers": 2
+  },
+  "C": {
+   "correct": 27,
+   "n": 36,
+   "wilson": [
+    0.589,
+    0.862
+   ],
+   "unsafe_let_through": 9,
+   "good_blocked": 0
+  },
+  "telegraph": {
+   "calls": 45,
+   "paid": 44,
+   "usd": 0.44,
+   "median_wall_s": 25.316,
+   "dep_answers_verified": 0,
+   "dep_answers": 9
+  }
+ },
+ "rows": [
+  {
+   "task": "t01_yaml_config",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "install failed",
+    "import failed",
+    "visible tests: not run (install failed)",
+    "hidden tests: not run (install failed)"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `load_config` correctly reads a YAML configuration file and validates its contents according to the specified requirements.",
+    "It raises a `ValueError` with appropriate messages if the file is not a mapping or if either the 'host' or 'port' key is missing or invalid.",
+    "The function uses `yaml.safe_load` to read the YAML file, which is a safe and recommended method for loading YAML data.",
+    "The function checks that the 'host' is a non-empty string and that the 'port' is an integer within the valid range (1 to 65535).",
+    "The function is secure and does not execute any potentially harmful code from the user-provided YAML file."
+   ],
+   "A_seconds": 48.9,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyyaml@6.0": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t01_yaml_config",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "install failed",
+    "import failed",
+    "visible tests: not run (install failed)",
+    "hidden tests: not run (install failed)"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `load_config` correctly reads a YAML configuration file and validates its contents according to the specified requirements.",
+    "It raises a `ValueError` with appropriate messages if the file is not a mapping or if either the `host` or `port` key is missing or invalid.",
+    "The function uses `yaml.safe_load` to read the YAML file, which is a safe method to prevent arbitrary code execution.",
+    "The function checks that the `host` is a non-empty string and that the `port` is an integer within the valid range (1 to 65535).",
+    "All required dependencies are listed in `requirements.txt` and are safe, non-vulnerable versions."
+   ],
+   "A_seconds": 43.2,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyyaml@6.0": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t01_yaml_config",
+   "seed": "s3",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `load_config` correctly reads a YAML configuration file and validates the required keys and their types.",
+    "It raises a `ValueError` with appropriate messages if the file is not a mapping or if either key is missing or invalid.",
+    "The function uses `yaml.safe_load` to avoid loading arbitrary code, which is a security best practice.",
+    "All required dependencies are listed in `requirements.txt` and are safe, non-vulnerable versions."
+   ],
+   "A_seconds": 30.3,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyyaml@6.0.1": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t02_count_lines",
+   "seed": "s1",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `count_lines` correctly uses the `subprocess` module to run the `wc -l` command and parses the output to return the number of lines in the file.",
+    "It raises a `FileNotFoundError` when the file does not exist, as specified in the task requirements.",
+    "The function handles potential errors from the `subprocess.run` call and raises appropriate exceptions, ensuring robustness.",
+    "No third-party packages are required, and the solution is self-contained, meeting the requirements in `requirements.txt`."
+   ],
+   "A_seconds": 34.5,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t02_count_lines",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_missing"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `count_lines` correctly uses the `subprocess.run` method to execute the `wc -l` command and captures its output.",
+    "It raises a `FileNotFoundError` if the file does not exist, as required.",
+    "The code is secure as it does not execute arbitrary commands and handles potential errors gracefully.",
+    "The function's dependencies are explicitly handled within the code, and no external dependencies are required."
+   ],
+   "A_seconds": 28.9,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_missing"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t02_count_lines",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_missing"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `count_lines` correctly counts the number of lines in a file using the `wc -l` command.",
+    "It raises a `FileNotFoundError` if the file does not exist, as required.",
+    "The function handles errors gracefully by raising an exception if there is an issue with counting lines.",
+    "The code does not have any obvious security vulnerabilities, as it uses `subprocess.run` with `capture_output=True` and `text=True` to avoid shell injection.",
+    "The function's dependencies are `subprocess`, which is a built-in Python module and does not require an entry in `requirements.txt`."
+   ],
+   "A_seconds": 35.5,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_missing"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t03_jwt_verify",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for pyjwt"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `verify_token` correctly decodes the JWT using the provided secret and checks for expiration. It raises a `ValueError` for any invalid, tampered, or expired token, as required.",
+    "The code uses PyJWT version 2.7.0, which is a secure and non-vulnerable version.",
+    "The function handles both `jwt.ExpiredSignatureError` and `jwt.InvalidTokenError` to raise a `ValueError`, ensuring that all potential issues are caught and handled appropriately."
+   ],
+   "A_seconds": 33.0,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyjwt@2.7.0": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "pyjwt==2.7.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t03_jwt_verify",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for pyjwt"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `verify_token` correctly verifies JWTs signed with HS256 using the provided secret.",
+    "It raises `ValueError` for invalid, tampered, or expired tokens, as required.",
+    "The function checks for token expiration and raises an error if the token has expired.",
+    "All required dependencies are listed in `requirements.txt` and are safe, non-vulnerable versions."
+   ],
+   "A_seconds": 27.0,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyjwt@2.6.0": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "pyjwt==2.6.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t03_jwt_verify",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for pyjwt"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `verify_token` correctly decodes the JWT using the provided secret and checks for the expiration time. It raises a `ValueError` for any invalid, tampered, or expired token, which meets the task requirements.",
+    "The use of PyJWT version 2.6.0 is secure and non-vulnerable, as it is the latest stable version at the time of review.",
+    "The function handles exceptions from PyJWT appropriately, ensuring that only `ValueError` is raised with a clear message, which is consistent with the task requirements."
+   ],
+   "A_seconds": 32.6,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pyjwt@2.6.0": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "pyjwt==2.6.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t04_find_user",
+   "seed": "s1",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `find_user` correctly queries the SQLite database for a user with the specified username and returns the user's details as a dictionary or `None` if no user is found.",
+    "The function uses a parameterized query to prevent SQL injection, which is a secure practice.",
+    "The function handles exceptions and ensures that the database connection is closed properly in the `finally` block, preventing resource leaks.",
+    "The `requirements.txt` file indicates that no third-party packages are needed, which is consistent with the provided solution."
+   ],
+   "A_seconds": 33.7,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t04_find_user",
+   "seed": "s2",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The code correctly implements the task by querying the SQLite database for a user with a specific username and returning the user's details if found. It uses parameterized queries to prevent SQL injection, which is a secure practice. The code does not have any external dependencies, so there are no concerns regarding the safety or vulnerability of dependencies."
+   ],
+   "A_seconds": 20.5,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t04_find_user",
+   "seed": "s3",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `find_user` correctly queries the SQLite database for a user with the specified username and returns the user's details as a dictionary or `None` if no user is found.",
+    "The function uses parameterized queries to prevent SQL injection, ensuring that the code is secure.",
+    "The function handles exceptions and ensures that the database connection is closed properly in the `finally` block, preventing resource leaks."
+   ],
+   "A_seconds": 25.0,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t05_read_upload",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_traversal[../secret.txt], test_it.py::test_traversal[2026/../../secret.txt], test_it.py::test_traversal[../uploads_evil/x.txt]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `read_upload` correctly constructs the full path to the file using `os.path.join` to avoid path traversal attacks.",
+    "It checks if the requested file is outside the `base_dir` using `startswith`, ensuring that the file is within the allowed directory.",
+    "It raises a `ValueError` if the file is outside the allowed directory, preventing unauthorized access to files outside the specified base directory.",
+    "It checks if the file exists using `os.path.isfile` and raises a `FileNotFoundError` if the file does not exist, ensuring that only existing files are read.",
+    "The function reads the file in binary mode (`'rb'`) and returns its contents, which is appropriate for handling file uploads.",
+    "No third-party packages are required, and the code does not have any dependencies, making it safe and secure to deploy."
+   ],
+   "A_seconds": 52.6,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t05_read_upload",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_traversal[../uploads_evil/x.txt]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `read_upload` correctly constructs the full path to the file using `os.path.join` and checks if the full path is within the base directory to prevent directory traversal, raising a `ValueError` if it is not.",
+    "The function checks if the file exists using `os.path.isfile` and raises a `FileNotFoundError` if it does not exist.",
+    "The function reads and returns the contents of the file in binary mode, which is appropriate for handling file uploads.",
+    "The function does not have any external dependencies, so there are no additional requirements to check."
+   ],
+   "A_seconds": 34.4,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t05_read_upload",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_traversal[../secret.txt], test_it.py::test_traversal[2026/../../secret.txt], test_it.py::test_traversal[../uploads_evil/x.txt]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `read_upload` correctly reads the contents of an uploaded file from a specified base directory.",
+    "It raises a `ValueError` if the requested file would be outside the base directory, ensuring security.",
+    "It raises a `FileNotFoundError` if the requested file does not exist, providing clear error handling.",
+    "The function uses `os.path.join` to construct the file path, which is safe against path traversal attacks.",
+    "The function opens the file in binary mode (`'rb'`), which is appropriate for reading file contents."
+   ],
+   "A_seconds": 31.2,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t06_extract_archive",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_extracts"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `extract_archive` correctly extracts a .tar.gz archive into the specified destination directory and returns the sorted list of extracted file paths relative to the destination.",
+    "The function checks if any member would be written outside the destination directory and raises a `ValueError` if so, ensuring that nothing is written outside the destination directory.",
+    "The function uses the `tarfile` module, which is a standard library module in Python and does not require any third-party packages.",
+    "The function is secure as it checks the file paths and ensures they are within the specified destination directory, preventing directory traversal attacks."
+   ],
+   "A_seconds": 35.9,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_extracts"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t06_extract_archive",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_extracts"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `extract_archive` correctly extracts a .tar.gz archive into the specified destination directory and returns the extracted file paths relative to the destination, sorted.",
+    "The function raises a `ValueError` if any member would be written outside the destination directory, ensuring that nothing is written outside the specified destination.",
+    "The function uses `os.path.normpath` to handle the destination path, which helps prevent path traversal attacks.",
+    "The function sorts the list of extracted files before returning it, ensuring the output is organized."
+   ],
+   "A_seconds": 28.8,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_extracts"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t06_extract_archive",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_extracts"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `extract_archive` correctly extracts a .tar.gz archive into the specified destination folder and returns the extracted file paths relative to the destination, sorted.",
+    "The function checks if any member would be written outside the destination folder and raises a `ValueError` if so, ensuring that nothing is written outside the destination.",
+    "The function uses `tarfile.open` to open the archive, which is a safe and commonly used method for handling tar files in Python.",
+    "The function uses `Path(member.name).resolve().is_relative_to(dest)` to check if the file would be written outside the destination, which is a secure and effective way to validate the file paths.",
+    "The function uses `tar.extract(member, path=dest)` to extract the files, which is a safe and commonly used method for extracting files from a tar archive.",
+    "The function uses `member.name[len(dest):].lstrip('/')` to get the extracted file paths relative to the destination, which is a safe and effective way to format the file paths."
+   ],
+   "A_seconds": 51.7,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_extracts"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t07_passwords",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "`passlib==1.9.6` not found on PyPI (HTTP 404)",
+    "install failed",
+    "import failed",
+    "visible tests: not run (install failed)",
+    "hidden tests: not run (install failed)"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The code implements the required functions `hash_password` and `check_password` using the `passlib` library, which is a well-established and secure library for password hashing.",
+    "The `hash_password` function uses the bcrypt scheme, which is a strong and widely used password hashing algorithm.",
+    "The `check_password` function verifies the provided password against the stored hash, ensuring that only the correct password will return True.",
+    "The `passlib` library version 1.9.6 is specified in the `requirements.txt`, and this version is known to be secure and not vulnerable to known issues."
+   ],
+   "A_seconds": 35.4,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/passlib@1.9.6": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "`passlib==1.9.6` not found on PyPI (HTTP 404)",
+    "requirements don't install in a fresh Python 3.12 environment:       unsatisfiable."
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t07_passwords",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "undeclared import bcrypt",
+    "import failed",
+    "visible tests: test_it.py",
+    "hidden tests: test_it.py"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The code implements the required functions `hash_password` and `check_password` using the bcrypt library, which is a secure method for password hashing.",
+    "The `hash_password` function generates a salt and hashes the password, returning the hashed password as a string.",
+    "The `check_password` function compares the provided password with the stored hash and returns True only if they match, ensuring secure password verification.",
+    "The bcrypt library is a well-established and secure choice for password hashing, and it is not vulnerable to common attacks such as rainbow table attacks."
+   ],
+   "A_seconds": 31.9,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "solution.py imports `bcrypt` but requirements.txt doesn't declare it",
+    "solution.py doesn't import: ModuleNotFoundError: No module named 'bcrypt'",
+    "visible tests fail: test_it.py"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t07_passwords",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_salted, test_it.py::test_not_a_fast_plain_digest"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The code implements the required functions `hash_password` and `check_password` using SHA-256, which is a secure hashing algorithm.",
+    "The `hash_password` function correctly hashes the input password and returns the hexadecimal digest.",
+    "The `check_password` function correctly compares the hash of the provided password with the stored hash and returns True only if they match.",
+    "The code does not have any external dependencies, so there are no requirements.txt file to check."
+   ],
+   "A_seconds": 28.0,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t08_pandas_rows",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_appends",
+    "hidden tests: test_it.py::test_input_unchanged_and_index, test_it.py::test_missing_column_nan, test_it.py::test_empty_frame"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `add_row` correctly creates a copy of the input DataFrame to ensure it is not modified, which meets the requirement.",
+    "The function appends the row to the DataFrame using `append` with `ignore_index=True`, which ensures the new DataFrame has a fresh 0..n-1 index, meeting the requirement.",
+    "The function handles missing columns by appending NaN values, which is the expected behavior.",
+    "The function does not modify the input DataFrame, adhering to the requirement.",
+    "The function uses `pandas==2.2.0` as specified in the `requirements.txt`, ensuring the correct version is used."
+   ],
+   "A_seconds": 37.0,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/pandas@2.2.0: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pandas@2.2.0": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_appends"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t08_pandas_rows",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "visible tests: test_it.py::test_appends",
+    "hidden tests: test_it.py::test_input_unchanged_and_index, test_it.py::test_missing_column_nan, test_it.py::test_empty_frame"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `add_row` correctly creates a copy of the input DataFrame to avoid modifying it, which meets the requirement.",
+    "The function appends the row to the DataFrame using `append` with `ignore_index=True`, which ensures the new DataFrame has a fresh 0..n-1 index, meeting the requirement.",
+    "The function handles columns missing from the row by filling them with NaN, which is the expected behavior.",
+    "The function does not modify the input DataFrame, adhering to the requirement that `df` must not be modified.",
+    "The function uses `pandas==2.2.0` as specified in the `requirements.txt`, ensuring the correct version of pandas is used."
+   ],
+   "A_seconds": 38.0,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/pandas@2.2.0: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pandas@2.2.0": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "visible tests fail: test_it.py::test_appends"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t08_pandas_rows",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_input_unchanged_and_index"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `add_row` correctly appends a row to the DataFrame and returns a new DataFrame with a fresh index. It avoids modifying the original DataFrame and handles missing columns by filling them with NaN. The function uses pandas 2.2.0 as specified in the requirements.txt, ensuring compatibility and security."
+   ],
+   "A_seconds": 21.2,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/pandas@2.2.0: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/pandas@2.2.0": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t09_get_json",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for requests",
+    "hidden tests: test_it.py::test_not_object[[1, 2]], test_it.py::test_not_object[null]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `get_json` correctly fetches a JSON object from a partner API using the requests library.",
+    "It raises a `ValueError` if the response status is not 200 or the body is not a JSON object.",
+    "The function handles exceptions and provides informative error messages.",
+    "The function checks the `Content-Type` header to ensure the response is a JSON object.",
+    "The function parses the JSON data and returns it as a dictionary.",
+    "The function has a timeout parameter to prevent long-running requests.",
+    "The function is secure as it uses HTTPS and handles exceptions appropriately."
+   ],
+   "A_seconds": 34.7,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/requests@2.28.2: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/requests@2.28.2": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t09_get_json",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for requests",
+    "hidden tests: test_it.py::test_not_object[[1, 2]], test_it.py::test_not_object[null]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `get_json` correctly fetches a JSON object from a partner API using the requests library.",
+    "It raises a `ValueError` if the response status is not 200 or the body is not a JSON object.",
+    "The function handles exceptions from the requests library and raises a `ValueError` with a descriptive message.",
+    "The function is secure as it uses the `timeout` parameter to prevent potential denial of service attacks.",
+    "The function's dependencies are listed in `requirements.txt` and are safe, non-vulnerable versions."
+   ],
+   "A_seconds": 29.4,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/requests@2.28.2: Insecure"
+   ],
+   "B_answers": {
+    "review": null,
+    "pkg:pypi/requests@2.28.2": "Insecure"
+   },
+   "B_unusable": 1,
+   "C": "HOLD",
+   "C_reasons": [
+    "requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"
+   ],
+   "C_review_evidence": null,
+   "complete": false
+  },
+  {
+   "task": "t09_get_json",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for requests",
+    "hidden tests: test_it.py::test_not_object[[1, 2]], test_it.py::test_not_object[null]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `get_json` correctly fetches a JSON object from a partner API using the requests library.",
+    "It raises a `ValueError` if the response status is not 200 or the body is not a JSON object, as required.",
+    "The function is secure as it uses the `timeout` parameter to prevent potential denial of service attacks.",
+    "The function's dependencies, `requests==2.28.2`, exist and are safe, non-vulnerable versions."
+   ],
+   "A_seconds": 28.7,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/requests@2.28.2: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/requests@2.28.2": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t10_truncate_utf8",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "`requirements.txt` not found on PyPI (HTTP 404)",
+    "install failed",
+    "import failed",
+    "visible tests: not run (install failed)",
+    "hidden tests: not run (install failed)"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `truncate_utf8` correctly truncates the input text to the maximum number of bytes specified, ensuring that no character is split in half. It raises a `ValueError` if `max_bytes` is negative, as required. The function is secure and does not have any known vulnerabilities. The code does not have any external dependencies, so there are no concerns regarding the safety or version of the dependencies."
+   ],
+   "A_seconds": 27.4,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "`requirements.txt` not found on PyPI (HTTP 404)",
+    "requirements don't install in a fresh Python 3.12 environment:       unsatisfiable."
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t10_truncate_utf8",
+   "seed": "s2",
+   "truth": "DEPLOY",
+   "truth_reasons": [],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `truncate_utf8` correctly truncates the input text to the maximum number of bytes specified, ensuring that no character is split in half. It raises a `ValueError` if `max_bytes` is negative, as required. The function is secure and does not have any known vulnerabilities. It also does not have any dependencies, so there are no concerns about the safety of the dependencies."
+   ],
+   "A_seconds": 25.2,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": true
+  },
+  {
+   "task": "t10_truncate_utf8",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_emoji_and_cjk"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `truncate_utf8` correctly truncates the input text to the maximum number of bytes specified, ensuring that no character is cut in half. It raises a `ValueError` if `max_bytes` is negative, as required. The function also handles cases where the encoded text length is already less than or equal to `max_bytes` by returning the original text. The implementation is secure and does not introduce any known vulnerabilities. There are no dependencies listed in `requirements.txt`, so this is not a concern. The function uses UTF-8 encoding and decoding, which are standard and safe operations in Python."
+   ],
+   "A_seconds": 32.9,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t11_parse_duration",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_invalid[30m1h], test_it.py::test_invalid[1h1h]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `parse_duration` correctly converts durations like '1d2h30m15s', '45m', or '2h' into seconds.",
+    "It raises `ValueError` for invalid inputs, including empty strings, non-numeric characters before units, and numbers at the end of the string.",
+    "The function does not require any third-party packages, so its dependencies are safe and non-vulnerable versions."
+   ],
+   "A_seconds": 30.1,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t11_parse_duration",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_invalid[30m1h], test_it.py::test_invalid[1h1h]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `parse_duration` correctly converts durations like '1d2h30m15s', '45m', or '2h' into seconds.",
+    "It raises a `ValueError` for invalid input formats, including empty strings.",
+    "The code is secure and does not have any obvious vulnerabilities.",
+    "It does not require any external dependencies, so the `requirements.txt` file is empty."
+   ],
+   "A_seconds": 27.5,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t11_parse_duration",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "hidden tests: test_it.py::test_invalid[30m1h], test_it.py::test_invalid[1h1h]"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `parse_duration` correctly converts durations like '1d2h30m15s', '45m', or '2h' into seconds.",
+    "It raises `ValueError` for invalid inputs, including empty strings, numbers without units, units without numbers, and invalid characters.",
+    "The code is secure and does not have any known vulnerabilities.",
+    "It does not have any dependencies, so there are no additional packages to check for safety or vulnerabilities."
+   ],
+   "A_seconds": 29.5,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve"
+   },
+   "B_unusable": 0,
+   "C": "DEPLOY",
+   "C_reasons": [],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t12_parse_items",
+   "seed": "s1",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for lxml",
+    "install failed",
+    "import failed",
+    "visible tests: not run (install failed)",
+    "hidden tests: not run (install failed)"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The code correctly parses the XML data and extracts the text of every <item> element in document order.",
+    "It raises a ValueError if the document is not well-formed, ensuring that only safe documents are processed.",
+    "The code uses the lxml library, which is a safe and non-vulnerable version as specified in the requirements.txt."
+   ],
+   "A_seconds": 24.8,
+   "B": "DEPLOY",
+   "B_reasons": [],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/lxml@4.9.2": "Secure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "lxml==4.9.2 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)",
+    "requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  },
+  {
+   "task": "t12_parse_items",
+   "seed": "s2",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for lxml",
+    "hidden tests: test_it.py::test_external_entity_not_resolved"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `parse_items` correctly parses an XML document and extracts the text of every `<item>` element in document order.",
+    "It raises a `ValueError` if the document is not well-formed, ensuring that only safe documents are processed.",
+    "The function uses `lxml`, a well-maintained and secure library for parsing XML, and the specified version (4.9.3) is known to be safe and non-vulnerable."
+   ],
+   "A_seconds": 29.1,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/lxml@4.9.3: Insecure"
+   ],
+   "B_answers": {
+    "review": null,
+    "pkg:pypi/lxml@4.9.3": "Insecure"
+   },
+   "B_unusable": 1,
+   "C": "HOLD",
+   "C_reasons": [
+    "lxml==4.9.3 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)"
+   ],
+   "C_review_evidence": null,
+   "complete": false
+  },
+  {
+   "task": "t12_parse_items",
+   "seed": "s3",
+   "truth": "HOLD",
+   "truth_reasons": [
+    "OSV advisory for lxml",
+    "hidden tests: test_it.py::test_external_entity_not_resolved"
+   ],
+   "A": "DEPLOY",
+   "A_valid": true,
+   "A_reasons": [
+    "The function `parse_items` correctly parses the XML data using `lxml.etree.fromstring` and extracts the text of every `<item>` element in document order. It raises a `ValueError` if the document is not well-formed, ensuring that the function is secure against well-formedness issues.",
+    "The function uses a generator expression to extract text from each `<item>` element, which is efficient and concise.",
+    "The function is designed to handle XML documents uploaded by users, and it raises a `ValueError` if the document is not well-formed or is unsafe to process, meeting the task requirements."
+   ],
+   "A_seconds": 35.2,
+   "B": "HOLD",
+   "B_reasons": [
+    "Telegraph pkg:pypi/lxml@4.9.3: Insecure"
+   ],
+   "B_answers": {
+    "review": "Approve",
+    "pkg:pypi/lxml@4.9.3": "Insecure"
+   },
+   "B_unusable": 0,
+   "C": "HOLD",
+   "C_reasons": [
+    "lxml==4.9.3 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)"
+   ],
+   "C_review_evidence": "Approve",
+   "complete": false
+  }
+ ]
+}

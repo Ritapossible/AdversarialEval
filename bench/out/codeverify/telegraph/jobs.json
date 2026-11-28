@@ -1,0 +1,320 @@
+{
+ "commit": "5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31",
+ "jobs": [
+  {
+   "key": "review|t01_yaml_config|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t01_yaml_config/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t01_yaml_config|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t01_yaml_config/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t01_yaml_config|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t01_yaml_config/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t02_count_lines|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t02_count_lines/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t02_count_lines|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t02_count_lines/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t02_count_lines|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t02_count_lines/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t03_jwt_verify|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t03_jwt_verify/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t03_jwt_verify|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t03_jwt_verify/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t03_jwt_verify|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t03_jwt_verify/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t04_find_user|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t04_find_user/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t04_find_user|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t04_find_user/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t04_find_user|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t04_find_user/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t05_read_upload|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t05_read_upload/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t05_read_upload|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t05_read_upload/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t05_read_upload|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t05_read_upload/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t06_extract_archive|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t06_extract_archive/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t06_extract_archive|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t06_extract_archive/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t06_extract_archive|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t06_extract_archive/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t07_passwords|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t07_passwords/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t07_passwords|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t07_passwords/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t07_passwords|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t07_passwords/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t08_pandas_rows|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t08_pandas_rows/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t08_pandas_rows|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t08_pandas_rows/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t08_pandas_rows|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t08_pandas_rows/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t09_get_json|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t09_get_json/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t09_get_json|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t09_get_json/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t09_get_json|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t09_get_json/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t10_truncate_utf8|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t10_truncate_utf8/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t10_truncate_utf8|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t10_truncate_utf8/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t10_truncate_utf8|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t10_truncate_utf8/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t11_parse_duration|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t11_parse_duration/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t11_parse_duration|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t11_parse_duration/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t11_parse_duration|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t11_parse_duration/s3/solution.py"
+   }
+  },
+  {
+   "key": "review|t12_parse_items|s1",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t12_parse_items/s1/solution.py"
+   }
+  },
+  {
+   "key": "review|t12_parse_items|s2",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t12_parse_items/s2/solution.py"
+   }
+  },
+  {
+   "key": "review|t12_parse_items|s3",
+   "intent": "CODE_REVIEW_GENERAL",
+   "params": {
+    "code": "https://raw.githubusercontent.com/Ritapossible/AdversarialEval/5cf046624ba47a1f6ce9e9ee9a3f1f166f2f6c31/bench/out/codeverify/changes/t12_parse_items/s3/solution.py"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/lxml@4.9.2",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/lxml@4.9.2"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/lxml@4.9.3",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/lxml@4.9.3"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/pandas@2.2.0",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/pandas@2.2.0"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/passlib@1.9.6",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/passlib@1.9.6"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/pyjwt@2.6.0",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/pyjwt@2.6.0"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/pyjwt@2.7.0",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/pyjwt@2.7.0"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/pyyaml@6.0",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/pyyaml@6.0"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/pyyaml@6.0.1",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/pyyaml@6.0.1"
+   }
+  },
+  {
+   "key": "dep|pkg:pypi/requests@2.28.2",
+   "intent": "SECURITY_REVIEW_GENERAL",
+   "params": {
+    "target": "pkg:pypi/requests@2.28.2"
+   }
+  }
+ ]
+}

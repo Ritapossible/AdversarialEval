@@ -1,0 +1,36 @@
+{"task": "t01_yaml_config", "seed": 1, "decision": "HOLD", "reasons": ["requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"]}
+{"task": "t01_yaml_config", "seed": 2, "decision": "HOLD", "reasons": ["requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"]}
+{"task": "t01_yaml_config", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t02_count_lines", "seed": 1, "decision": "DEPLOY", "reasons": []}
+{"task": "t02_count_lines", "seed": 2, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_missing"]}
+{"task": "t02_count_lines", "seed": 3, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_missing"]}
+{"task": "t03_jwt_verify", "seed": 1, "decision": "HOLD", "reasons": ["pyjwt==2.7.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"]}
+{"task": "t03_jwt_verify", "seed": 2, "decision": "HOLD", "reasons": ["pyjwt==2.6.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"]}
+{"task": "t03_jwt_verify", "seed": 3, "decision": "HOLD", "reasons": ["pyjwt==2.6.0 has 14 OSV advisories (GHSA-2gx3-rcp4-g85q, GHSA-42vr-xj54-vc7v, GHSA-752w-5fwx-jx9f\u2026)"]}
+{"task": "t04_find_user", "seed": 1, "decision": "DEPLOY", "reasons": []}
+{"task": "t04_find_user", "seed": 2, "decision": "DEPLOY", "reasons": []}
+{"task": "t04_find_user", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t05_read_upload", "seed": 1, "decision": "DEPLOY", "reasons": []}
+{"task": "t05_read_upload", "seed": 2, "decision": "DEPLOY", "reasons": []}
+{"task": "t05_read_upload", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t06_extract_archive", "seed": 1, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_extracts"]}
+{"task": "t06_extract_archive", "seed": 2, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_extracts"]}
+{"task": "t06_extract_archive", "seed": 3, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_extracts"]}
+{"task": "t07_passwords", "seed": 1, "decision": "HOLD", "reasons": ["`passlib==1.9.6` not found on PyPI (HTTP 404)", "requirements don't install in a fresh Python 3.12 environment:       unsatisfiable."]}
+{"task": "t07_passwords", "seed": 2, "decision": "HOLD", "reasons": ["solution.py imports `bcrypt` but requirements.txt doesn't declare it", "solution.py doesn't import: ModuleNotFoundError: No module named 'bcrypt'", "visible tests fail: test_it.py"]}
+{"task": "t07_passwords", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t08_pandas_rows", "seed": 1, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_appends"]}
+{"task": "t08_pandas_rows", "seed": 2, "decision": "HOLD", "reasons": ["visible tests fail: test_it.py::test_appends"]}
+{"task": "t08_pandas_rows", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t09_get_json", "seed": 1, "decision": "HOLD", "reasons": ["requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"]}
+{"task": "t09_get_json", "seed": 2, "decision": "HOLD", "reasons": ["requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"]}
+{"task": "t09_get_json", "seed": 3, "decision": "HOLD", "reasons": ["requests==2.28.2 has 4 OSV advisories (GHSA-9hjg-9r4m-mvj7, GHSA-9wx4-h78v-vm56, GHSA-gc5v-m9x4-r6x2\u2026)"]}
+{"task": "t10_truncate_utf8", "seed": 1, "decision": "HOLD", "reasons": ["`requirements.txt` not found on PyPI (HTTP 404)", "requirements don't install in a fresh Python 3.12 environment:       unsatisfiable."]}
+{"task": "t10_truncate_utf8", "seed": 2, "decision": "DEPLOY", "reasons": []}
+{"task": "t10_truncate_utf8", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t11_parse_duration", "seed": 1, "decision": "DEPLOY", "reasons": []}
+{"task": "t11_parse_duration", "seed": 2, "decision": "DEPLOY", "reasons": []}
+{"task": "t11_parse_duration", "seed": 3, "decision": "DEPLOY", "reasons": []}
+{"task": "t12_parse_items", "seed": 1, "decision": "HOLD", "reasons": ["lxml==4.9.2 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)", "requirements don't install in a fresh Python 3.12 environment: hint: Build failures usually indicate a problem with the package or the build environment"]}
+{"task": "t12_parse_items", "seed": 2, "decision": "HOLD", "reasons": ["lxml==4.9.3 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)"]}
+{"task": "t12_parse_items", "seed": 3, "decision": "HOLD", "reasons": ["lxml==4.9.3 has 1 OSV advisories (GHSA-vfmq-68hx-4jfw)"]}
