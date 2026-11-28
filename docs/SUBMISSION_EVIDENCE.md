@@ -110,7 +110,7 @@ or Anjoman's own timestamps. Push times are also recorded server-side in the rep
 | Real Polymarket markets | `47a2aa8` 28 Nov 10:02:02 | 28 Nov 10:02:13 (Solana block time) |
 | Polymarket through the app | `0ea3567` 28 Nov 10:32:44 (amendment `c5f8a99` 10:41:41) | 28 Nov 10:41:49 (run start; Anjoman receipts in the run file) |
 
-**Evidence integrity:** 333 evidence files are listed in [`evidence/MANIFEST.json`](../evidence/MANIFEST.json)
+**Evidence integrity:** 338 evidence files are listed in [`evidence/MANIFEST.json`](../evidence/MANIFEST.json)
 and signed with Ed25519. The manifest's hash is anchored on Solana devnet
 ([`evidence/ANCHORS.json`](../evidence/ANCHORS.json)). Anyone can check both with
 `node tools/evidence_manifest.mjs verify` and `node tools/anchor_evidence.mjs verify`, and CI

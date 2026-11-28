@@ -18,7 +18,7 @@ Telegraph Hackathon Season II · **Evaluators** track and **Apps & Agents** trac
 | The app | [Dependency.Guard on Minds](https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11) (id `38266542-f36b-1410-8467-00039ce7df11`), listed on Anjoman |
 | Per track (judged separately) | [Apps & Agents](tracks/apps-and-agents.md) · [Evaluators](tracks/evaluators.md) · [Miners](tracks/miners.md) |
 | Dataset | [Hugging Face](https://huggingface.co/datasets/Ritapossible/adversarialeval-security-review) · [GitHub release v1.0](https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0) (zip with dataset card and checksums) · [`release/`](release/adversarialeval-security-review-v1/): 264 train, 87 validation, 40 independent test pairs |
-| Evidence | every report signed and [anchored on Solana](https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet) · [evidence index](docs/SUBMISSION_EVIDENCE.md) |
+| Evidence | every report signed and [anchored on Solana](https://explorer.solana.com/tx/2oUMB8Phnj98LWP2WzgxHwSvvmrRnVdvGDQXkMR4K3H5Vq2Q3mZMTn8W6RcU2J8pAE8pGQKzUqEWM9PvKhVskhvN?cluster=devnet) · [evidence index](docs/SUBMISSION_EVIDENCE.md) |
 
 > **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor wallet
 > named below uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The adapter's registration
@@ -114,7 +114,7 @@ results are on testnet, with small samples; each report states its limits.
 | Result | Evidence |
 |---|---|
 | **Signed evidence:** every report and run file is fingerprinted and the list is signed (Ed25519); `node tools/evidence_manifest.mjs verify` (also run in CI) fails if any signed result changes. | [`evidence/`](evidence/) |
-| **Evidence anchored on Solana**: the Ed25519-signed manifest of all 333 evidence files (reports, raw runs, payments) is hashed into a Solana devnet memo, so anyone can check the evidence existed unchanged on 28 Nov 2026. Check it with `node tools/anchor_evidence.mjs verify`. | [latest transaction](https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet) · [`evidence/ANCHORS.json`](evidence/ANCHORS.json) |
+| **Evidence anchored on Solana**: the Ed25519-signed manifest of all 338 evidence files (reports, raw runs, payments) is hashed into a Solana devnet memo, so anyone can check the evidence existed unchanged on 28 Nov 2026. Check it with `node tools/anchor_evidence.mjs verify`. | [latest transaction](https://explorer.solana.com/tx/2oUMB8Phnj98LWP2WzgxHwSvvmrRnVdvGDQXkMR4K3H5Vq2Q3mZMTn8W6RcU2J8pAE8pGQKzUqEWM9PvKhVskhvN?cluster=devnet) · [`evidence/ANCHORS.json`](evidence/ANCHORS.json) |
 | **How independent are the providers?** 37 miners are listed for `SECURITY_REVIEW_GENERAL`, but they pay out to 13 addresses, and two addresses run 26 of them; the 32 miners that answered in round 4 belong to 9 payout identities. | [`2026-11-24-provider-independence.md`](eval/reports/2026-11-24-provider-independence.md) |
 
 ## Demo videos
@@ -143,7 +143,7 @@ a short description. The recordings are real; the narration is a synthetic voice
 | **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 164 eligible (81 + 83 severity pairs) |
 | **Evaluator adapter**: LoRA and a reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (our bar 80%); **not registered** |
 | **`CVE_LOOKUP_CVSS` truth source** ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)): a keyless API giving NVD's CVSS score under one fixed rule | Built and tested; not deployed (not pursued for this submission) |
-| **Signed evidence** ([`evidence/`](evidence/), [`tools/evidence_manifest.mjs`](tools/evidence_manifest.mjs), [`tools/anchor_evidence.mjs`](tools/anchor_evidence.mjs)) | 333 files signed; anchored on Solana devnet; checked in CI |
+| **Signed evidence** ([`evidence/`](evidence/), [`tools/evidence_manifest.mjs`](tools/evidence_manifest.mjs), [`tools/anchor_evidence.mjs`](tools/anchor_evidence.mjs)) | 338 files signed; anchored on Solana devnet; checked in CI |
 | **Website** ([`site/`](site/), built from [`site-src/`](site-src/) by `tools/build_site.py`): six pages (overview, Evaluators with "Spot the Flaw", Dependency.Guard, the benchmark, evidence and limits, videos), with a mobile menu | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
 
 ## How it works

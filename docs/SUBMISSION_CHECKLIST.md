@@ -14,7 +14,7 @@ submission. **Apps & Agents and Evaluators are judged separately.** Judge-facing
       paid calls with receipts; Solana x402 payments confirmed on-chain
 - [x] Accurate claims, network stated (testnet / devnet everywhere); limits written in every report
 - [x] Keys and private data: none committed; `data/private/` git-ignored; signing stays local
-- [x] Evidence signed (333 files) and anchored on Solana devnet (`evidence/ANCHORS.json`)
+- [x] Evidence signed (338 files) and anchored on Solana devnet (`evidence/ANCHORS.json`)
 - [x] Reused components disclosed: `NOTICE.md`
 - [x] Licence: MIT
 - [ ] Owner: fill in the Anjoman submission form(s). The text is drafted in `docs/SUBMISSION_TEXT.md`

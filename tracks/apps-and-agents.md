@@ -17,7 +17,7 @@ The same check-before-trust design was then applied, each time under a pre-regis
 - **prediction market settlement:** 24 test markets, then 24 real Polymarket markets, paid both
   directly on Solana and through the app (Anjoman + the Mind).
 
-All 333 evidence files are signed, and their hash is anchored on Solana devnet.
+All 338 evidence files are signed, and their hash is anchored on Solana devnet.
 
 | | |
 |---|---|
@@ -26,7 +26,7 @@ All 333 evidence files are signed, and their hash is anchored on Solana devnet.
 | Mission | [#198, Mission 10, Model Economy](https://github.com/telegraphprotocol/bounties/issues/198): routes 1 (cost per verified correct answer) and 2 (procurement via ranked routing) |
 | Listed on Anjoman | Dependency.Guard, category Security, status Live (28 Nov) |
 | Demo videos | Prediction markets: https://x.com/RitaCryptoTips/status/2126711423908614492 · Qwen code test: https://x.com/RitaCryptoTips/status/2126612379286786350 · In-app Polymarket demo and Solana packages: `[add links]` |
-| Evidence anchor | [Solana devnet memo](https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet) holding the SHA-256 of the signed manifest of 333 files; `node tools/anchor_evidence.mjs verify` |
+| Evidence anchor | [Solana devnet memo](https://explorer.solana.com/tx/2oUMB8Phnj98LWP2WzgxHwSvvmrRnVdvGDQXkMR4K3H5Vq2Q3mZMTn8W6RcU2J8pAE8pGQKzUqEWM9PvKhVskhvN?cluster=devnet) holding the SHA-256 of the signed manifest of 338 files; `node tools/anchor_evidence.mjs verify` |
 
 ## Customer and problem
 
