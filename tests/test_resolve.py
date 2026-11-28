@@ -29,6 +29,19 @@ class Frozen(unittest.TestCase):
                 self.assertIn("url", m["truth_evidence"], m["id"])  # every settled truth names its source
 
 
+class FrozenPolymarket(unittest.TestCase):
+    def test_polymarket_cases_unchanged_since_preregistration(self):
+        self.assertEqual(hashlib.sha256((ROOT / "resolve/polymarket_cases.json").read_bytes()).hexdigest(),
+                         "e2e5ed3bb2209be661ac450aed3f9f832ff6a3ec5fd6f4e481dd22af9dcc1602")
+
+    def test_selection_shape(self):
+        ms = json.loads((ROOT / "resolve/polymarket_cases.json").read_text())["markets"]
+        self.assertEqual(len(ms), 24)
+        self.assertEqual(sorted({m["category"] for m in ms}), ["crypto", "politics", "sports", "world"])
+        self.assertEqual(sum(m["truth"] == "yes" for m in ms), 9)
+        self.assertTrue(all(bool(m["contract"]) == (m["category"] == "crypto") for m in ms))
+
+
 class Parsing(unittest.TestCase):
     def test_outcome(self):
         self.assertEqual(outcome({"result": {"outcome": "YES"}}), "yes")

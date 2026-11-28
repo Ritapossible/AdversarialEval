@@ -19,7 +19,10 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
-from sources import UA, resolve  # noqa: E402
+from polymarket import binance  # noqa: E402
+from sources import RESOLVERS, UA, resolve  # noqa: E402
+
+RESOLVERS["binance"] = binance
 
 INTENT = "EVENT_OUTCOME_RESOLUTION_GENERAL"
 SECOND = ["20261117", "4433", "59003"]  # fixed order (rule)
@@ -65,10 +68,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["jobs1", "jobs2", "score"])
     ap.add_argument("--out", type=Path, default=ROOT / "bench/out/eventres")
+    ap.add_argument("--cases", type=Path, default=HERE / "cases.json")
     a = ap.parse_args()
     out = a.out.resolve()
     out.mkdir(parents=True, exist_ok=True)
-    markets = json.loads((HERE / "cases.json").read_text())["markets"]
+    markets = json.loads(a.cases.read_text())["markets"]
     calls = {c["key"]: c for c in load(out / "calls.ndjson")}
 
     if a.cmd == "jobs1":
@@ -103,7 +107,7 @@ def main() -> None:
             agree = o1 == o2 and o1 in ("yes", "no") and cites(r1) and cites(r2)
             C, ev = (o1 if agree else "unresolved"), {}
             c_how = "two independent answers agree, each citing a source" if agree else "left for a person"
-        rows.append({"id": m["id"], "kind": m["kind"], "truth": m["truth"], "A": A, "B": B, "C": C, "C_how": c_how,
+        rows.append({"id": m["id"], "kind": m.get("kind") or m.get("category"), "truth": m["truth"], "A": A, "B": B, "C": C, "C_how": c_how,
                      "C_caught_dispute": bool(m["contract"]) and o1 in ("yes", "no") and o1 != C,
                      "first": {"miner": (r1 or {}).get("miner"), "miner_id": (r1 or {}).get("miner_id"), "outcome": o1,
                                "sources": ((r1 or {}).get("result") or {}).get("sources"), "error": (r1 or {}).get("error")},
