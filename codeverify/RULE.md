@@ -107,3 +107,13 @@ fixes reach truth DEPLOY. It doesn't change the primary result.
 - The sandbox is Linux with Python 3.12; production environments differ.
 - The spending cap is $1.50 in devnet USDC. If it is reached, the remaining B calls are skipped
   and reported.
+
+## Amendment 1 (28 Nov, during generation, before any review, check or paid call)
+
+Qwen's first reply wrote the requirements label on its own line (``1. ```requirements.txt``` ``)
+before the block. The original parser in `generate.py` misread that layout and recorded "no
+solution" even though the reply had one. The parser now reads fences line by line, and a label
+line names the block after it. Nothing was regenerated: the raw replies are saved as `reply.md`,
+and `--stage review` re-reads every saved reply with the fixed parser (`parse.jsonl`) before arm A
+runs. `generations.jsonl` keeps what the original parser saw. The rest of the rule is unchanged.
+`FREEZE.json` keeps the original hash; this commit's diff is the amendment.

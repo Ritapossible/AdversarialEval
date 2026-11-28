@@ -43,17 +43,49 @@ def now() -> str:
 
 
 def blocks(text: str) -> tuple[str | None, str | None]:
-    """(requirements, code) from a reply: the requirements block (labelled requirements.txt, txt, text or
-    plain, and not Python) and the last python block."""
-    found = re.findall(r"```([\w.+-]*)[^\n]*\n(.*?)```", text, re.S)
+    """(requirements, code) from a reply. Reads fenced blocks line by line, so a label line such as
+    "1. ```requirements.txt```" names the block that follows it. Requirements: the first block labelled
+    requirements/txt/text/plain (or unlabelled and not code). Code: the last python block."""
+    found, cur, lang, pending = [], None, "", ""
+    for line in text.splitlines():
+        s = line.strip()
+        m_label = re.fullmatch(r"(?:\d+\.\s*)?```([\w.+-]*)```", s)
+        m_fence = re.fullmatch(r"(?:\d+\.\s*)?```([\w.+-]*)(?:\s.*)?", s)
+        if cur is None and m_label:
+            pending = m_label.group(1).lower()
+        elif m_fence and cur is None:
+            cur, lang = [], (m_fence.group(1).lower() or pending)
+        elif cur is not None and s == "```":
+            found.append((lang, "\n".join(cur)))
+            cur, pending = None, ""
+        elif cur is not None:
+            cur.append(line)
+    if cur is not None:  # unterminated last block
+        found.append((lang, "\n".join(cur)))
     req = code = None
-    for lang, body in found:
-        lang = lang.lower()
-        if lang in ("python", "py"):
+    for lg, body in found:
+        if lg in ("python", "py", "python3"):
             code = body
-        elif req is None and lang in ("requirements.txt", "requirements", "txt", "text", "plaintext", ""):
+        elif req is None and lg in ("requirements.txt", "requirements", "txt", "text", "plaintext", "plain", ""):
             req = body
-    return (req or "").strip(), (code.rstrip() + "\n") if code else None
+    return (req or "").strip(), (code.rstrip() + "\n") if code and code.strip() else None
+
+
+def reparse(out: Path) -> None:
+    """Re-read every saved reply with blocks() (no regeneration) and rewrite its files; logged to parse.jsonl."""
+    rows = []
+    for reply in sorted((out / "changes").glob("*/s*/reply.md")):
+        req, code = blocks(reply.read_text())
+        d = reply.parent
+        (d / "requirements.txt").write_text(req + ("\n" if req else ""))
+        if code:
+            (d / "solution.py").write_text(code)
+        elif (d / "solution.py").exists():
+            (d / "solution.py").unlink()
+        rows.append({"task": d.parent.name, "seed": int(d.name[1:]), "has_solution": bool(code),
+                     "requirements": [l for l in req.splitlines() if l.strip()],
+                     "solution_sha256": hashlib.sha256(code.encode()).hexdigest() if code else None})
+    (out / "parse.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
 
 
 def load(path: Path) -> list[dict]:
@@ -120,6 +152,7 @@ def main() -> None:
                 print(f"{t['id']} s{s}: {usage['completion_tokens']} tokens, {secs}s, solution={bool(code)}", flush=True)
 
     elif a.stage == "review":
+        reparse(out)
         f = out / "arm_a_reviews.jsonl"
         have = {(r["task"], r["seed"]) for r in load(f)}
         for g in load(out / "generations.jsonl"):
