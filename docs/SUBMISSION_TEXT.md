@@ -56,7 +56,7 @@ time, against 67% for a free lookup; the default route followed rank 1.
 - Website: https://adversarialeval.vercel.app/dependency-guard
 - Repo: https://github.com/Ritapossible/AdversarialEval
 - Track summary: https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/apps-and-agents.md
-- Demo videos: in-app Polymarket demo https://x.com/RitaCryptoTips/status/2126711423908614492 · Qwen code test https://x.com/RitaCryptoTips/status/2126612379286786350 · prediction markets `[add]` · Solana packages `[add]`
+- Demo videos: in-app Polymarket demo `[add]` · Qwen code test https://x.com/RitaCryptoTips/status/2126612379286786350 · prediction markets https://x.com/RitaCryptoTips/status/2126711423908614492 · Solana packages `[add]`
 - Evidence anchor (Solana devnet): https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet
 
 **How to run it:**
