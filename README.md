@@ -184,7 +184,7 @@ that settles it, then decide. Never act on an answer the check can't confirm.
 
 ## Getting started
 
-Requirements: Python 3.10+, Node 20+, Go 1.25+ (the Stage 1 check and executor only), and about
+Requirements: Python 3.10+, Node 22+ (it reads `NODE_USE_ENV_PROXY` behind a proxy), Go 1.25+ (the Stage 1 check and executor only), and about
 1 GB of disk (600 MB more for the foundation graph used by the rehearsal).
 
 **Offline checks** (no keys, no spending), the same steps CI runs:
@@ -210,7 +210,7 @@ python tools/build_release.py               # rebuild the dataset release (refus
 
 ```bash
 echo '{"verdict":"Secure","vulnerability_count":0,"issues":[]}' | python -m verify --target pkg:npm/minimist@1.2.5
-(cd mind/connector && npm install)          # Node 22+
+(cd mind/connector && npm install)
 node mind/connector/guard.mjs --no-mind pkg:npm/minimist@1.2.5   # needs an Anjoman key; about $0.01 to $0.03 per package
 python codeverify/score.py score && python resolve/run.py score  # Qwen and market scores from the saved answers
 ```

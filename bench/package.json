@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Paid SECURITY_REVIEW benchmark: cost per verified correct answer (Mission 10, route 1)",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "dependencies": {
     "@x402/evm": "2.29.0",

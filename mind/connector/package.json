@@ -4,7 +4,7 @@
   "private": true,
   "description": "Dependency.Guard connector: one paid Telegraph SECURITY_REVIEW answer per package, checked free by Verified Ask, then handed to the Dependency.Guard Mind",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": { "node": ">=22" },
   "scripts": {
     "guard": "node guard.mjs",
     "test": "node --test test/*.test.mjs"

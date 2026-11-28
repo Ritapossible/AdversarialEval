@@ -97,7 +97,8 @@ def score(out: Path) -> None:
             "A_seconds": a.get("seconds"),
             "B": "HOLD" if b_reasons else "DEPLOY", "B_reasons": b_reasons,
             "B_answers": {"review": rev_verdict, **{k[4:]: v for k, v in dep_verdicts.items()}},
-            "B_unusable": int(rev is not None and rev_verdict is None) + sum(1 for k in dep_keys if dep_verdicts.get(k) is None),
+            # only answers actually received can be unusable; a dependency never asked isn't counted
+            "B_unusable": int(rev is not None and rev_verdict is None) + sum(1 for k in dep_keys if k in calls and dep_verdicts.get(k) is None),
             "C": "HOLD" if (ch["c_reasons"] or c8) else "DEPLOY", "C_reasons": ch["c_reasons"] + c8,
             "C_review_evidence": rev_verdict, "complete": ch["truth"] == "DEPLOY"})
     n = len(rows)

@@ -19,7 +19,7 @@
 // mind/evidence/<timestamp>.markets.attempts.ndjson as soon as it returns; the run goes to
 // <timestamp>.markets.json. Miner free text is never passed to the Mind: only the outcome, whether
 // sources were cited, and our check results.
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,7 +29,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..");
 const ANJOMAN = "https://backend.telegraphprotocol.com";
 const INTENT = "EVENT_OUTCOME_RESOLUTION_GENERAL";
-const ASK_RESERVE_USD = 0.02;
+const ASK_RESERVE_USD = 0.05; // worst case seen through Anjoman was $0.04 per ask (28 Nov)
 
 const headers = { "Content-Type": "application/json",
   ...(process.env.ANJOMAN_API_KEY ? { Authorization: `Bearer ${process.env.ANJOMAN_API_KEY}` } : {}) };
@@ -62,6 +62,29 @@ export function decide(paid, check) {
   return { decision: "HOLD", reason: `no machine-readable source in the rules; paid answer (${paid}) kept as a lead for a person` };
 }
 
+/** The free check for one market, run as a child process so it overlaps the paid ask. */
+function checkMarket(casesPath, m) {
+  return new Promise((done) => {
+    const p = spawn("python3", [join(ROOT, "resolve", "check.py"), "--cases", casesPath, "--id", m.id]);
+    let out = "", err = "";
+    const timer = setTimeout(() => p.kill("SIGKILL"), 600_000);
+    p.stdout.on("data", (d) => (out += d));
+    p.stderr.on("data", (d) => (err += d));
+    p.on("close", (code) => {
+      clearTimeout(timer);
+      try { if (code === 0) return done(JSON.parse(out)); } catch { /* fall through */ }
+      done({ contract: m.contract, source_outcome: "unresolved", evidence: { why: `check failed: ${err.slice(-200)}` } });
+    });
+  });
+}
+
+/** Behind an HTTPS proxy that injects the key, Node's fetch must be told to use it, or every ask is a 401. */
+export function proxyProblem(env = process.env) {
+  const proxied = Boolean(env.HTTPS_PROXY || env.https_proxy);
+  return proxied && !env.ANJOMAN_API_KEY && env.NODE_USE_ENV_PROXY !== "1"
+    ? "HTTPS_PROXY is set but NODE_USE_ENV_PROXY=1 is not: Node would send asks without the proxy's key (HTTP 401)" : null;
+}
+
 async function ask(event) {
   const started = Date.now();
   try {
@@ -79,11 +102,17 @@ async function ask(event) {
   }
 }
 
-async function balance() {
-  try {
-    const r = await fetch(`${ANJOMAN}/engine/escrow/balance`, { headers, signal: AbortSignal.timeout(20_000) });
-    return Number((await r.json()).effectiveBalance);
-  } catch { return null; }
+async function balance(tries = 3) {
+  for (let i = 0; i < tries; i++) {  // the reconciliation needs it, so a transient failure is retried
+    try {
+      const r = await fetch(`${ANJOMAN}/engine/escrow/balance`, { headers, signal: AbortSignal.timeout(20_000) });
+      const b = Number((await r.json().catch(() => ({}))).effectiveBalance);
+      if (r.ok && Number.isFinite(b)) return b;
+      if (r.status === 401 || r.status === 403) return null;  // no key: retrying won't help
+    } catch { /* retry */ }
+    await new Promise((res) => setTimeout(res, 1500 * (i + 1)));
+  }
+  return null;  // unknown, never NaN
 }
 
 async function main() {
@@ -93,6 +122,8 @@ async function main() {
   } });
   if (!opt.cases) throw new Error("--cases is required");
   if (!opt["no-mind"] && !opt.mind) throw new Error("--mind <mindId> is required unless --no-mind");
+  const problem = proxyProblem();
+  if (problem) throw new Error(problem);
   const casesPath = resolve(opt.cases);
   const markets = JSON.parse(readFileSync(casesPath, "utf8")).markets;
   const maxSpend = Number(opt["max-spend"]);
@@ -110,15 +141,21 @@ async function main() {
     const buy = shouldAsk(m, opt["ask-all"]);
     if (buy && committed + ASK_RESERVE_USD > maxSpend + 1e-9) { run.markets.push({ id: m.id, decision: "NOT CHECKED", reason: "spending cap" }); continue; }
     if (buy) committed += ASK_RESERVE_USD;
-    const a = buy ? await ask(m.event) : { http: null, ms: 0, result: null, cost_usd: 0, receipt: null, possibly_charged: false, error: null, skipped: "no checkable source in the rules: not bought" };
+    const [a, check] = await Promise.all([
+      buy ? ask(m.event) : Promise.resolve({ http: null, ms: 0, result: null, cost_usd: 0, receipt: null, possibly_charged: false, error: null, skipped: "no checkable source in the rules: not bought" }),
+      checkMarket(casesPath, m)]);
+    if (a.http === 401 || a.http === 403) {  // the key was refused: stop before anything reaches the Mind
+      run.error = `Anjoman refused the key (HTTP ${a.http}) on ${m.id}; nothing more was asked and the Mind was not messaged`;
+      run.markets.push({ id: m.id, decision: "NOT CHECKED", reason: run.error, http: a.http });
+      break;
+    }
     if (buy) committed += a.cost_usd - ASK_RESERVE_USD + (a.possibly_charged ? ASK_RESERVE_USD : 0);
     const paid = normOutcome(a.result);
     const cited = (a.result?.sources || []).filter((s) => typeof s === "string" && /^https?:\/\//.test(s)).length;
-    const c = spawnSync("python3", [join(ROOT, "resolve", "check.py"), "--cases", casesPath, "--id", m.id], { encoding: "utf8", timeout: 600_000 });
-    const check = c.status === 0 ? JSON.parse(c.stdout) : { contract: m.contract, source_outcome: "unresolved", evidence: { why: `check failed: ${(c.stderr || "").slice(-200)}` } };
     const d = decide(paid, check);
     const rec = { id: m.id, question: m.question, paid_outcome: paid, paid_sources_cited: cited, miner: a.miner, miner_id: a.miner_id,
       cost_usd: a.cost_usd, receipt: a.receipt?.receipt_hash ?? null, http: a.http, ms: a.ms, error: a.error, paid_ask: buy,
+      possibly_charged: Boolean(a.possibly_charged),
       rule: ruleSentence(m.rules),
       check: { source: check.contract?.kind ?? null, outcome: check.source_outcome, evidence: check.evidence }, ...d };
     appendFileSync(`${stem}.attempts.ndjson`, JSON.stringify(rec) + "\n");
@@ -126,13 +163,17 @@ async function main() {
     console.log(`${m.id.padEnd(12)} paid=${paid.padEnd(10)} check=${String(check.source_outcome).padEnd(10)} -> ${d.decision}${d.dispute ? " (dispute caught)" : ""}`);
   }
   run.spent_usd = Math.round(run.markets.reduce((s, x) => s + (x.cost_usd || 0), 0) * 100) / 100;
+  // asks that failed or timed out without reporting a cost may still have been charged (28 Nov: 7 were)
+  run.possibly_charged_usd = Math.round(run.markets.filter((x) => x.possibly_charged).length * ASK_RESERVE_USD * 100) / 100;
   run.balance_after_usd = await balance();
   if (run.balance_before_usd != null && run.balance_after_usd != null) {
     const delta = Math.round((run.balance_before_usd - run.balance_after_usd) * 100) / 100;
-    run.reconciliation = { balance_change_usd: delta, recorded_usd: run.spent_usd, matches: Math.abs(delta - run.spent_usd) < 0.005 };
+    run.reconciliation = { balance_change_usd: delta, recorded_usd: run.spent_usd, possibly_charged_usd: run.possibly_charged_usd,
+      matches: Math.abs(delta - run.spent_usd) < 0.005,
+      note: "a mismatch up to possibly_charged_usd is expected when asks timed out; the balance is the truth" };
   }
 
-  if (!opt["no-mind"]) {
+  if (!opt["no-mind"] && !run.error) {
     const lines = run.markets.map((x) => `- ${x.id} "${x.question}"${x.rule ? ` Rule: ${x.rule}` : ""} Proposed ${x.decision}. ` + JSON.stringify({
       paid_ask: x.paid_ask, paid_outcome: x.paid_outcome, paid_sources_cited: x.paid_sources_cited, check_source: x.check?.source, check_outcome: x.check?.outcome,
       check_extreme_or_close: x.check?.evidence?.extreme ?? x.check?.evidence?.close ?? null, dispute: Boolean(x.dispute), cost_usd: x.cost_usd }));

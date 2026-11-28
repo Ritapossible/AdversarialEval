@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 process.argv[1] = "not-main";
-const { decide, normOutcome, ruleSentence, shouldAsk } = await import("../markets.mjs");
+const { decide, normOutcome, proxyProblem, ruleSentence, shouldAsk } = await import("../markets.mjs");
 
 test("normOutcome reads outcome or resolved_yes", () => {
   assert.equal(normOutcome({ outcome: "YES" }), "yes");
@@ -32,4 +32,11 @@ test("pays only where the rules name a checkable source", () => {
 test("ruleSentence keeps the first sentence of the market's rules", () => {
   assert.equal(ruleSentence("This market resolves YES if X. Otherwise NO."), "This market resolves YES if X.");
   assert.equal(ruleSentence(null), "");
+});
+
+test("refuses to start behind a proxy without NODE_USE_ENV_PROXY (every ask would be a 401)", () => {
+  assert.match(proxyProblem({ HTTPS_PROXY: "http://proxy:3128" }), /NODE_USE_ENV_PROXY/);
+  assert.equal(proxyProblem({ HTTPS_PROXY: "http://proxy:3128", NODE_USE_ENV_PROXY: "1" }), null);
+  assert.equal(proxyProblem({ HTTPS_PROXY: "http://proxy:3128", ANJOMAN_API_KEY: "k" }), null);
+  assert.equal(proxyProblem({}), null);
 });

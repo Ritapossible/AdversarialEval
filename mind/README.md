@@ -118,3 +118,37 @@ packages chosen by a fixed rule before running:
 (a) the Mind alone; (b) the Mind trusting Telegraph's answer; (c) the Mind with Telegraph plus
 Verified Ask and at most one re-ask. Reported: correct decisions, wrong passes, wrong blocks,
 flags, cost and time per arm.
+
+## 6. Prediction markets: settle only from the source the rules name
+
+`connector/markets.mjs` runs the same check-before-trust flow for prediction markets. For each
+market it:
+1. buys one Telegraph answer (`EVENT_OUTCOME_RESOLUTION_GENERAL`, ranked route, through Anjoman),
+   but only when the market's rules name a source it can check;
+2. reads that source for free with `resolve/check.py`: Binance 1-minute candles, Coinbase, the NHL,
+   MLB or USGS;
+3. decides **SETTLE YES**, **SETTLE NO** or **HOLD** for a person;
+4. sends the Mind the structured evidence and each market's resolution rule, and the Mind writes
+   the settlement report.
+
+It never settles on a paid answer alone.
+
+```bash
+NODE_USE_ENV_PROXY=1 node mind/connector/markets.mjs \
+  --mind 38266542-f36b-1410-8467-00039ce7df11 --cases resolve/polymarket_cases.json --max-spend 1.00
+# --no-mind   asks and checks only     --ask-all   also buy answers for markets with no checkable source
+```
+
+- **Behind the session proxy, `NODE_USE_ENV_PROXY=1` is required.** Without it, Node's `fetch`
+  bypasses the proxy and sends no key. The connector refuses to start in that case, and it stops
+  at the first 401/403 without messaging the Mind.
+- **Money:**
+  - each ask reserves $0.05 against `--max-spend`; the observed price through Anjoman is $0.02
+    to $0.04;
+  - an ask that times out is counted as possibly charged (`possibly_charged_usd`);
+  - the run records the escrow balance before and after.
+- **Evidence:** every ask is appended to `mind/evidence/<timestamp>.markets.attempts.ndjson` as it
+  returns, and the whole run goes to `<timestamp>.markets.json`.
+- **Results and demo:** the 28 Nov run on 24 real Polymarket markets
+  (`eval/reports/2026-11-28-polymarket-via-app.md`); the in-app demo message
+  (`docs/DEMO_MIND_MARKETS.md`).

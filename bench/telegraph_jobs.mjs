@@ -7,7 +7,8 @@
 // miner the call goes to /engine/v1/ask/<id>, otherwise to the ranked route. Each answer is appended to
 // <dir>/calls.ndjson with the Solana transaction signature; a re-run skips recorded keys, so nothing
 // is paid twice. Each payment is capped at $0.02 by the client; the run stops before exceeding
-// --max-spend (counting $0.01 per call, the node's price). Reconcile on-chain with
+// --max-spend (counting $0.01 per call, the node's price, and counting a call that failed in flight
+// as possibly charged). Reconcile on-chain with
 // bench/solana_reconcile.py. Key: $SOLANA_KEY_FILE (default ~/.adversarialeval/solana-burner.json).
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -33,7 +34,7 @@ const callsFile = join(outDir, "calls.ndjson");
 const done = new Set();
 let spent = 0;
 if (existsSync(callsFile)) for (const l of readFileSync(callsFile, "utf8").split("\n").filter(Boolean)) {
-  const r = JSON.parse(l); done.add(r.key); if (r.paid) spent += PRICE_USD;
+  const r = JSON.parse(l); done.add(r.key); if (r.paid || r.possibly_charged) spent += PRICE_USD;
 }
 const maxSpend = Number(opt["max-spend"]);
 const todo = jobs.filter((j) => !done.has(j.key));
@@ -67,9 +68,11 @@ for (const j of todo) {
       miner_id: body.miner_id ?? null, miner: body.miner_name ?? null, result: body.result ?? null,
       cost_usd: body.cost_usd ?? null, error: body.error ?? null, message: body.message ?? null };
   } catch (e) {
-    rec = { ...rec, http: null, wall_ms: Date.now() - started, paid: null, error: String(e?.message || e).slice(0, 300) };
+    // The request may have been paid before it failed (seen on 28 Nov: a payment settled, the answer
+    // was lost), so the reservation stays counted against the cap; reconciliation settles it on-chain.
+    rec = { ...rec, http: null, wall_ms: Date.now() - started, paid: null, possibly_charged: true, error: String(e?.message || e).slice(0, 300) };
   }
-  if (!rec.paid) spent -= PRICE_USD;
+  if (rec.paid === false) spent -= PRICE_USD; // answered without a payment: nothing was charged
   appendFileSync(callsFile, JSON.stringify(rec) + "\n");
   console.log(`${j.key.padEnd(44)} http=${rec.http} ${rec.result?.verdict ?? rec.error ?? ""} ${rec.solana_tx ? "tx " + rec.solana_tx.slice(0, 10) + "…" : ""}`);
 }
