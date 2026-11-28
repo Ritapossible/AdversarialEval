@@ -116,7 +116,7 @@ verifiable way, so a scorer can't win by rewarding length or keywords.
 **Links:**
 - Repo: https://github.com/Ritapossible/AdversarialEval
 - Track summary: https://github.com/Ritapossible/AdversarialEval/blob/main/tracks/evaluators.md
-- Dataset release v1.0: https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0
+- Dataset release v1.0: https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0 · Hugging Face: https://huggingface.co/datasets/Ritapossible/adversarialeval-security-review
 - Evidence index: https://github.com/Ritapossible/AdversarialEval/blob/main/docs/SUBMISSION_EVIDENCE.md
 
 **Known limits:** the validation pairs share an author with the training pairs, and failure types

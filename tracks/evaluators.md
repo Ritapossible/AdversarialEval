@@ -25,7 +25,7 @@ length, fluency or security keywords pick them. On our material those shortcut j
 |---|---|
 | Ten-family failure taxonomy: F1 wrong advisory id, F2 version-range error, F3 missed critical, F4 context reversal, F5 overconfident "Secure", F6 false alarm, F7 inconsistent fields, F8 wrong severity or class, F9 needless hedging, F10 ineffective fix | [`docs/ADVERSARIAL_CRITERIA.md`](../docs/ADVERSARIAL_CRITERIA.md) |
 | Public training and validation pairs: 264 + 87, with sidecar metadata | `data/public/`, `data/validation/`, `data/meta/` |
-| Dataset release v1.0: train, validation and the 40 independent test pairs, with a dataset card and checksums | [GitHub release](https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0), [`release/`](../release/adversarialeval-security-review-v1/) |
+| Dataset release v1.0: train, validation and the 40 independent test pairs, with a dataset card and checksums | [Hugging Face](https://huggingface.co/datasets/Ritapossible/adversarialeval-security-review), [GitHub release](https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0), [`release/`](../release/adversarialeval-security-review-v1/) |
 | Generators and checks: OSV-verified minimal pairs, id checks, label checks, token budget, near-duplicate detection, shortcut judges, the kit's dataset gate | `tools/`, `eval/baselines.py`, `scripts/check_data.sh` |
 | Pool material (private; never published) | `data/private/` (git-ignored) |
 | Adapter: LoRA and reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | `scripts/train.sh`, `scripts/export.sh` |

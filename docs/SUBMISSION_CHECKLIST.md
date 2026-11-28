@@ -39,7 +39,7 @@ submission. **Apps & Agents and Evaluators are judged separately.** Judge-facing
 - [x] Registration decided (28 Nov): **not registered**. It missed our own bar; the Evaluators
       entry is the material plus a measured adapter
 - [x] Dataset release v1.0 on GitHub (https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0); zip hash matches the build
-- [ ] Optional: the same release on Hugging Face
+- [x] The same release on Hugging Face (https://huggingface.co/datasets/Ritapossible/adversarialeval-security-review); loads with `load_dataset`, row ids match
 
 ## Scoring levers (out of 100)
 
