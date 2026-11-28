@@ -3,7 +3,8 @@
 //
 //   NODE_USE_ENV_PROXY=1 node bench/telegraph_jobs.mjs --jobs <jobs.json> --out <dir> [--max-spend 1.50]
 //
-// jobs.json: {"jobs": [{"key": "...", "intent": "...", "params": {...}}]}. Each answer is appended to
+// jobs.json: {"jobs": [{"key": "...", "intent": "...", "params": {...}, "miner": "<id, optional>"}]}; with a
+// miner the call goes to /engine/v1/ask/<id>, otherwise to the ranked route. Each answer is appended to
 // <dir>/calls.ndjson with the Solana transaction signature; a re-run skips recorded keys, so nothing
 // is paid twice. Each payment is capped at $0.02 by the client; the run stops before exceeding
 // --max-spend (counting $0.01 per call, the node's price). Reconcile on-chain with
@@ -54,9 +55,9 @@ for (const j of todo) {
   if (spent + PRICE_USD > maxSpend + 1e-9) { console.log(`spending cap $${maxSpend} reached; ${todo.length - todo.indexOf(j)} jobs skipped`); break; }
   spent += PRICE_USD;
   const started = Date.now();
-  let rec = { key: j.key, intent: j.intent, params: j.params, at: new Date().toISOString() };
+  let rec = { key: j.key, intent: j.intent, params: j.params, miner_asked: j.miner ?? "routed", at: new Date().toISOString() };
   try {
-    const res = await pay(`${NODE}/engine/v1/ask`, { method: "POST", headers: { "Content-Type": "application/json" },
+    const res = await pay(j.miner ? `${NODE}/engine/v1/ask/${j.miner}` : `${NODE}/engine/v1/ask`, { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ intent: j.intent, params: j.params }), signal: AbortSignal.timeout(120_000) });
     const text = await res.text();
     let body; try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 2000) }; }

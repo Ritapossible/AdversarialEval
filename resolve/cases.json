@@ -1,0 +1,756 @@
+{
+ "made_at": "2026-11-28T09:13:29+00:00",
+ "markets": [
+  {
+   "id": "btc-close-above-80k-nov04",
+   "kind": "close vs trade",
+   "event": "Did Bitcoin close above $80,000 on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-04",
+    "end": "2026-11-04",
+    "field": "close",
+    "op": "above",
+    "threshold": 80000
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-04T00:00:00Z&end=2026-11-05T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-04",
+      "low": 75600.64,
+      "high": 81130.79,
+      "open": 77336.75,
+      "close": 80428.31
+     }
+    ],
+    "matching_days": [
+     "2026-11-04"
+    ]
+   }
+  },
+  {
+   "id": "btc-close-above-81k-nov04",
+   "kind": "close vs trade: traded above, closed below",
+   "event": "Did Bitcoin close above $81,000 on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-04",
+    "end": "2026-11-04",
+    "field": "close",
+    "op": "above",
+    "threshold": 81000
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-04T00:00:00Z&end=2026-11-05T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-04",
+      "low": 75600.64,
+      "high": 81130.79,
+      "open": 77336.75,
+      "close": 80428.31
+     }
+    ],
+    "matching_days": []
+   }
+  },
+  {
+   "id": "btc-trade-above-81k-nov04",
+   "kind": "close vs trade",
+   "event": "Did Bitcoin trade above $81,000 at any time on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-04",
+    "end": "2026-11-04",
+    "field": "high",
+    "op": "above",
+    "threshold": 81000
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-04T00:00:00Z&end=2026-11-05T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-04",
+      "low": 75600.64,
+      "high": 81130.79,
+      "open": 77336.75,
+      "close": 80428.31
+     }
+    ],
+    "matching_days": [
+     "2026-11-04"
+    ]
+   }
+  },
+  {
+   "id": "btc-close-below-60k-nov21",
+   "kind": "close vs trade: traded far below, closed $86 above",
+   "event": "Did Bitcoin close below $60,000 on November 21, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-21",
+    "end": "2026-11-21",
+    "field": "close",
+    "op": "below",
+    "threshold": 60000
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-21T00:00:00Z&end=2026-11-22T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-21",
+      "low": 55106,
+      "high": 60883.03,
+      "open": 58815.33,
+      "close": 60086
+     }
+    ],
+    "matching_days": []
+   }
+  },
+  {
+   "id": "btc-trade-below-56k-nov21",
+   "kind": "close vs trade",
+   "event": "Did Bitcoin trade below $56,000 at any time on November 21, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-21",
+    "end": "2026-11-21",
+    "field": "low",
+    "op": "below",
+    "threshold": 56000
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-21T00:00:00Z&end=2026-11-22T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-21",
+      "low": 55106,
+      "high": 60883.03,
+      "open": 58815.33,
+      "close": 60086
+     }
+    ],
+    "matching_days": [
+     "2026-11-21"
+    ]
+   }
+  },
+  {
+   "id": "btc-trade-below-55k-nov",
+   "kind": "near miss: low was $55,106",
+   "event": "Did Bitcoin trade below $55,000 at any time between November 1 and November 27, 2026, according to Coinbase BTC-USD daily candles (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-11-01",
+    "end": "2026-11-27",
+    "field": "low",
+    "op": "below",
+    "threshold": 55000
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=2026-11-01T00:00:00Z&end=2026-11-28T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-01",
+      "low": 77370,
+      "high": 78298.82,
+      "open": 77423.98,
+      "close": 78230.55
+     },
+     {
+      "day": "2026-11-02",
+      "low": 76553,
+      "high": 78762.3,
+      "open": 78232.49,
+      "close": 76674.13
+     },
+     {
+      "day": "2026-11-03",
+      "low": 76238.54,
+      "high": 77981.38,
+      "open": 76674.12,
+      "close": 77336.75
+     },
+     {
+      "day": "2026-11-04",
+      "low": 75600.64,
+      "high": 81130.79,
+      "open": 77336.75,
+      "close": 80428.31
+     },
+     {
+      "day": "2026-11-05",
+      "low": 75035.1,
+      "high": 80843.85,
+      "open": 80428.3,
+      "close": 75969.06
+     },
+     {
+      "day": "2026-11-06",
+      "low": 74722,
+      "high": 76306.26,
+      "open": 75969.06,
+      "close": 75731.04
+     },
+     {
+      "day": "2026-11-07",
+      "low": 75452.88,
+      "high": 76152.43,
+      "open": 75731.05,
+      "close": 75753.96
+     },
+     {
+      "day": "2026-11-08",
+      "low": 73477,
+      "high": 76094.99,
+      "open": 75753.95,
+      "close": 74754.08
+     },
+     {
+      "day": "2026-11-09",
+      "low": 73636,
+      "high": 75500,
+      "open": 74756.52,
+      "close": 75259.28
+     },
+     {
+      "day": "2026-11-10",
+      "low": 72643.48,
+      "high": 75340.23,
+      "open": 75257.77,
+      "close": 73697.87
+     },
+     {
+      "day": "2026-11-11",
+      "low": 73110,
+      "high": 74737.15,
+      "open": 73697.88,
+      "close": 73927.63
+     },
+     {
+      "day": "2026-11-12",
+      "low": 71008,
+      "high": 74123.71,
+      "open": 73927.63,
+      "close": 71369.9
+     },
+     {
+      "day": "2026-11-13",
+      "low": 67555,
+      "high": 71429.46,
+      "open": 71369.9,
+      "close": 68236.54
+     },
+     {
+      "day": "2026-11-14",
+      "low": 63270,
+      "high": 68380,
+      "open": 68236.54,
+      "close": 64118.79
+     },
+     {
+      "day": "2026-11-15",
+      "low": 61946.17,
+      "high": 66100,
+      "open": 64118.86,
+      "close": 65315.35
+     },
+     {
+      "day": "2026-11-16",
+      "low": 63833.47,
+      "high": 65626.98,
+      "open": 65315.35,
+      "close": 64816.79
+     },
+     {
+      "day": "2026-11-17",
+      "low": 63256.75,
+      "high": 65383.29,
+      "open": 64816.79,
+      "close": 64873.18
+     },
+     {
+      "day": "2026-11-18",
+      "low": 62000,
+      "high": 64933.39,
+      "open": 64873.18,
+      "close": 62981.71
+     },
+     {
+      "day": "2026-11-19",
+      "low": 61350,
+      "high": 64023.69,
+      "open": 62981.71,
+      "close": 61913.23
+     },
+     {
+      "day": "2026-11-20",
+      "low": 57655.17,
+      "high": 62562.15,
+      "open": 61911.58,
+      "close": 58814.99
+     },
+     {
+      "day": "2026-11-21",
+      "low": 55106,
+      "high": 60883.03,
+      "open": 58815.33,
+      "close": 60086
+     },
+     {
+      "day": "2026-11-22",
+      "low": 58636.18,
+      "high": 61568.11,
+      "open": 60086,
+      "close": 61163.01
+     },
+     {
+      "day": "2026-11-23",
+      "low": 60286.92,
+      "high": 64533.96,
+      "open": 61163.01,
+      "close": 61189.97
+     },
+     {
+      "day": "2026-11-24",
+      "low": 59189.67,
+      "high": 61603.49,
+      "open": 61190.81,
+      "close": 59740.87
+     },
+     {
+      "day": "2026-11-25",
+      "low": 57208.17,
+      "high": 60487,
+      "open": 59741.39,
+      "close": 60383.51
+     },
+     {
+      "day": "2026-11-26",
+      "low": 59842.43,
+      "high": 61526.89,
+      "open": 60383.5,
+      "close": 60495.57
+     },
+     {
+      "day": "2026-11-27",
+      "low": 58700,
+      "high": 62140.28,
+      "open": 60495.56,
+      "close": 59858.49
+     }
+    ],
+    "matching_days": []
+   }
+  },
+  {
+   "id": "eth-close-above-1800-nov23",
+   "kind": "close vs trade: traded above, closed below",
+   "event": "Did Ether close above $1,800 on November 23, 2026, according to the Coinbase ETH-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "ETH-USD",
+    "start": "2026-11-23",
+    "end": "2026-11-23",
+    "field": "close",
+    "op": "above",
+    "threshold": 1800
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400&start=2026-11-23T00:00:00Z&end=2026-11-24T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-23",
+      "low": 1693.44,
+      "high": 1843.67,
+      "open": 1721.8,
+      "close": 1708.5
+     }
+    ],
+    "matching_days": []
+   }
+  },
+  {
+   "id": "sol-close-above-75-nov17",
+   "kind": "near miss: closed at $75.11",
+   "event": "Did Solana (SOL) close above $75 on November 17, 2026, according to the Coinbase SOL-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "SOL-USD",
+    "start": "2026-11-17",
+    "end": "2026-11-17",
+    "field": "close",
+    "op": "above",
+    "threshold": 75
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/SOL-USD/candles?granularity=86400&start=2026-11-17T00:00:00Z&end=2026-11-18T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-17",
+      "low": 70.93,
+      "high": 75.7,
+      "open": 71.51,
+      "close": 75.11
+     }
+    ],
+    "matching_days": [
+     "2026-11-17"
+    ]
+   }
+  },
+  {
+   "id": "eth-close-below-1700-nov27",
+   "kind": "plain",
+   "event": "Did Ether close below $1,700 on November 27, 2026, according to the Coinbase ETH-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "ETH-USD",
+    "start": "2026-11-27",
+    "end": "2026-11-27",
+    "field": "close",
+    "op": "below",
+    "threshold": 1700
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400&start=2026-11-27T00:00:00Z&end=2026-11-28T00:00:00Z",
+    "days": [
+     {
+      "day": "2026-11-27",
+      "low": 1632,
+      "high": 1753.1,
+      "open": 1687.2,
+      "close": 1660.84
+     }
+    ],
+    "matching_days": [
+     "2026-11-27"
+    ]
+   }
+  },
+  {
+   "id": "nhl-stl-beat-edm-nov22",
+   "kind": "shootout win counts as a win",
+   "event": "Did the St. Louis Blues beat the Edmonton Oilers in their NHL game on November 22, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-22",
+    "team": "STL",
+    "opponent": "EDM",
+    "test": "win"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-22",
+    "game_id": 2026020375,
+    "score": {
+     "STL": 5,
+     "EDM": 4
+    },
+    "last_period": "SO",
+    "start_utc": "2026-11-23T00:00:00Z"
+   }
+  },
+  {
+   "id": "nhl-stl-beat-edm-reg-nov22",
+   "kind": "regulation only: the win came in a shootout",
+   "event": "Did the St. Louis Blues beat the Edmonton Oilers in regulation time in their NHL game on November 22, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-22",
+    "team": "STL",
+    "opponent": "EDM",
+    "test": "win_regulation"
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-22",
+    "game_id": 2026020375,
+    "score": {
+     "STL": 5,
+     "EDM": 4
+    },
+    "last_period": "SO",
+    "start_utc": "2026-11-23T00:00:00Z"
+   }
+  },
+  {
+   "id": "nhl-pit-scored-nov22",
+   "kind": "shutout",
+   "event": "Did the Pittsburgh Penguins score at least one goal against the Dallas Stars in their NHL game on November 22, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-22",
+    "team": "PIT",
+    "opponent": "DAL",
+    "test": "scored"
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-22",
+    "game_id": 2026020376,
+    "score": {
+     "PIT": 0,
+     "DAL": 1
+    },
+    "last_period": "REG",
+    "start_utc": "2026-11-23T00:00:00Z"
+   }
+  },
+  {
+   "id": "nhl-mtl-beat-car-nov19",
+   "kind": "overtime win counts as a win",
+   "event": "Did the Montreal Canadiens beat the Carolina Hurricanes in their NHL game on November 19, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-19",
+    "team": "MTL",
+    "opponent": "CAR",
+    "test": "win"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-19",
+    "game_id": 2026020352,
+    "score": {
+     "MTL": 2,
+     "CAR": 1
+    },
+    "last_period": "OT",
+    "start_utc": "2026-11-20T00:00:00Z"
+   }
+  },
+  {
+   "id": "nhl-bos-margin3-nov18",
+   "kind": "margin",
+   "event": "Did the Boston Bruins beat the Detroit Red Wings by 3 or more goals in their NHL game on November 18, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-18",
+    "team": "BOS",
+    "opponent": "DET",
+    "test": "margin>=3"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-18",
+    "game_id": 2026020344,
+    "score": {
+     "BOS": 4,
+     "DET": 1
+    },
+    "last_period": "REG",
+    "start_utc": "2026-11-19T00:30:00Z"
+   }
+  },
+  {
+   "id": "nhl-buf-tbl-over65-nov22",
+   "kind": "total",
+   "event": "Were more than 6.5 total goals scored in the NHL game between the Buffalo Sabres and the Tampa Bay Lightning on November 22, 2026?",
+   "contract": {
+    "kind": "nhl",
+    "date": "2026-11-22",
+    "team": "BUF",
+    "opponent": "TBL",
+    "test": "total>6.5"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://api-web.nhle.com/v1/score/2026-11-22",
+    "game_id": 2026020374,
+    "score": {
+     "BUF": 6,
+     "TBL": 2
+    },
+    "last_period": "REG",
+    "start_utc": "2026-11-22T22:00:00Z"
+   }
+  },
+  {
+   "id": "mlb-ws-2026-brewers",
+   "kind": "no machine-readable source in the contract",
+   "event": "Did the Milwaukee Brewers win the 2026 World Series?",
+   "contract": null,
+   "truth_source": {
+    "kind": "mlb_ws",
+    "season": 2026,
+    "test": "champion=Milwaukee Brewers"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gameType=W&season=2026",
+    "games": 5,
+    "wins": {
+     "Milwaukee Brewers": 4,
+     "Tampa Bay Rays": 1
+    },
+    "champion": "Milwaukee Brewers"
+   }
+  },
+  {
+   "id": "mlb-ws-2026-six-games",
+   "kind": "no machine-readable source in the contract",
+   "event": "Did the 2026 World Series last at least six games?",
+   "contract": null,
+   "truth_source": {
+    "kind": "mlb_ws",
+    "season": 2026,
+    "test": "games>=6"
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gameType=W&season=2026",
+    "games": 5,
+    "wins": {
+     "Milwaukee Brewers": 4,
+     "Tampa Bay Rays": 1
+    },
+    "champion": "Milwaukee Brewers"
+   }
+  },
+  {
+   "id": "mlb-ws-2026-rays-won-a-game",
+   "kind": "no machine-readable source in the contract",
+   "event": "Did the Tampa Bay Rays win at least one game in the 2026 World Series?",
+   "contract": null,
+   "truth_source": {
+    "kind": "mlb_ws",
+    "season": 2026,
+    "test": "won_a_game=Tampa Bay Rays"
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gameType=W&season=2026",
+    "games": 5,
+    "wins": {
+     "Milwaukee Brewers": 4,
+     "Tampa Bay Rays": 1
+    },
+    "champion": "Milwaukee Brewers"
+   }
+  },
+  {
+   "id": "usgs-m7-oct15-31",
+   "kind": "threshold edge: exactly 7.0 counts",
+   "event": "Was there an earthquake of magnitude 7.0 or greater anywhere in the world between October 15 and October 31, 2026 (UTC), according to the USGS?",
+   "contract": {
+    "kind": "usgs",
+    "start": "2026-10-15",
+    "end": "2026-10-31",
+    "magnitude": 7.0,
+    "strict": false
+   },
+   "truth": "yes",
+   "truth_evidence": {
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-10-15&endtime=2026-11-01&minmagnitude=6.5&orderby=time-asc",
+    "matching": [
+     {
+      "id": "us6000u43g",
+      "mag": 7,
+      "place": "189 km ENE of Nagqu, China",
+      "time": "2026-10-22T14:33:40.289000+00:00"
+     }
+    ],
+    "largest": 7
+   }
+  },
+  {
+   "id": "usgs-over7-oct15-31",
+   "kind": "threshold edge: exactly 7.0 does not count",
+   "event": "Was there an earthquake of magnitude greater than 7.0 anywhere in the world between October 15 and October 31, 2026 (UTC), according to the USGS?",
+   "contract": {
+    "kind": "usgs",
+    "start": "2026-10-15",
+    "end": "2026-10-31",
+    "magnitude": 7.0,
+    "strict": true
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-10-15&endtime=2026-11-01&minmagnitude=6.5&orderby=time-asc",
+    "matching": [],
+    "largest": 7
+   }
+  },
+  {
+   "id": "usgs-m7-nov1-27",
+   "kind": "none happened",
+   "event": "Was there an earthquake of magnitude 7.0 or greater anywhere in the world between November 1 and November 27, 2026 (UTC), according to the USGS?",
+   "contract": {
+    "kind": "usgs",
+    "start": "2026-11-01",
+    "end": "2026-11-27",
+    "magnitude": 7.0,
+    "strict": false
+   },
+   "truth": "no",
+   "truth_evidence": {
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-11-01&endtime=2026-11-28&minmagnitude=6.5&orderby=time-asc",
+    "matching": [],
+    "largest": 6.8
+   }
+  },
+  {
+   "id": "btc-close-above-70k-dec31",
+   "kind": "not yet resolvable: future date",
+   "event": "Will Bitcoin close above $70,000 on December 31, 2026, according to the Coinbase BTC-USD daily candle (UTC)?",
+   "contract": {
+    "kind": "coinbase",
+    "product": "BTC-USD",
+    "start": "2026-12-31",
+    "end": "2026-12-31",
+    "field": "close",
+    "op": "above",
+    "threshold": 70000
+   },
+   "truth": "unresolved",
+   "truth_evidence": {
+    "why": "the period ends 2026-12-31, which has not finished (UTC)"
+   }
+  },
+  {
+   "id": "mlb-ws-2027-seven-games",
+   "kind": "not yet resolvable: future event",
+   "event": "Will the 2027 World Series go to seven games?",
+   "contract": null,
+   "truth_source": {
+    "kind": "mlb_ws",
+    "season": 2027,
+    "test": "games>=7"
+   },
+   "truth": "unresolved",
+   "truth_evidence": {
+    "why": "no team has 4 World Series wins yet",
+    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&gameType=W&season=2027"
+   }
+  },
+  {
+   "id": "btc-crash-nov",
+   "kind": "not resolvable: no defined criterion",
+   "event": "Did Bitcoin crash in November 2026?",
+   "contract": null,
+   "truth_source": null,
+   "truth": "unresolved",
+   "truth_evidence": {
+    "why": "the market names no machine-readable resolution source"
+   }
+  }
+ ]
+}

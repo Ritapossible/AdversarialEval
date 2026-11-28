@@ -1,0 +1,4 @@
+{"jobs": [
+ {"key": "ranked|preflight-col-min", "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL", "params": {"event": "Did the Colorado Avalanche beat the Minnesota Wild in the NHL game on November 27, 2026?"}},
+ {"key": "takar|preflight-col-min", "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL", "params": {"event": "Did the Colorado Avalanche beat the Minnesota Wild in the NHL game on November 27, 2026?"}, "miner": "20261117"}
+]}
