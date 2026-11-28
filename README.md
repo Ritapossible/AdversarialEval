@@ -17,7 +17,7 @@ Telegraph Hackathon Season II · **Evaluators** track and **Apps & Agents** trac
 | Website | [adversarialeval.vercel.app](https://adversarialeval.vercel.app) · [demo videos](https://adversarialeval.vercel.app/videos) · [Spot the Flaw](https://adversarialeval.vercel.app/evaluators) |
 | The app | [Dependency.Guard on Minds](https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11) (id `38266542-f36b-1410-8467-00039ce7df11`), listed on Anjoman |
 | Per track (judged separately) | [Apps & Agents](tracks/apps-and-agents.md) · [Evaluators](tracks/evaluators.md) · [Miners](tracks/miners.md) |
-| Dataset | [`release/adversarialeval-security-review-v1/`](release/adversarialeval-security-review-v1/): 264 train, 87 validation, 40 independent test pairs |
+| Dataset | [GitHub release v1.0](https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0) (zip with dataset card and checksums) · [`release/`](release/adversarialeval-security-review-v1/): 264 train, 87 validation, 40 independent test pairs |
 | Evidence | every report signed and [anchored on Solana](https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet) · [evidence index](docs/SUBMISSION_EVIDENCE.md) |
 
 > **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor wallet

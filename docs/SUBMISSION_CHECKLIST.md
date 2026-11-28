@@ -38,7 +38,8 @@ submission. **Apps & Agents and Evaluators are judged separately.** Judge-facing
 - [x] Independent test scored once: 77.5% (below our 80% bar), reported as it is
 - [x] Registration decided (28 Nov): **not registered**. It missed our own bar; the Evaluators
       entry is the material plus a measured adapter
-- [ ] Optional: dataset release (GitHub release / Hugging Face) with a datasheet, for growth points
+- [x] Dataset release v1.0 on GitHub (https://github.com/Ritapossible/AdversarialEval/releases/tag/dataset-v1.0); zip hash matches the build
+- [ ] Optional: the same release on Hugging Face
 
 ## Scoring levers (out of 100)
 
