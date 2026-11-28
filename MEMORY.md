@@ -112,9 +112,9 @@ SECURITY_REVIEW: canonical still #42 (71.43%). The pool is now 85 rows from 8 co
 | Intent | Canonical | Score | Pool rows / contributors | Miners |
 |---|---|---|---|---|
 | SECURITY_REVIEW | #42 (0x3035…1bc0) | 71.43% / 21 pairs | 55 / 6 | 26 |
-| SMART_CONTRACT_AUDIT | none | — | 0 / 0 | 15 |
+| SMART_CONTRACT_AUDIT | none | n/a | 0 / 0 | 15 |
 | VULNERABILITY_TRIAGE | #37 (0x3035…) | 83.33% / 30 | 316 / 7 | 36 |
-| SANCTIONS_SCREENING_MATCH | none | — | 485 / 8 | 16 |
+| SANCTIONS_SCREENING_MATCH | none | n/a | 485 / 8 | 16 |
 | CODE_REVIEW | #27 (0x3035…) | 91.30% / 23 | 70 / 10 | 14 |
 
 Refresh commands:

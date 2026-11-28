@@ -141,7 +141,7 @@ JSON-like or mixed, so the adapter judges real miner output, not essays.
 │   ├── sources/     real advisory cases (provenance)
 │   ├── public/      released training pairs
 │   ├── validation/  pool-style held-out pairs (released after the hackathon)
-│   ├── private/     eval-pool upload set — git-ignored, never published
+│   ├── private/     eval-pool upload set: git-ignored, never published
 │   └── meta/        sidecar labels (family, voice, source ids)
 ├── tools/       normalise, dedup, token budget, split, upload
 ├── eval/        baselines, scoring, probes, reports/

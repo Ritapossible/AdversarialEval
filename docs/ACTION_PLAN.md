@@ -6,9 +6,9 @@ in the repo. You handle anything needing your accounts, keys, people or money.
 
 | # | Step | When | Needs a computer? | Costs |
 |---|---|---|---|---|
-| 0 | Keep the private backup safe | now | no | — |
-| 1 | Claim bounty #96 + post the Nov 14 progress update | by Nov 14 | no (phone OK) | — |
-| 2 | Ask the organizers 3 questions | by Nov 14 | no | — |
+| 0 | Keep the private backup safe | now | no | n/a |
+| 1 | Claim bounty #96 + post the Nov 14 progress update | by Nov 14 | no (phone OK) | n/a |
+| 2 | Ask the organizers 3 questions | by Nov 14 | no | n/a |
 | 3 | Recruit 2–3 outside reviewers (test set) | start now | no | their time |
 | 4 | Review the 81 pool pairs | this week | easier on a computer | ~1–2 h |
 | 5 | Create the contributor wallet | after step 4 | yes (terminal) | free |
@@ -16,7 +16,7 @@ in the repo. You handle anything needing your accounts, keys, people or money.
 | 7 | Bond wallet + testnet funds | before registering | yes | free (testnet) |
 | 8 | Executor VM (public HTTPS) | only when step 9's bar is met | yes | a small VPS |
 | 9 | Register the adapter | only if the test accuracy is about 80% or more | yes | $5 MACHINA bond (testnet) |
-| 10 | Keep the claim alive, then submit by Dec 1 | ongoing | no | — |
+| 10 | Keep the claim alive, then submit by Dec 1 | ongoing | no | n/a |
 
 Hard rules that apply throughout (`CLAUDE.md`): never publish `data/private/`, never paste a
 private key into a chat, an issue or a commit, and never claim a network result that isn't verified.

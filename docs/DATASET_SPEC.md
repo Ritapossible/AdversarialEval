@@ -19,8 +19,8 @@ near-duplicate rule.
 ```json
 {
   "prompt": "Security review this requirements.txt for a public Flask API:\nflask==2.3.3\nrequests==2.31.0\npyyaml==5.3.1",
-  "chosen": "Verdict: Insecure. vulnerability_count: 2. Issues: CVE-2020-14343 (PyYAML < 5.4, arbitrary code execution via full_load/FullLoader) — critical; GHSA-9wx4-h78v-vm56 / CVE-2024-35195 (requests < 2.32.0, verify=False persists across a Session) — moderate. Flask 2.3.3 is past the CVE-2023-30861 fix (2.3.2). Fix: pyyaml>=5.4 and use safe_load; requests>=2.32.0.",
-  "rejected": "Verdict: Needs changes. vulnerability_count: 1. Issues: CVE-2023-30861 (Flask session cookie disclosure behind a caching proxy) — moderate. PyYAML 5.3.1 and requests 2.31.0 are stable releases with no outstanding advisories. Fix: upgrade Flask to 3.0 and set Vary: Cookie.",
+  "chosen": "Verdict: Insecure. vulnerability_count: 2. Issues: CVE-2020-14343 (PyYAML < 5.4, arbitrary code execution via full_load/FullLoader): critical; GHSA-9wx4-h78v-vm56 / CVE-2024-35195 (requests < 2.32.0, verify=False persists across a Session): moderate. Flask 2.3.3 is past the CVE-2023-30861 fix (2.3.2). Fix: pyyaml>=5.4 and use safe_load; requests>=2.32.0.",
+  "rejected": "Verdict: Needs changes. vulnerability_count: 1. Issues: CVE-2023-30861 (Flask session cookie disclosure behind a caching proxy): moderate. PyYAML 5.3.1 and requests 2.31.0 are stable releases with no outstanding advisories. Fix: upgrade Flask to 3.0 and set Vary: Cookie.",
   "label_kind": "preference_pair",
   "provenance": {"source_kind": "human", "source_url": "https://github.com/advisories/GHSA-8q59-q68h-6hv4"}
 }

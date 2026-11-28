@@ -115,7 +115,7 @@ def main(argv=None) -> int:
         rec = fetch(vid, a.offline, Path(a.cache_dir))
         s = summarise(rec, opts.get("split", "public"), opts.get("case"))
         if s["withdrawn"]:
-            print(f"! {vid} is WITHDRAWN ({s['withdrawn']}) — usable only as an F1 trap", file=sys.stderr)
+            print(f"! {vid} is WITHDRAWN ({s['withdrawn']}): usable only as an F1 trap", file=sys.stderr)
         rows.append(s)
     Path(a.out).write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     print(f"wrote {len(rows)} sources -> {a.out}")

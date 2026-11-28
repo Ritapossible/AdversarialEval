@@ -12,8 +12,8 @@ live testnet node (`devnode.telegraphprotocol.com`, epoch ~2011).
 | SMART_CONTRACT_AUDIT | judgment | 15 | **0 / 0** | none | #128, P2, unclaimed |
 | VULNERABILITY_TRIAGE | judgment | 36 | 316 / 7 | #37, 83.33% on 30 | #89, P1, in review |
 | SANCTIONS_SCREENING_MATCH | judgment | 16 | 485 / 8 | none (both deregistered) | #78, P1, in review |
-| CODE_REVIEW | judgment | 14 | 70 / 10 | #27, 91.30% on 23 | — |
-| MEDIA_FORENSIC_VERIFY / DEEPFAKE_DETECTION | judgment | 13 / 12 | 0 / 0 | none | — |
+| CODE_REVIEW | judgment | 14 | 70 / 10 | #27, 91.30% on 23 | n/a |
+| MEDIA_FORENSIC_VERIFY / DEEPFAKE_DETECTION | judgment | 13 / 12 | 0 / 0 | none | n/a |
 
 **Recommendation: primary = `SECURITY_REVIEW`, stretch = `SMART_CONTRACT_AUDIT`.**
 
