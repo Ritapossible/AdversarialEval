@@ -20,7 +20,7 @@
   <section id="verify">
     <div class="sec-head"><h2>Check it yourself</h2></div>
     <div class="two">
-      <div class="prose"><p>Every report and run file is hashed (SHA-256) and the list is signed with Ed25519. The public key is in the repository; the private key never is. The check runs on every push.</p><p>The signed list of all 327 files is also anchored on Solana devnet: its SHA-256 is in a memo transaction (<a href="https://explorer.solana.com/tx/5thiXusBTAqdGiiJv1VCtXiykk3HMnqiAQtBxRG3eZmRegEZxgZ5PaMZpVQiy1C45svamQAad5eFuFnZeFNR1AAQ?cluster=devnet" target="_blank" rel="noopener">5thiXu…</a>, 28 Nov 2026), so anyone can check the evidence existed unchanged by then with <code>node tools/anchor_evidence.mjs verify</code>.</p></div>
+      <div class="prose"><p>Every report and run file is hashed (SHA-256) and the list is signed with Ed25519. The public key is in the repository; the private key never is. The check runs on every push.</p><p>The signed list of all 333 files is also anchored on Solana devnet: its SHA-256 is in a memo transaction (<a href="https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet" target="_blank" rel="noopener">2J9e6x…</a>, 28 Nov 2026; earlier anchors in <code>evidence/ANCHORS.json</code>), so anyone can check the evidence existed unchanged by then with <code>node tools/anchor_evidence.mjs verify</code>.</p></div>
       <pre class="cmd">git clone https://github.com/Ritapossible/AdversarialEval
 cd AdversarialEval
 node tools/evidence_manifest.mjs verify

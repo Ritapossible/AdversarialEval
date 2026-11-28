@@ -9,5 +9,17 @@
   "anchored_at": "2026-11-28T10:29:44.259Z",
   "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
   "explorer": "https://explorer.solana.com/tx/5thiXusBTAqdGiiJv1VCtXiykk3HMnqiAQtBxRG3eZmRegEZxgZ5PaMZpVQiy1C45svamQAad5eFuFnZeFNR1AAQ?cluster=devnet"
+ },
+ {
+  "network": "solana-devnet",
+  "tx": "2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7",
+  "slot": 527255576,
+  "memo": "AdversarialEval evidence v1 manifest_sha256=eabaa784077cb09aad994856d1466eb6a89ec7c3bc606f6b991c6a029429144c sig_sha256=242f0cbdcc5018871d4a1dc79178b78aafba135acbb6ba5f52271497cf211960 files=333 commit=7ec1f73db4f1",
+  "files": 333,
+  "manifest_commit": "7ec1f73db4f19fcab5bb82fad0b42d377c58c4aa",
+  "repo_commit_when_anchored": "50ad7a6d5e977aaf83443e7415d247ab26c49f0c",
+  "anchored_at": "2026-11-28T14:20:32.281Z",
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "explorer": "https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet"
  }
 ]
