@@ -1,5 +1,5 @@
 From 77ad9c15a7eb18dc2346180046be7d428f564c61 Mon Sep 17 00:00:00 2001
-From: Ritapossible <egwuaturita95@gmail.com>
+From: Ritapossible <124313160+Ritapossible@users.noreply.github.com>
 Date: Tue, 10 Nov 2026 16:06:24 +0000
 Subject: [PATCH 2/4] export_adapter: accept a re-serialised tokenizer when its
  ids match

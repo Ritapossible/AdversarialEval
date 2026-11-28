@@ -1,5 +1,5 @@
 From e26886741bae74fcb2fe2ba570e13afa06967352 Mon Sep 17 00:00:00 2001
-From: Ritapossible <egwuaturita95@gmail.com>
+From: Ritapossible <124313160+Ritapossible@users.noreply.github.com>
 Date: Tue, 10 Nov 2026 16:06:24 +0000
 Subject: [PATCH 3/4] adapterbuild lora: add --node to read the intent class
  from a node
