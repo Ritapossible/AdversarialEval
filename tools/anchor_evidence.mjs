@@ -29,8 +29,8 @@ const sha = (p) => createHash("sha256").update(readFileSync(p)).digest("hex");
 function memoText() {
   const manifest = JSON.parse(readFileSync(join(EV, "MANIFEST.json"), "utf8"));
   const files = Object.keys(manifest.files || {}).length;
-  return { text: `AdversarialEval evidence v1 manifest_sha256=${sha(join(EV, "MANIFEST.json"))} sig_sha256=${sha(join(EV, "MANIFEST.sig"))} files=${files} commit=${String(manifest.commit || "").slice(0, 12)}`,
-           files, manifestCommit: manifest.commit };
+  return { text: `AdversarialEval evidence v1 manifest_sha256=${sha(join(EV, "MANIFEST.json"))} sig_sha256=${sha(join(EV, "MANIFEST.sig"))} files=${files} commit=${String(manifest.at_commit || "").slice(0, 12)}`,
+           files, manifestCommit: manifest.at_commit };
 }
 
 async function anchor() {
@@ -75,10 +75,11 @@ async function verifyCmd() {
   if (!tx || tx.meta?.err) throw new Error(`anchor transaction ${last.tx} not found or failed`);
   const logs = (tx.meta?.logMessages || []).join("\n");
   const onchain = (logs.match(/Memo \(len \d+\): "(.*)"/) || [])[1];
+  const hashes = (t) => (String(t || "").match(/manifest_sha256=(\w+) sig_sha256=(\w+)/) || []).slice(1).join(",");
   const now = memoText().text;
-  const ok = onchain === last.memo && onchain === now;
+  const ok = onchain === last.memo && Boolean(hashes(onchain)) && hashes(onchain) === hashes(now);
   console.log(JSON.stringify({ tx: last.tx, block_time: tx.blockTime ? new Date(Number(tx.blockTime) * 1000).toISOString() : null,
-    memo_onchain: onchain, matches_record: onchain === last.memo, matches_current_manifest: onchain === now }, null, 1));
+    memo_onchain: onchain, matches_record: onchain === last.memo, matches_current_manifest: Boolean(hashes(onchain)) && hashes(onchain) === hashes(now) }, null, 1));
   if (!ok) process.exit(1);
 }
 

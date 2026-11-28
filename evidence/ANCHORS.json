@@ -1,0 +1,13 @@
+[
+ {
+  "network": "solana-devnet",
+  "tx": "5thiXusBTAqdGiiJv1VCtXiykk3HMnqiAQtBxRG3eZmRegEZxgZ5PaMZpVQiy1C45svamQAad5eFuFnZeFNR1AAQ",
+  "slot": 527197904,
+  "memo": "AdversarialEval evidence v1 manifest_sha256=e8c14663cb9539ce3d7171b08eef243e0ca5969d5ad33a28ae44253a78b24d92 sig_sha256=dffb8a91f59567ab6a0b898ec442d9781371a6ccdafb9c1f978e0f8b3c85accc files=327 commit=",
+  "files": 327,
+  "repo_commit_when_anchored": "929613293787edaab527172c3d98a475724d1b59",
+  "anchored_at": "2026-11-28T10:29:44.259Z",
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "explorer": "https://explorer.solana.com/tx/5thiXusBTAqdGiiJv1VCtXiykk3HMnqiAQtBxRG3eZmRegEZxgZ5PaMZpVQiy1C45svamQAad5eFuFnZeFNR1AAQ?cluster=devnet"
+ }
+]
