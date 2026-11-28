@@ -1,0 +1,39 @@
+{
+ "summary": {
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "network": "solana-devnet",
+  "calls": 2,
+  "with_signature": 2,
+  "confirmed_success": 2,
+  "usdc_paid_onchain": 0.02,
+  "paid_in_run_without_tx": [],
+  "unrecorded_payments": [],
+  "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
+ },
+ "rows": [
+  {
+   "case": "ranked|preflight-col-min",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5YhdXAoY9FPcSF3yfdPxvkWamyuzravizPrKfhBAm9c91eaXrQn3Bqvd7BoYfmoYjTVqCiNiRQkN4yPGWjgLMY5Q",
+   "slot": 527178410,
+   "block_time": 1795857102,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "takar|preflight-col-min",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "48GYgviU2o6EAJxZB99Q75TQYnof7UQVu6NMxuxu6gk3k7FFXeQgaULBKsry6fEhHvah8prGCfH6GNvBSVob3dhv",
+   "slot": 527178459,
+   "block_time": 1795857114,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  }
+ ]
+}
