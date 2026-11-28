@@ -57,7 +57,11 @@ def main() -> None:
     ap.add_argument("--rpc", default="https://api.devnet.solana.com")
     a = ap.parse_args()
     calls = [json.loads(l) for l in (a.run / "calls.ndjson").read_text().splitlines() if l.strip()]
-    payer = json.loads((a.run / "decisions.json").read_text())["payer"]
+    meta = a.run / ("decisions.json" if (a.run / "decisions.json").exists() else "payer.json")
+    payer = json.loads(meta.read_text())["payer"]
+    for c in calls:  # runs from bench/telegraph_jobs.mjs record a single key per call
+        c.setdefault("case", c.get("key"))
+        c.setdefault("arm", c.get("intent", ""))
     rows, total = [], 0
     for c in calls:
         sig = c.get("solana_tx")
