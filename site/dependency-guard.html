@@ -89,6 +89,26 @@
     <p class="note">Honest limits: all three missed 9 changes, including a path traversal Qwen wrote 3 times out of 3, which only the hidden tests found. Given our findings, Qwen fixed 1 of 21. 45 Telegraph answers paid on Solana devnet, $0.45, all confirmed on-chain. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-qwen-code-verification.md" target="_blank" rel="noopener">Full report</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-25-qwen-agent-predeploy.md" target="_blank" rel="noopener">Qwen-Agent pre-deployment check</a> (Alibaba's agent framework: HOLD as shipped).</p>
   </section>
 
+  <section id="markets">
+    <div class="sec-head"><h2>Settling prediction markets on checked answers</h2><span class="label">Solana use case · 28 Nov 2026</span></div>
+    <p>24 markets (crypto prices, NHL, World Series, earthquakes, and 3 that can't be settled yet), with truth computed from the official source each market names. Every Telegraph answer paid in USDC on Solana devnet.</p>
+    <div class="stats">
+      <div class="stat"><b>1 in 3</b><span>settlements wrong, for each provider on its own</span></div>
+      <div class="stat"><b>3</b><span>wrong settlements trusting Telegraph's ranked answer</span></div>
+      <div class="stat"><b>1</b><span>wrong even when two independent providers agree</span></div>
+      <div class="stat"><b>0</b><span>wrong with the resolution check (21 of 24 correct)</span></div>
+    </div>
+    <div class="tablewrap"><table class="evid">
+      <thead><tr><th>Market</th><th>Paid answers</th><th>Official source</th><th>Check</th></tr></thead>
+      <tbody>
+        <tr><td>St. Louis beat Edmonton <b>in regulation</b>, Nov 22?</td><td>yes, yes (two providers)</td><td>no: won in a shootout (<a href="https://api-web.nhle.com/v1/score/2026-11-22" target="_blank" rel="noopener">NHL</a>)</td><td><b>NO</b></td></tr>
+        <tr><td>Pittsburgh scored vs Dallas, Nov 22?</td><td>yes</td><td>no: lost 0-1 (<a href="https://api-web.nhle.com/v1/score/2026-11-22" target="_blank" rel="noopener">NHL</a>)</td><td><b>NO</b></td></tr>
+        <tr><td>BTC <b>traded</b> below $56,000, Nov 21?</td><td>no</td><td>yes: low $55,106, close $60,086 (Coinbase)</td><td><b>YES</b></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">The check settles from the source a market's contract names and never against it; with no machine-readable source it needs two independent, cited answers that agree, or it leaves the market for a person. 48 calls, $0.48, all confirmed on-chain. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-prediction-market-resolution.md" target="_blank" rel="noopener">Full report</a>.</p>
+  </section>
+
   <section id="evidence">
     <div class="sec-head"><h2>Four decisions and their evidence</h2><span class="label">Solana use case 3, paid on Solana</span></div>
     <div class="tablewrap"><table class="evid">

@@ -1,0 +1,244 @@
+{
+ "jobs": [
+  {
+   "key": "second|btc-close-above-80k-nov04",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin close above $80,000 on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-close-above-81k-nov04",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin close above $81,000 on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-trade-above-81k-nov04",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin trade above $81,000 at any time on November 4, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-close-below-60k-nov21",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin close below $60,000 on November 21, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-trade-below-56k-nov21",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin trade below $56,000 at any time on November 21, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-trade-below-55k-nov",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin trade below $55,000 at any time between November 1 and November 27, 2026, according to Coinbase BTC-USD daily candles (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|eth-close-above-1800-nov23",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Ether close above $1,800 on November 23, 2026, according to the Coinbase ETH-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|sol-close-above-75-nov17",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Solana (SOL) close above $75 on November 17, 2026, according to the Coinbase SOL-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|eth-close-below-1700-nov27",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Ether close below $1,700 on November 27, 2026, according to the Coinbase ETH-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-stl-beat-edm-nov22",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the St. Louis Blues beat the Edmonton Oilers in their NHL game on November 22, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-stl-beat-edm-reg-nov22",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the St. Louis Blues beat the Edmonton Oilers in regulation time in their NHL game on November 22, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-pit-scored-nov22",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the Pittsburgh Penguins score at least one goal against the Dallas Stars in their NHL game on November 22, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-mtl-beat-car-nov19",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the Montreal Canadiens beat the Carolina Hurricanes in their NHL game on November 19, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-bos-margin3-nov18",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the Boston Bruins beat the Detroit Red Wings by 3 or more goals in their NHL game on November 18, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|nhl-buf-tbl-over65-nov22",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Were more than 6.5 total goals scored in the NHL game between the Buffalo Sabres and the Tampa Bay Lightning on November 22, 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|mlb-ws-2026-brewers",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the Milwaukee Brewers win the 2026 World Series?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|mlb-ws-2026-six-games",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the 2026 World Series last at least six games?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|mlb-ws-2026-rays-won-a-game",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did the Tampa Bay Rays win at least one game in the 2026 World Series?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|usgs-m7-oct15-31",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Was there an earthquake of magnitude 7.0 or greater anywhere in the world between October 15 and October 31, 2026 (UTC), according to the USGS?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|usgs-over7-oct15-31",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Was there an earthquake of magnitude greater than 7.0 anywhere in the world between October 15 and October 31, 2026 (UTC), according to the USGS?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|usgs-m7-nov1-27",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Was there an earthquake of magnitude 7.0 or greater anywhere in the world between November 1 and November 27, 2026 (UTC), according to the USGS?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-close-above-70k-dec31",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Bitcoin close above $70,000 on December 31, 2026, according to the Coinbase BTC-USD daily candle (UTC)?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|mlb-ws-2027-seven-games",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the 2027 World Series go to seven games?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  },
+  {
+   "key": "second|btc-crash-nov",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Did Bitcoin crash in November 2026?"
+   },
+   "miner": "20261117",
+   "first_miner": "4433",
+   "first_fee": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e"
+  }
+ ]
+}

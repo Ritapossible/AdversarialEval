@@ -169,8 +169,10 @@ the Solana clip (S3).
 - [x] (11-28) Qwen alone vs Qwen + Telegraph (Alibaba item 4), local Qwen2.5-Coder-7B since no
       Alibaba key could be opened: report `eval/reports/2026-11-28-qwen-code-verification.md`,
       site section `/dependency-guard#qwen`.
-- [ ] Demo video of the Qwen code test (with the owner), then a post in the Alibaba thread.
-- [ ] Prediction market resolution (Solana use case), if time allows.
+- [x] (11-28) Demo video of the Qwen code test (with the Qwen-Agent slide); owner posts in the Alibaba thread and on X.
+- [x] (11-28) Prediction market resolution (Solana use case): report
+      `eval/reports/2026-11-28-prediction-market-resolution.md`, site `/dependency-guard#markets`.
+- [ ] Prediction market demo video and posts.
 - [ ] `/progress` on #198 every 72 h; `/submit` and the Anjoman form by Dec 1.
 - [ ] Owner: re-sign evidence later (new files show as "not yet signed").
 

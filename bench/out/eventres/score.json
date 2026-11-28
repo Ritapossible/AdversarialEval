@@ -1,0 +1,668 @@
+{
+ "summary": {
+  "markets": 24,
+  "truth": {
+   "yes": 12,
+   "no": 9,
+   "unresolved": 3
+  },
+  "A": {
+   "correct": 9,
+   "wilson": [
+    0.212,
+    0.573
+   ],
+   "wrong_settlements": 3,
+   "left_unresolved_when_resolvable": 12
+  },
+  "B": {
+   "correct": 6,
+   "wilson": [
+    0.12,
+    0.449
+   ],
+   "wrong_settlements": 1,
+   "left_unresolved_when_resolvable": 17
+  },
+  "C": {
+   "correct": 21,
+   "wilson": [
+    0.69,
+    0.957
+   ],
+   "wrong_settlements": 0,
+   "left_unresolved_when_resolvable": 3,
+   "disputes_caught": 2
+  },
+  "telegraph": {
+   "calls": 48,
+   "paid": 48,
+   "usd": 0.48,
+   "median_wall_s": 14.476,
+   "first_answer_miners": [
+    "LiveCert \u2014 Sourced Answers for Agents"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "btc-close-above-80k-nov04",
+   "kind": "close vs trade",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "btc-close-above-81k-nov04",
+   "kind": "close vs trade: traded above, closed below",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xa874117f0431b2f8342160410bb2f555999c5d2a9497644f90f26bb06c306ac1",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xc1ea3938c6a4113a6a53096f528b1dda68ad9096843537352e36590a6280bbc4"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "btc-trade-above-81k-nov04",
+   "kind": "close vs trade",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x58988467fa1fb1567d4333dea1fc5d0018f7f6f6d883a57ed05ead18f52212e9",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x952347c0c14671bf8d7c512847f784f7cf60918c6f9fd6674f83c47ee3d95992"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "btc-close-below-60k-nov21",
+   "kind": "close vs trade: traded far below, closed $86 above",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xf065550f97a918ba64ea5854f2ada536dbdb076c7020c9251ffff5f9d5da4584",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xfebf0610197fd91f78c53fe3ff4dc46749b5d0f4fead32f365fb188c69814aa2"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "btc-trade-below-56k-nov21",
+   "kind": "close vs trade",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x11b70b3ad3885453ea6a004ca5a0f2be75f54c98bb3005a36361cd1248d3d81c",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xb0cd8dfff87cdb8844cbf80208b043a88ebde7dbc266bf5e324f02f8a9465e6a"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "btc-trade-below-55k-nov",
+   "kind": "near miss: low was $55,106",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x616cbc47494019c4c2016c0826cabfbb48828c1287e3b216cc55da62691a5090",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x8ee4fa473c5a6b2fbd6d027adf85b51c4273cce314e9dcebe91864ab765733b8"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "eth-close-above-1800-nov23",
+   "kind": "close vs trade: traded above, closed below",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "sol-close-above-75-nov17",
+   "kind": "near miss: closed at $75.11",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "eth-close-below-1700-nov27",
+   "kind": "plain",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-stl-beat-edm-nov22",
+   "kind": "shootout win counts as a win",
+   "truth": "yes",
+   "A": "yes",
+   "B": "yes",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "yes",
+    "sources": [
+     "https://www.espn.com/nhl/game/_/gameId/401892770/oilers-blues"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-stl-beat-edm-reg-nov22",
+   "kind": "regulation only: the win came in a shootout",
+   "truth": "no",
+   "A": "yes",
+   "B": "yes",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": true,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "yes",
+    "sources": [
+     "https://www.espn.com/nhl/game/_/gameId/401892770/oilers-blues"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-pit-scored-nov22",
+   "kind": "shutout",
+   "truth": "no",
+   "A": "yes",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": true,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026%E2%80%9327_NHL_season",
+     "https://en.wikipedia.org/wiki/2026_Stanley_Cup_playoffs",
+     "https://en.wikipedia.org/wiki/2023%E2%80%9324_NHL_season"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-mtl-beat-car-nov19",
+   "kind": "overtime win counts as a win",
+   "truth": "yes",
+   "A": "yes",
+   "B": "yes",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "yes",
+    "sources": [
+     "https://www.espn.com/nhl/game/_/gameId/401892747/canadiens-hurricanes"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-bos-margin3-nov18",
+   "kind": "margin",
+   "truth": "yes",
+   "A": "yes",
+   "B": "yes",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "yes",
+    "sources": [
+     "https://www.espn.com/nhl/game/_/gameId/401892739/bruins-red-wings"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "nhl-buf-tbl-over65-nov22",
+   "kind": "total",
+   "truth": "yes",
+   "A": "yes",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026%E2%80%9327_NHL_season",
+     "https://en.wikipedia.org/wiki/2026_NHL_entry_draft",
+     "https://en.wikipedia.org/wiki/Buffalo_Sabres"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "mlb-ws-2026-brewers",
+   "kind": "no machine-readable source in the contract",
+   "truth": "yes",
+   "A": "yes",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "mlb-ws-2026-six-games",
+   "kind": "no machine-readable source in the contract",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "mlb-ws-2026-rays-won-a-game",
+   "kind": "no machine-readable source in the contract",
+   "truth": "yes",
+   "A": "no",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "usgs-m7-oct15-31",
+   "kind": "threshold edge: exactly 7.0 counts",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "yes",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2011_Christchurch_earthquake",
+     "https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami",
+     "https://en.wikipedia.org/wiki/Venezuela"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "usgs-over7-oct15-31",
+   "kind": "threshold edge: exactly 7.0 does not count",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2011_Christchurch_earthquake",
+     "https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami",
+     "https://en.wikipedia.org/wiki/Venezuela"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "usgs-m7-nov1-27",
+   "kind": "none happened",
+   "truth": "no",
+   "A": "no",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami",
+     "https://en.wikipedia.org/wiki/2011_Christchurch_earthquake",
+     "https://en.wikipedia.org/wiki/Haiti"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "btc-close-above-70k-dec31",
+   "kind": "not yet resolvable: future date",
+   "truth": "unresolved",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "mlb-ws-2027-seven-games",
+   "kind": "not yet resolvable: future event",
+   "truth": "unresolved",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "btc-crash-nov",
+   "kind": "not resolvable: no defined criterion",
+   "truth": "unresolved",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  }
+ ]
+}

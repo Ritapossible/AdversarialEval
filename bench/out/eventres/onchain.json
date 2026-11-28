@@ -1,0 +1,591 @@
+{
+ "summary": {
+  "payer": "AeM9DFuWEN5jpCL4BA3q9byjCsEwyXeWWmV6kx1C6NtE",
+  "network": "solana-devnet",
+  "calls": 48,
+  "with_signature": 48,
+  "confirmed_success": 48,
+  "usdc_paid_onchain": 0.48,
+  "paid_in_run_without_tx": [],
+  "unrecorded_payments": [],
+  "explorer": "https://explorer.solana.com/tx/<signature>?cluster=devnet"
+ },
+ "rows": [
+  {
+   "case": "ranked|btc-close-above-80k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2pAbGqPbT9pEzfdZUwDJNefQoDJgHsL1UzQzCrQuq2ouovqZZUDLY1Dz7PUcLFDdyiCvsodA63M1PHLCDfJLNwym",
+   "slot": 527179180,
+   "block_time": 1795857286,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-close-above-81k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4CqPr6osmryLwy2JmY99oCTGBdzggzdBZJUQU83TXCWmWfNovpErFx2VpiYnRg4Wj7rTSHo5rHjRrZTHNoQqjEQM",
+   "slot": 527179241,
+   "block_time": 1795857301,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-trade-above-81k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3W2mWaVo5taCEq4pqycVtfKduXxrV1bwH7atp54EMh5nCpNDs4JJ7PRCviFi463QLGrjUD5daDnG41hYGd5Ef5pS",
+   "slot": 527179302,
+   "block_time": 1795857315,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-close-below-60k-nov21",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "UWKNSUPQ3v5hiKTy5txL6DQN3bpURFvFyYWjbKWrucGraDrnifn8D3agM12zQSFFEdanQyuAhEwk5RFcsbhxXeK",
+   "slot": 527179363,
+   "block_time": 1795857329,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-trade-below-56k-nov21",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3iNLn1FaM5G1wQpYrvYzPXRbDF8xCP4EJjjBo6vvoJfXwoVurMNYKfFEL3ueSn62LJM8SWwaLmJwc8R8YQE3ovub",
+   "slot": 527179432,
+   "block_time": 1795857346,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-trade-below-55k-nov",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5gGXxZzhSdsfJgQ3oAuN8qMxTcCRDQrMHQjSXsUtJKagSuq9kJEntGqZFZWdc6kZDubWPXmai9KVS1f5wwQRFW72",
+   "slot": 527179498,
+   "block_time": 1795857362,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|eth-close-above-1800-nov23",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5XXUasQCPB9KJNTc5kwKww119taeddSzr4EKYFTJbequxbej2WZ178nWuvmjv2jhT9YvERz7MrMZC1cL8PPJjNay",
+   "slot": 527179566,
+   "block_time": 1795857378,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|sol-close-above-75-nov17",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2xsYPwzbxsNKPGrwRsRb6krodGtDbksAHYfzvzv7MLY11ZR9QViRotU4MB49Bmxr94ZQzqBZbFwTHxG1U9dJDgxd",
+   "slot": 527179640,
+   "block_time": 1795857396,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|eth-close-below-1700-nov27",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "ZjewoLYcaek4hg9S1sJzMPrgSRRefBvwsxhX2hJet4PGZA1oJchBS9vvCjRXPgDYPWyQmRLQVpakGoz7zSDfyt7",
+   "slot": 527179720,
+   "block_time": 1795857415,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-stl-beat-edm-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2EGPawDRt1SNMUZcDAcZxT9R4Z9pFsUM6BUMzH7GbSDdBJzRtRE4RpEvGNg5gnSAtX5Qn3kcaAHK8NWdRDtbLYaz",
+   "slot": 527179803,
+   "block_time": 1795857435,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-stl-beat-edm-reg-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3BYc8mFNyHAREWN5b8UUgdk7nR6eJutBbcYNgtVL8f8y2WMhXedRpwCQrYa6UHhHM8p7wBzKQHn3NcQ8GL8QFf7R",
+   "slot": 527179854,
+   "block_time": 1795857447,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-pit-scored-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4tubDWreHmjdLbUKgaHatwn6TKUpNAUX3zxA32kRossRSGr2L9AswQtQCxLF9k1NbWeJpi96rCRb1B8PQ7kzMCTA",
+   "slot": 527179900,
+   "block_time": 1795857458,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-mtl-beat-car-nov19",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4kmQNJVPgy1ANWQgPAbNmNZAQ8bowcMsZTU5zErtgCMwqii8NDfAtwVH8fEyd7iQ5FNCdfxerjrmu5PCz6Mabn1H",
+   "slot": 527179953,
+   "block_time": 1795857471,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-bos-margin3-nov18",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2n4w865kCwbRGyZhGuLajDttWQttiA6LAai8FeiZCHqgCcj1LqJa1o84ZFwgpoXcqZWKsXCGqnwLwFkdXzY7Du4r",
+   "slot": 527179997,
+   "block_time": 1795857481,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|nhl-buf-tbl-over65-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5tkQetMqqnPFKSt4iTcdH15rTvfyvbibmWQn8u6zraU6Hss7xFzKPoXYaarpHjffa6k3M6y3qQEi3P7FakY3z5Hr",
+   "slot": 527180047,
+   "block_time": 1795857493,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|mlb-ws-2026-brewers",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "28zM4vpAwr6gVASNVuPHM1gGKJWrXurNTPvJEHG9xDL9FERekCLcutDbATSq8gMiAibbTa6Q9eZvL5E7EpKaSdRB",
+   "slot": 527180089,
+   "block_time": 1795857504,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|mlb-ws-2026-six-games",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "ZTdtpoPqkJKdB6jHMcx7EjvHWMBv1whLnrUrF8yjpkGxdHAzy8UKbXue1hpG3n2FKfWfL3f61wSwAbLn7T3FWnk",
+   "slot": 527180139,
+   "block_time": 1795857516,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|mlb-ws-2026-rays-won-a-game",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5hDERdpmepWTVeSxpw6BzzXjCqrHozW9uAEVQtyUYF6wuEdHhgyDBURdM4knQtV2pQVHaVNhrh27wUj3bLPPqeVZ",
+   "slot": 527180192,
+   "block_time": 1795857529,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|usgs-m7-oct15-31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "54voFDUSCA95vLv3QU14ZF1j3bAQrqvaUUn61xYFxsj1y8KQM3CctLXEVeFVmCtGXJMFTu8j3mnarbg4RbGWgLt7",
+   "slot": 527180236,
+   "block_time": 1795857539,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|usgs-over7-oct15-31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5EGFKcgvHNb4k6SkKRCLKGGfugUL8W8ZSxHavopcwLWhKXtPTeLsaHSTNzkCA9YUqcTSb4cUnRUhUke5Gc8nQEmq",
+   "slot": 527180295,
+   "block_time": 1795857553,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|usgs-m7-nov1-27",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "Zx7UPWHFrn46nTUcRpcdV6RNyh6gk9NPkJ6g5QkbbNvG5siJLs6WgNauKFGeLRQJoHDo8NUTcJ1pW7KFKGHm4J8",
+   "slot": 527180356,
+   "block_time": 1795857568,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-close-above-70k-dec31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "kWoB4YzV8ecuNQMwprZkwiSQfFDxSkGHVYFWAtKwcMY1JVpAcr4JDS1pNHPfXzcbpBUgTAPhSfn4TWe79Ck6yfq",
+   "slot": 527180416,
+   "block_time": 1795857582,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|mlb-ws-2027-seven-games",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "DVGpbHTkVtthv54nTd8kTeHKtpjJoam7z99pzmG1zd4adqwgfSw5KL3uYwgUXZGkmoeXE3cA3fphvtRK1A3nnc5",
+   "slot": 527180474,
+   "block_time": 1795857596,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "ranked|btc-crash-nov",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4TytEmGgEnpLujv9SeFEndDY4XAwWniXXDRyJwVzzB8Kk41pvd6Ex2uZJNTLGvcK91YcLrmPNQ15LNt9t7HW9R7x",
+   "slot": 527180527,
+   "block_time": 1795857608,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-close-above-80k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4BwMhsF41tQScdmfSj3BTgshectR9pCdaBKjCrbivssR2ZhNfhY41Ruqwh8e1NthGNFzUw9hBrDUMAY64VrGgadN",
+   "slot": 527180657,
+   "block_time": 1795857640,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-close-above-81k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5FTnsgvUQFyDf4RNno6BvGukMHzSVhwVpRB3f3NiUFxaVVzeFzwzMWJiwiES6myzjGJ6gvQg5byayhJS6pK4EKpg",
+   "slot": 527180767,
+   "block_time": 1795857666,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-trade-above-81k-nov04",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "63oxdAqGZtmHVW2Dev24sHt5aYNSESLmwoXDxPWemts9aaJDqEZA9qYkFXTx2h6jv2GK6enBxgZtxmCVeC9UZP9w",
+   "slot": 527180888,
+   "block_time": 1795857695,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-close-below-60k-nov21",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "21hPEkm3J6TqPheGHSgtz9c4DYgAekrSqdw2ebPBvCGTYz88LNBDjB2K99D2uuFLZTBmp4ZCNX5TjYVs9wsB661q",
+   "slot": 527181000,
+   "block_time": 1795857722,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-trade-below-56k-nov21",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "F1DMFpFViHA9hdC8yH47aSZoM8LNa833uhUHrLL2JHub5i4UbBPAmoHvTXwVfBNgrxzySNpAo5XDqBcB3Tkyt46",
+   "slot": 527181111,
+   "block_time": 1795857748,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-trade-below-55k-nov",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3JWJNrkZSVtbgcqsdPJzHB18RgfZpBH1ru442FJT66gZXgQJP655hhAXgDGSCr2b6mPrHudEobT36MsLRiXUJUyv",
+   "slot": 527181224,
+   "block_time": 1795857775,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|eth-close-above-1800-nov23",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "zpUHna1nLZywLabYC3R5FraKwBFqM5rwWHhDmUCWbCeFvaQba9x85FgP7b14tNF5VG1omn7UiHRuQ63FCXsFKS1",
+   "slot": 527181347,
+   "block_time": 1795857805,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|sol-close-above-75-nov17",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4RefQxE3bwTJ8DWKLmWTLin5knH6HAGLda6U19qUoQzjvBwqs9nFJYLaEnB36fq9xRzJvx31XCxex7CA2vXxAwr6",
+   "slot": 527181424,
+   "block_time": 1795857823,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|eth-close-below-1700-nov27",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3iK93ZDM4uiu7yENPUfceXBX9BvS9Udk1Lm3MQEd7zPXGJizJGyBbJz6q5yBuBddV5eNWeLGU86oJodxgoQ6cxPp",
+   "slot": 527181509,
+   "block_time": 1795857843,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-stl-beat-edm-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "29Ps1sVNvjHnWQwqLJ8WBDTwjzUtv5r38rG4b9hUva6uznvJg4jfGp9pPiYExzHTgAzPK3R6G7pYzNdgFpmJtxm5",
+   "slot": 527181591,
+   "block_time": 1795857863,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-stl-beat-edm-reg-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "4w8NKc4hPJ14qHMpKUmdHU9qJLyWnxS37EagrEteGx5dYxNbEGm6aLchwEFXKKftaPjTsMw571Yqp1C2bZLJKTxn",
+   "slot": 527181620,
+   "block_time": 1795857870,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-pit-scored-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5ESSe4xBEDEiKc5gaE5NQ1ay1odXuMvtiNgpbfiggDK7DQavyyQVX2Pz8JCKGf9p44XqPbPJUg1xRU94gvZKWSK9",
+   "slot": 527181650,
+   "block_time": 1795857877,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-mtl-beat-car-nov19",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3m7f7n2JAgTi4b1Dv9WwzKt2vyyYhT7F4zzaHGVpdGogFEuCHLNNVazwc28dQz5ae96tLjRiBijESQxBYwjvXvFm",
+   "slot": 527181783,
+   "block_time": 1795857909,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-bos-margin3-nov18",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5C3xwvNAKzwMqNzmvhtJdM3AWtmyYBmoefBVt1YqCLktaXkDcgVsjeA6bhnkbfotgBzwYYeBTwzp4pSJPSBBEHaf",
+   "slot": 527181813,
+   "block_time": 1795857916,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|nhl-buf-tbl-over65-nov22",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2qE13BNrbxjpCB3UGLFrcBcSC8uKuy6pEnHFqfJGV82iTQVBvDWxByBgcqmi5Q6RQPd9BoN3R6Empa5P7odNG1V3",
+   "slot": 527181854,
+   "block_time": 1795857926,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|mlb-ws-2026-brewers",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "3kRRQtPz3GbquxtF9YrDRSBgo3nqTftXdAKVCLKL7e8GR28yMDs3bLxAAbjisCqYBtpBaYY9E8SbH6g2zK4WtaSD",
+   "slot": 527181978,
+   "block_time": 1795857956,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|mlb-ws-2026-six-games",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2FdJwKzHaS2mt2aQxTmGXrHFmLG7g1hDVqdXrBySDCYt2FwGBpjr2Zk85kcfWYKKS6XSeHBsVYQc6Zv25pZkQuS9",
+   "slot": 527181997,
+   "block_time": 1795857960,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|mlb-ws-2026-rays-won-a-game",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2CqRoXby8C2fWwLmWv7zwCZKaCmpAAeWGrUEKyNiXuQakQK97jv5EdC94Esx2Sr1ypHdYdsfDCYyJBvbjLnsXXTw",
+   "slot": 527182016,
+   "block_time": 1795857965,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|usgs-m7-oct15-31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2q6goKTsd9BB862c8qKVgMJ3sN6CSxBhKF1RHDKTmkU2ndHhahnP8scHUvCZR5UDrFDHwqVvLx5SqUjY8PN77Vxz",
+   "slot": 527182039,
+   "block_time": 1795857970,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|usgs-over7-oct15-31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "32mnR2zsvTVYZeJUNxPH5QYfg8DWYSbNzzdWECUqHgTu68v12GFnDnRRD2vqfvw7YLodYtrKYxQbEjWNWHSRpAuC",
+   "slot": 527182157,
+   "block_time": 1795857999,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|usgs-m7-nov1-27",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "5NbSABhJ8N5YK4p8PfjqqoeiAEwNMqGkGobbGtRN8XMVzonV81XQ1CLC6RRwHoGCqmXGM24f7eJRaDX7QDpox8Ms",
+   "slot": 527182273,
+   "block_time": 1795858027,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-close-above-70k-dec31",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "21qjuZNe81nXXHa1DTCRWw7cCC435FEbVpLHx8FXNRGt7VifrtHgrAL3i8wc56n6skM22jaXQAxRpaWnz3KJdFhM",
+   "slot": 527182387,
+   "block_time": 1795858055,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|mlb-ws-2027-seven-games",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "2NthmJDqD3VbWhFnWk546GwjRZMm8w4pKrrtvyNxmcp1e9VCFWbkNLV3HXjKbybtWCSB2VxxTQvtFDSWUE6p1UBi",
+   "slot": 527182414,
+   "block_time": 1795858062,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  },
+  {
+   "case": "second|btc-crash-nov",
+   "arm": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "tx": "21LBaTLz23hXUZc4CdvqE8uVhHGVWRXuLwppWZWHaMvzgaoe85taEJ7uo52iTruGTUrHwNoKt7TX3FZx5FhuciEV",
+   "slot": 527182439,
+   "block_time": 1795858068,
+   "onchain": "success",
+   "usdc_paid": 0.01,
+   "receivers": {
+    "G53EbeTZSNsAn7bj6iMFUQnq3zpDdEbHhKkPRywo8bix": 0.01
+   }
+  }
+ ]
+}
