@@ -1,87 +1,53 @@
-# Submission Checklist
+# Submission checklist (rewritten 28 Nov 2026)
 
-The deadline is **Dec 1, 2026, 23:59 UTC**. We aim to submit on Nov 30. Last checked against
-the official rules (anjoman.ai/dashboard/hackathon/season-2/rules) on 2026-11-12; see
-"Rules compliance" at the end.
+The deadline is **1 Dec 2026, 23:59 UTC**, and we aim to submit by 30 Nov. The final submission
+goes through **anjoman.ai**. GitHub `/progress` and `/submit` posts are records, not the
+submission. **Apps & Agents and Evaluators are judged separately.** Judge-facing summaries:
+[`tracks/apps-and-agents.md`](../tracks/apps-and-agents.md) and
+[`tracks/evaluators.md`](../tracks/evaluators.md). Raw evidence index:
+[`SUBMISSION_EVIDENCE.md`](SUBMISSION_EVIDENCE.md).
 
-## Hackathon (H2 website)
+## Both tracks
 
-- [x] Star `telegraphprotocol/bounties` from the entrant account (rule for all tracks): done 2026-11-12
-- [x] **A real Telegraph integration with genuine evidence** (required for every entry): 81 pool rows admitted and attested on 2026-11-14 (`eval/reports/2026-11-14-pool-upload.md`). The
-      minimum is reviewed pool rows uploaded to `SECURITY_REVIEW_GENERAL` and shown eligible by
-      the node API; registration adds more. **Not done yet: this is the biggest gap.**
-- [ ] Project details incl. the GitHub username that starred the bounties repo (`Ritapossible`)
-- [ ] Team, track (**Evaluators**), project name, missions (Exchange, Model Economy,
-      Web3 Native & DeFi), Intent `SECURITY_REVIEW` only
-      (`SMART_CONTRACT_AUDIT` was dropped on 11-10, decision U11)
-- [ ] Working / reviewer link: this repo, the dataset release and the executor URL
-- [ ] **A 2–5 min demo video**: the problem → the naive scorers failing → our adapter ranking
-      correctly → the on-chain registration → the node's decision
-- [ ] Run instructions (fields the rules name): prerequisites, a sample request, the expected
-      result, the network (Sepolia testnet), spending limits / costs ($5 bond, never slashed;
-      gas; VM), known limitations
-- [ ] Evidence:
-  - [ ] registration id(s) and the `GET /api/wasm/<id>` JSON (decision, win rate, corpus version)
-  - [ ] the registration tx hash on Sepolia
-  - [ ] eligible pool row counts (`/api/evalpool/submissions/mine`)
-  - [ ] held-out report: per-family accuracy, naive baselines, length-bias stats, probes
-  - [ ] package keccak256 and sha256, and the hosted URL
-- [ ] Evidence: the Spot the Flaw demo link, with the held-out adapter results (`eval/reports/2026-11-12-demoheld.md`)
-- [ ] Sensitive material (pool rows, keys) shared privately with judges only if they ask; never public
-- [ ] A short public summary, with links to the original updates (Nov 12 `/progress` on #96,
-      the Discord #showcase thread, the Nov 20 showcase) and any tutorial
-- [ ] Showcase permissions
-- [x] Disclosure of reused components: `NOTICE.md` (kit, foundation, ModernBERT, libraries,
-      GitHub Advisory Database data under CC BY 4.0, AI assistance)
+- [x] Star `telegraphprotocol/bounties` from `Ritapossible` (12 Nov)
+- [x] Real Telegraph integration with genuine evidence: 164 eligible pool rows; thousands of
+      paid calls with receipts; Solana x402 payments confirmed on-chain
+- [x] Accurate claims, network stated (testnet / devnet everywhere); limits written in every report
+- [x] Keys and private data: none committed; `data/private/` git-ignored; signing stays local
+- [x] Evidence signed (333 files) and anchored on Solana devnet (`evidence/ANCHORS.json`)
+- [x] Reused components disclosed: `NOTICE.md`
+- [x] Licence: MIT
+- [ ] Owner: fill in the Anjoman submission form(s). The text is drafted in `docs/SUBMISSION_TEXT.md`
 
-## Bounties
+## Apps & Agents (Dependency.Guard, Mission 10 / #198)
 
-- [ ] #96 SECURITY_REVIEW: `/claim`, then `/progress` at least every 72 h, then `/submit`
-      with the contributor address and registration id
-- [x] #96 claimed 2026-11-12; `/progress` 11-12 and 11-15; **`/submit` for the evaluation-material part posted 2026-11-15, moved to review**
-- ~~#128 SMART_CONTRACT_AUDIT~~ dropped (U11)
+- [x] App listed and live on Anjoman (Dependency.Guard, Security)
+- [x] Working link: https://adversarialeval.vercel.app/dependency-guard
+- [x] Demo videos: Solana packages (Nov 25), Qwen code test (X post), prediction markets, the
+      in-app Polymarket demo (Nov 28). Owner: post the last two and add their links to
+      `tracks/apps-and-agents.md`
+- [x] Run instructions and reproduce commands: `tracks/apps-and-agents.md`, `mind/README.md`
+- [x] Results with and without Telegraph, each pre-registered: packages, code, Solana (x2), Qwen-Agent,
+      Qwen code, prediction markets, Polymarket (direct and through the app)
+- [ ] `/progress` on #198 (every 72 h until submitted), then `/submit` on #198 with the links
 
-## Deliverables in this repo
+## Evaluators (`SECURITY_REVIEW_GENERAL`)
 
-- [ ] `adapters/SECURITY_REVIEW.safetensors` (+ manifest)
-- [ ] `data/public/*.jsonl` + `data/validation/*.jsonl` (already public) + datasheet
-- [x] LICENSE: MIT (owner's choice, 2026-11-15); third-party data keeps its attribution in `NOTICE.md`
-- [ ] `docs/ADVERSARIAL_CRITERIA.md` frozen
-- [ ] `eval/reports/FINAL.md`
-- [ ] A reproducibility check: a fresh clone → `setup_kit.sh` → `check_data.sh` → eval
-      reproduces the reported numbers
+- [x] 164 pool rows eligible and attested (node API output committed)
+- [x] Public dataset `data/public/` + `data/validation/`, taxonomy, dataset spec
+- [x] Independent test scored once: 77.5% (below our 80% bar), reported as it is
+- [ ] **Owner decision: register the adapter or not.** Registering needs a public executor server
+      (5 GB+ RAM, HTTPS), the package hosted at an immutable URL, and the bond on Sepolia. Not
+      registering keeps the Evaluators entry as material plus a measured adapter
+- [ ] Optional: dataset release (GitHub release / Hugging Face) with a datasheet, for growth points
 
-## Scoring levers (out of 100; 70 to win; technical ≥ 24/35)
+## Scoring levers (out of 100)
 
-| Criterion | Pts | Our evidence |
+| Criterion | Pts | Our strongest evidence |
 |---|---|---|
-| Technical quality and mainnet readiness | 35 | Canonical win, robustness probes, a reproducible pipeline |
-| Commercial viability | 25 | Unblocks security miners for 3 missions; better ranking = better buyer outcomes |
-| Adoption and retention | 10 | Others train on or cite our dataset; miners ranked by our adapter |
-| Telegraph integration | 5 | On-chain registration, pool contributions, a live executor |
-| Reproducibility and demo | 5 | Runbook, video, one-command eval |
-| Growth and education | 20 | A tutorial on adversarial preference data, independent reproductions, a dataset others use |
-
-## Fair play
-
-- Never publish hidden evaluation material or the private pool set.
-- Don't fake adoption or run collusive requests.
-- Make accurate claims only: say "testnet", and report what was actually verified.
-
-## Rules compliance (checked 2026-11-12)
-
-| Rule | Status |
-|---|---|
-| Something working (a valid Evaluator contribution) | Partly: dataset, demo and adapter work; nothing on the network yet |
-| Real Telegraph integration with genuine evidence | Done 11-14: 81 pool rows admitted + attested (node API verified); registration still to come |
-| Repeatable results with clear instructions | Mostly: RUNBOOK + scripts; write the submission run-instructions block |
-| Safe handling of keys, private data, confidential evaluation material | OK: no secrets or pool rows ever committed (history checked); signing stays local; never read hidden rows |
-| Accurate claims, network stated | Fixed 11-12: README said "registered on-chain" and quoted an old single-seed 76.9%; now says not registered, testnet, two-seed validation numbers |
-| Star the bounties repo | Done (Ritapossible) |
-| Disclose major reused components | Done: `NOTICE.md` |
-| H2 activity inside the event period | OK: repo started Nov 4; all network activity is still to come |
-| Promotional posts disclose participation and prize incentive | OK on Discord and #96; reviewer outreach now says it's a prize-eligible hackathon entry |
-| No fake adoption, collusion, star or repost incentives | OK: none; reviewers get credit only, for writing test pairs, not for engagement |
-| Copied work presented as independent | Watch: the test set must come from genuinely independent reviewers |
-| No disclosure of protected material | OK: only public kit, public data and the node's public APIs used |
-| Third-party licenses respected | Fixed 11-12: CC BY 4.0 attribution for the cached advisory records added |
+| Technical quality and mainnet readiness | 35 | pre-registered tests, checked decisions, reconciled payments, CI, signed and anchored evidence |
+| Commercial viability | 25 | a buyer's decision with a known cost; wrong paid answers never become decisions (packages, code, markets) |
+| Growth and education | 20 | public dataset and reports; posts in #showcase, the Solana and Alibaba threads; X posts |
+| Adoption and retention | 10 | another team's miner tests on our public pairs; the app is listed on Anjoman |
+| Telegraph integration | 5 | Anjoman, x402 on Solana, the node API, 164 pool rows |
+| Reproducibility and demo | 5 | reproduce commands, offline tests, videos |

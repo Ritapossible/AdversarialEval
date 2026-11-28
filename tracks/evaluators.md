@@ -54,6 +54,10 @@ deduplication across public, validation, test and pool sets.
 | Local rehearsal of the node's remote check (kit executor, WASM engine, the node's client) | WASM and PyTorch agree on 87 of 87 pairs | [`2026-11-11-rehearsal-cpu-v3-seed13.md`](../eval/reports/2026-11-11-rehearsal-cpu-v3-seed13.md) |
 | A shortcut found and removed | an early model preferred any "vulnerable" answer (100% vs 0% on version pairs); balanced minimal pairs fixed it | [`2026-11-10-cpu-v1-seed7.md`](../eval/reports/2026-11-10-cpu-v1-seed7.md) |
 
+**Adoption:** another team's miner on #198 (Femtech-web, running Salence) reports "80.6% correct on
+264 held-out AdversarialEval questions", using our public training pairs as its test set
+(MEMORY, 22 Nov). That is independent use of the material we published.
+
 ## Independent test and registration
 
 - **Rule** ([`eval/RULE-registration.md`](../eval/RULE-registration.md)): at least 40 pairs from
