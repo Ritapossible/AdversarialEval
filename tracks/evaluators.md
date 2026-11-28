@@ -7,8 +7,8 @@ verifiable way**, contributed to Telegraph's evaluation pool for `SECURITY_REVIE
 an Evaluator adapter trained and measured on it. **164 attested pairs are eligible in the live
 pool.** On an independent test set (40 pairs from 2 outside authors, scored once under a rule fixed
 before any test data existed) the adapter scores **77.5%**, against at most 60% for every
-shortcut judge. That is just under our own 80% bar, so the rule says do not register; the owner decided to
-register anyway (stated as an override, not a pass), and the network's checks decide from there.
+shortcut judge. That is just under our own 80% bar, so the rule says do not register, and the adapter is **not
+registered** (owner's final decision, 28 Nov).
 
 ## The problem
 
@@ -70,8 +70,9 @@ deduplication across public, validation, test and pool sets.
   ([freeze](../eval/reports/2026-11-24-test-freeze.md)).
 - **Result** ([report](../eval/reports/2026-11-24-test-score.md)): 31 of 40, **77.5%** (95% CI
   62.5 to 87.7%); Fexx 85%, Lino 70%; strongest shortcut judge 60%. Bar: 80% and a lower bound of
-  65%, so the rule says **do not register**. Owner decision the same day: register anyway, as an
-  explicit override; the bar is not lowered. No retraining follows from the score.
+  65%, so the rule says **do not register**. An override to register anyway was considered on 24
+  Nov and withdrawn on 28 Nov: **not registered**. The bar is not lowered, and no retraining follows
+  from the score.
 - **Separate, not independent:** 21 author-written, AI-assisted pairs from defiplusacademy, kept
   out of the test set and to be reported under their own heading
   ([intake notes](../data/authoring/security_review/author_test/README.md)).
@@ -90,4 +91,4 @@ bash scripts/train.sh cpu-v3 --epochs 6 --lr 0.0002 --seed 7   # about 40 minute
 
 - Validation pairs share an author with the training pairs, so they overstate real accuracy.
 - Failure types absent from training are not learned (37 to 39% held out).
-- Independent test 77.5%, below our 80% bar; registration is an owner override, in preparation.
+- Independent test 77.5%, below our 80% bar; the adapter is not registered.

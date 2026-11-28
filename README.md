@@ -10,8 +10,8 @@ Telegraph Hackathon Season II · Evaluators track and Apps & Agents track (Missi
 
 > **Disclosure.** This is a hackathon entry, and Season II awards prizes. The contributor
 > wallet named below uploads evaluation material to `SECURITY_REVIEW_GENERAL`. The adapter's
-> registration follows a decision rule fixed before any test data existed
-> ([`eval/RULE-registration.md`](eval/RULE-registration.md)). Built with substantial AI
+> registration decision followed a rule fixed before any test data existed
+> ([`eval/RULE-registration.md`](eval/RULE-registration.md)): it is **not registered**. Built with substantial AI
 > assistance; see [`NOTICE.md`](NOTICE.md).
 
 ![AdversarialEval anatomy: a dimple-key test bench. Two keys identical but for one dimple; the lock checks every pin, and pin 4 refuses the wrong key](docs/assets/adversarialeval-anatomy.png)
@@ -72,13 +72,13 @@ reporting results next to the shortcut judges the material is designed to defeat
 | **Signed evidence:** every report and run file is fingerprinted and the list is signed (Ed25519); `node tools/evidence_manifest.mjs verify` (also run in CI) fails if any signed result changes. | [`evidence/`](evidence/) |
 | Shortcut judges at chance on that material: longer-answer 54%, TF-IDF-to-prompt 54%, security-keyword 44%. | `scripts/check_data.sh` |
 | Adapter: **72.4% / 74.7%** pairwise accuracy on 87 validation pairs (two seeds), versus ≤ 58% for every shortcut judge. | [`2026-11-11-cpu-v3-seed7.md`](eval/reports/2026-11-11-cpu-v3-seed7.md) |
-| **Independent test** (40 pairs from 2 outside authors, frozen by hash, scored once): **77.5%** (95% CI 62.5 to 87.7%) versus at most 60% for every shortcut judge. Just under our pre-registered 80% bar; the owner decided to register it anyway, stated as an override, not a pass. | [`2026-11-24-test-score.md`](eval/reports/2026-11-24-test-score.md) |
+| **Independent test** (40 pairs from 2 outside authors, frozen by hash, scored once): **77.5%** (95% CI 62.5 to 87.7%) versus at most 60% for every shortcut judge. Just under our pre-registered 80% bar, so the adapter is **not registered**. | [`2026-11-24-test-score.md`](eval/reports/2026-11-24-test-score.md) |
 | Held out from training, whole failure types are **not** learned: **37–39%** on unseen context-reversal and false-alarm pairs. Validation accuracy holds only for trained types. | [`2026-11-14-lofo.md`](eval/reports/2026-11-14-lofo.md) |
 | Local rehearsal of the node's remote check (kit executor, real WASM engine, the node's own client): identity echo verified, and WASM and PyTorch scoring agree on **87/87** pairs. | [`2026-11-11-rehearsal-cpu-v3-seed13.md`](eval/reports/2026-11-11-rehearsal-cpu-v3-seed13.md) |
 | A shortcut found and fixed: a model trained on hand-written pairs preferred any "vulnerable" answer (100% vs 0% on version pairs); balanced minimal pairs removed it. | [`2026-11-10-cpu-v1-seed7.md`](eval/reports/2026-11-10-cpu-v1-seed7.md) |
 
 The validation figures are on same-author data; the independent test (77.5%) is the figure to
-quote. It missed our own registration bar; registering anyway is the owner's stated override. Benchmark and Mind results are on testnet,
+quote. It missed our own registration bar, so the adapter is not registered. Benchmark and Mind results are on testnet,
 with small samples; each report states its limits.
 
 ## Deliverables
@@ -87,7 +87,7 @@ with small samples; each report states its limits.
 |---|---|
 | **Adversarial preference dataset** (264 training + 87 validation pairs, public) with a ten-family failure taxonomy ([`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md)) | Released in `data/public/`, `data/validation/` |
 | **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 164 eligible (81 + 83 severity pairs) |
-| **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (our bar 80%); **registration in preparation** by the owner's decision, an override of our own rule |
+| **Evaluator adapter**: LoRA + reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (our bar 80%); **not registered**: below our own bar (owner's final decision, 28 Nov) |
 | **`CVE_LOOKUP_CVSS` truth source**: a keyless API giving NVD's CVSS score under one fixed rule ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)) | Built and tested; deployment pending |
 | **Verified Ask** ([`verify/`](verify/)): an API a buyer calls before trusting a security answer. It checks the verdict, the cited advisory ids and the version against OSV, deps.dev and rubygems.org, and returns verified, contradicted, unconfirmed, invalid or unchecked | Tested; replayed over rounds 2 to 4; hosted at `adversarialeval.vercel.app/api/verify` (token-protected) |
 | **Dependency.Guard Mind** ([`mind/`](mind/)): on Minds by Animoca, it buys one ranked `SECURITY_REVIEW_GENERAL` answer per package through Anjoman, checks it with Verified Ask, re-asks one other provider only when the check proves it wrong, and returns PASS, BLOCK or FLAG with receipts; every PASS and BLOCK is re-checked free each day ([`mind/watch.py`](mind/watch.py), daily [`watch`](.github/workflows/watch.yml) job), and miner text is treated as untrusted data | Live inside Minds; connector, evidence and comparison tests in the repo |
@@ -190,8 +190,8 @@ Setting up the Mind inside Minds (keys, HTTP tool, the skill's instructions) is 
   [`docs/SUBMISSION_EVIDENCE.md`](docs/SUBMISSION_EVIDENCE.md).
 - **Done 24 Nov:** the independent test set (40 pairs, Fexx and Lino), frozen and scored once:
   77.5%, Wilson lower bound 62.5%. Below our frozen bar (≥ 80%, ≥ 65%), so the rule says do not
-  register; the owner decided to register anyway, and every report says so. The network's own
-  remote check and competition then judge it.
+  register. **Final decision (28 Nov): not registered.** The Evaluators entry is the 164 eligible
+  pool rows, the public dataset and the measured adapter.
 - **Final submission:** through anjoman.ai when the form opens, by 1 Dec 2026, 23:59 UTC.
 
 ## Acknowledgements

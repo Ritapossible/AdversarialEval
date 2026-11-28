@@ -74,7 +74,8 @@ points over longer-wins; remote check ≥ 70% on 15 public pairs.
 
 ### Phase 4: Challenge (Nov 15–20)
 - [ ] Host the `.safetensors` at an immutable URL (GitHub raw at a commit SHA, or IPFS)
-- [ ] Approve the MACHINA bond, `registerWasm(...)` on prefix `SECURITY_REVIEW`
+- [x] (11-28) Dropped: not registering (independent test 77.5%, below our bar; owner's final decision)
+- [ ] ~~Approve the MACHINA bond, `registerWasm(...)` on prefix `SECURITY_REVIEW`~~
 - [ ] Track the status through remote check → Stage 1 → confirmation → competition
 - [ ] If rejected: read the reason, fix, re-export (a new hash) and re-register.
       Budget 3 attempts.

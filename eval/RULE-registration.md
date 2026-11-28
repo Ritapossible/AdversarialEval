@@ -91,3 +91,16 @@ Every place that reports the adapter says this plainly: "independent test 77.5%,
 pre-registered 80% bar; registered by the owner's decision, not because it passed." Nothing is
 retrained, tuned or re-selected: the candidate stays cpu-v3 seed 13 and its 11 Nov package bytes.
 
+
+## Final decision (2026-11-28)
+
+The override above is withdrawn. **The adapter is not registered.** This is the outcome the
+frozen rule gave on 24 Nov. The reasons:
+- it missed our own bar;
+- registering needs a paid executor server, a hosted package and a bond on Sepolia, about a day of
+  setup three days before the deadline;
+- the network only adopts an adapter that beats the current one on its own hidden sample of about
+  21 pairs, which our 77.5% does not reliably do.
+
+The Evaluators entry is the 164 eligible pool rows, the public dataset and the adapter's measured
+results, reported as they are.

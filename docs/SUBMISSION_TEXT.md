@@ -109,7 +109,7 @@ verifiable way, so a scorer can't win by rewarding length or keywords.
 - The adapter scored 77.5% (31 of 40) on an independent test of 40 pairs from 2 outside authors,
   frozen by hash and scored once. That is below our own pre-registered 80% bar, and we report it
   as it is.
-- `[Registration: owner decision; fill in the registration id and transaction if registered.]`
+- Not registered: it missed our own bar, and we kept to the rule (final decision, 28 Nov).
 
 **Adoption:** another team's miner on #198 reports its accuracy on our 264 public pairs.
 

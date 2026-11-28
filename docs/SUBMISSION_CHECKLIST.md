@@ -36,9 +36,8 @@ submission. **Apps & Agents and Evaluators are judged separately.** Judge-facing
 - [x] 164 pool rows eligible and attested (node API output committed)
 - [x] Public dataset `data/public/` + `data/validation/`, taxonomy, dataset spec
 - [x] Independent test scored once: 77.5% (below our 80% bar), reported as it is
-- [ ] **Owner decision: register the adapter or not.** Registering needs a public executor server
-      (5 GB+ RAM, HTTPS), the package hosted at an immutable URL, and the bond on Sepolia. Not
-      registering keeps the Evaluators entry as material plus a measured adapter
+- [x] Registration decided (28 Nov): **not registered**. It missed our own bar; the Evaluators
+      entry is the material plus a measured adapter
 - [ ] Optional: dataset release (GitHub release / Hugging Face) with a datasheet, for growth points
 
 ## Scoring levers (out of 100)
