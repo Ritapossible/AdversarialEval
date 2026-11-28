@@ -45,6 +45,8 @@ jobs:
         run: python tests/test_codeverify.py
       - name: prediction market resolution tests (offline)
         run: python tests/test_resolve.py
+      - name: dataset release matches its builder
+        run: python tests/test_release.py
       - name: Mind test cases and scoring
         run: python tests/test_mind.py
       - name: Truth source tests

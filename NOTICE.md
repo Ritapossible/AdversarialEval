@@ -41,4 +41,5 @@ documentation and the first drafts of the hand-written preference pairs. Commits
 co-authored carry a `Co-Authored-By: Claude` trailer. Every advisory fact is checked against
 OSV by `tools/fetch_sources.py`, `tools/check_ids.py` and `tools/verify_generated.py`. Pool
 rows are uploaded only after a human `approve` (`tools/review_pool.py`), and the headline
-test set is written by independent human reviewers.
+test set is written by two independent outside authors (drafted with AI assistance, then read
+and revised by each author).
