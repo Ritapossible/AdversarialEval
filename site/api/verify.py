@@ -14,22 +14,11 @@ import sys
 from http.server import BaseHTTPRequestHandler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _verify.server import CACHE_MAX_AGE, MAX_BODY, RateLimiter, authorized, handle  # noqa: E402
+from _verify.server import CACHE_MAX_AGE, MAX_BODY, RateLimiter, authorized, client_ip, handle  # noqa: E402
 from _verify.sources import LiveSources  # noqa: E402
 
 SRC = LiveSources(None, timeout=6, max_age=CACHE_MAX_AGE, max_entries=5_000)
 LIMITER = RateLimiter(int(os.environ.get("VERIFY_RATE_PER_MIN", "60")))
-
-
-def client_ip(headers, peer: str) -> str:
-    """The address to rate-limit. Prefer the headers Vercel's edge sets itself (x-real-ip,
-    x-vercel-forwarded-for) over the first X-Forwarded-For hop, which a client can supply."""
-    for h in ("x-real-ip", "x-vercel-forwarded-for"):
-        v = (headers.get(h) or "").split(",")[0].strip()
-        if v:
-            return v
-    xff = [x.strip() for x in (headers.get("X-Forwarded-For") or "").split(",") if x.strip()]
-    return xff[-1] if xff else peer  # rightmost hop is the one the nearest proxy added
 
 
 class handler(BaseHTTPRequestHandler):  # Vercel's Python runtime looks for this name

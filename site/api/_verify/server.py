@@ -69,6 +69,17 @@ def authorized(header: str | None, token: str | None) -> bool:
     return isinstance(header, str) and hmac.compare_digest(header.encode(), want.encode())
 
 
+def client_ip(headers, peer: str) -> str:
+    """The address to rate-limit. Prefer the headers Vercel's edge sets itself (x-real-ip,
+    x-vercel-forwarded-for) over the first X-Forwarded-For hop, which a client can supply."""
+    for h in ("x-real-ip", "x-vercel-forwarded-for"):
+        v = (headers.get(h) or "").split(",")[0].strip()
+        if v:
+            return v
+    xff = [x.strip() for x in (headers.get("X-Forwarded-For") or "").split(",") if x.strip()]
+    return xff[-1] if xff else peer  # rightmost hop is the one the nearest proxy added
+
+
 class RateLimiter:
     """Fixed one-minute window per client address."""
 

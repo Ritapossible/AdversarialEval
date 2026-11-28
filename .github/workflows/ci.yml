@@ -49,6 +49,8 @@ jobs:
         run: python tests/test_release.py
       - name: site lists every report and video
         run: python tests/test_site.py
+      - name: Guard API (offline)
+        run: python tests/test_guard.py
       - name: Mind test cases and scoring
         run: python tests/test_mind.py
       - name: Truth source tests

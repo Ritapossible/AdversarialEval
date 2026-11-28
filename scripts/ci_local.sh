@@ -14,7 +14,7 @@ privacy() {
 }
 quiet() { "$@" 2>&1 | grep -v -E "distutils-precedence|_distutils_hack|Remainder of file|frozen site|addpackage|<module>|Error processing line|^\s*$" ; return "${PIPESTATUS[0]}"; }
 step "privacy guard" privacy
-for t in test_tools test_bench test_reproduce test_verify test_mind test_deploycheck test_codeverify test_resolve test_release test_site; do step "tests/$t.py ($($PY -V 2>&1))" quiet "$PY" "tests/$t.py"; done
+for t in test_tools test_bench test_reproduce test_verify test_mind test_deploycheck test_codeverify test_resolve test_release test_site test_guard; do step "tests/$t.py ($($PY -V 2>&1))" quiet "$PY" "tests/$t.py"; done
 step "truth source tests" node --test truth-sources/cve-cvss/test/*.test.js
 step "website built from its sources" quiet "$PY" tools/build_site.py --check
 step "signed evidence unchanged" node tools/evidence_manifest.mjs verify

@@ -1,0 +1,120 @@
+"""Guard: one paid Telegraph security answer for a package, checked before it is trusted.
+
+The server side of Dependency.Guard (POST /api/guard). It holds the Anjoman key, so the Mind never
+does, and it returns only structured fields, never a miner's free text, so a miner can't write
+instructions to the Mind through its answer.
+
+    decision  PASS (verified, no known vulnerability) | BLOCK (verified vulnerable) | FLAG (a person decides)
+
+Same rules as mind/connector/guard.mjs: verified + Secure = PASS; verified + vulnerable = BLOCK;
+anything the free check can't confirm = FLAG. One paid ask per request, under a daily budget.
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import ssl
+import time
+import urllib.error
+import urllib.request
+
+from .core import parse_target, verify
+
+ANJOMAN = "https://backend.telegraphprotocol.com"
+INTENT = "SECURITY_REVIEW_GENERAL"
+VULNERABLE = {"Insecure", "Needs changes"}
+VERDICTS = {"Secure", "Insecure", "Needs changes"}
+ADVISORY_ID = re.compile(r"^(GHSA(-[23456789cfghjmpqrvwx]{4}){3}|CVE-\d{4}-\d{4,}|PYSEC-\d{4}-\d+|MAL-\d{4}-\d+|GO-\d{4}-\d+|RUSTSEC-\d{4}-\d+|OSV-\d{4}-\d+)$", re.I)
+MAX_TARGET = 256
+
+
+class Budget:
+    """Spend cap per UTC day, per function instance (best effort; Anjoman's balance is the hard cap)."""
+
+    def __init__(self, per_day_usd: float):
+        self.per_day, self.day, self.spent = per_day_usd, None, 0.0
+
+    def _roll(self, now: float) -> None:
+        day = time.strftime("%Y-%m-%d", time.gmtime(now))
+        if day != self.day:
+            self.day, self.spent = day, 0.0
+
+    def allow(self, worst_case: float, now: float | None = None) -> bool:
+        self._roll(now or time.time())
+        return self.spent + worst_case <= self.per_day + 1e-9
+
+    def add(self, usd: float, now: float | None = None) -> None:
+        self._roll(now or time.time())
+        self.spent += usd
+
+
+def safe_fields(result) -> dict:
+    """Only the fields a decision needs, validated; no free text from the miner."""
+    r = result if isinstance(result, dict) else {}
+    verdict = r.get("verdict") if r.get("verdict") in VERDICTS else None
+    count = r.get("vulnerability_count")
+    count = count if isinstance(count, int) and not isinstance(count, bool) and 0 <= count < 10_000 else None
+    ids = []
+    for issue in r.get("issues") or []:
+        for tok in re.findall(r"[A-Za-z]+-[0-9A-Za-z-]+", str(issue)):
+            if ADVISORY_ID.match(tok) and tok.upper() not in ids:
+                ids.append(tok.upper())
+    return {"verdict": verdict, "vulnerability_count": count, "advisory_ids": ids[:20]}
+
+
+def decide(label: str, fields: dict) -> tuple[str, str]:
+    vulnerable = fields["verdict"] in VULNERABLE and (fields["vulnerability_count"] or 0) >= 1
+    if label == "verified":
+        return ("BLOCK", "verified vulnerable") if vulnerable else ("PASS", "verified: no known vulnerability for this version")
+    return "FLAG", f"the paid answer is {label} by public data: a person decides"
+
+
+def anjoman_ask(target: str, key: str, timeout: int = 55) -> dict:
+    """One routed SECURITY_REVIEW ask through Anjoman. Returns the answer, cost and receipt, or the error."""
+    req = urllib.request.Request(f"{ANJOMAN}/engine/ask", method="POST",
+                                 data=json.dumps({"intent": INTENT, "params": {"target": target}}).encode(),
+                                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}",
+                                          "User-Agent": "adversarialeval-guard/1.0"})
+    ctx = ssl.create_default_context()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+            body = json.loads(resp.read())
+        r = body.get("result") or {}
+        cost = r.get("cost_usd_total", r.get("cost_usd"))
+        return {"ok": True, "result": r.get("result"), "cost_usd": float(cost) if cost is not None else None,
+                "receipt": (body.get("receipt") or {}).get("receipt_hash"), "miner": r.get("miner_name")}
+    except urllib.error.HTTPError as e:
+        return {"ok": False, "status": e.code, "error": f"Anjoman HTTP {e.code}", "cost_usd": 0.0}
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as e:
+        return {"ok": False, "status": None, "error": f"Anjoman unreachable: {str(e)[:120]}", "cost_usd": None}
+
+
+def guard(body: bytes, src, budget: Budget, ask=None, key: str | None = None, worst_case: float = 0.05) -> tuple[int, dict]:
+    """Handle one POST /api/guard body: {"target": "pkg:npm/minimist@1.2.5"}."""
+    try:
+        req = json.loads(body or b"{}")
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return 400, {"error": "body must be JSON"}
+    target = req.get("target") if isinstance(req, dict) else None
+    if not isinstance(target, str) or not target or len(target) > MAX_TARGET:
+        return 400, {"error": f"target must be a package URL of at most {MAX_TARGET} characters"}
+    if parse_target(target) is None:
+        return 400, {"error": "target must be an exact package URL, e.g. pkg:npm/minimist@1.2.5"}
+    if not budget.allow(worst_case):
+        return 429, {"error": "daily spending cap reached; try tomorrow"}
+    budget.add(worst_case)  # reserved before the paid call; corrected below
+    a = (ask or anjoman_ask)(target, key or os.environ.get("ANJOMAN_API_KEY", ""))
+    spent = a.get("cost_usd")
+    budget.add((spent if spent is not None else worst_case) - worst_case)  # unknown cost stays reserved
+    if not a.get("ok"):
+        if a.get("status") in (401, 403):
+            return 502, {"error": "the server's Anjoman key was refused; nothing was decided"}
+        return 502, {"error": a.get("error") or "paid answer unavailable", "decision": "FLAG",
+                     "possibly_charged": spent is None}
+    fields = safe_fields(a.get("result"))
+    v = verify(target, a.get("result") if isinstance(a.get("result"), dict) else None, src)
+    decision, reason = decide(v.label, fields)
+    return 200, {"target": target, "decision": decision, "reason": reason, "check": v.label,
+                 "answer": fields, "osv_ids": v.osv_ids[:20], "cost_usd": spent, "receipt": a.get("receipt"),
+                 "provider": a.get("miner")}

@@ -152,3 +152,33 @@ NODE_USE_ENV_PROXY=1 node mind/connector/markets.mjs \
 - **Results and demo:** the 28 Nov run on 24 real Polymarket markets
   (`eval/reports/2026-11-28-polymarket-via-app.md`); the in-app demo message
   (`docs/DEMO_MIND_MARKETS.md`).
+
+## 7. Guard API: keep the Anjoman key out of the Mind (recommended)
+
+Until now the Mind held the Anjoman key in its private credentials (typed into its chat) and read
+miners' raw answers. Its only protection against an answer written to steer it was a prompt rule.
+`POST https://adversarialeval.vercel.app/api/guard` removes both risks:
+- the key lives only in the Vercel deployment;
+- the Mind sends a package URL and gets back structured fields only: `decision` (PASS / BLOCK /
+  FLAG), `reason`, `check` (the Verified Ask label), `answer` (verdict, count, validated advisory
+  ids), `osv_ids`, `cost_usd`, `receipt` and `provider`. No miner free text is returned.
+
+```
+POST /api/guard   Authorization: Bearer <GUARD_TOKEN>   {"target": "pkg:npm/minimist@1.2.5"}
+GET  /api/guard   -> {"ok": true, "configured": true|false}
+```
+
+- **One paid ask per request.**
+- **Spending:** a daily cap of $0.50 per instance (`GUARD_MAX_USD_PER_DAY`); the Anjoman balance is
+  the hard cap.
+- **Rate limit:** 10 requests a minute per client (`GUARD_RATE_PER_MIN`).
+- **Refuses to answer** until both secrets are set.
+- **Code:** `verify/guard.py` (tests: `tests/test_guard.py`) and `site/api/guard.py`.
+
+**Owner steps to switch the Mind over:**
+1. In Vercel → Project → Settings → Environment Variables, add `ANJOMAN_API_KEY` (a **new** key
+   from Anjoman) and `GUARD_TOKEN` (any long random string), then redeploy.
+2. Check `GET /api/guard` shows `"configured": true`.
+3. In the Mind, replace the `anjomanApiKey` credential with `guardToken`, and point its HTTP tool at
+   `/api/guard` instead of Anjoman.
+4. Revoke the old Anjoman key that was typed into the Mind's chat.
