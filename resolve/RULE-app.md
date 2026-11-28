@@ -34,3 +34,16 @@ by the **Dependency.Guard Mind** (`38266542-f36b-1410-8467-00039ce7df11`).
 
 - 24 markets, one day, testnet.
 - Anjoman's ranked route may send these questions to different miners than the Solana run did.
+
+## Amendment 1 (28 Nov, after the first paid asks, before any decision was scored)
+
+1. **The first two attempts failed with 401 and cost nothing.** I started the connector without
+   `NODE_USE_ENV_PROXY=1`, so Node's `fetch` bypassed the session proxy and sent the asks without
+   the Anjoman key.
+2. **The cap was too low for this route.** The third attempt worked, but through Anjoman each
+   routed ask cost $0.02 to $0.03, not the $0.01 we paid per call directly on Solana. At that
+   price the $0.40 cap would stop after about 16 of the 24 markets.
+3. **What I did:** stopped after 3 paid asks. All three attempts are kept in
+   `mind/evidence/aborted/`.
+4. **The change:** the spending cap is now **$1.00**, and the run restarts from the first market.
+   Nothing else changes. The 3 discarded paid asks are reported with the costs.
