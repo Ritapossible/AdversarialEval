@@ -173,7 +173,9 @@ the Solana clip (S3).
 - [x] (11-28) Demo video of the Qwen code test (with the Qwen-Agent slide); owner posts in the Alibaba thread and on X.
 - [x] (11-28) Prediction market resolution (Solana use case): report
       `eval/reports/2026-11-28-prediction-market-resolution.md`, site `/dependency-guard#markets`.
-- [ ] Prediction market demo video and posts.
+- [x] (11-28) Prediction market demo video and posts.
+- [x] (11-28) Error analysis of the 9 independent-test misses: `eval/reports/2026-11-28-test-error-analysis.md`.
+- [x] (11-28) Not pursued for this submission: the miner (Miners track) and deploying the CVE truth source.
 - [ ] `/progress` on #198 every 72 h; `/submit` and the Anjoman form by Dec 1.
 - [ ] Owner: re-sign evidence later (new files show as "not yet signed").
 

@@ -142,7 +142,7 @@ a short description. The recordings are real; the narration is a synthetic voice
 | **Adversarial preference dataset** with a ten-family failure taxonomy ([`docs/ADVERSARIAL_CRITERIA.md`](docs/ADVERSARIAL_CRITERIA.md)) | Release v1.0 in [`release/`](release/adversarialeval-security-review-v1/) (dataset card, checksums); source splits in `data/` |
 | **Evaluation-pool material** for `SECURITY_REVIEW_GENERAL`: OSV-verified, length-matched, human-reviewed | 164 eligible (81 + 83 severity pairs) |
 | **Evaluator adapter**: LoRA and a reward head on Telegraph's ModernBERT-base foundation, trained with the unmodified official kit | Passes Stage 1 locally; independent test 77.5% (our bar 80%); **not registered** |
-| **`CVE_LOOKUP_CVSS` truth source** ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)): a keyless API giving NVD's CVSS score under one fixed rule | Built and tested; not deployed |
+| **`CVE_LOOKUP_CVSS` truth source** ([`truth-sources/cve-cvss/`](truth-sources/cve-cvss/)): a keyless API giving NVD's CVSS score under one fixed rule | Built and tested; not deployed (not pursued for this submission) |
 | **Signed evidence** ([`evidence/`](evidence/), [`tools/evidence_manifest.mjs`](tools/evidence_manifest.mjs), [`tools/anchor_evidence.mjs`](tools/anchor_evidence.mjs)) | 333 files signed; anchored on Solana devnet; checked in CI |
 | **Website** ([`site/`](site/), built from [`site-src/`](site-src/) by `tools/build_site.py`): six pages (overview, Evaluators with "Spot the Flaw", Dependency.Guard, the benchmark, evidence and limits, videos), with a mobile menu | Live at [adversarialeval.vercel.app](https://adversarialeval.vercel.app) |
 

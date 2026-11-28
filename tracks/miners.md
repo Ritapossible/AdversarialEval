@@ -1,6 +1,7 @@
 # Miners track: not entered yet
 
-No miner is registered from this repository. One is planned, and gated on evidence first.
+**Not pursued for this submission (decided 28 Nov).** No miner is registered from this repository.
+The notes below record what was gathered, for later.
 
 ## Candidate: `CODE_PATCH_VERIFY_GENERAL`
 
