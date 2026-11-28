@@ -25,7 +25,7 @@ All 333 evidence files are signed, and their hash is anchored on Solana devnet.
 | Working app | https://adversarialeval.vercel.app/dependency-guard (decisions with their evidence and Solana payments; hosted Verified Ask at `/api/verify`) |
 | Mission | [#198, Mission 10, Model Economy](https://github.com/telegraphprotocol/bounties/issues/198): routes 1 (cost per verified correct answer) and 2 (procurement via ranked routing) |
 | Listed on Anjoman | Dependency.Guard, category Security, status Live (28 Nov) |
-| Demo videos | Qwen code test: https://x.com/RitaCryptoTips/status/2126612379286786350 · Solana packages, prediction markets and the in-app Polymarket demo: `[add links]` |
+| Demo videos | In-app Polymarket demo (Anjoman + the Mind): https://x.com/RitaCryptoTips/status/2126711423908614492 · Qwen code test: https://x.com/RitaCryptoTips/status/2126612379286786350 · Solana packages and prediction markets: `[add links]` |
 | Evidence anchor | [Solana devnet memo](https://explorer.solana.com/tx/2J9e6xD5v2Wnn17Qd9BCiRgqiVTEzhXzYhwb11e8B32gsXUtJCVZUCunE3Fmh4K9EQpQxm65R5TJMaVzRNoZMPu7?cluster=devnet) holding the SHA-256 of the signed manifest of 333 files; `node tools/anchor_evidence.mjs verify` |
 
 ## Customer and problem
