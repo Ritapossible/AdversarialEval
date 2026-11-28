@@ -205,7 +205,7 @@ footer p { margin: 0; max-width: 80ch; }
 }
 
 /* cards */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .card { display: grid; align-content: start; gap: 12px; border: 1px solid var(--ink); padding: 22px; text-decoration: none; color: inherit; background: var(--paper); transition: background .15s; }
 .card:hover { background: var(--soft); }
 .card .label { color: var(--accent); }

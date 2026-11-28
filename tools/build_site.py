@@ -29,8 +29,8 @@ SRC, OUT = ROOT / "site-src", ROOT / "site"
 # (file, path, menu label, hint shown in the mobile menu, page title, description)
 PAGES = [
     ("index.html", "/", "Overview", "What this is and the key results",
-     "AdversarialEval: security answers you can check",
-     "Evaluation material, an evaluator, a paid benchmark of Telegraph's security miners, and Dependency.Guard, which checks paid answers before acting on them."),
+     "AdversarialEval: paid AI answers you can check",
+     "Evaluation material, an evaluator, a paid benchmark of Telegraph's miners, and Dependency.Guard, which checks paid answers (packages, code, prediction markets) before acting on them."),
     ("evaluators.html", "/evaluators", "Evaluators", "Spot the Flaw, test results, the dataset",
      "Evaluators: Spot the Flaw | AdversarialEval",
      "Two security reviews of the same request, one plausible but wrong in one decisive fact. Play the test, then see how shortcut judges and our evaluator did."),

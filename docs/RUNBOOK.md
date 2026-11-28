@@ -1,5 +1,8 @@
 # Runbook
 
+> **Note (28 Nov 2026).** The adapter is not registered (see `eval/RULE-registration.md`, final
+> decision). The registration and hosting steps below are kept for reference only.
+
 Every command runs from the repo root unless noted. The kit lives in
 `third_party/telegraph-wasm-baseline`, pinned by `scripts/setup_kit.sh`.
 

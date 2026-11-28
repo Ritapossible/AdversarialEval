@@ -1,5 +1,8 @@
 # Architecture
 
+> **Historical (4 Nov 2026).** The original design for the Evaluators track. The current structure
+> is in the README's "Repository layout" and "How it works" sections.
+
 ```
  ┌────────────────────────────┐   real advisories (GHSA / NVD / OSV / CWE)
  │ 1. Source corpus           │◄─ provenance URL kept per case

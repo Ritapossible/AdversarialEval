@@ -1,10 +1,11 @@
   <div class="page-hero">
     <span class="eyebrow">Telegraph Hackathon Season II · Evaluators and Apps &amp; Agents · testnet</span>
-    <h1>Security answers you can check before you trust them.</h1>
-    <p class="lede">On Telegraph, agents pay specialist miners for security answers. Our tests show a paid answer can be confidently wrong: approving malware, citing advisories that don't apply, calling versions that never existed "Secure". AdversarialEval measures those answers and checks them against public sources before anyone acts on them.</p>
+    <h1>Paid AI answers you can check before you trust them.</h1>
+    <p class="lede">On Telegraph, agents pay specialist miners for answers: is this package safe, is this code ready to ship, which side of this market won. Our tests show a paid answer can be confidently wrong: approving malware, calling a version that doesn't exist "Secure", settling a market on the wrong side. AdversarialEval measures those answers and checks them against public sources before anyone acts on them.</p>
     <div class="ctas">
       <a class="pill" href="/evaluators#game">Try Spot the Flaw <span aria-hidden="true">→</span></a>
       <a class="under" href="/dependency-guard">See Dependency.Guard</a>
+      <a class="under" href="/videos">Watch the demos</a>
     </div>
   </div>
 
@@ -21,6 +22,7 @@
       <a class="card" href="/evaluators"><span class="label">Evaluators track</span><h3>Evaluation material and an evaluator</h3><p>Preference pairs where the worse answer is plausible but wrong in one decisive, checkable fact, in Telegraph's live pool, plus an adapter trained and tested on them.</p><span class="go">Spot the Flaw and results →</span></a>
       <a class="card" href="/dependency-guard"><span class="label">Apps &amp; Agents track</span><h3>Dependency.Guard</h3><p>A Mind that buys one security answer per package from Telegraph, checks it for free, and decides PASS, BLOCK or FLAG with the evidence and receipt.</p><span class="go">How it works and results →</span></a>
       <a class="card" href="/benchmark"><span class="label">Model Economy</span><h3>A paid benchmark of the market</h3><p>The same questions bought from every reachable security miner on three days, every payment reconciled, to show which answers are worth paying for.</p><span class="go">Benchmark →</span></a>
+      <a class="card" href="/dependency-guard#markets"><span class="label">Beyond packages</span><h3>Code and prediction markets</h3><p>The same check applied to code written by Qwen and to settling prediction markets, including 24 real Polymarket markets run through the app.</p><span class="go">Results →</span></a>
     </div>
   </section>
 
@@ -30,6 +32,8 @@
       <dt>Trusting the route</dt><dd>On 21 hard Solana cases, Telegraph's ranked answer, trusted as is, approved key-stealing malware 5 times out of 5. With our free check, nothing unsafe was approved. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-solana-use-case-3.md" target="_blank" rel="noopener">Report</a></dd>
       <dt>Rank is not quality</dt><dd>Across three paid rounds, the best miner was right 83% of the time and the default route 21%. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">Report</a></dd>
       <dt>Real competition</dt><dd>37 miners are listed for security review, but they pay out to 13 addresses, and two addresses run 26 of them. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-provider-independence.md" target="_blank" rel="noopener">Report</a></dd>
+      <dt>Self-review is not review</dt><dd>Qwen approved all 36 of its own code changes; 30 should not ship. With every paid answer checked against a real install and tests, 27 of 36 were decided right and no good change was blocked. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-qwen-code-verification.md" target="_blank" rel="noopener">Report</a></dd>
+      <dt>Agreement is not proof</dt><dd>Settling prediction markets on one paid answer sent money to the wrong side 3 times in 24; two independent providers agreeing still got 1 wrong. Checking the source each market names: 0 wrong, also on 24 real Polymarket markets. <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-prediction-market-resolution.md" target="_blank" rel="noopener">Report</a></dd>
       <dt>Fluency is not truth</dt><dd>Judges that prefer the longer or more alarming answer score near a coin flip on our pairs; our evaluator scores 77.5% on an independent test.</dd>
     </dl>
   </section>
