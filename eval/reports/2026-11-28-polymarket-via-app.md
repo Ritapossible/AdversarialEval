@@ -62,10 +62,14 @@ The escrow balance went from $5.33 to $4.66 ($0.67 unbilled), which matches the 
 **Finding:** through Anjoman, a routed ask that times out can still be charged with no answer
 delivered. Each answer cost $0.02 to $0.04, against $0.01 per call paid directly on Solana.
 
-## What changes in the app
+## What changes in the app (built after this run, 28 Nov)
 
-1. Read the market's rules first, and buy a paid answer only when it can count, which saves the
-   $0.29 the Mind pointed out.
-2. Send the Mind each market's resolution sentence with the evidence.
-3. Count a timed-out ask as charged until the balance proves otherwise. The connector already
-   records it as "possibly charged", and the balance check catches it.
+1. **Done:** the connector reads each market's rules first and buys a paid answer only when the rules
+   name a source it can check (`shouldAsk` in `mind/connector/markets.mjs`). That saves the $0.29
+   the Mind pointed out. The old behaviour is still available with `--ask-all`.
+2. **Done:** each market's resolution sentence now goes to the Mind with the evidence (`ruleSentence`).
+3. **Already in place:** a timed-out ask is counted as possibly charged, and the balance check
+   catches it.
+
+Offline tests: `mind/connector/test/markets.test.mjs`. A dry run on two markets with no checkable
+source bought nothing and spent $0.

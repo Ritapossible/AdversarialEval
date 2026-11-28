@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 process.argv[1] = "not-main";
-const { decide, normOutcome } = await import("../markets.mjs");
+const { decide, normOutcome, ruleSentence, shouldAsk } = await import("../markets.mjs");
 
 test("normOutcome reads outcome or resolved_yes", () => {
   assert.equal(normOutcome({ outcome: "YES" }), "yes");
@@ -21,4 +21,15 @@ test("no source in the rules: HOLD, never settle on a paid answer alone", () => 
   const c = { contract: null, source_outcome: "unresolved", evidence: {} };
   assert.equal(decide("yes", c).decision, "HOLD");
   assert.equal(decide("unresolved", { contract: { kind: "binance" }, source_outcome: "unresolved", evidence: { why: "x" } }).decision, "HOLD");
+});
+
+test("pays only where the rules name a checkable source", () => {
+  assert.equal(shouldAsk({ contract: { kind: "binance" } }), true);
+  assert.equal(shouldAsk({ contract: null }), false);
+  assert.equal(shouldAsk({ contract: null }, true), true);
+});
+
+test("ruleSentence keeps the first sentence of the market's rules", () => {
+  assert.equal(ruleSentence("This market resolves YES if X. Otherwise NO."), "This market resolves YES if X.");
+  assert.equal(ruleSentence(null), "");
 });

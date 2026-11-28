@@ -4,6 +4,8 @@
 //
 //   node mind/connector/markets.mjs --mind <mindId> --cases resolve/polymarket_cases.json [--max-spend 0.40]
 //   ... --no-mind    run the asks and checks only
+//   ... --ask-all    also buy a paid answer for markets whose rules name no checkable source
+//                    (the 28 Nov run did; by default they are held without paying, as the Mind advised)
 //
 // Policy (resolve/RULE-app.md): ask Telegraph's ranked route once per market (no buying the same
 // question from several miners). If the market's contract names a machine-readable source, read it
@@ -38,6 +40,16 @@ export function normOutcome(r) {
   if (r?.resolved_yes === true) return "yes";
   if (r?.resolved_yes === false) return "no";
   return "unresolved";
+}
+
+export function ruleSentence(rules) {
+  const first = String(rules || "").replace(/\s+/g, " ").split(/(?<=[.])\s/)[0].trim();
+  return first.length > 400 ? first.slice(0, 397) + "..." : first;
+}
+
+/** Buy a paid answer only when it can count: the market's contract names a source we can check. */
+export function shouldAsk(market, askAll = false) {
+  return askAll || Boolean(market.contract);
 }
 
 export function decide(paid, check) {
@@ -77,7 +89,7 @@ async function balance() {
 async function main() {
   const { values: opt } = parseArgs({ options: {
     mind: { type: "string" }, cases: { type: "string" }, "max-spend": { type: "string", default: "0.40" },
-    "no-mind": { type: "boolean", default: false }, alias: { type: "string", default: "dependency-guard" },
+    "no-mind": { type: "boolean", default: false }, "ask-all": { type: "boolean", default: false }, alias: { type: "string", default: "dependency-guard" },
   } });
   if (!opt.cases) throw new Error("--cases is required");
   if (!opt["no-mind"] && !opt.mind) throw new Error("--mind <mindId> is required unless --no-mind");
@@ -89,22 +101,25 @@ async function main() {
   mkdirSync(outDir, { recursive: true });
   const stem = join(outDir, at.replace(/[:.]/g, "-") + ".markets");
   const run = { at, intent: INTENT, cases: casesPath.replace(ROOT + "/", ""), max_spend_usd: maxSpend,
-    policy: "one ranked ask per market via Anjoman; settle only from the source the rules name; otherwise HOLD for a person",
+    policy: opt["ask-all"] ? "one ranked ask per market via Anjoman; settle only from the source the rules name; otherwise HOLD for a person"
+      : "a paid ask only where the rules name a checkable source; settle only from that source; otherwise HOLD for a person without paying",
     repo_commit: spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8" }).stdout.trim(), markets: [] };
   run.balance_before_usd = await balance();
   let committed = 0;
   for (const m of markets) {
-    if (committed + ASK_RESERVE_USD > maxSpend + 1e-9) { run.markets.push({ id: m.id, decision: "NOT CHECKED", reason: "spending cap" }); continue; }
-    committed += ASK_RESERVE_USD;
-    const a = await ask(m.event);
-    committed += a.cost_usd - ASK_RESERVE_USD + (a.possibly_charged ? ASK_RESERVE_USD : 0);
+    const buy = shouldAsk(m, opt["ask-all"]);
+    if (buy && committed + ASK_RESERVE_USD > maxSpend + 1e-9) { run.markets.push({ id: m.id, decision: "NOT CHECKED", reason: "spending cap" }); continue; }
+    if (buy) committed += ASK_RESERVE_USD;
+    const a = buy ? await ask(m.event) : { http: null, ms: 0, result: null, cost_usd: 0, receipt: null, possibly_charged: false, error: null, skipped: "no checkable source in the rules: not bought" };
+    if (buy) committed += a.cost_usd - ASK_RESERVE_USD + (a.possibly_charged ? ASK_RESERVE_USD : 0);
     const paid = normOutcome(a.result);
     const cited = (a.result?.sources || []).filter((s) => typeof s === "string" && /^https?:\/\//.test(s)).length;
     const c = spawnSync("python3", [join(ROOT, "resolve", "check.py"), "--cases", casesPath, "--id", m.id], { encoding: "utf8", timeout: 600_000 });
     const check = c.status === 0 ? JSON.parse(c.stdout) : { contract: m.contract, source_outcome: "unresolved", evidence: { why: `check failed: ${(c.stderr || "").slice(-200)}` } };
     const d = decide(paid, check);
     const rec = { id: m.id, question: m.question, paid_outcome: paid, paid_sources_cited: cited, miner: a.miner, miner_id: a.miner_id,
-      cost_usd: a.cost_usd, receipt: a.receipt?.receipt_hash ?? null, http: a.http, ms: a.ms, error: a.error,
+      cost_usd: a.cost_usd, receipt: a.receipt?.receipt_hash ?? null, http: a.http, ms: a.ms, error: a.error, paid_ask: buy,
+      rule: ruleSentence(m.rules),
       check: { source: check.contract?.kind ?? null, outcome: check.source_outcome, evidence: check.evidence }, ...d };
     appendFileSync(`${stem}.attempts.ndjson`, JSON.stringify(rec) + "\n");
     run.markets.push(rec);
@@ -118,8 +133,8 @@ async function main() {
   }
 
   if (!opt["no-mind"]) {
-    const lines = run.markets.map((x) => `- ${x.id} "${x.question}": proposed ${x.decision}. ` + JSON.stringify({
-      paid_outcome: x.paid_outcome, paid_sources_cited: x.paid_sources_cited, check_source: x.check?.source, check_outcome: x.check?.outcome,
+    const lines = run.markets.map((x) => `- ${x.id} "${x.question}"${x.rule ? ` Rule: ${x.rule}` : ""} Proposed ${x.decision}. ` + JSON.stringify({
+      paid_ask: x.paid_ask, paid_outcome: x.paid_outcome, paid_sources_cited: x.paid_sources_cited, check_source: x.check?.source, check_outcome: x.check?.outcome,
       check_extreme_or_close: x.check?.evidence?.extreme ?? x.check?.evidence?.close ?? null, dispute: Boolean(x.dispute), cost_usd: x.cost_usd }));
     const text = [
       "Prediction market settlement request. Evidence was gathered by your connector: one paid EVENT_OUTCOME_RESOLUTION_GENERAL answer per market from Telegraph (Anjoman), and a free check against the source each market's rules name (Binance 1-minute candles for crypto).",
