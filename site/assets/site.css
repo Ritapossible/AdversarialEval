@@ -238,3 +238,14 @@ pre.cmd { margin: 0; padding: 16px; background: var(--soft); border: 1px solid v
 .site-footer a:hover { color: var(--ink); text-decoration: underline; }
 .site-footer p { margin: 0 0 8px; max-width: 52ch; }
 @media (max-width: 860px) { .site-footer .grid { grid-template-columns: 1fr; } }
+
+/* Videos page */
+.vgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 32px; }
+.vcard { min-width: 0; }
+.vcard:nth-child(n+3) { border-top: 1px solid var(--rule); padding-top: 28px; }
+.vcard video { width: 100%; aspect-ratio: 16 / 9; background: var(--soft); border: 1px solid var(--rule); display: block; }
+.vcard .vmeta { margin-top: 12px; }
+.vcard h2 { font: 400 26px/1.2 var(--serif); letter-spacing: -0.01em; margin: 6px 0 8px; }
+.vcard p { color: var(--ink-2); }
+.vcard .vlinks { margin-top: 8px; font: 400 14px/1.5 var(--mono); }
+@media (max-width: 860px) { .vgrid { grid-template-columns: 1fr; gap: 32px; } .vcard:nth-child(n+2) { border-top: 1px solid var(--rule); padding-top: 24px; } .vcard h2 { font-size: 22px; } }

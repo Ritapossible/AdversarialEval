@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demo videos | AdversarialEval</title>
+<meta name="description" content="Short demos of every result: Dependency.Guard live in the Minds app, the Solana tests, Qwen code verification and prediction markets, including real Polymarket markets.">
+<meta property="og:title" content="Demo videos | AdversarialEval">
+<meta property="og:description" content="Short demos of every result: Dependency.Guard live in the Minds app, the Solana tests, Qwen code verification and prediction markets, including real Polymarket markets.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20.5' fill='%23fff' stroke='%23e8501c' stroke-width='4'/%3E%3Ccircle cx='24' cy='24' r='10' fill='none' stroke='%23111' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='24' r='4.2' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=6b92a347f5">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar col">
+    <a class="brand" href="/" aria-label="AdversarialEval, home"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20.5" fill="#fff" stroke="#e8501c" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.4"/><circle cx="24" cy="24" r="4.2" fill="#111"/></svg>AdversarialEval</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="icon" aria-hidden="true"></span><span class="txt">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Overview<span class="hint">What this is and the key results</span></a></li>
+        <li><a href="/evaluators">Evaluators<span class="hint">Spot the Flaw, test results, the dataset</span></a></li>
+        <li><a href="/dependency-guard">Dependency.Guard<span class="hint">The app: how it works and its evidence</span></a></li>
+        <li><a href="/benchmark">Benchmark<span class="hint">What a paid answer is worth</span></a></li>
+        <li><a href="/evidence">Evidence<span class="hint">Reports, signed results, limits</span></a></li>
+        <li><a href="/videos" aria-current="page">Videos<span class="hint">Every demo, briefly described</span></a></li>
+        <li><a class="gh" href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="col">
+  <div class="page-hero">
+    <span class="eyebrow">Demo videos</span>
+    <h1>Every result, on video.</h1>
+    <p class="lede">Short demos of each test, newest first. Every number in them comes from a pre-registered run whose report, raw data and payments are public. The recordings are real; the narration is a synthetic voice.</p>
+  </div>
+
+  <section id="videos">
+    <div class="vgrid">
+
+      <article class="vcard" id="polymarket-in-app">
+        <video controls preload="none" playsinline poster="/videos/polymarket-in-app.jpg"><source src="/videos/polymarket-in-app.mp4" type="video/mp4"></video>
+        <div class="vmeta"><span class="label">28 Nov 2026 · 1:11 · live in the app</span></div>
+        <h2>Settling real Polymarket markets inside the Mind</h2>
+        <p>Recorded in the Minds app: Dependency.Guard gets the evidence for 4 real Polymarket markets (one paid Telegraph answer each through Anjoman, plus a free check against the source each market's rules name). It settles the two Bitcoin markets NO from Binance 1-minute candles, one by just $6, overrules the paid "unresolved" answers, and holds the two markets with no checkable source for a person. Across all 24 markets run through the app: 0 settled on the wrong side.</p>
+        <p class="vlinks"><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-polymarket-via-app.md" target="_blank" rel="noopener">Report</a></p>
+      </article>
+
+      <article class="vcard" id="prediction-markets">
+        <video controls preload="none" playsinline poster="/videos/prediction-markets.jpg"><source src="/videos/prediction-markets.mp4" type="video/mp4"></video>
+        <div class="vmeta"><span class="label">28 Nov 2026 · 1:32 · paid on Solana</span></div>
+        <h2>When a market settles on a paid AI answer, who checks it?</h2>
+        <p>24 prediction markets with truth from the official source each names (Coinbase, NHL, MLB, USGS), built around fine print: closed vs traded, a shootout vs regulation, a magnitude of exactly 7.0. Trusting one Telegraph answer settled 3 markets on the wrong side; two independent providers agreeing still settled 1 wrong; the resolution check settled none wrong. 48 calls paid in USDC on Solana devnet.</p>
+        <p class="vlinks"><a href="https://x.com/RitaCryptoTips/status/2126711423908614492" target="_blank" rel="noopener">On X</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-prediction-market-resolution.md" target="_blank" rel="noopener">Report</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-polymarket-resolution.md" target="_blank" rel="noopener">Polymarket run</a></p>
+      </article>
+
+      <article class="vcard" id="qwen">
+        <video controls preload="none" playsinline poster="/videos/qwen-code-verification.jpg"><source src="/videos/qwen-code-verification.mp4" type="video/mp4"></video>
+        <div class="vmeta"><span class="label">28 Nov 2026 · 1:58 · Alibaba thread, item 4</span></div>
+        <h2>Qwen alone vs Qwen + Telegraph</h2>
+        <p>Qwen2.5-Coder wrote 36 changes for 12 everyday tasks; 30 should not ship. Qwen reviewing its own code approved all 36. Telegraph's answers taken as returned got 14 right. Dependency.Guard, checking every paid answer against PyPI, OSV, a real install and tests, got 27 right and blocked no good change. Also covers the Qwen-Agent pre-deployment check: hold as shipped, safe fix found.</p>
+        <p class="vlinks"><a href="https://x.com/RitaCryptoTips/status/2126612379286786350" target="_blank" rel="noopener">On X</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-28-qwen-code-verification.md" target="_blank" rel="noopener">Report</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-25-qwen-agent-predeploy.md" target="_blank" rel="noopener">Qwen-Agent</a></p>
+      </article>
+
+      <article class="vcard" id="solana">
+        <video controls preload="none" playsinline poster="/videos/dependency-guard-solana.jpg"><source src="/videos/dependency-guard-solana.mp4" type="video/mp4"></video>
+        <div class="vmeta"><span class="label">25 Nov 2026 · 0:47 · live in the app</span></div>
+        <h2>Dependency.Guard on Solana</h2>
+        <p>Recorded in the Minds app: the Mind checks 4 Solana dependencies before an agent installs them. The malware look-alike and the hijacked <code>@solana/web3.js</code> release are blocked, a name that was never published is flagged, and the clean release passes, verified, for one cent. In the full Solana test (21 cases), trusting the paid answer approved malware 5 times; with the check, nothing unsafe got through.</p>
+        <p class="vlinks"><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-24-solana-use-case-3.md" target="_blank" rel="noopener">Report</a></p>
+      </article>
+
+      <article class="vcard" id="dependency-guard">
+        <video controls preload="none" playsinline poster="/videos/dependency-guard-demo.jpg"><source src="/videos/dependency-guard-demo.mp4" type="video/mp4"></video>
+        <div class="vmeta"><span class="label">23 Nov 2026 · 1:40 · live in the app</span></div>
+        <h2>Dependency.Guard: a Mind that checks before it trusts</h2>
+        <p>Why it exists: after 3,680 paid calls, the top-ranked security miner scored 0 of 36 in two of three rounds. Then the Mind at work: PyYAML 5.1.2 blocked with three verified advisories, a jinja2 version that doesn't exist flagged without paying for it, and PyYAML 6.0.3 sent to a person when two paid miners disagreed. Three cents in total, with receipts, and a free re-check every day.</p>
+        <p class="vlinks"><a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-mind-comparison.md" target="_blank" rel="noopener">Report</a> · <a href="https://github.com/Ritapossible/AdversarialEval/blob/main/eval/reports/2026-11-22-rounds-2-4.md" target="_blank" rel="noopener">Benchmark</a></p>
+      </article>
+
+    </div>
+  </section>
+  <div class="next"><a href="/evidence">← Evidence</a><a href="/">Overview →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="grid col">
+    <div>
+      <h2>AdversarialEval</h2>
+      <p>Making Telegraph's security answers trustworthy: evaluation material, an evaluator adapter, a paid benchmark of the live market, and Dependency.Guard.</p>
+      <p>Telegraph Hackathon Season II: Evaluators track and Apps &amp; Agents track. Testnet. Open source under MIT.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">Overview</a></li>
+        <li><a href="/evaluators">Evaluators</a></li>
+        <li><a href="/dependency-guard">Dependency.Guard</a></li>
+        <li><a href="/benchmark">Benchmark</a></li>
+        <li><a href="/evidence">Evidence</a></li>
+        <li><a href="/videos">Videos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Source</h2>
+      <ul>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://github.com/Ritapossible/AdversarialEval/tree/main/eval/reports" target="_blank" rel="noopener">All reports</a></li>
+        <li><a href="https://hellominds.ai/profile/minds/38266542-f36b-1410-8467-00039ce7df11" target="_blank" rel="noopener">Dependency.Guard on Minds</a></li>
+        <li><a href="https://github.com/telegraphprotocol/bounties/issues/198" target="_blank" rel="noopener">Mission 10, Model Economy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/nav.js?v=6b92a347f5" defer></script>
+
+</body>
+</html>

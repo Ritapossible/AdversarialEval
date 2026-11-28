@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the static site (site/) from site-src/: one layout, five pages, shared assets.
+"""Build the static site (site/) from site-src/: one layout, six pages, shared assets.
 
     python tools/build_site.py           # write site/*.html and site/assets/*
     python tools/build_site.py --check   # exit 1 if site/ differs from what the sources build (CI)
@@ -10,6 +10,7 @@ Sources:
   site-src/base.css + layout.css -> site/assets/site.css
   site-src/nav.js, spot.js  -> site/assets/
   site-src/spot-data.json   the Spot the Flaw cases, written by tools/build_spot_flaw.py
+  site/videos/              demo videos and posters, copied in by hand (binary, not generated)
 
 Pages are served with clean URLs (site/vercel.json): /evaluators serves evaluators.html. Old
 single-page links (/#apps, /#game, /#c-<case>) are forwarded by a small script on the home page.
@@ -42,6 +43,9 @@ PAGES = [
     ("evidence.html", "/evidence", "Evidence", "Reports, signed results, limits",
      "Evidence and limits | AdversarialEval",
      "Every report, how to verify the signed results and on-chain payments yourself, and what this project does not claim."),
+    ("videos.html", "/videos", "Videos", "Every demo, briefly described",
+     "Demo videos | AdversarialEval",
+     "Short demos of every result: Dependency.Guard live in the Minds app, the Solana tests, Qwen code verification and prediction markets, including real Polymarket markets."),
 ]
 
 LEGACY = """<script>
