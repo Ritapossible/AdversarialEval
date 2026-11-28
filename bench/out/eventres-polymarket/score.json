@@ -1,0 +1,646 @@
+{
+ "summary": {
+  "markets": 24,
+  "truth": {
+   "yes": 9,
+   "no": 15,
+   "unresolved": 0
+  },
+  "A": {
+   "correct": 6,
+   "wilson": [
+    0.12,
+    0.449
+   ],
+   "wrong_settlements": 0,
+   "left_unresolved_when_resolvable": 18
+  },
+  "B": {
+   "correct": 1,
+   "wilson": [
+    0.007,
+    0.202
+   ],
+   "wrong_settlements": 0,
+   "left_unresolved_when_resolvable": 23
+  },
+  "C": {
+   "correct": 6,
+   "wilson": [
+    0.12,
+    0.449
+   ],
+   "wrong_settlements": 0,
+   "left_unresolved_when_resolvable": 18,
+   "disputes_caught": 0
+  },
+  "telegraph": {
+   "calls": 48,
+   "paid": 48,
+   "usd": 0.48,
+   "median_wall_s": 14.717,
+   "first_answer_miners": [
+    "LiveCert \u2014 Sourced Answers for Agents"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "pm-7203506",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-5170735",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-5170791",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6891215",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-5170814",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6563869",
+   "kind": "crypto",
+   "truth": "no",
+   "A": "no",
+   "B": "no",
+   "C": "no",
+   "C_how": "official source in the contract",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "no",
+    "sources": [
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0x0647203aae740f61cd170d326f33b484acca1940dc9445e9d9257ed83215b186",
+     "https://devnode.telegraphprotocol.com/engine/v1/signal/0xaa30bb078e89ff2563dfa2d6db4f05db705da3dee3b7d941e0b350a072ae1e76"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6236747",
+   "kind": "sports",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6775565",
+   "kind": "sports",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6053457",
+   "kind": "sports",
+   "truth": "yes",
+   "A": "yes",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6237004",
+   "kind": "sports",
+   "truth": "no",
+   "A": "no",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6018965",
+   "kind": "sports",
+   "truth": "yes",
+   "A": "yes",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "yes",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6241992",
+   "kind": "sports",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-562802",
+   "kind": "politics",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-562831",
+   "kind": "politics",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-562793",
+   "kind": "politics",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-630964",
+   "kind": "politics",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6274257",
+   "kind": "politics",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026_United_States_elections",
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-630805",
+   "kind": "politics",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-6976273",
+   "kind": "world",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-3128888",
+   "kind": "world",
+   "truth": "no",
+   "A": "no",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States",
+     "https://en.wikipedia.org/wiki/2026_United_States_intervention_in_Venezuela",
+     "https://en.wikipedia.org/wiki/Reactions_to_the_2026_Iran_war"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-5987188",
+   "kind": "world",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-3501950",
+   "kind": "world",
+   "truth": "no",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   }
+  },
+  {
+   "id": "pm-3120760",
+   "kind": "world",
+   "truth": "no",
+   "A": "no",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "no",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States",
+     "https://en.wikipedia.org/wiki/2026_United_States_intervention_in_Venezuela"
+    ],
+    "error": null
+   }
+  },
+  {
+   "id": "pm-5339986",
+   "kind": "world",
+   "truth": "yes",
+   "A": "unresolved",
+   "B": "unresolved",
+   "C": "unresolved",
+   "C_how": "left for a person",
+   "C_caught_dispute": false,
+   "first": {
+    "miner": "LiveCert \u2014 Sourced Answers for Agents",
+    "miner_id": "4433",
+    "outcome": "unresolved",
+    "sources": null,
+    "error": null
+   },
+   "second": {
+    "miner": "Takar Outcome Resolver",
+    "miner_id": "20261117",
+    "outcome": "unresolved",
+    "sources": [
+     "https://en.wikipedia.org/wiki/Reactions_to_the_2026_Iran_war",
+     "https://en.wikipedia.org/wiki/2026_in_the_United_States",
+     "https://en.wikipedia.org/wiki/2026_United_States_elections"
+    ],
+    "error": null
+   }
+  }
+ ]
+}

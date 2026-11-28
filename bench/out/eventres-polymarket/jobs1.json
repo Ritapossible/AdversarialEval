@@ -1,0 +1,172 @@
+{
+ "jobs": [
+  {
+   "key": "ranked|pm-7203506",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the price of Bitcoin be between $60,000 and $62,000 on November 27? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-5170735",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Bitcoin reach $87,500 in October? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-5170791",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Ethereum dip to $2,100 in October? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6891215",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Bitcoin dip to $62,000 November 9-15? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-5170814",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will XRP reach $4.00 in October? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6563869",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Bitcoin dip to $72,000 November 2-8? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6236747",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Chelsea FC win on 2026-11-08? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6775565",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Exact Score: Red Star FC 0 - 0 Pau FC? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6053457",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will BV Borussia 09 Dortmund win on 2026-11-04? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6237004",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Manchester United FC win on 2026-11-08? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6018965",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Real Madrid CF win on 2026-11-04? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6241992",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will FC Barcelona win on 2026-11-08? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-562802",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the Democratic Party control the House after the 2026 Midterm elections? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-562831",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "2026 Balance of Power: R Senate, R House (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-562793",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the Democratic Party control the Senate after the 2026 Midterm elections? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-630964",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the Republicans win the Texas Senate race in 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6274257",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will Republicans lose the Alaska, Iowa, Kansas, Maine, Michigan, Ohio, and Texas Senate seats? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-630805",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will the Democrats win the Michigan Senate race in 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-6976273",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Jensen Huang announced resignation or removal by November 11, 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-3128888",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "US announces end of Iranian blockade by October 31, 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-5987188",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Will 1win launch a token by October 31, 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-3501950",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Strait of Hormuz traffic returns to normal by October 31? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-3120760",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "NATO x Russia military clash by October 31, 2026? (Polymarket market; resolves per its published rules)"
+   }
+  },
+  {
+   "key": "ranked|pm-5339986",
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "params": {
+    "event": "Israel x Iran ceasefire continues through November 15? (Polymarket market; resolves per its published rules)"
+   }
+  }
+ ]
+}
