@@ -1,0 +1,36 @@
+{"task": "t01_yaml_config", "seed": 1, "has_solution": true, "requirements": ["pyyaml==6.0"], "solution_sha256": "5779044c998af7e2374e3c83ff2ff33f39d9449eeaed75c540cf0820a950e821"}
+{"task": "t01_yaml_config", "seed": 2, "has_solution": true, "requirements": ["PyYAML==6.0"], "solution_sha256": "720fa02b2a31107c98d00e5bd655a84fe4eac03c97d6a70a935c0599842d293d"}
+{"task": "t01_yaml_config", "seed": 3, "has_solution": true, "requirements": ["PyYAML==6.0.1"], "solution_sha256": "90cbe597d4a832f3fd060bb5ff5b599ee7c51dd268a5c88799b7d699386a69ad"}
+{"task": "t02_count_lines", "seed": 1, "has_solution": true, "requirements": ["# No third-party packages required for this solution."], "solution_sha256": "f2b7f7f71c085517cf1c4cfb29f275e65ec13a7ef727e0bb403d39451d7ecdd7"}
+{"task": "t02_count_lines", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "1f46828b460fe3107c71a8be602f504200c5a58880bc9980db22120640f244dd"}
+{"task": "t02_count_lines", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "ff0dfa73a4bfd0c4f134a778cca6bc0f9e03ae29682f98b105e1576e6e4b3b35"}
+{"task": "t03_jwt_verify", "seed": 1, "has_solution": true, "requirements": ["PyJWT==2.7.0"], "solution_sha256": "75d86c26fbd9b06072d44ab9f938198722b204dc40d5d4afbb7267d94fc85ed1"}
+{"task": "t03_jwt_verify", "seed": 2, "has_solution": true, "requirements": ["PyJWT==2.6.0"], "solution_sha256": "c4cdd3657758fbd88c10bf0eeb68edaa99561070d6ec61911c7506ff2ebb88a6"}
+{"task": "t03_jwt_verify", "seed": 3, "has_solution": true, "requirements": ["PyJWT==2.6.0"], "solution_sha256": "4d29ff9a18f5bec21287c724fbfd455e1e68c508a9c5610767df1ac12e9fa097"}
+{"task": "t04_find_user", "seed": 1, "has_solution": true, "requirements": ["# No third-party packages needed for this solution."], "solution_sha256": "eea48d234fe80256d3c3ca975da43d1b075a87e99b8dba710e3d3482f0ec111c"}
+{"task": "t04_find_user", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "b064a16745f47762dbc9bdae8b11adecdac98a086ebff00c4191cb21dd69c211"}
+{"task": "t04_find_user", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "e765644a37b3b3ed3c44f746f13ccb5c8a8a3746ae9400108e0c64784283db22"}
+{"task": "t05_read_upload", "seed": 1, "has_solution": true, "requirements": ["# No third-party packages required for this solution."], "solution_sha256": "9a7bdf5865c19777a9c33daa3536cfbf1384f6920cae2f3362bd3712f70ef8ab"}
+{"task": "t05_read_upload", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "0bbdb25243a497a323800e0971cc2c9b09829b711a1555479e064850c9bbd5d7"}
+{"task": "t05_read_upload", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "89074acd2599857be7afed07906dc80cab8d923d8111e9054964f9af098ce08a"}
+{"task": "t06_extract_archive", "seed": 1, "has_solution": true, "requirements": ["# No third-party packages required for this task."], "solution_sha256": "21ab1ff5248358f97d96f707efd9a1fb4828a27a5570d8cb1bf325555d8ba094"}
+{"task": "t06_extract_archive", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "7c799394b4730dd04da03f6945c16f95ee9e184c775fc1f2649014e8e9e3e575"}
+{"task": "t06_extract_archive", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "ee173ae85a067fa4f092859532aeae4f53b82f0d7e1ed01a0587fddb70230e2b"}
+{"task": "t07_passwords", "seed": 1, "has_solution": true, "requirements": ["passlib==1.9.6"], "solution_sha256": "0c63f08c09ed9f74173c7a6d05855a6e64a75241712727fc692ed9254a0ff174"}
+{"task": "t07_passwords", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "fc24fd6ed8740ab30ca28846df188c0af9581ba439c84752181dd35492701670"}
+{"task": "t07_passwords", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "b94e0cda49cf03360dd4a809c04751b88207b5a209e6c29d7f7d820e99cabce3"}
+{"task": "t08_pandas_rows", "seed": 1, "has_solution": true, "requirements": ["pandas==2.2.0"], "solution_sha256": "484f9ab8b810393a89c2041ab1fa03d93920d8b28a0f1d62ebc15d0fc2f8067a"}
+{"task": "t08_pandas_rows", "seed": 2, "has_solution": true, "requirements": ["pandas==2.2.0"], "solution_sha256": "6a831097c44e38f5b99a6b58dcf171a98da7fe3d7da9c69d569edd81836faf25"}
+{"task": "t08_pandas_rows", "seed": 3, "has_solution": true, "requirements": ["pandas==2.2.0"], "solution_sha256": "65901863cf93dc93891f82eb7a1fbb2dfa2e2e2ef3304e5e2eb531e89f9d3a58"}
+{"task": "t09_get_json", "seed": 1, "has_solution": true, "requirements": ["requests==2.28.2"], "solution_sha256": "81484d64153ee0598b787b2a906476489f43c9d94d4e432d2a2f89d6a5f39a4a"}
+{"task": "t09_get_json", "seed": 2, "has_solution": true, "requirements": ["requests==2.28.2"], "solution_sha256": "3521da75bc8de5356346cc6984881af35357c4ab7744ca6bf17390b22d387fe4"}
+{"task": "t09_get_json", "seed": 3, "has_solution": true, "requirements": ["requests==2.28.2"], "solution_sha256": "054bd93e2cc16627e417b6982b59e898bb1370ee02a8bd72c400fd09c721efb0"}
+{"task": "t10_truncate_utf8", "seed": 1, "has_solution": true, "requirements": ["requirements.txt"], "solution_sha256": "8dcc752c39a40d08005ef8637fea3da88bbbe9f51963184aca70f49ba85214ff"}
+{"task": "t10_truncate_utf8", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "5399e36801ace1beb357010429f5b25dc4cb34f5de2e41841b821fb7a8f97d63"}
+{"task": "t10_truncate_utf8", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "e16d740ed42845066d2ad5f959eb950fb3ce9d03933cf28a5fdb697e80a0cac2"}
+{"task": "t11_parse_duration", "seed": 1, "has_solution": true, "requirements": ["# No third-party packages required for this solution."], "solution_sha256": "4e947e859b9f19412a0862618e46e27cd0091ac1b8c562befd6ad4a8890bc7c3"}
+{"task": "t11_parse_duration", "seed": 2, "has_solution": true, "requirements": [], "solution_sha256": "b46b201908ba115bc2986fc9042853ded38226d13e3663f16a05add79494862b"}
+{"task": "t11_parse_duration", "seed": 3, "has_solution": true, "requirements": [], "solution_sha256": "daea66831004f8ca65bc17654ca28c1ec1322062ce5943727febcbc4f93cb49c"}
+{"task": "t12_parse_items", "seed": 1, "has_solution": true, "requirements": ["lxml==4.9.2"], "solution_sha256": "b883002ce7f647a042b8592454b5eece89864964e90cb75970c8a89610ff4218"}
+{"task": "t12_parse_items", "seed": 2, "has_solution": true, "requirements": ["lxml==4.9.3"], "solution_sha256": "0ad56efdbc87aa9c911944c5797b70d23dce8f52493ab0056a9418ae8638a3d4"}
+{"task": "t12_parse_items", "seed": 3, "has_solution": true, "requirements": ["lxml==4.9.3"], "solution_sha256": "34b65a6603b2765e676269898bf20174eace02712e344257028f72def2bbe48f"}
