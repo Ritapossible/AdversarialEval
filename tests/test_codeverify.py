@@ -123,5 +123,29 @@ class Registry(unittest.TestCase):
             self.checks.registry(parse_requirements("pyyaml==6.0.2"))
 
 
+class Isolation(unittest.TestCase):
+    """S3: model-written code runs with no network, as nobody, and can't touch root's files."""
+
+    def test_escape_attempt_is_contained(self):
+        import checks
+        if not checks.ISOLATED:
+            self.skipTest("unshare/setpriv need root; not available on this runner")
+        d = checks.scratch_dir("cv-iso-test-")
+        try:
+            (d / "escape.py").write_text(
+                "import os, urllib.request\nr = []\n"
+                "try:\n    urllib.request.urlopen('https://pypi.org', timeout=5); r.append('NET')\nexcept Exception: pass\n"
+                "try:\n    open('/root/.bashrc').read(); r.append('READ_ROOT')\nexcept Exception: pass\n"
+                "try:\n    open('/root/cv-pwned', 'w').write('x'); r.append('WRITE_ROOT')\nexcept Exception: pass\n"
+                "print(os.getuid(), r)\n")
+            (d / "escape.py").chmod(0o644)
+            p = checks.run_untrusted([sys.executable, str(d / "escape.py")], cwd=d, timeout=60)
+            self.assertEqual(p.stdout.strip(), "65534 []", p.stderr[-300:])
+            self.assertFalse(Path("/root/cv-pwned").exists())
+        finally:
+            import shutil
+            shutil.rmtree(d, ignore_errors=True)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)

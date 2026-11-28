@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
 import json
 import os
 import re
@@ -33,6 +34,7 @@ MODULE_TO_DIST = {**MODULE_TO_DIST, "jwt": "pyjwt", "jose": "python-jose", "Cryp
                   "dotenv": "python-dotenv", "magic": "python-magic"}
 SEV = {"MEDIUM", "HIGH"}
 TEST_TIMEOUT = 120
+INSTALLS: dict[str, tuple[bool, str, str]] = {}  # requirements hash -> (installed, log, last error line)
 
 
 def now() -> str:
@@ -119,12 +121,61 @@ def sh(cmd: list[str], cwd: Path | None = None, timeout: int = 900) -> subproces
         return subprocess.CompletedProcess(cmd, 124, e.stdout or "", f"timed out after {timeout}s")
 
 
+# Code written by a model runs with no network, as the unprivileged `nobody` user (so it can't read
+# keys or write outside its temp folder), and under memory, CPU, file-size and open-file limits.
+ISOLATE = ["unshare", "-n", "--", "setpriv", "--reuid=65534", "--regid=65534", "--clear-groups", "--",
+           "prlimit", "--as=4000000000", "--cpu=300", "--fsize=104857600", "--nofile=512", "--"]
+
+
+CA_DIR = Path("/tmp/codeverify-ca")
+
+
+def _readable_ca() -> list[str]:
+    """Code may build an HTTPS context at import time; give it a readable copy of the host's CA bundle
+    (public certificates) so it fails for real reasons, not for a permission on root's files."""
+    env = []
+    for var in ("SSL_CERT_FILE", "REQUESTS_CA_BUNDLE"):
+        src = os.environ.get(var)
+        if src and Path(src).is_file():
+            CA_DIR.mkdir(exist_ok=True)
+            CA_DIR.chmod(0o755)
+            dst = CA_DIR / f"{var.lower()}.pem"
+            shutil.copyfile(src, dst)
+            dst.chmod(0o644)
+            env.append(f"{var}={dst}")
+    return ["env", "HOME=/tmp", *env]
+
+
+ISOLATE = ISOLATE + _readable_ca()
+
+
+def isolation_available() -> bool:
+    try:
+        return subprocess.run(ISOLATE + ["true"], capture_output=True, timeout=20).returncode == 0
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
+ISOLATED = isolation_available()
+
+
+def run_untrusted(cmd: list[str], cwd: Path, timeout: int) -> subprocess.CompletedProcess:
+    """Run model-written code isolated when the host allows it; the result row records which."""
+    return sh((ISOLATE + cmd) if ISOLATED else cmd, cwd=cwd, timeout=timeout)
+
+
+def scratch_dir(prefix: str) -> Path:
+    d = Path(tempfile.mkdtemp(prefix=prefix, dir="/tmp"))
+    d.chmod(0o755)  # readable by the unprivileged user; only root can write here
+    return d
+
+
 def pytest(env_py: str, work: Path, test_file: Path) -> dict:
-    d = Path(tempfile.mkdtemp(prefix="cv-test-"))
+    d = scratch_dir("cv-test-")
     try:
         shutil.copy(work / "solution.py", d / "solution.py")
         shutil.copy(test_file, d / "test_it.py")
-        p = sh([env_py, "-m", "pytest", "-q", "-p", "no:cacheprovider", "test_it.py"], cwd=d, timeout=TEST_TIMEOUT)
+        p = run_untrusted([env_py, "-m", "pytest", "-q", "-p", "no:cacheprovider", "test_it.py"], cwd=d, timeout=TEST_TIMEOUT)
         lines = (p.stdout + p.stderr).strip().splitlines()
         failed = [l.split(" - ")[0].replace("FAILED ", "").replace("ERROR ", "") for l in lines if l.startswith(("FAILED", "ERROR"))]
         return {"ok": p.returncode == 0, "summary": lines[-1] if lines else "", "failed": failed[:10]}
@@ -146,7 +197,8 @@ def check_change(work: Path, venvs: Path, tools_py: str, hidden: Path, visible: 
     req_text = (work / "requirements.txt").read_text() if (work / "requirements.txt").exists() else ""
     reqs = parse_requirements(req_text)
     has_solution = (work / "solution.py").exists()
-    r = {"requirements": [x["line"] for x in reqs], "has_solution": has_solution}
+    r = {"requirements": [x["line"] for x in reqs], "has_solution": has_solution,
+         "isolation": "no network, user nobody, resource limits" if ISOLATED else "none (unshare/setpriv unavailable)"}
     reasons: list[str] = []
 
     r["registry"] = registry(reqs)
@@ -158,17 +210,23 @@ def check_change(work: Path, venvs: Path, tools_py: str, hidden: Path, visible: 
     for n, vs in r["osv"].items():
         reasons.append(f"{n}=={pins[n]} has {len(vs)} OSV advisories ({', '.join(v['id'] for v in vs[:3])}{'…' if len(vs) > 3 else ''})")
 
-    env = venvs / work.parent.name / work.name
-    if env.exists():
-        shutil.rmtree(env)
-    sh(["uv", "venv", "-q", "-p", PY312, str(env)])
-    py = str(env / "bin" / "python")
+    # One environment per distinct requirements set, shared by the changes that declare it. Safe to
+    # share: model-written code runs as `nobody` and can't modify a root-owned environment.
     specs = [x["line"] for x in reqs if x["name"]]
-    p = sh(["uv", "pip", "install", "-q", "-p", py, "pytest==8.3.5", *specs], timeout=900)
-    r["install_ok"] = p.returncode == 0
-    if not r["install_ok"]:
-        r["install_log"] = (p.stdout + p.stderr)[-800:]
-        reasons.append("requirements don't install in a fresh Python 3.12 environment: " + (p.stderr.strip().splitlines() or ["?"])[-1][:200])
+    key = hashlib.sha256("\n".join(sorted(specs)).encode()).hexdigest()[:16]
+    env = venvs / f"env-{key}"
+    py = str(env / "bin" / "python")
+    if key not in INSTALLS:
+        if env.exists():
+            shutil.rmtree(env)
+        sh(["uv", "venv", "-q", "-p", PY312, str(env)])
+        p = sh(["uv", "pip", "install", "-q", "-p", py, "pytest==8.3.5", *specs], timeout=900)
+        INSTALLS[key] = (p.returncode == 0, (p.stdout + p.stderr)[-800:], (p.stderr.strip().splitlines() or ["?"])[-1][:200])
+    ok, log, last = INSTALLS[key]
+    r["install_ok"] = ok
+    if not ok:
+        r["install_log"] = log
+        reasons.append("requirements don't install in a fresh Python 3.12 environment: " + last)
 
     if not has_solution:
         reasons.append("no solution.py was produced")
@@ -180,9 +238,9 @@ def check_change(work: Path, venvs: Path, tools_py: str, hidden: Path, visible: 
         for m in r["undeclared"]:
             reasons.append(f"solution.py imports `{m}` but requirements.txt doesn't declare it")
         if r["install_ok"]:
-            d = Path(tempfile.mkdtemp(prefix="cv-imp-"))
+            d = scratch_dir("cv-imp-")
             shutil.copy(work / "solution.py", d / "solution.py")
-            ip = sh([py, "-c", "import solution"], cwd=d, timeout=60)
+            ip = run_untrusted([py, "-c", "import solution"], cwd=d, timeout=60)
             shutil.rmtree(d, ignore_errors=True)
             r["import_ok"] = ip.returncode == 0
             if not r["import_ok"]:
@@ -218,7 +276,6 @@ def check_change(work: Path, venvs: Path, tools_py: str, hidden: Path, visible: 
             truth_fail.append(f"{k} tests: " + (", ".join(r[k]["failed"][:4]) or r[k]["summary"]))
     r["truth"] = "HOLD" if truth_fail else "DEPLOY"
     r["truth_reasons"] = truth_fail
-    shutil.rmtree(env, ignore_errors=True)
     return r
 
 
@@ -230,7 +287,7 @@ def main() -> None:
     out = a.out.resolve()
     src, dst = (out / "fixes", out / "fix_checks.jsonl") if a.fixes else (out / "changes", out / "checks.jsonl")
     have = {(x["task"], x["seed"]) for x in map(json.loads, dst.read_text().splitlines())} if dst.exists() else set()
-    work_root = Path(tempfile.mkdtemp(prefix="cv-envs-"))
+    work_root = scratch_dir("cv-envs-")
     tools = work_root / "tools"
     sh(["uv", "venv", "-q", "-p", PY312, str(tools)])
     sh(["uv", "pip", "install", "-q", "-p", str(tools / "bin/python"), "bandit==1.8.3"])

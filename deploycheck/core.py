@@ -59,6 +59,50 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int = 900) -> subproce
     return subprocess.run(cmd, cwd=str(cwd) if cwd else None, capture_output=True, text=True, timeout=timeout)
 
 
+# The app under test is third-party code: importing and serving it runs as the unprivileged `nobody`
+# user (it can't read keys or write outside /tmp) under CPU, file-size and open-file limits. Network
+# stays available because the smoke test serves the app on localhost.
+APP_HOME = Path("/tmp/deploycheck-home")
+UNTRUSTED = ["setpriv", "--reuid=65534", "--regid=65534", "--clear-groups", "--",
+             "prlimit", "--cpu=900", "--fsize=524288000", "--nofile=4096", "--",
+             "env", f"HOME={APP_HOME}", f"XDG_CACHE_HOME={APP_HOME}/.cache", f"MPLCONFIGDIR={APP_HOME}/mpl",
+             f"TMPDIR={APP_HOME}/tmp", f"GRADIO_TEMP_DIR={APP_HOME}/tmp/gradio"]
+
+
+def _ca_for_app() -> list[str]:
+    """The app may build an HTTPS context at import time. If the host's CA bundle (public certificates,
+    not a secret) sits where `nobody` can't read it, hand the app a readable copy."""
+    out = []
+    for var in ("SSL_CERT_FILE", "REQUESTS_CA_BUNDLE", "CURL_CA_BUNDLE"):
+        src = os.environ.get(var)
+        if src and Path(src).is_file():
+            dst = APP_HOME / f"ca-{var.lower()}.pem"
+            shutil.copyfile(src, dst)
+            dst.chmod(0o644)
+            out.append(f"{var}={dst}")
+    return out
+
+
+def _untrusted_ok() -> bool:
+    try:
+        for d in (APP_HOME, APP_HOME / "tmp"):  # the app's own home and temp folders, writable by it
+            d.mkdir(parents=True, exist_ok=True)
+            d.chmod(0o1777)
+        UNTRUSTED.extend(_ca_for_app())  # appended to the `env` assignments at the end of the prefix
+        return subprocess.run(UNTRUSTED + ["true"], capture_output=True, timeout=20).returncode == 0
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
+ISOLATED = _untrusted_ok()
+ISOLATION = "user nobody, resource limits (network kept for the localhost smoke test)" if ISOLATED else "none (setpriv unavailable)"
+
+
+def run_app(cmd: list[str], cwd: Path | None = None, timeout: int = 900) -> subprocess.CompletedProcess:
+    """Run the app's own code (import, serve) isolated when the host allows it."""
+    return run((UNTRUSTED + cmd) if ISOLATED else cmd, cwd=cwd, timeout=timeout)
+
+
 # ---------- 1-2: install, resolve, undeclared imports ----------
 def make_env(where: Path, specs: list[str]) -> dict:
     if where.exists():
@@ -81,7 +125,7 @@ def undeclared_imports(env: dict, modules: list[str], max_rounds: int = 12) -> l
     found = []
     code = "import importlib,sys\nfor m in sys.argv[1:]: importlib.import_module(m)"
     for _ in range(max_rounds):
-        p = run([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
+        p = run_app([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
         m = re.search(r"No module named '([^'.]+)", p.stderr)
         if p.returncode == 0 or not m:
             break
@@ -91,7 +135,7 @@ def undeclared_imports(env: dict, modules: list[str], max_rounds: int = 12) -> l
         found.append({"module": mod, "package": dist, "installable": ok})
         if not ok:
             break
-    final = run([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
+    final = run_app([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
     return found, final.returncode == 0, final.stderr.strip().splitlines()[-1:] if final.returncode else []
 
 
@@ -155,7 +199,7 @@ def reachability(vulns: list[dict], rules: dict, source_dir: Path) -> list[dict]
 
 # ---------- 5: smoke ----------
 def smoke(env: dict, script: Path) -> dict:
-    p = run([env["python"], str(script)], cwd=Path("/tmp"), timeout=600)
+    p = run_app([env["python"], str(script)], cwd=Path("/tmp"), timeout=600)
     line = (p.stdout.strip().splitlines() or ["{}"])[-1]
     try:
         return json.loads(line)
@@ -217,7 +261,7 @@ def decide(c: dict) -> tuple[str, list[str]]:
 
 def import_check(env: dict, modules: list[str]) -> tuple[bool, list[str]]:
     code = "import importlib,sys\nfor m in sys.argv[1:]: importlib.import_module(m)"
-    p = run([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
+    p = run_app([env["python"], "-c", code, *modules], cwd=Path("/tmp"))
     return p.returncode == 0, (p.stderr.strip().splitlines()[-1:] if p.returncode else [])
 
 
