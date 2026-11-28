@@ -1,0 +1,25 @@
+Reference check, 2026-11-28T07:29:42Z, Python 3.12.3, pytest on visible + hidden tests
+t01_yaml_config bad: 1 failed, 6 passed in 0.06s
+t01_yaml_config good: 7 passed in 0.03s
+t02_count_lines bad: 6 failed, 1 passed in 0.13s
+t02_count_lines good: 7 passed in 0.02s
+t03_jwt_verify bad: 1 failed, 7 passed in 0.05s
+t03_jwt_verify good: 8 passed in 0.03s
+t04_find_user bad: 4 failed, 2 passed in 0.06s
+t04_find_user good: 6 passed in 0.04s
+t05_read_upload bad: 1 failed, 5 passed in 0.03s
+t05_read_upload good: 6 passed in 0.03s
+t06_extract_archive bad: 3 failed, 1 passed in 0.08s
+t06_extract_archive good: 4 passed in 0.02s
+t07_passwords bad: 2 failed, 2 passed in 0.02s
+t07_passwords good: 4 passed in 0.38s
+t08_pandas_rows bad: 4 failed in 0.62s
+t08_pandas_rows good: 4 passed in 0.29s
+t09_get_json bad: 3 failed, 3 passed in 0.08s
+t09_get_json good: 6 passed in 0.06s
+t10_truncate_utf8 bad: 2 failed, 2 passed in 0.03s
+t10_truncate_utf8 good: 4 passed in 0.01s
+t11_parse_duration bad: 1 failed, 12 passed in 0.02s
+t11_parse_duration good: 13 passed in 0.02s
+t12_parse_items bad: 1 failed, 3 passed in 0.03s
+t12_parse_items good: 4 passed in 0.02s
